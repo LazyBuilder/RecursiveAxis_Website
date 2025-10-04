@@ -1,4 +1,4 @@
-// src/components/ServicesSection.jsx (INTERNET DESIGN INSPIRED - GRADIENT OUTLINE)
+// src/components/ServicesSection.jsx (PADDING INCREASED)
 
 import React from 'react';
 import { motion } from 'framer-motion';
@@ -39,7 +39,8 @@ const ServicesSection = React.forwardRef((props, ref) => (
     </style>
 
     <FullPageSection id="services" ref={ref} bgClass="text-gray-800">
-      <div className="w-full relative z-10 flex flex-col items-center justify-center p-4">
+      {/* 🚨 FIX: Increased top padding from p-4 to pt-24 (equivalent to p-24, or 6rem) */}
+      <div className="w-full relative z-10 flex flex-col items-center justify-center pt-24 pb-4 px-4">
         
         {/* H2 using the new animated gradient class */}
         <motion.h2
