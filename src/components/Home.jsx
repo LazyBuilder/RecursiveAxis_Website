@@ -1,4 +1,4 @@
-// src/components/Home.jsx (CORRECTED IMPORT PATH)
+// src/components/Home.jsx (FINAL VERSION)
 
 import React, { useState, useEffect, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
@@ -7,8 +7,7 @@ import { AnimatePresence } from 'framer-motion';
 import { colors, LogoSVG } from './UIMain';
 
 // Import Feature Components
-// 🚨 FIXED TYPO: Changed './OutroOverlay' back to './IntroOverlay'
-import IntroOverlay from './IntroOverlay'; 
+import IntroOverlay from './IntroOverlay'; // Corrected import path
 
 // Import Section Components
 import HeroSection from './HeroSection';
@@ -18,11 +17,12 @@ import PhilosophySection from './PhilosophySection';
 import FounderStorySection from './FounderStorySection';
 import ContactCTA from './ContactCTA';
 
-// Global variable to manage scroll state (outside the component for persistence)
-let isScrolling = false;
+// Global variables for robust scroll management
+let lastScrollTime = 0;
+const SCROLL_DEBOUNCE_TIME = 800; // Time in ms to wait between scrolls
 
 const App = () => {
-  const [isLoading, setIsLoading] = useState(true); // Controls Intro/Home state
+  const [isLoading, setIsLoading] = useState(true);
   const [activeScreen, setActiveScreen] = useState(0);
 
   const mainRef = useRef(null); // Ref for the main scroll container
@@ -41,31 +41,37 @@ const App = () => {
   const scrollToSection = (index) => {
     if (sectionsRef.current[index]?.current) {
       sectionsRef.current[index].current.scrollIntoView({ behavior: 'smooth' });
-      setActiveScreen(index); // Update the active screen immediately
+      setActiveScreen(index);
     }
   };
 
-  // Custom Scroll Handling Function
+  // --- REVISED: Custom Scroll Handling Function to prevent double-jumps ---
   const handleScroll = (event) => {
-    if (isLoading || isScrolling) return;
+    const currentTime = new Date().getTime();
+    
+    // 1. Time-based debounce lock: prevents scrolling if the last scroll was too recent.
+    if (isLoading || currentTime - lastScrollTime < SCROLL_DEBOUNCE_TIME) { 
+        event.preventDefault(); 
+        return;
+    }
 
     const direction = event.deltaY > 0 ? 1 : event.deltaY < 0 ? -1 : 0;
     
+    // Ignore horizontal or non-scroll events
     if (direction === 0) return;
     
+    // Prevent default scroll behavior
     event.preventDefault();
 
     let nextIndex = activeScreen + direction;
 
     // Boundary check
     if (nextIndex >= 0 && nextIndex < sections.length) {
-      isScrolling = true;
-      scrollToSection(nextIndex);
+        
+        // 2. Set new scroll time to initiate the lock
+        lastScrollTime = currentTime; 
 
-      // Reset the scroll lock after the smooth scroll animation should complete (~1000ms)
-      setTimeout(() => {
-        isScrolling = false;
-      }, 1000); 
+        scrollToSection(nextIndex);
     }
   };
     
@@ -120,17 +126,17 @@ const App = () => {
   }, [isLoading, activeScreen]);
 
   return (
-    // REMOVED universal background color here.
+    // Universal background color removed to enable section-specific backgrounds
     <div className={`font-sans antialiased overflow-hidden w-screen h-screen`}>
-      {/* Inline Styles (Kept here as they reference dynamic colors and Tailwind classes not available globally) */}
+      {/* Inline Styles */}
       <style>
         {`
           @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto+Mono:wght@700&display=swap');
           
           body { 
             font-family: 'Poppins', sans-serif; 
-            background-color: #f7f7f7; /* Default light background for alternating sections */
-            color: #1a1a1a; /* Default dark text color for light sections */
+            background-color: #f7f7f7; /* Default light background */
+            color: #1a1a1a; /* Default dark text color */
           }
           
           .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -199,6 +205,7 @@ const App = () => {
         {/* Main Content Sections with Custom Scroll Handler */}
         <main 
           ref={mainRef} // Attach ref for event listener
+          // Scroll snapping removed for custom smooth scroll
           className="w-screen min-h-screen overflow-y-scroll scroll-smooth relative h-full"
         >
           
