@@ -1,4 +1,4 @@
-// src/components/PhilosophySection.jsx (FINAL WORLD-CLASS DESIGN: DARK MODE GLOW)
+// src/components/PhilosophySection.jsx (FINAL DARK MODE GLOW WITH CONSISTENT TITLE)
 
 import React from 'react';
 import { motion } from 'framer-motion';
@@ -37,22 +37,33 @@ const philosophyData = [
 
 const PhilosophySection = React.forwardRef((props, ref) => (
   <>
-    {/* Custom CSS for the Glowing Border Effect */}
+    {/* Custom CSS for the Glowing Cards AND the Global Header Gradient */}
     <style>
       {`
-        /* This class creates the gradient border effect */
+        /* --- GLOBAL TITLE STYLE (For all section headers) --- */
+        .global-animated-title {
+            background: linear-gradient(45deg, ${PRIMARY_COLOR}, ${SECONDARY_COLOR}, ${PRIMARY_COLOR});
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: global-gradient-shift 10s ease infinite;
+        }
+        @keyframes global-gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* --- GLOWING CARD STYLES --- */
         .glowing-card {
             position: relative;
             background: ${CARD_DARK};
             border: 2px solid transparent;
             background-clip: padding-box, border-box;
             background-origin: padding-box, border-box;
-            /* Default subtle shadow */
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
             transition: all 0.4s ease;
         }
-
-        /* Hover effect: Apply the glowing shadow and a subtle inner gradient border */
         .glowing-card-hover-primary:hover {
             box-shadow: 0 0 30px rgba(0, 234, 255, 0.5); /* Cyan glow */
             border-image: linear-gradient(45deg, ${PRIMARY_COLOR}, ${SECONDARY_COLOR}) 1;
@@ -73,10 +84,9 @@ const PhilosophySection = React.forwardRef((props, ref) => (
     >
       <div className="w-full relative z-10 flex flex-col items-center justify-center pt-24 pb-20 px-4 h-full">
         
-        {/* Title: Clean, Static, Primary-Colored Glow */}
+        {/* Title: Uses the consistent global animated gradient class */}
         <motion.h2
-          className={`text-4xl md:text-6xl font-extrabold text-center mb-16`}
-          style={{ color: PRIMARY_COLOR, textShadow: `0 0 15px rgba(0, 234, 255, 0.4)` }}
+          className={`text-4xl md:text-6xl font-extrabold text-center mb-16 global-animated-title`}
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -90,7 +100,7 @@ const PhilosophySection = React.forwardRef((props, ref) => (
           {philosophyData.map((item, index) => (
             <motion.div
               key={index}
-              // Card Style: Dark background, rounded, applies the glowing effect class
+              // Card Style: Applies dark card style and glowing hover effect
               className={`glowing-card p-10 rounded-xl flex flex-col items-center text-center transition-all duration-300 hover:scale-[1.03] ${index % 2 === 0 ? 'glowing-card-hover-primary' : 'glowing-card-hover-secondary'}`}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -98,12 +108,12 @@ const PhilosophySection = React.forwardRef((props, ref) => (
               viewport={{ once: true }}
             >
               
-              {/* Icon: Large, White, Simple */}
+              {/* Icon: White, large */}
               <div className="mb-6 text-6xl text-white">
                 <item.icon /> 
               </div>
               
-              {/* Title: Vibrant Accent Color */}
+              {/* Title: Vibrant accent color */}
               <h3 className="text-2xl font-extrabold mb-3 tracking-widest" style={{ color: item.color }}>{item.title}</h3>
               
               {/* Description: Subtler white text */}
