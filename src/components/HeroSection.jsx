@@ -1,4 +1,4 @@
-// src/components/HeroSection.jsx
+// src/components/HeroSection.jsx (REPLACE COMPLETELY)
 
 import React from 'react';
 import { motion } from 'framer-motion';
@@ -6,7 +6,13 @@ import FullPageSection from './FullPageSection';
 import { colors } from './UIMain';
 
 const HeroSection = React.forwardRef((props, ref) => (
-  <FullPageSection id="home" ref={ref} alwaysVisible={true}>
+  // Dark Background (bg-0a0a0a) and white text
+  <FullPageSection 
+    id="home" 
+    ref={ref} 
+    alwaysVisible={true}
+    bgClass="bg-[#0a0a0a] text-white" 
+  >
     <motion.div className="text-center w-full relative z-10 p-4">
       <motion.h1
         initial={{ opacity: 0, y: 20 }}

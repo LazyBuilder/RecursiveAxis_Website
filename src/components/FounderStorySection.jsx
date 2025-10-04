@@ -1,4 +1,4 @@
-// src/components/FounderStorySection.jsx
+// src/components/FounderStorySection.jsx (REPLACE COMPLETELY)
 
 import React from 'react';
 import { motion } from 'framer-motion';
@@ -6,7 +6,8 @@ import FullPageSection from './FullPageSection';
 import { colors, CodeSVG, DesignSVG, DataSVG } from './UIMain';
 
 const FounderStorySection = React.forwardRef((props, ref) => (
-  <FullPageSection id="founder-story" ref={ref}>
+  // Dark Background and white text
+  <FullPageSection id="founder-story" ref={ref} bgClass="bg-[#0a0a0a] text-white">
     <div className="w-full relative z-10 flex flex-col items-center justify-center p-4">
       <h2 className={`text-3xl md:text-5xl font-extrabold text-center mb-16 animated-gradient`}>Founder Story</h2>
       <div className="flex flex-col md:flex-row items-center justify-center gap-12 w-full max-w-5xl">

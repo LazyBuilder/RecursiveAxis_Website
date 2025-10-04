@@ -1,4 +1,4 @@
-// src/components/Home.jsx (The new main file)
+// src/components/Home.jsx (REPLACE COMPLETELY)
 
 import React, { useState, useEffect, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
@@ -77,14 +77,18 @@ const App = () => {
   }, [isLoading]);
 
   return (
-    // src/components/Home.jsx
-    <div className={`bg-[#0a0a0a] text-white font-sans antialiased overflow-hidden w-screen h-screen`}>
+    // REMOVED universal background color here.
+    <div className={`font-sans antialiased overflow-hidden w-screen h-screen`}>
       {/* Inline Styles (Kept here as they reference dynamic colors and Tailwind classes not available globally) */}
       <style>
         {`
           @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto+Mono:wght@700&display=swap');
           
-          body { font-family: 'Poppins', sans-serif; }
+          body { 
+            font-family: 'Poppins', sans-serif; 
+            background-color: #f7f7f7; /* Default light background for alternating sections */
+            color: #1a1a1a; /* Default dark text color for light sections */
+          }
           .animated-gradient {
             background: linear-gradient(45deg, ${colors.primary}, ${colors.secondary}, ${colors.primary});
             background-size: 400% 400%;
@@ -135,13 +139,13 @@ const App = () => {
       <div className={`${isLoading ? 'hidden' : 'block'}`}>
         
         {/* Header */}
-        <header className={`fixed top-0 z-50 w-full bg-[${colors.background}] bg-opacity-90 backdrop-blur-md transition-shadow duration-300 shadow-sm`}>
+        <header className={`fixed top-0 z-50 w-full bg-[#0a0a0a] bg-opacity-90 backdrop-blur-md transition-shadow duration-300 shadow-sm`}>
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">
             <div className="flex items-center space-x-2 font-bold text-lg">
               <LogoSVG />
-              <span className={`text-[${colors.text}]`}>Storyline Digital Services</span>
+              <span className={`text-white`}>Storyline Digital Services</span>
             </div>
-            <a href="https://cal.com/asitdeva" target="_blank" rel="noopener noreferrer" className={`px-4 py-2 bg-[${colors.primary}] text-[${colors.background}] rounded-full font-semibold text-sm transition-all duration-300 hover:scale-105`}>
+            <a href="https://cal.com/asitdeva" target="_blank" rel="noopener noreferrer" className={`px-4 py-2 bg-[${colors.primary}] text-[#0a0a0a] rounded-full font-semibold text-sm transition-all duration-300 hover:scale-105`}>
               Book a Call
             </a>
           </div>

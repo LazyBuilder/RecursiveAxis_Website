@@ -1,4 +1,4 @@
-// src/components/ServicesSection.jsx
+// src/components/ServicesSection.jsx (REPLACE COMPLETELY)
 
 import React from 'react';
 import { motion } from 'framer-motion';
@@ -6,7 +6,8 @@ import FullPageSection from './FullPageSection';
 import { colors, serviceData } from './UIMain';
 
 const ServicesSection = React.forwardRef((props, ref) => (
-  <FullPageSection id="services" ref={ref}>
+  // Dark Background and white text
+  <FullPageSection id="services" ref={ref} bgClass="bg-[#0a0a0a] text-white">
     <div className="w-full relative z-10 flex flex-col items-center justify-center p-4">
       <motion.h2
         className={`text-3xl md:text-5xl font-extrabold text-center mb-16 animated-gradient`}
