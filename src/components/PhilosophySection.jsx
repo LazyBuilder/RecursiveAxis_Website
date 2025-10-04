@@ -1,49 +1,44 @@
-// src/components/PhilosophySection.jsx (FULL-WIDTH CAROUSEL DESIGN)
+// src/components/PhilosophySection.jsx (FINAL FIX: ICON SCOPE)
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import FullPageSection from './FullPageSection';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'; // Used for arrows
+// Import all necessary icons from react-icons
+import { FaCode, FaPaintBrush, FaDatabase, FaChevronLeft, FaChevronRight } from 'react-icons/fa'; 
 
 // Defined the hex codes based on your input
 const PRIMARY_COLOR = '#00EAFF'; 
 const SECONDARY_COLOR = '#FF00EA';
 const DARK_BLACK = '#1a1a1a';
 
-// --- INLINE SVG ICONS (Reused from previous version) ---
-// Note: We need to modify these SVGs to use CSS for the gradient fill, 
-// but for simplicity and reliability with dynamic styles, we'll use React Icons for the body,
-// and apply the gradient/circle border externally via CSS classes.
-
-const CodeIcon = FaCode;
-const DesignIcon = FaPaintBrush;
-const DataIcon = FaDatabase;
-
-// The data structure for our carousel
-const philosophyData = [
-  {
-    icon: CodeIcon,
-    title: "Code Excellence",
-    description: "Crafting clean, efficient, and scalable code is at the heart of robust digital solutions. We believe in meticulous development and engineering standards that stand the test of time.",
-    color: PRIMARY_COLOR,
-  },
-  {
-    icon: DesignIcon,
-    title: "Intuitive Design",
-    description: "We focus on user-centric design that seamlessly blends aesthetics with intuitive functionality, ensuring every digital experience is delightful, effortless, and converts effectively.",
-    color: SECONDARY_COLOR,
-  },
-  {
-    icon: DataIcon,
-    title: "Data-Driven Insights",
-    description: "Leveraging data is non-negotiable. We inform every decision, optimize strategies, and track measurable growth metrics to ensure your innovation delivers maximum market impact.",
-    color: PRIMARY_COLOR,
-  },
-];
-
 const PhilosophySection = React.forwardRef((props, ref) => {
+  
+  // --- CAROUSEL DATA (Defined inside the component scope) ---
+  // The icons are now correctly referenced because they are imported above.
+  const philosophyData = [
+    {
+      icon: FaCode, // Now correctly defined
+      title: "Code Excellence",
+      description: "Crafting clean, efficient, and scalable code is at the heart of robust digital solutions. We believe in meticulous development and engineering standards that stand the test of time.",
+      color: PRIMARY_COLOR,
+    },
+    {
+      icon: FaPaintBrush, // Now correctly defined
+      title: "Intuitive Design",
+      description: "We focus on user-centric design that seamlessly blends aesthetics with intuitive functionality, ensuring every digital experience is delightful, effortless, and converts effectively.",
+      color: SECONDARY_COLOR,
+    },
+    {
+      icon: FaDatabase, // Now correctly defined
+      title: "Data-Driven Insights",
+      description: "Leveraging data is non-negotiable. We inform every decision, optimize strategies, and track measurable growth metrics to ensure your innovation delivers maximum market impact.",
+      color: PRIMARY_COLOR,
+    },
+  ];
+  // --------------------------------------------------------
+  
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState(0); // 0: initial, 1: next, -1: prev
+  const [direction, setDirection] = useState(0); 
 
   const totalCards = philosophyData.length;
 
@@ -51,9 +46,9 @@ const PhilosophySection = React.forwardRef((props, ref) => {
     setDirection(newDirection);
     let newIndex = currentIndex + newDirection;
     if (newIndex < 0) {
-      newIndex = totalCards - 1; // Wrap around to the end
+      newIndex = totalCards - 1; 
     } else if (newIndex >= totalCards) {
-      newIndex = 0; // Wrap around to the start
+      newIndex = 0; 
     }
     setCurrentIndex(newIndex);
   };
@@ -117,11 +112,6 @@ const PhilosophySection = React.forwardRef((props, ref) => {
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Inner shadow for depth */
           }
           
-          .icon-color {
-            fill: url(#iconGradient) !important;
-            stroke: url(#iconGradient) !important;
-          }
-          
           .navigation-arrow {
             position: absolute;
             top: 50%;
@@ -141,12 +131,6 @@ const PhilosophySection = React.forwardRef((props, ref) => {
           .navigation-arrow:hover {
             background: rgba(255, 255, 255, 0.3);
             transform: translateY(-50%) scale(1.1);
-          }
-          
-          /* Hide the SVG icons themselves, we only use them to reference the component */
-          .svg-icon {
-              width: 40px;
-              height: 40px;
           }
         `}
       </style>
@@ -183,7 +167,7 @@ const PhilosophySection = React.forwardRef((props, ref) => {
               <FaChevronRight size={20} />
             </div>
 
-            {/* Card Counter/Dots (Optional, but professional) */}
+            {/* Card Counter/Dots */}
             <div className="absolute -bottom-8 md:bottom-2 z-30 flex space-x-2">
                 {philosophyData.map((_, index) => (
                     <div 
@@ -205,13 +189,12 @@ const PhilosophySection = React.forwardRef((props, ref) => {
                 initial="enter"
                 animate="center"
                 exit="exit"
-                // 🚨 BIGGER CARD STYLE: Full-width, centered, bold
                 className="absolute w-full p-12 md:p-16 rounded-3xl bg-white shadow-2xl flex flex-col items-center text-center max-w-3xl"
               >
                 {/* ICON with Gradient Border/Fill */}
                 <div className="mb-8 icon-container">
                     <div className="icon-circle-fill">
-                        {/* We use React Icons here and apply the color/size directly to mimic the gradient look */}
+                        {/* Render the current card's icon component */}
                         <currentCard.icon 
                             size={40} 
                             style={{ color: currentCard.color }} 
