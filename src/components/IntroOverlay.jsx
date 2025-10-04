@@ -1,4 +1,4 @@
-// src/components/IntroOverlay.jsx
+// src/components/IntroOverlay.jsx (CORRECTED)
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
@@ -15,19 +15,23 @@ const IntroOverlay = ({ onComplete }) => {
   ];
 
   const currentMessage = messages[step];
+  
   const charVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { duration: 0.05 } },
   };
 
   useEffect(() => {
-    if (step < messages.length && !isSkipped) {
+    if (isSkipped) return;
+
+    if (currentMessage) {
+      // If a message exists, schedule the next step
       const timeout = setTimeout(() => {
         setStep(step + 1);
       }, currentMessage.delay * 1000 + currentMessage.duration * 1000);
       return () => clearTimeout(timeout);
-    } else if (step >= messages.length && !isSkipped) {
-      // Auto-transition after the last message
+    } else {
+      // If no message exists (step has finished the array), run onComplete
       const finalDelay = setTimeout(() => {
         onComplete();
       }, 1000); 
@@ -40,12 +44,18 @@ const IntroOverlay = ({ onComplete }) => {
     onComplete();
   };
 
-  const textArray = currentMessage ? Array.from(currentMessage.text) : [];
+  // ⬅️ CRITICAL FIX: Guard clause to prevent rendering when currentMessage is undefined
+  if (!currentMessage) {
+    return null; 
+  }
+
+  const textArray = Array.from(currentMessage.text);
 
   return (
     <motion.div
       key="intro"
-      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[${colors.background}] p-8`}
+      // Tailwind fix applied: using hardcoded hex for guaranteed compilation
+      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#0a0a0a] p-8`} 
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 1.5, delay: 0.2 }}
@@ -56,7 +66,8 @@ const IntroOverlay = ({ onComplete }) => {
           key={step} 
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: currentMessage.delay, duration: 0.5 }}
+          // Now safe because of the 'if (!currentMessage)' guard
+          transition={{ delay: currentMessage.delay, duration: 0.5 }} 
         >
           {/* Typing effect */}
           {textArray.map((char, index) => (
@@ -66,6 +77,7 @@ const IntroOverlay = ({ onComplete }) => {
               initial="hidden"
               animate="visible"
               transition={{ 
+                // Now safe because of the 'if (!currentMessage)' guard
                 delay: currentMessage.delay + index * 0.05, 
                 duration: 0.01 
               }}
@@ -75,6 +87,7 @@ const IntroOverlay = ({ onComplete }) => {
             </motion.span>
           ))}
           {/* Cursor */}
+          {/* Check against messages.length is fine here */}
           {step < messages.length && (
             <motion.span
               className={`inline-block w-1 h-10 md:h-14 ml-1 bg-[${colors.primary}]`}

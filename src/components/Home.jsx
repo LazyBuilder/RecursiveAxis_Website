@@ -77,7 +77,8 @@ const App = () => {
   }, [isLoading]);
 
   return (
-    <div className={`bg-[${colors.background}] text-[${colors.text}] font-sans antialiased overflow-hidden w-screen h-screen`}>
+    // src/components/Home.jsx
+    <div className={`bg-[#0a0a0a] text-white font-sans antialiased overflow-hidden w-screen h-screen`}>
       {/* Inline Styles (Kept here as they reference dynamic colors and Tailwind classes not available globally) */}
       <style>
         {`
