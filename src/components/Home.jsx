@@ -1,4 +1,4 @@
-// src/components/Home.jsx (REVISED FOR SMOOTH SCROLLING)
+// src/components/Home.jsx (CORRECTED IMPORT PATH)
 
 import React, { useState, useEffect, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
@@ -7,10 +7,11 @@ import { AnimatePresence } from 'framer-motion';
 import { colors, LogoSVG } from './UIMain';
 
 // Import Feature Components
-import IntroOverlay from './IntroOverlay';
+// 🚨 FIXED TYPO: Changed './OutroOverlay' back to './IntroOverlay'
+import IntroOverlay from './IntroOverlay'; 
 
 // Import Section Components
-import HeroSection from './OutroOverlay'; // NOTE: Corrected typo (OutroOverlay)
+import HeroSection from './HeroSection';
 import TrustedBySection from './TrustedBySection';
 import ServicesSection from './ServicesSection';
 import PhilosophySection from './PhilosophySection';
@@ -31,7 +32,7 @@ const App = () => {
   // Initialize refs for each section
   useEffect(() => {
     sectionsRef.current = sections.map((_, i) => sectionsRef.current[i] ?? React.createRef());
-  }, [sections]); // Added sections as dependency
+  }, [sections]);
 
   const handleIntroComplete = () => {
     setIsLoading(false);
@@ -39,24 +40,19 @@ const App = () => {
 
   const scrollToSection = (index) => {
     if (sectionsRef.current[index]?.current) {
-      // Use the smooth behavior set in the initial component logic
       sectionsRef.current[index].current.scrollIntoView({ behavior: 'smooth' });
       setActiveScreen(index); // Update the active screen immediately
     }
   };
 
-  // --- NEW: Custom Scroll Handling Function ---
+  // Custom Scroll Handling Function
   const handleScroll = (event) => {
-    // Only handle custom scrolling if the intro is complete and we are not already scrolling
     if (isLoading || isScrolling) return;
 
-    // Check for vertical scroll direction (positive deltaY is scroll down)
     const direction = event.deltaY > 0 ? 1 : event.deltaY < 0 ? -1 : 0;
     
-    // Ignore horizontal or non-scroll events
     if (direction === 0) return;
     
-    // Prevent the default, jumpy snap scroll behavior
     event.preventDefault();
 
     let nextIndex = activeScreen + direction;
@@ -72,7 +68,6 @@ const App = () => {
       }, 1000); 
     }
   };
-  // ---------------------------------------------
     
   // Intersection Observer to track active section
   useEffect(() => {
@@ -90,7 +85,6 @@ const App = () => {
       {
         root: null,
         rootMargin: '0px',
-        // Lower threshold for better detection as sections slide past
         threshold: 0.7, 
       }
     );
@@ -112,11 +106,10 @@ const App = () => {
     };
   }, [isLoading]);
 
-  // --- NEW: Attach Scroll Handler to Main Content ---
+  // Attach Scroll Handler to Main Content
   useEffect(() => {
     const mainElement = mainRef.current;
     if (mainElement && !isLoading) {
-      // Use 'wheel' event for reliable tracking of mouse/trackpad scrolls
       mainElement.addEventListener('wheel', handleScroll, { passive: false });
     }
     return () => {
@@ -125,7 +118,6 @@ const App = () => {
       }
     };
   }, [isLoading, activeScreen]);
-  // --------------------------------------------------
 
   return (
     // REMOVED universal background color here.
@@ -140,8 +132,7 @@ const App = () => {
             background-color: #f7f7f7; /* Default light background for alternating sections */
             color: #1a1a1a; /* Default dark text color for light sections */
           }
-          /* ... (other styles) ... */
-
+          
           .no-scrollbar::-webkit-scrollbar { display: none; }
           
           .animated-gradient {
@@ -208,7 +199,6 @@ const App = () => {
         {/* Main Content Sections with Custom Scroll Handler */}
         <main 
           ref={mainRef} // Attach ref for event listener
-          // REMOVED 'snap-y snap-mandatory'
           className="w-screen min-h-screen overflow-y-scroll scroll-smooth relative h-full"
         >
           
