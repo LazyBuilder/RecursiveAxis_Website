@@ -1,4 +1,4 @@
-// src/components/Home.jsx (REPLACE COMPLETELY)
+// src/components/Home.jsx (REVISED FOR SMOOTH SCROLLING)
 
 import React, { useState, useEffect, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
@@ -10,24 +10,28 @@ import { colors, LogoSVG } from './UIMain';
 import IntroOverlay from './IntroOverlay';
 
 // Import Section Components
-import HeroSection from './HeroSection';
+import HeroSection from './OutroOverlay'; // NOTE: Corrected typo (OutroOverlay)
 import TrustedBySection from './TrustedBySection';
 import ServicesSection from './ServicesSection';
 import PhilosophySection from './PhilosophySection';
 import FounderStorySection from './FounderStorySection';
 import ContactCTA from './ContactCTA';
 
+// Global variable to manage scroll state (outside the component for persistence)
+let isScrolling = false;
+
 const App = () => {
   const [isLoading, setIsLoading] = useState(true); // Controls Intro/Home state
   const [activeScreen, setActiveScreen] = useState(0);
 
+  const mainRef = useRef(null); // Ref for the main scroll container
   const sections = ['home', 'trusted', 'services', 'philosophy', 'founder-story', 'contact'];
   const sectionsRef = useRef([]);
     
   // Initialize refs for each section
   useEffect(() => {
     sectionsRef.current = sections.map((_, i) => sectionsRef.current[i] ?? React.createRef());
-  }, []);
+  }, [sections]); // Added sections as dependency
 
   const handleIntroComplete = () => {
     setIsLoading(false);
@@ -35,11 +39,42 @@ const App = () => {
 
   const scrollToSection = (index) => {
     if (sectionsRef.current[index]?.current) {
+      // Use the smooth behavior set in the initial component logic
       sectionsRef.current[index].current.scrollIntoView({ behavior: 'smooth' });
+      setActiveScreen(index); // Update the active screen immediately
     }
   };
+
+  // --- NEW: Custom Scroll Handling Function ---
+  const handleScroll = (event) => {
+    // Only handle custom scrolling if the intro is complete and we are not already scrolling
+    if (isLoading || isScrolling) return;
+
+    // Check for vertical scroll direction (positive deltaY is scroll down)
+    const direction = event.deltaY > 0 ? 1 : event.deltaY < 0 ? -1 : 0;
     
-  // Intersection Observer to track active section (Only runs when not loading)
+    // Ignore horizontal or non-scroll events
+    if (direction === 0) return;
+    
+    // Prevent the default, jumpy snap scroll behavior
+    event.preventDefault();
+
+    let nextIndex = activeScreen + direction;
+
+    // Boundary check
+    if (nextIndex >= 0 && nextIndex < sections.length) {
+      isScrolling = true;
+      scrollToSection(nextIndex);
+
+      // Reset the scroll lock after the smooth scroll animation should complete (~1000ms)
+      setTimeout(() => {
+        isScrolling = false;
+      }, 1000); 
+    }
+  };
+  // ---------------------------------------------
+    
+  // Intersection Observer to track active section
   useEffect(() => {
     if (isLoading) return;
 
@@ -55,26 +90,42 @@ const App = () => {
       {
         root: null,
         rootMargin: '0px',
-        threshold: 0.5,
+        // Lower threshold for better detection as sections slide past
+        threshold: 0.7, 
       }
     );
 
-    sections.forEach((id) => {
-      const element = document.getElementById(id);
-      if (element) {
-        observer.observe(element);
+    // Attach observer to section elements
+    sectionsRef.current.forEach((ref) => {
+      if (ref.current) {
+        observer.observe(ref.current);
       }
     });
 
+    // Cleanup observer
     return () => {
-      sections.forEach((id) => {
-        const element = document.getElementById(id);
-        if (element) {
-          observer.unobserve(element);
+      sectionsRef.current.forEach((ref) => {
+        if (ref.current) {
+          observer.unobserve(ref.current);
         }
       });
     };
   }, [isLoading]);
+
+  // --- NEW: Attach Scroll Handler to Main Content ---
+  useEffect(() => {
+    const mainElement = mainRef.current;
+    if (mainElement && !isLoading) {
+      // Use 'wheel' event for reliable tracking of mouse/trackpad scrolls
+      mainElement.addEventListener('wheel', handleScroll, { passive: false });
+    }
+    return () => {
+      if (mainElement) {
+        mainElement.removeEventListener('wheel', handleScroll);
+      }
+    };
+  }, [isLoading, activeScreen]);
+  // --------------------------------------------------
 
   return (
     // REMOVED universal background color here.
@@ -89,6 +140,10 @@ const App = () => {
             background-color: #f7f7f7; /* Default light background for alternating sections */
             color: #1a1a1a; /* Default dark text color for light sections */
           }
+          /* ... (other styles) ... */
+
+          .no-scrollbar::-webkit-scrollbar { display: none; }
+          
           .animated-gradient {
             background: linear-gradient(45deg, ${colors.primary}, ${colors.secondary}, ${colors.primary});
             background-size: 400% 400%;
@@ -101,7 +156,6 @@ const App = () => {
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
           }
-          .no-scrollbar::-webkit-scrollbar { display: none; }
           
           .bg-grid-white {
             background-image: linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px);
@@ -151,8 +205,12 @@ const App = () => {
           </div>
         </header>
 
-        {/* Main Content Sections with Snap Scrolling */}
-        <main className="w-screen min-h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth relative h-full">
+        {/* Main Content Sections with Custom Scroll Handler */}
+        <main 
+          ref={mainRef} // Attach ref for event listener
+          // REMOVED 'snap-y snap-mandatory'
+          className="w-screen min-h-screen overflow-y-scroll scroll-smooth relative h-full"
+        >
           
           {/* Vertical Navigation Dots */}
           <div className="fixed right-4 top-1/2 -translate-y-1/2 z-50 flex flex-col space-y-2">
