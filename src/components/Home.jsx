@@ -1,4 +1,4 @@
-// src/components/Home.jsx (REVISED FOR STRICTER SCROLL LOCK)
+// src/components/Home.jsx (FINAL SCROLL FIX)
 
 import React, { useState, useEffect, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
@@ -19,8 +19,10 @@ import ContactCTA from './ContactCTA';
 
 // Global variables for robust scroll management
 let lastScrollTime = 0;
-// Increased debounce time slightly for trackpad scrolling
-const SCROLL_DEBOUNCE_TIME = 950; 
+// Increased debounce time to 1100ms to cover the full smooth scroll duration
+const SCROLL_DEBOUNCE_TIME = 1100; 
+// Threshold to ignore tiny residual scroll events (important for trackpads)
+const SCROLL_DELTA_THRESHOLD = 5;
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -46,7 +48,7 @@ const App = () => {
     }
   };
 
-  // --- REVISED: Custom Scroll Handling Function for strict locking ---
+  // --- REVISED: Custom Scroll Handling Function with Delta Threshold ---
   const handleScroll = (event) => {
     // CRUCIAL: Immediately prevent default behavior to stop the native scroll jump
     event.preventDefault();
@@ -57,10 +59,16 @@ const App = () => {
     if (isLoading || currentTime - lastScrollTime < SCROLL_DEBOUNCE_TIME) { 
         return;
     }
-
-    const direction = event.deltaY > 0 ? 1 : event.deltaY < 0 ? -1 : 0;
     
-    // Ignore non-vertical scroll events
+    // Determine direction and apply the delta threshold
+    let direction = 0;
+    if (event.deltaY > SCROLL_DELTA_THRESHOLD) {
+        direction = 1; // Scroll Down
+    } else if (event.deltaY < -SCROLL_DELTA_THRESHOLD) {
+        direction = -1; // Scroll Up
+    }
+
+    // Ignore non-vertical scroll events or movements below the threshold
     if (direction === 0) return;
     
     let nextIndex = activeScreen + direction;
