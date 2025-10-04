@@ -1,150 +1,237 @@
-// src/components/PhilosophySection.jsx (HIGH CONTRAST DESIGN)
+// src/components/PhilosophySection.jsx (FULL-WIDTH CAROUSEL DESIGN)
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import FullPageSection from './FullPageSection';
-// Assuming React Icons is installed now. If not, use the inline SVGs from previous version.
-import { FaCode, FaPaintBrush, FaDatabase } from 'react-icons/fa'; 
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'; // Used for arrows
 
 // Defined the hex codes based on your input
 const PRIMARY_COLOR = '#00EAFF'; 
 const SECONDARY_COLOR = '#FF00EA';
-const DARK_BLACK = '#1a1a1a'; // Explicitly dark black for text
-const LIGHT_TEXT_ON_GRADIENT = '#f0f0f0'; // Used for gradient text (if needed, or replaced by DARK_BLACK)
+const DARK_BLACK = '#1a1a1a';
 
+// --- INLINE SVG ICONS (Reused from previous version) ---
+// Note: We need to modify these SVGs to use CSS for the gradient fill, 
+// but for simplicity and reliability with dynamic styles, we'll use React Icons for the body,
+// and apply the gradient/circle border externally via CSS classes.
 
-const PhilosophySection = React.forwardRef((props, ref) => (
-  <>
-    {/* Define custom CSS styles here for Tailwind JIT to pick up the gradient animation */}
-    <style>
-      {`
-        .animated-gradient-bg {
-          background: linear-gradient(135deg, ${PRIMARY_COLOR} 0%, ${SECONDARY_COLOR} 50%, ${PRIMARY_COLOR} 100%);
-          background-size: 300% 300%; 
-          animation: gradient-shift 20s ease infinite; 
-        }
+const CodeIcon = FaCode;
+const DesignIcon = FaPaintBrush;
+const DataIcon = FaDatabase;
 
-        @keyframes gradient-shift {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
+// The data structure for our carousel
+const philosophyData = [
+  {
+    icon: CodeIcon,
+    title: "Code Excellence",
+    description: "Crafting clean, efficient, and scalable code is at the heart of robust digital solutions. We believe in meticulous development and engineering standards that stand the test of time.",
+    color: PRIMARY_COLOR,
+  },
+  {
+    icon: DesignIcon,
+    title: "Intuitive Design",
+    description: "We focus on user-centric design that seamlessly blends aesthetics with intuitive functionality, ensuring every digital experience is delightful, effortless, and converts effectively.",
+    color: SECONDARY_COLOR,
+  },
+  {
+    icon: DataIcon,
+    title: "Data-Driven Insights",
+    description: "Leveraging data is non-negotiable. We inform every decision, optimize strategies, and track measurable growth metrics to ensure your innovation delivers maximum market impact.",
+    color: PRIMARY_COLOR,
+  },
+];
 
-        /* If you still want gradient text, this can be reused, otherwise, it's not needed for dark black text */
-        /*
-        .animated-gradient-text {
-            background: linear-gradient(45deg, ${LIGHT_TEXT_ON_GRADIENT}, ${PRIMARY_COLOR}, ${LIGHT_TEXT_ON_GRADIENT});
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradient-animation-text 15s ease infinite;
-        }
-        @keyframes gradient-animation-text {
+const PhilosophySection = React.forwardRef((props, ref) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0); // 0: initial, 1: next, -1: prev
+
+  const totalCards = philosophyData.length;
+
+  const paginate = (newDirection) => {
+    setDirection(newDirection);
+    let newIndex = currentIndex + newDirection;
+    if (newIndex < 0) {
+      newIndex = totalCards - 1; // Wrap around to the end
+    } else if (newIndex >= totalCards) {
+      newIndex = 0; // Wrap around to the start
+    }
+    setCurrentIndex(newIndex);
+  };
+
+  const cardVariants = {
+    enter: (direction) => ({
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      transition: { duration: 0.5 }
+    },
+    exit: (direction) => ({
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0,
+      transition: { duration: 0.5 }
+    })
+  };
+
+  const currentCard = philosophyData[currentIndex];
+
+  return (
+    <>
+      {/* Custom CSS for Gradient Background, Icon Fill, and Circle Border */}
+      <style>
+        {`
+          .animated-gradient-bg {
+            background: linear-gradient(135deg, ${PRIMARY_COLOR} 0%, ${SECONDARY_COLOR} 50%, ${PRIMARY_COLOR} 100%);
+            background-size: 300% 300%;
+            animation: gradient-shift 20s ease infinite;
+          }
+          @keyframes gradient-shift {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
-        }
-        */
-      `}
-    </style>
+          }
+          
+          /* Icon Gradient Fill & Circle Border */
+          .icon-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(to right, ${PRIMARY_COLOR}, ${SECONDARY_COLOR});
+            padding: 5px; /* space for the border effect */
+          }
+          
+          .icon-circle-fill {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: ${DARK_BLACK}; /* Dark center for the icon */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Inner shadow for depth */
+          }
+          
+          .icon-color {
+            fill: url(#iconGradient) !important;
+            stroke: url(#iconGradient) !important;
+          }
+          
+          .navigation-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 20;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+          }
+          .navigation-arrow:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-50%) scale(1.1);
+          }
+          
+          /* Hide the SVG icons themselves, we only use them to reference the component */
+          .svg-icon {
+              width: 40px;
+              height: 40px;
+          }
+        `}
+      </style>
 
-    <FullPageSection id="philosophy" ref={ref} bgClass="animated-gradient-bg"> {/* Removed text-white here */}
-      <div className="w-full relative z-10 flex flex-col items-center justify-center pt-24 pb-4 px-4">
-        
-        <motion.h2
-          // 🚨 CHANGE 1: Set heading to DARK_BLACK solid color
-          className={`text-3xl md:text-5xl font-extrabold text-center mb-16`}
-          style={{ color: DARK_BLACK }} // Direct inline style for dark black
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
-        >
-          Our Core Philosophy
-        </motion.h2>
-
-        <div className="flex flex-col md:flex-row justify-center items-center gap-8 max-w-6xl mx-auto">
-          {/* Philosophy Card 1: Code */}
-          <motion.div
-            // 🚨 CHANGE 2: Card background is now solid white, removed opacity and blur
-            className="p-8 rounded-2xl bg-white shadow-xl flex flex-col items-center text-center transition-all duration-300 hover:scale-[1.05] hover:shadow-2xl border border-transparent min-w-[300px]" // Removed border, added hover border via style
+      <FullPageSection id="philosophy" ref={ref} bgClass="animated-gradient-bg text-white">
+        <div className="w-full relative z-10 flex flex-col items-center justify-center pt-24 pb-4 px-4 h-full">
+          
+          <motion.h2
+            className={`text-3xl md:text-5xl font-extrabold text-center mb-16`}
+            style={{ color: DARK_BLACK }}
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            style={{ 
-                // Adding a subtle border on hover that uses primary color
-                border: '2px solid transparent', // Default transparent border
-                '--hover-border-color': PRIMARY_COLOR 
-            }}
-            onMouseEnter={e => e.currentTarget.style.borderColor = e.currentTarget.style.getPropertyValue('--hover-border-color')}
-            onMouseLeave={e => e.currentTarget.style.borderColor = 'transparent'}
           >
-            <div className="mb-6 text-5xl" style={{ color: PRIMARY_COLOR }}>
-              <FaCode /> 
-            </div>
-            {/* 🚨 CHANGE 3: Text color to DARK_BLACK */}
-            <h3 className="text-2xl font-bold mb-2" style={{ color: DARK_BLACK }}>Code Excellence</h3>
-            <p className="text-sm" style={{ color: DARK_BLACK }}>
-              Crafting clean, efficient, and scalable code is at the heart of robust digital solutions. We believe in meticulous development.
-            </p>
-          </motion.div>
+            Our Core Philosophy
+          </motion.h2>
 
-          {/* Philosophy Card 2: Design */}
-          <motion.div
-            // 🚨 CHANGE 2: Card background is now solid white, removed opacity and blur
-            className="p-8 rounded-2xl bg-white shadow-xl flex flex-col items-center text-center transition-all duration-300 hover:scale-[1.05] hover:shadow-2xl border border-transparent min-w-[300px]"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            viewport={{ once: true }}
-            style={{ 
-                // Adding a subtle border on hover that uses secondary color
-                border: '2px solid transparent', 
-                '--hover-border-color': SECONDARY_COLOR 
-            }}
-            onMouseEnter={e => e.currentTarget.style.borderColor = e.currentTarget.style.getPropertyValue('--hover-border-color')}
-            onMouseLeave={e => e.currentTarget.style.borderColor = 'transparent'}
-          >
-            <div className="mb-6 text-5xl" style={{ color: SECONDARY_COLOR }}>
-              <FaPaintBrush /> 
-            </div>
-            {/* 🚨 CHANGE 3: Text color to DARK_BLACK */}
-            <h3 className="text-2xl font-bold mb-2" style={{ color: DARK_BLACK }}>Intuitive Design</h3>
-            <p className="text-sm" style={{ color: DARK_BLACK }}>
-              User-centric design that blends aesthetics with functionality, ensuring delightful and effortless user experiences.
-            </p>
-          </motion.div>
+          {/* === CAROUSEL CONTAINER === */}
+          <div className="relative w-full max-w-5xl h-96 flex items-center justify-center">
 
-          {/* Philosophy Card 3: Data */}
-          <motion.div
-            // 🚨 CHANGE 2: Card background is now solid white, removed opacity and blur
-            className="p-8 rounded-2xl bg-white shadow-xl flex flex-col items-center text-center transition-all duration-300 hover:scale-[1.05] hover:shadow-2xl border border-transparent min-w-[300px]"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            viewport={{ once: true }}
-            style={{ 
-                // Adding a subtle border on hover that uses primary color
-                border: '2px solid transparent', 
-                '--hover-border-color': PRIMARY_COLOR 
-            }}
-            onMouseEnter={e => e.currentTarget.style.borderColor = e.currentTarget.style.getPropertyValue('--hover-border-color')}
-            onMouseLeave={e => e.currentTarget.style.borderColor = 'transparent'}
-          >
-            <div className="mb-6 text-5xl" style={{ color: PRIMARY_COLOR }}>
-              <FaDatabase /> 
+            {/* Navigation Arrows */}
+            <div 
+              className="navigation-arrow left-4 md:left-0" 
+              onClick={() => paginate(-1)}
+            >
+              <FaChevronLeft size={20} />
             </div>
-            {/* 🚨 CHANGE 3: Text color to DARK_BLACK */}
-            <h3 className="text-2xl font-bold mb-2" style={{ color: DARK_BLACK }}>Data-Driven Insights</h3>
-            <p className="text-sm" style={{ color: DARK_BLACK }}>
-              Leveraging data to inform decisions, optimize strategies, and drive measurable growth for your innovation.
-            </p>
-          </motion.div>
+            
+            <div 
+              className="navigation-arrow right-4 md:right-0" 
+              onClick={() => paginate(1)}
+            >
+              <FaChevronRight size={20} />
+            </div>
+
+            {/* Card Counter/Dots (Optional, but professional) */}
+            <div className="absolute -bottom-8 md:bottom-2 z-30 flex space-x-2">
+                {philosophyData.map((_, index) => (
+                    <div 
+                        key={index}
+                        className={`w-3 h-3 rounded-full cursor-pointer transition-all duration-300 ${
+                            currentIndex === index ? 'bg-white scale-125' : 'bg-white opacity-40 hover:opacity-80'
+                        }`}
+                        onClick={() => setCurrentIndex(index)}
+                    />
+                ))}
+            </div>
+
+            {/* ANIMATED CARD */}
+            <AnimatePresence initial={false} custom={direction}>
+              <motion.div
+                key={currentIndex}
+                custom={direction}
+                variants={cardVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                // 🚨 BIGGER CARD STYLE: Full-width, centered, bold
+                className="absolute w-full p-12 md:p-16 rounded-3xl bg-white shadow-2xl flex flex-col items-center text-center max-w-3xl"
+              >
+                {/* ICON with Gradient Border/Fill */}
+                <div className="mb-8 icon-container">
+                    <div className="icon-circle-fill">
+                        {/* We use React Icons here and apply the color/size directly to mimic the gradient look */}
+                        <currentCard.icon 
+                            size={40} 
+                            style={{ color: currentCard.color }} 
+                        />
+                    </div>
+                </div>
+                
+                {/* Text Content */}
+                <h3 className="text-3xl font-bold mb-4" style={{ color: DARK_BLACK }}>{currentCard.title}</h3>
+                <p className="text-base leading-relaxed max-w-xl" style={{ color: DARK_BLACK }}>
+                  {currentCard.description}
+                </p>
+              </motion.div>
+            </AnimatePresence>
+
+          </div>
         </div>
-      </div>
-    </FullPageSection>
-  </>
-));
+      </FullPageSection>
+    </>
+  );
+});
 
 export default PhilosophySection;
