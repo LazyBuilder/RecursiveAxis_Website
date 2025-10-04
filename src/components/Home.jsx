@@ -1,4 +1,4 @@
-// src/components/Home.jsx (FINAL VERSION)
+// src/components/Home.jsx (REVISED FOR STRICTER SCROLL LOCK)
 
 import React, { useState, useEffect, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
@@ -7,7 +7,7 @@ import { AnimatePresence } from 'framer-motion';
 import { colors, LogoSVG } from './UIMain';
 
 // Import Feature Components
-import IntroOverlay from './IntroOverlay'; // Corrected import path
+import IntroOverlay from './IntroOverlay'; 
 
 // Import Section Components
 import HeroSection from './HeroSection';
@@ -19,7 +19,8 @@ import ContactCTA from './ContactCTA';
 
 // Global variables for robust scroll management
 let lastScrollTime = 0;
-const SCROLL_DEBOUNCE_TIME = 800; // Time in ms to wait between scrolls
+// Increased debounce time slightly for trackpad scrolling
+const SCROLL_DEBOUNCE_TIME = 950; 
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -45,30 +46,29 @@ const App = () => {
     }
   };
 
-  // --- REVISED: Custom Scroll Handling Function to prevent double-jumps ---
+  // --- REVISED: Custom Scroll Handling Function for strict locking ---
   const handleScroll = (event) => {
+    // CRUCIAL: Immediately prevent default behavior to stop the native scroll jump
+    event.preventDefault();
+
     const currentTime = new Date().getTime();
     
-    // 1. Time-based debounce lock: prevents scrolling if the last scroll was too recent.
+    // 1. Time-based debounce check. If a scroll was recently executed, exit immediately.
     if (isLoading || currentTime - lastScrollTime < SCROLL_DEBOUNCE_TIME) { 
-        event.preventDefault(); 
         return;
     }
 
     const direction = event.deltaY > 0 ? 1 : event.deltaY < 0 ? -1 : 0;
     
-    // Ignore horizontal or non-scroll events
+    // Ignore non-vertical scroll events
     if (direction === 0) return;
     
-    // Prevent default scroll behavior
-    event.preventDefault();
-
     let nextIndex = activeScreen + direction;
 
     // Boundary check
     if (nextIndex >= 0 && nextIndex < sections.length) {
         
-        // 2. Set new scroll time to initiate the lock
+        // 2. Lock: Update the time only when a successful scroll is initiated
         lastScrollTime = currentTime; 
 
         scrollToSection(nextIndex);
@@ -116,7 +116,8 @@ const App = () => {
   useEffect(() => {
     const mainElement = mainRef.current;
     if (mainElement && !isLoading) {
-      mainElement.addEventListener('wheel', handleScroll, { passive: false });
+      // Use { passive: false } to allow event.preventDefault() inside handleScroll
+      mainElement.addEventListener('wheel', handleScroll, { passive: false }); 
     }
     return () => {
       if (mainElement) {
@@ -205,7 +206,6 @@ const App = () => {
         {/* Main Content Sections with Custom Scroll Handler */}
         <main 
           ref={mainRef} // Attach ref for event listener
-          // Scroll snapping removed for custom smooth scroll
           className="w-screen min-h-screen overflow-y-scroll scroll-smooth relative h-full"
         >
           
