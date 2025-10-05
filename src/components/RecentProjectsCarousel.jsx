@@ -1,4 +1,4 @@
-// src/components/RecentProjectsCarousel.jsx (Final, Fixed Rendering Version)
+// src/components/RecentProjectsCarousel.jsx (Final, Fixed Rendering & Square Image Version)
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -20,27 +20,29 @@ const TEXT_DARK = '#1a1a1a';
 
 // --- PROJECT DATA ---
 const projectData = [
-  {
-    id: 1,
-    title: "MSH Cultural Group",
-    subheading: "High-Volume Ticketing & Multi-Language Support",
-    uniqueAspect: "Seamless **Multi-Language** Support and **High-Volume Ticketing** integrated into a sleek, cultural platform. Built for global scalability.",
-    description: "An elegant digital platform for cultural event management and content showcase, emphasizing accessibility and robust backend logistics.",
-    imageSrc: MSHImage, 
-    link: 'https://www.mshculturalgroup.com/',
-    color: PRIMARY_COLOR,
-  },
-  {
-    id: 2,
-    title: "Verve Photography",
-    subheading: "Custom CDN & Immersive Portfolio Delivery",
-    uniqueAspect: "An **immersive, high-resolution** image delivery system built on a custom CDN, ensuring zero-latency portfolio viewing worldwide.",
-    description: "High-impact portfolio site showcasing professional photography and immersive visuals, optimized for retina displays and speed.",
-    imageSrc: VerveImage, 
-    link: 'https://verve.photography/',
-    color: SECONDARY_COLOR,
-  },
-];
+    {
+      id: 1,
+      title: "MSH Cultural Group",
+      subheading: "Budget-Optimized Platform for Non-Tech Users",
+      // Highlight the cost and simplicity aspect
+      uniqueAspect: "Successfully delivered a full-featured, multi-language ticketing platform using **Google Sites** for a **<$25/year operational cost**, ensuring non-technical users could easily manage content.",
+      description: "An elegant digital platform emphasizing **ultra-low-cost deployment** and simplified content management, specifically built for high accessibility and non-developer upkeep.",
+      imageSrc: MSHImage, 
+      link: 'https://www.mshculturalgroup.com/',
+      color: PRIMARY_COLOR,
+    },
+    {
+      id: 2,
+      title: "Verve Photography",
+      subheading: "High-Performance, Rapid-Development Portfolio",
+      // Highlight the technology stack and speed
+      uniqueAspect: "A **high-resolution, zero-latency** image delivery system developed from scratch in just **2 days** using **React, Tailwind CSS, and LLM assistance**. Deployed on Git Pages/Cloudflare for **domain-only running cost**.",
+      description: "High-impact portfolio site showcasing professional photography, optimized for retina displays and speed, demonstrating expertise in modern, rapid full-stack development.",
+      imageSrc: VerveImage, 
+      link: 'https://verve.photography/',
+      color: SECONDARY_COLOR,
+    },
+  ];
 
 // Framer Motion carousel configuration
 const carouselVariants = {
@@ -79,7 +81,6 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
 
     const currentProject = projectData[currentIndex];
 
-    // Check if image import failed (should be redundant now, but kept for safety)
     const isImageValid = currentProject.imageSrc && typeof currentProject.imageSrc === 'string';
 
     return (
@@ -101,15 +102,15 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                     100% { background-position: 0% 50%; }
                 }
 
-                /* --- CLEANED UP PHONE FRAME STYLING --- */
+                /* --- ADJUSTED PHONE FRAME STYLING FOR SQUARE IMAGE --- */
                 .responsive-phone-frame {
                     position: relative;
-                    width: 25vmin; 
-                    max-width: 320px; 
-                    aspect-ratio: 9/18; /* Standard mobile ratio */
+                    width: 30vmin; /* Slightly larger for square */
+                    max-width: 350px; /* Max width for square */
+                    aspect-ratio: 1 / 1; /* 🚨 CRITICAL CHANGE: SQUARE ASPECT RATIO */
                     margin: 0 auto;
-                    border: 12px solid ${TEXT_DARK}; 
-                    border-radius: 48px;
+                    border: 10px solid ${TEXT_DARK}; /* Slightly thinner border */
+                    border-radius: 25px; /* Softer rounded corners for square */
                     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
                     background-color: ${TEXT_DARK}; 
                     overflow: hidden;
@@ -118,7 +119,7 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                 .responsive-phone-screen {
                     width: calc(100% + 2px); 
                     height: 100%;
-                    border-radius: 36px; 
+                    border-radius: 18px; /* Inner screen border radius */
                     overflow: hidden;
                     transform: translate(-1px, -1px);
                     background-color: white; 
@@ -126,13 +127,13 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                 .responsive-phone-frame::before {
                     content: '';
                     position: absolute;
-                    top: 15px;
+                    top: 12px; /* Adjusted position for square frame */
                     left: 50%;
                     transform: translateX(-50%);
-                    width: 70px;
-                    height: 8px;
+                    width: 60px; /* Notch width */
+                    height: 6px; /* Notch height */
                     background-color: #333; /* Notch color */
-                    border-radius: 8px;
+                    border-radius: 6px;
                     z-index: 10;
                 }
                 .image-error-box {
@@ -167,8 +168,7 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                         Recent Projects
                     </motion.h2>
 
-                    {/* === CAROUSEL SLIDE CONTAINER (CRITICAL FIX AREA) === */}
-                    {/* Outer wrapper is relative, w-full, h-full, centered flex */}
+                    {/* === CAROUSEL SLIDE CONTAINER === */}
                     <div className="relative w-full h-full flex items-center justify-center py-8">
                         <AnimatePresence initial={false} custom={direction} exitBeforeEnter>
                             <motion.div
@@ -178,7 +178,6 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                                 initial="enter"
                                 animate="center"
                                 exit="exit"
-                                // 🚨 FIX: Using w-full h-full and grid layout for the slide content
                                 className="w-full h-full grid grid-cols-1 md:grid-cols-2 gap-12 max-w-7xl mx-auto items-center" 
                             >
                                 
