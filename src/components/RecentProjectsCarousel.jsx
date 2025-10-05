@@ -7,7 +7,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 // --- IMPORTANT: Update these paths and file names to match your local photos folder ---
 import MSHImage from '../photos/mshcg-dugapuja.png';    
-import VerveImage from '../photos/verve-photography.png';  
+import VerveImage from '../photos/verve-photography.png';
 // -----------------------------------------------------------------------------------
 
 // Define colors (ensure these are globally consistent)
