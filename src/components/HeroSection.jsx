@@ -6,7 +6,7 @@ import FullPageSection from './FullPageSection';
 // Assuming colors are imported from UIMain.jsx or defined globally
 
 // Background image path (since it's in public/assets)
-const BACKGROUND_IMAGE_PATH = "/assets/Storyline_Background_Dark.png";
+const BACKGROUND_IMAGE_PATH = `${process.env.PUBLIC_URL}/assets/Storyline_Background_Dark.png`;
 
 const HeroSection = React.forwardRef((props, ref) => {
     return (

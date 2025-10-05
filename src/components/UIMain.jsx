@@ -16,7 +16,7 @@ const colors = {
 // --- LOGO COMPONENT (Uses the PNG from public/assets) ---
 const LogoSVG = () => {
     // Reference the image directly from the public/assets folder
-    const logoPath = "/assets/StorylineDS_Logo_NoBackground_AccentColor.png"; 
+    const logoPath = `${process.env.PUBLIC_URL}/assets/StorylineDS_Logo_NoBackground_AccentColor.png`; 
 
     return (
         <img 
