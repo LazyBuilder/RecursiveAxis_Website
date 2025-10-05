@@ -1,11 +1,10 @@
-// src/components/HeroSection.jsx
+// src/components/HeroSection.jsx (FIXED Layout for Full Background)
 
 import React from 'react';
 import { motion } from 'framer-motion';
 import FullPageSection from './FullPageSection'; 
-// Assuming colors are imported from UIMain.jsx or defined globally
 
-// Background image path (since it's in public/assets)
+// Use the corrected relative path
 const BACKGROUND_IMAGE_PATH = `${process.env.PUBLIC_URL}/assets/Storyline_Background_Dark.png`;
 
 const HeroSection = React.forwardRef((props, ref) => {
@@ -13,29 +12,28 @@ const HeroSection = React.forwardRef((props, ref) => {
         <FullPageSection 
             id="home" 
             ref={ref} 
-            // Setting the text color to white globally for this section
             bgClass="text-white" 
-            // We use style here to ensure the full section background is black 
-            // before the image loads, or if the image fails.
             style={{ backgroundColor: '#000000' }} 
+            // 🚨 CRITICAL: Assuming FullPageSection root element has h-screen or h-full
         >
+            
             {/* 1. BACKGROUND CONTAINER with Image and Positioning */}
+            {/* This div must be a direct child of FullPageSection and span the whole thing */}
             <div 
-                className="absolute inset-0 bg-cover bg-center"
+                className="absolute inset-0 bg-cover bg-center w-full h-full"
                 style={{ 
                     backgroundImage: `url(${BACKGROUND_IMAGE_PATH})`,
-                    // Optional: Ensures the image scales to cover the entire div
                     backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center',
                 }}
             >
                 {/* 2. OVERLAY for Contrast/Readability */}
-                {/* Adjust opacity (e.g., 60, 70, 80) to control darkness */}
                 <div className="absolute inset-0 bg-black opacity-70"></div>
             </div>
             
-            {/* 3. HERO CONTENT (Z-indexed above the background layers) */}
+            {/* 3. HERO CONTENT */}
+            {/* Make sure the content wrapper itself takes full height and width */}
             <div className="relative z-10 w-full h-full flex flex-col justify-center items-center text-center p-4">
                 
                 <motion.h1
@@ -58,7 +56,6 @@ const HeroSection = React.forwardRef((props, ref) => {
 
                 <motion.a
                     href="#contact"
-                    // Tailwind classes for the button look
                     className={`px-8 py-3 text-lg rounded-full font-bold transition-all duration-300 shadow-lg hover:shadow-xl bg-white text-black`}
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
