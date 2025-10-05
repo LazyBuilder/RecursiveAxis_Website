@@ -1,4 +1,4 @@
-// src/components/TrustedBySegment.jsx (FINAL - SCROLL FIX & PHONE FRAME)
+// src/components/TrustedBySegment.jsx (RANDOMIZED 9-LOGO GRID)
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -11,14 +11,16 @@ const SECONDARY_COLOR = '#FF00EA'; // Magenta
 const BACKGROUND_LIGHT = '#ffffff'; // Clean white background
 const TEXT_DARK = '#1a1a1a'; // Dark text color
 
-// --- LOGO DATA (Expanded for randomization) ---
+// --- LOGO DATA ---
+// Categorize your logos into fixed and rotating pools.
+// You must have 9 total displayed, so ensure fixedLogos.length <= 9.
 const allLogos = [
-    // --- FIXED LOGOS (Always appear) ---
+    // --- FIXED LOGOS (These will always appear) ---
     { id: 100, name: "Amazon", src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Amazon_icon.svg/2500px-Amazon_icon.svg.png', fixed: true }, 
     { id: 101, name: "Microsoft", src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Microsoft_logo_%282012%29.svg/1200px-Microsoft_logo_%282012%29.svg.png', fixed: true },
     { id: 102, name: "Apple", src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/1200px-Apple_logo_black.svg.png', fixed: true },
 
-    // --- ROTATING LOGOS (Pool for randomization) ---
+    // --- ROTATING LOGOS (A larger pool to draw from) ---
     { id: 1, name: "Google", src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/1200px-Google_2015_logo.svg.png', fixed: false }, 
     { id: 2, name: "Meta", src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Facebook_f_logo_%282019%29.svg/1200px-Facebook_f_logo_%282019%29.svg.png', fixed: false }, 
     { id: 3, name: "Netflix", src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1200px-Netflix_2015_logo.svg.png', fixed: false },
@@ -30,7 +32,7 @@ const allLogos = [
     { id: 9, name: "Airbnb", src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Airbnb_Logo_B%C3%A9lo.svg/1280px-Airbnb_Logo_B%C3%A9lo.svg.png', fixed: false },
 ];
 
-// --- PROJECT DATA ---
+// --- PROJECT DATA (Remains the same) ---
 const projectData = [
   {
     id: 1,
@@ -79,11 +81,11 @@ const carouselVariants = {
 const TrustedBySegment = React.forwardRef((props, ref) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [direction, setDirection] = useState(0);
-    const [displayLogos, setDisplayLogos] = useState([]);
+    const [displayLogos, setDisplayLogos] = useState([]); // State for the 9 displayed logos
     const totalProjects = projectData.length;
     const MAX_LOGOS = 9;
 
-    // Logo Selection Logic (memoized)
+    // Separate logos into fixed and rotating pools using useMemo for efficiency
     const { fixedLogos, rotatingLogos } = useMemo(() => {
         const fixed = allLogos.filter(logo => logo.fixed);
         const rotating = allLogos.filter(logo => !logo.fixed);
@@ -96,6 +98,7 @@ const TrustedBySegment = React.forwardRef((props, ref) => {
         const numToRotate = Math.max(0, MAX_LOGOS - numFixed);
 
         if (numToRotate > 0 && rotatingLogos.length > 0) {
+            // Simple shuffle function
             const shuffle = (array) => {
                 let currentIndex = array.length, randomIndex;
                 while (currentIndex !== 0) {
@@ -107,15 +110,28 @@ const TrustedBySegment = React.forwardRef((props, ref) => {
                 return array;
             };
 
+            // Shuffle the rotating pool and take the required number
             const selectedRotating = shuffle([...rotatingLogos]).slice(0, numToRotate);
+            
+            // Combine fixed and rotating logos and shuffle the non-fixed ones into place
             const finalLogos = [...fixedLogos, ...selectedRotating];
+
+            // For presentation, let's shuffle the final array to mix fixed and rotating logos
+            const rotatingIndices = finalLogos
+                .map((logo, index) => ({ logo, index }))
+                .filter(item => !item.logo.fixed)
+                .map(item => item.index);
+            
+            // This is a simplified shuffle that preserves fixed positions (if you want them separated)
+            // But usually, mixing them looks better:
             const presentationLogos = shuffle(finalLogos); 
             
             setDisplayLogos(presentationLogos.slice(0, MAX_LOGOS));
         } else {
+            // If all 9 are fixed or there are too few logos total
             setDisplayLogos(fixedLogos.slice(0, MAX_LOGOS));
         }
-    }, [fixedLogos, rotatingLogos]); 
+    }, [fixedLogos, rotatingLogos]); // Run only on mount
 
     const paginate = (newDirection) => {
         setDirection(newDirection);
@@ -132,10 +148,9 @@ const TrustedBySegment = React.forwardRef((props, ref) => {
 
     return (
         <>
-            {/* CSS STYLES (Keep centralized) */}
+            {/* CSS STYLES (Retained for quick testing) */}
             <style>
             {`
-                /* Global Title Style (Defined here for example) */
                 .global-animated-title {
                     background: linear-gradient(45deg, ${PRIMARY_COLOR}, ${SECONDARY_COLOR}, ${PRIMARY_COLOR});
                     background-size: 400% 400%;
@@ -165,31 +180,6 @@ const TrustedBySegment = React.forwardRef((props, ref) => {
                 .logo-container {
                     border: 1px solid #ddd;
                 }
-
-                /* Phone Frame Styling */
-                .phone-frame {
-                    position: relative;
-                    width: 100%;
-                    padding-top: 177.77%; /* 9:16 Aspect Ratio (16/9 * 100) */
-                    max-width: 300px; /* Max size for phone frame */
-                    margin: 0 auto;
-                    border: 10px solid ${TEXT_DARK}; /* Black bezel */
-                    border-radius: 40px;
-                    box-shadow: 0 0 0 1px #eee, 0 10px 20px rgba(0, 0, 0, 0.2);
-                    overflow: hidden;
-                    background-color: ${TEXT_DARK}; 
-                }
-                .phone-screen {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    /* Inner bezel border */
-                    border: 5px solid ${TEXT_DARK}; 
-                    border-radius: 30px;
-                    overflow: hidden;
-                }
             `}
             </style>
 
@@ -197,13 +187,13 @@ const TrustedBySegment = React.forwardRef((props, ref) => {
                 id="trusted-by" 
                 ref={ref} 
                 style={{ backgroundColor: BACKGROUND_LIGHT }}
-                bgClass="text-dark" // Ensuring text defaults to dark on light background
+                bgClass="text-white"
             >
-                <div className="w-full relative z-10 flex flex-col pt-16 pb-16 px-4 h-full">
+                <div className="w-full relative z-10 flex flex-col pt-20 pb-20 px-4 h-full">
                     
                     {/* === UNIFIED MAIN TITLE === */}
                     <motion.h2
-                        className={`text-4xl md:text-6xl font-extrabold text-center mb-12 global-animated-title`}
+                        className={`text-4xl md:text-6xl font-extrabold text-center mb-16 global-animated-title`}
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
@@ -212,11 +202,11 @@ const TrustedBySegment = React.forwardRef((props, ref) => {
                         Our Impact & Innovation
                     </motion.h2>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-7xl mx-auto h-full items-center">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 w-full max-w-7xl mx-auto h-full items-center">
                         
-                        {/* === LEFT COLUMN: TRUSTED BY (LOGOS) - With Scrolling === */}
-                        <div className="flex flex-col h-[50vh] md:h-[70vh] justify-start p-4 md:p-8 overflow-y-auto">
-                            <h3 className="text-xl font-bold mb-8 text-center sticky top-0 bg-white py-2" style={{ color: TEXT_DARK }}>
+                        {/* === LEFT COLUMN: TRUSTED BY (LOGOS) === */}
+                        <div className="flex flex-col justify-center p-4 md:p-8">
+                            <h3 className="text-xl font-bold mb-8 text-center" style={{ color: TEXT_DARK }}>
                                 Trusted by Industry Leaders
                             </h3>
 
@@ -238,84 +228,85 @@ const TrustedBySegment = React.forwardRef((props, ref) => {
                                         />
                                     </motion.div>
                                 ))}
-                                {/* Added spacing to ensure the grid scrolls if necessary */}
-                                <div className="col-span-3 h-10"></div> 
                             </div>
                         </div>
 
-                        {/* === RIGHT COLUMN: PROJECT CAROUSEL (PHONE FRAME) === */}
-                        <div className="relative flex flex-col justify-center items-center p-4 md:p-8 border-t md:border-t-0 md:border-l h-full" style={{ borderColor: PRIMARY_COLOR }}>
+                        {/* === RIGHT COLUMN: PROJECT CAROUSEL === */}
+                        <div className="relative flex flex-col justify-center items-center p-4 md:p-8 border-t md:border-t-0 md:border-l" style={{ borderColor: PRIMARY_COLOR }}>
                             <h3 className="text-xl font-bold mb-8 text-center" style={{ color: TEXT_DARK }}>
-                                Mobile Innovation Showcase
+                                Our Recent Projects
                             </h3>
 
-                            <div className="relative w-full max-w-md flex flex-col items-center">
-                                
-                                {/* The Phone Frame Display */}
-                                <div className="phone-frame mb-8">
-                                    <div className="phone-screen">
-                                        <AnimatePresence initial={false} custom={direction} exitBeforeEnter>
-                                            <motion.a
-                                                key={currentIndex}
-                                                href={currentProject.link || '#'}
-                                                target={currentProject.link ? '_blank' : '_self'}
-                                                rel="noopener noreferrer"
-                                                custom={direction}
-                                                variants={carouselVariants}
-                                                initial="enter"
-                                                animate="center"
-                                                exit="exit"
-                                                className="absolute inset-0 block"
-                                            >
-                                                <img 
-                                                    src={currentProject.imageSrc} 
-                                                    alt={currentProject.title} 
-                                                    className="w-full h-full object-cover"
-                                                />
-                                            </motion.a>
-                                        </AnimatePresence>
-                                    </div>
-                                </div>
-                                
-                                {/* Project Details Below the Phone Frame */}
-                                <div className="text-center w-full max-w-sm">
-                                    <h3 className="text-2xl font-bold tracking-widest mb-1" style={{ color: currentProject.color }}>
-                                        {currentProject.title}
-                                    </h3>
-                                    <p className="text-sm text-gray-600 leading-tight mb-4">
-                                        {currentProject.description}
-                                    </p>
-                                </div>
-
-                                {/* Carousel Navigation & Pagination */}
-                                <div className="flex justify-center items-center space-x-4">
-                                    <motion.div 
-                                        className="cursor-pointer p-3 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors shadow-md"
-                                        onClick={() => paginate(-1)}
+                            <div className="relative w-full max-w-lg h-96 flex items-center justify-center">
+                                <AnimatePresence initial={false} custom={direction} exitBeforeEnter>
+                                    <motion.div
+                                        key={currentIndex}
+                                        custom={direction}
+                                        variants={carouselVariants}
+                                        initial="enter"
+                                        animate="center"
+                                        exit="exit"
+                                        className="absolute w-full h-full p-0 flex flex-col items-center text-center rounded-xl bg-white shadow-xl"
                                     >
-                                        <FaChevronLeft size={20} color={TEXT_DARK} />
-                                    </motion.div>
-                                    
-                                    {/* Pagination Dots */}
-                                    <div className="flex space-x-2">
-                                        {projectData.map((_, index) => (
-                                            <div 
-                                                key={index}
-                                                className={`w-3 h-3 rounded-full cursor-pointer transition-all duration-300 ${
-                                                    currentIndex === index ? 'bg-black scale-125' : 'bg-gray-400 opacity-40 hover:opacity-80'
-                                                }`}
-                                                onClick={() => setCurrentIndex(index)}
+                                        {/* Project Image takes up most of the space */}
+                                        <a 
+                                            href={currentProject.link || '#'} 
+                                            target={currentProject.link ? '_blank' : '_self'}
+                                            rel="noopener noreferrer"
+                                            className={`relative w-full h-3/4 overflow-hidden rounded-t-xl block group transition-all duration-300 ${currentProject.link ? 'cursor-pointer' : 'cursor-default'}`}
+                                        >
+                                            <img 
+                                                src={currentProject.imageSrc} 
+                                                alt={currentProject.title} 
+                                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                             />
-                                        ))}
-                                    </div>
+                                            {/* Optional Link Icon/Overlay on Hover */}
+                                            {currentProject.link && (
+                                                <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                                    <span className="text-white text-lg font-bold">VIEW SITE →</span>
+                                                </div>
+                                            )}
+                                        </a>
 
-                                    <motion.div 
-                                        className="cursor-pointer p-3 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors shadow-md"
-                                        onClick={() => paginate(1)}
-                                    >
-                                        <FaChevronRight size={20} color={TEXT_DARK} />
+                                        {/* Project Details Below Image */}
+                                        <div className="p-4 flex flex-col justify-center items-center h-1/4 rounded-b-xl w-full">
+                                            <h3 className="text-xl font-bold tracking-widest mb-1" style={{ color: currentProject.color }}>
+                                                {currentProject.title}
+                                            </h3>
+                                            <p className="text-sm text-gray-600 leading-tight">
+                                                {currentProject.description}
+                                            </p>
+                                        </div>
                                     </motion.div>
+                                </AnimatePresence>
+
+                                {/* Carousel Navigation */}
+                                <motion.div 
+                                    className="absolute z-20 top-1/2 -left-8 transform -translate-y-1/2 cursor-pointer p-3 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors shadow-md"
+                                    onClick={() => paginate(-1)}
+                                >
+                                    <FaChevronLeft size={20} color={TEXT_DARK} />
+                                </motion.div>
+                                <motion.div 
+                                    className="absolute z-20 top-1/2 -right-8 transform -translate-y-1/2 cursor-pointer p-3 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors shadow-md"
+                                    onClick={() => paginate(1)}
+                                >
+                                    <FaChevronRight size={20} color={TEXT_DARK} />
+                                </motion.div>
+                                
+                                {/* Pagination Dots */}
+                                <div className="absolute bottom-4 z-30 flex space-x-2">
+                                    {projectData.map((_, index) => (
+                                        <div 
+                                            key={index}
+                                            className={`w-3 h-3 rounded-full cursor-pointer transition-all duration-300 ${
+                                                currentIndex === index ? 'bg-black scale-125' : 'bg-gray-400 opacity-40 hover:opacity-80'
+                                            }`}
+                                            onClick={() => setCurrentIndex(index)}
+                                        />
+                                    ))}
                                 </div>
+
                             </div>
                         </div>
                     </div>
