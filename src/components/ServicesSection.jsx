@@ -13,7 +13,7 @@ const CARD_DARK = '#1f1f1f'; // Dark card color
 const serviceData = [
   {
     tag: "FOUNDERS",
-    title: "ACHIEVE PRODUCT-MARKET FIT. FASTER.",
+    title: "ACHIEVE PRODUCT-MARKET FIT.  FASTER.",
     description: "Stop burning runway on endless iterations. We provide the strategic guidance and execution speed to validate your core ideas, build an MVP, and secure those critical early wins before capital runs out.",
     tagline: "MAXIMIZE RUNWAY. MINIMIZE ITERATION.",
     color: PRIMARY_COLOR,
@@ -27,7 +27,7 @@ const serviceData = [
   },
   {
     tag: "CORPORATES",
-    title: "EMPOWER & COMMERCIALIZE INTERNAL INNOVATION.",
+    title: "EMPOWER INTERNAL INNOVATION.",
     description: "Your workforce has the ideas, but your structure kills them. We architect scalable programs that bridge the gap between internal concepts and market-ready, revenue-generating products.",
     tagline: "FROM IDEA TO IPO (Internal Product Offering).",
     color: PRIMARY_COLOR,

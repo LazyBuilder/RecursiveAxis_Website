@@ -1,24 +1,29 @@
-// src/components/RecentProjectsCarousel.jsx (FINAL - HORIZONTAL CAROUSEL)
+// src/components/RecentProjectsCarousel.jsx (FINAL CODE)
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import FullPageSection from './FullPageSection';
+import FullPageSection from './FullPageSection'; // Assumed to be imported correctly
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-// Define colors
+// --- IMPORTANT: Update these paths and file names to match your local photos folder ---
+import MSHImage from '../photos/mshcg-dugapuja.png ';    
+import VerveImage from '../photos/verve-photography.png';  
+// -----------------------------------------------------------------------------------
+
+// Define colors (ensure these are globally consistent)
 const PRIMARY_COLOR = '#00EAFF'; // Cyan
 const SECONDARY_COLOR = '#FF00EA'; // Magenta
 const BACKGROUND_LIGHT = '#ffffff'; // Clean white background
 const TEXT_DARK = '#1a1a1a'; // Dark text color
 
-// --- PROJECT DATA (Text and Image) ---
+// --- PROJECT DATA ---
 const projectData = [
   {
     id: 1,
     title: "MSH Cultural Group",
     uniqueAspect: "Seamless **Multi-Language** Support and **High-Volume Ticketing** integrated into a sleek, cultural platform. Built for global scalability.",
     description: "An elegant digital platform for cultural event management and content showcase, emphasizing accessibility and robust backend logistics.",
-    imageSrc: 'https://i.ibb.co/L6V7R0k/mshculturalgroup.png', 
+    imageSrc: MSHImage, // Local Import Variable
     link: 'https://www.mshculturalgroup.com/',
     color: PRIMARY_COLOR,
   },
@@ -27,18 +32,9 @@ const projectData = [
     title: "Verve Photography",
     uniqueAspect: "An **immersive, high-resolution** image delivery system built on a custom CDN, ensuring zero-latency portfolio viewing worldwide.",
     description: "High-impact portfolio site showcasing professional photography and immersive visuals, optimized for retina displays and speed.",
-    imageSrc: 'https://i.ibb.co/S68Jg2S/vervephotography.png', 
+    imageSrc: VerveImage, // Local Import Variable
     link: 'https://verve.photography/',
     color: SECONDARY_COLOR,
-  },
-  {
-    id: 3,
-    title: "Project Alpha SaaS",
-    uniqueAspect: "Features a **real-time data visualization dashboard** using WebSockets, providing instant, actionable insights to enterprise users.",
-    description: "A bespoke SaaS solution for real-time data analysis and visualization dashboard, designed for minimal cognitive load.",
-    imageSrc: 'https://via.placeholder.com/400x700/DDEEFF/333333?text=Project+Alpha+Mobile', 
-    link: null, 
-    color: PRIMARY_COLOR,
   },
 ];
 
@@ -46,7 +42,7 @@ const projectData = [
 const carouselVariants = {
   enter: (direction) => ({
     opacity: 0,
-    x: direction > 0 ? 800 : -800, // Enters from right or left far off-screen
+    x: direction > 0 ? 800 : -800, 
   }),
   center: {
     opacity: 1,
@@ -55,7 +51,7 @@ const carouselVariants = {
   },
   exit: (direction) => ({
     opacity: 0,
-    x: direction < 0 ? 800 : -800, // Exits to the left or right far off-screen
+    x: direction < 0 ? 800 : -800, 
     transition: { duration: 0.6, ease: [0.17, 0.55, 0.55, 1] }
   })
 };
@@ -80,7 +76,7 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
 
     return (
         <>
-            {/* CENTRALIZED CSS STYLES */}
+            {/* CENTRALIZED CSS STYLES for Phone Frame and Gradients */}
             <style>
             {`
                 /* Global Title Style */
@@ -136,14 +132,14 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
             </style>
 
             <FullPageSection 
-                id="recent-projects" 
+                id="projects" // ID must match the 'sections' array in Home.jsx
                 ref={ref} 
                 style={{ backgroundColor: BACKGROUND_LIGHT }}
                 bgClass="text-dark" 
             >
                 <div className="w-full relative z-10 flex flex-col pt-16 pb-16 px-4 h-full overflow-hidden">
                     
-                    {/* === MAIN TITLE (RECENTERED) === */}
+                    {/* === MAIN TITLE === */}
                     <motion.h2
                         className={`text-4xl md:text-6xl font-extrabold text-center mb-16 global-animated-title`}
                         initial={{ opacity: 0, y: 30 }}
@@ -183,6 +179,19 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                                     <p className="text-base text-gray-500 italic">
                                         {currentProject.description}
                                     </p>
+                                    
+                                    {/* Link button (Optional) */}
+                                    {currentProject.link && (
+                                        <a 
+                                            href={currentProject.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="mt-6 self-center md:self-start px-6 py-3 text-base rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
+                                            style={{ backgroundColor: currentProject.color, color: TEXT_DARK }}
+                                        >
+                                            View Live Project &rarr;
+                                        </a>
+                                    )}
                                 </div>
 
                                 {/* === RIGHT SIDE: PROJECT VISUAL (PHONE FRAME) === */}
@@ -207,7 +216,7 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                             </motion.div>
                         </AnimatePresence>
 
-                        {/* === CAROUSEL NAVIGATION (Above/Below the slide container) === */}
+                        {/* === CAROUSEL NAVIGATION (Arrows) === */}
                         <motion.div 
                             className="absolute z-20 left-4 md:left-0 cursor-pointer p-3 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors shadow-md"
                             onClick={() => paginate(-1)}
