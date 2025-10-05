@@ -1,4 +1,4 @@
-// src/components/RecentProjectsCarousel.jsx (Final, Fixed Rendering & Square Image Version)
+// src/components/RecentProjectsCarousel.jsx (Final, Fixed Layout & Sizing)
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -7,42 +7,39 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 // ==========================================================
 // 🚨 CRITICAL: LOCAL IMAGE IMPORTS - CHECK NAMES IN src/photos/
-// These imports are confirmed to work if the file names are exact matches:
 import MSHImage from '../photos/mshcg-dugapuja.png';    
 import VerveImage from '../photos/verve-photography.png';  
 // ==========================================================
 
-// Define global constants
+// Define global constants (assuming these are defined in UIMain.jsx or globally)
 const PRIMARY_COLOR = '#00EAFF'; 
 const SECONDARY_COLOR = '#FF00EA'; 
 const BACKGROUND_LIGHT = '#f7f7f7'; 
 const TEXT_DARK = '#1a1a1a'; 
 
-// --- PROJECT DATA ---
+// --- PROJECT DATA (Updated Content) ---
 const projectData = [
-    {
-      id: 1,
-      title: "MSH Cultural Group",
-      subheading: "Budget-Optimized Platform for Non-Tech Users",
-      // Highlight the cost and simplicity aspect
-      uniqueAspect: "Successfully delivered a full-featured, multi-language ticketing platform using **Google Sites** for a **<$25/year operational cost**, ensuring non-technical users could easily manage content.",
-      description: "An elegant digital platform emphasizing **ultra-low-cost deployment** and simplified content management, specifically built for high accessibility and non-developer upkeep.",
-      imageSrc: MSHImage, 
-      link: 'https://www.mshculturalgroup.com/',
-      color: PRIMARY_COLOR,
-    },
-    {
-      id: 2,
-      title: "Verve Photography",
-      subheading: "High-Performance, Rapid-Development Portfolio",
-      // Highlight the technology stack and speed
-      uniqueAspect: "A **high-resolution, zero-latency** image delivery system developed from scratch in just **2 days** using **React, Tailwind CSS, and LLM assistance**. Deployed on Git Pages/Cloudflare for **domain-only running cost**.",
-      description: "High-impact portfolio site showcasing professional photography, optimized for retina displays and speed, demonstrating expertise in modern, rapid full-stack development.",
-      imageSrc: VerveImage, 
-      link: 'https://verve.photography/',
-      color: SECONDARY_COLOR,
-    },
-  ];
+  {
+    id: 1,
+    title: "MSH Cultural Group",
+    subheading: "Budget-Optimized Platform for Non-Tech Users",
+    uniqueAspect: "Successfully delivered a full-featured, multi-language ticketing platform using **Google Sites** for a **<$25/year operational cost**, ensuring non-technical users could easily manage content.",
+    description: "An elegant digital platform emphasizing **ultra-low-cost deployment** and simplified content management, specifically built for high accessibility and non-developer upkeep.",
+    imageSrc: MSHImage, 
+    link: 'https://www.mshculturalgroup.com/',
+    color: PRIMARY_COLOR,
+  },
+  {
+    id: 2,
+    title: "Verve Photography",
+    subheading: "High-Performance, Rapid-Development Portfolio",
+    uniqueAspect: "A **high-resolution, zero-latency** image delivery system developed from scratch in just **2 days** using **React, Tailwind CSS, and LLM assistance**. Deployed on Git Pages/Cloudflare for **domain-only running cost**.",
+    description: "High-impact portfolio site showcasing professional photography, optimized for retina displays and speed, demonstrating expertise in modern, rapid full-stack development.",
+    imageSrc: VerveImage, 
+    link: 'https://verve.photography/',
+    color: SECONDARY_COLOR,
+  },
+];
 
 // Framer Motion carousel configuration
 const carouselVariants = {
@@ -70,7 +67,6 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
     const paginate = (newDirection) => {
         setDirection(newDirection);
         let newIndex = currentIndex + newDirection;
-        // Circular logic
         if (newIndex < 0) {
             newIndex = totalProjects - 1; 
         } else if (newIndex >= totalProjects) {
@@ -80,7 +76,6 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
     };
 
     const currentProject = projectData[currentIndex];
-
     const isImageValid = currentProject.imageSrc && typeof currentProject.imageSrc === 'string';
 
     return (
@@ -102,15 +97,16 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                     100% { background-position: 0% 50%; }
                 }
 
-                /* --- ADJUSTED PHONE FRAME STYLING FOR SQUARE IMAGE --- */
+                /* --- ADJUSTED PHONE FRAME STYLING FOR LARGER SQUARE IMAGE --- */
                 .responsive-phone-frame {
                     position: relative;
-                    width: 30vmin; /* Slightly larger for square */
-                    max-width: 350px; /* Max width for square */
-                    aspect-ratio: 1 / 1; /* 🚨 CRITICAL CHANGE: SQUARE ASPECT RATIO */
+                    /* 🚨 FIX 2: Increased size from 30vmin to 40vmin for larger image */
+                    width: 40vmin; 
+                    max-width: 450px; 
+                    aspect-ratio: 1 / 1; 
                     margin: 0 auto;
-                    border: 10px solid ${TEXT_DARK}; /* Slightly thinner border */
-                    border-radius: 25px; /* Softer rounded corners for square */
+                    border: 10px solid ${TEXT_DARK}; 
+                    border-radius: 25px; 
                     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
                     background-color: ${TEXT_DARK}; 
                     overflow: hidden;
@@ -119,7 +115,7 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                 .responsive-phone-screen {
                     width: calc(100% + 2px); 
                     height: 100%;
-                    border-radius: 18px; /* Inner screen border radius */
+                    border-radius: 18px; 
                     overflow: hidden;
                     transform: translate(-1px, -1px);
                     background-color: white; 
@@ -127,12 +123,12 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                 .responsive-phone-frame::before {
                     content: '';
                     position: absolute;
-                    top: 12px; /* Adjusted position for square frame */
+                    top: 12px; 
                     left: 50%;
                     transform: translateX(-50%);
-                    width: 60px; /* Notch width */
-                    height: 6px; /* Notch height */
-                    background-color: #333; /* Notch color */
+                    width: 60px; 
+                    height: 6px; 
+                    background-color: #333; 
                     border-radius: 6px;
                     z-index: 10;
                 }
@@ -155,18 +151,22 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                 style={{ backgroundColor: BACKGROUND_LIGHT, color: TEXT_DARK }}
                 bgClass="text-dark" 
             >
-                <div className="w-full relative z-10 flex flex-col pt-16 pb-16 px-4 h-full overflow-hidden">
+                <div className="w-full relative z-10 flex flex-col px-4 h-full overflow-hidden">
                     
-                    {/* === MAIN TITLE === */}
-                    <motion.h2
-                        className={`text-4xl md:text-6xl font-extrabold text-center mb-16 global-animated-title`}
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        viewport={{ once: true }}
-                    >
-                        Recent Projects
-                    </motion.h2>
+                    {/* 🚨 FIX 1: Add pt-24 (padding top) to clear the fixed header. 
+                       This shifts the content down by a standard header height. */}
+                    <div className="pt-24 w-full flex flex-col items-center">
+                        {/* === MAIN TITLE === */}
+                        <motion.h2
+                            className={`text-4xl md:text-6xl font-extrabold text-center mb-16 global-animated-title`}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
+                            viewport={{ once: true }}
+                        >
+                            Recent Projects
+                        </motion.h2>
+                    </div>
 
                     {/* === CAROUSEL SLIDE CONTAINER === */}
                     <div className="relative w-full h-full flex items-center justify-center py-8">
@@ -182,7 +182,6 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                             >
                                 
                                 {/* === RIGHT SIDE: PROJECT VISUAL (PHONE FRAME) === */}
-                                {/* Place visual first on small screens */}
                                 <div className="relative flex flex-col justify-center items-center h-full order-1 md:order-2">
                                     <motion.div 
                                         className="responsive-phone-frame"
@@ -235,8 +234,9 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                                             href={currentProject.link}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="mt-8 self-center md:self-start px-8 py-3 text-base rounded-full font-semibold transition-all duration-300 shadow-xl hover:scale-[1.02] hover:shadow-2xl"
-                                            style={{ backgroundColor: currentProject.color, color: TEXT_DARK }}
+                                            className="mt-8 self-center md:self-start px-8 py-3 text-base rounded-full font-semibold transition-all duration-300 shadow-xl hover:scale-[1.02] hover:shadow-2xl text-black"
+                                            // 🚨 FIX 3: Moved dynamic color setting to style attribute
+                                            style={{ backgroundColor: currentProject.color }}
                                         >
                                             Explore Project &rarr;
                                         </a>
