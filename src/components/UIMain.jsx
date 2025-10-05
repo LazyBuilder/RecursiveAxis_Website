@@ -1,6 +1,8 @@
-// src/components/UIMain.jsx
+// src/components/UIMain.jsx (FIXED: Includes Logo and necessary Service Icons)
 
 import React from 'react';
+// Import icons needed for the placeholder service cards
+import { FaCode, FaBrush, FaDatabase } from 'react-icons/fa';
 
 // Define the global color palette used throughout the application
 const colors = {
@@ -11,8 +13,7 @@ const colors = {
     gray: '#6b7280', // Tailwind Gray 500 equivalent for subtler text
 };
 
-// --- MODIFIED LogoSVG to use the PNG image ---
-// This component now renders an <img> tag pointing to the public/assets folder.
+// --- LOGO COMPONENT (Uses the PNG from public/assets) ---
 const LogoSVG = () => {
     // Reference the image directly from the public/assets folder
     const logoPath = "/assets/StorylineDS_Logo_NoBackground_AccentColor.png"; 
@@ -21,9 +22,40 @@ const LogoSVG = () => {
         <img 
             src={logoPath} 
             alt="Storyline Digital Services Logo" 
-            className="h-8 w-auto" // Tailwind classes for sizing (adjust 'h-8' as needed)
+            className="h-8 w-auto" // Tailwind classes for sizing
         />
     );
 };
 
-export { colors, LogoSVG };
+// --- SERVICE ICON COMPONENTS (Placeholder Fixes for Build Error) ---
+
+// Component for "Code Excellence"
+const CodeSVG = () => (
+    <div className="p-4 rounded-xl shadow-lg flex items-center justify-center" style={{ backgroundColor: colors.primary }}>
+        <FaCode size={30} className="text-white" />
+    </div>
+);
+
+// Component for "Intuitive Design"
+const DesignSVG = () => (
+    <div className="p-4 rounded-xl shadow-lg flex items-center justify-center" style={{ backgroundColor: colors.secondary }}>
+        <FaBrush size={30} className="text-white" />
+    </div>
+);
+
+// Component for "Data-Driven Insights"
+const DataSVG = () => (
+    <div className="p-4 rounded-xl shadow-lg flex items-center justify-center" style={{ backgroundColor: colors.primary }}>
+        <FaDatabase size={30} className="text-white" />
+    </div>
+);
+
+
+// EXPORT all required components and constants
+export { 
+    colors, 
+    LogoSVG,
+    CodeSVG,      // Exported to fix the "Attempted import error"
+    DesignSVG,    // Exported for the middle services card
+    DataSVG       // Exported for the rightmost services card
+};
