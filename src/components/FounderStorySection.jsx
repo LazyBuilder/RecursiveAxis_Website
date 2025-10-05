@@ -10,7 +10,7 @@ const FounderStorySection = React.forwardRef((props, ref) => (
   <FullPageSection id="founder-story" ref={ref} bgClass="bg-[#0a0a0a] text-white">
     <div className="w-full relative z-10 flex flex-col items-center justify-center p-4">
       <motion.h2 
-          className={`text-4xl md:text-6xl font-extrabold text-center mb-20 leading-normal global-animated-title`}
+          className={`text-4xl md:text-6xl font-extrabold text-center mb-16 leading-relaxed global-animated-title`}
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
