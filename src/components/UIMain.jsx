@@ -22,7 +22,7 @@ const LogoSVG = () => {
         <img 
             src={logoPath} 
             alt="Storyline Digital Services Logo" 
-            className="h-8 w-auto" // Tailwind classes for sizing
+            className="h-12 w-auto" // Tailwind classes for sizing
         />
     );
 };
