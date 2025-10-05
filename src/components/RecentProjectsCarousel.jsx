@@ -6,7 +6,7 @@ import FullPageSection from './FullPageSection'; // Assumed to be imported corre
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 // --- IMPORTANT: Update these paths and file names to match your local photos folder ---
-import MSHImage from '../photos/mshcg-dugapuja.png ';    
+import MSHImage from '../photos/mshcg-dugapuja.png';    
 import VerveImage from '../photos/verve-photography.png';  
 // -----------------------------------------------------------------------------------
 
