@@ -12,24 +12,24 @@ const CARD_DARK = '#1f1f1f'; // Dark card color
 // --- Service Data (Based on your provided screenshot) ---
 const serviceData = [
   {
-    tag: "FOUNDER",
-    title: "FOUNDERS & STARTUPS",
-    description: "Accelerate your vision from an idea to a market-ready product, providing the technical leadership and support you need to succeed.",
-    tagline: "BRINGING YOUR VISION TO LIFE",
+    tag: "FOUNDERS",
+    title: "ACHIEVE PRODUCT-MARKET FIT. FASTER.",
+    description: "Stop burning runway on endless iterations. We provide the strategic guidance and execution speed to validate your core ideas, build an MVP, and secure those critical early wins before capital runs out.",
+    tagline: "MAXIMIZE RUNWAY. MINIMIZE ITERATION.",
     color: PRIMARY_COLOR,
   },
   {
-    tag: "INVESTOR",
-    title: "INVESTORS & VCs",
-    description: "De-risk your investments and ensure portfolio companies are built on a solid technical foundation with our expert due diligence and strategic guidance.",
-    tagline: "MAPPING YOUR MISSION TO ACTIONS",
+    tag: "INVESTORS",
+    title: "DE-RISK YOUR PORTFOLIO'S TECHNOLOGY.",
+    description: "Diligence is deeper than spreadsheets. We provide expert technical due diligence and post-investment support to ensure your capital is funding scalable, maintainable, and defensible tech assets.",
+    tagline: "TECHNICAL DILIGENCE. CONFIDENT INVESTMENT.",
     color: SECONDARY_COLOR,
   },
   {
-    tag: "ENTERPRISE",
-    title: "ENTERPRISE & CORPORATE",
-    description: "Scale innovation and drive digital transformation with bespoke strategies, robust governance models, and hands-on innovation programs.",
-    tagline: "SCALING INNOVATION",
+    tag: "CORPORATES",
+    title: "EMPOWER & COMMERCIALIZE INTERNAL INNOVATION.",
+    description: "Your workforce has the ideas, but your structure kills them. We architect scalable programs that bridge the gap between internal concepts and market-ready, revenue-generating products.",
+    tagline: "FROM IDEA TO IPO (Internal Product Offering).",
     color: PRIMARY_COLOR,
   },
 ];
