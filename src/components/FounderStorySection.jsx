@@ -9,7 +9,15 @@ const FounderStorySection = React.forwardRef((props, ref) => (
   // Dark Background and white text
   <FullPageSection id="founder-story" ref={ref} bgClass="bg-[#0a0a0a] text-white">
     <div className="w-full relative z-10 flex flex-col items-center justify-center p-4">
-      <h2 className={`text-3xl md:text-5xl font-extrabold text-center mb-16 animated-gradient`}>Founder Story</h2>
+      <motion.h2 
+          className={`text-4xl md:text-6xl font-extrabold text-center mb-20 leading-normal global-animated-title`}
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
+      >
+          Founder Story
+      </motion.h2>
       <div className="flex flex-col md:flex-row items-center justify-center gap-12 w-full max-w-5xl">
         <div className="md:w-1/2 flex flex-col items-center text-center max-w-lg leading-relaxed text-base md:text-lg lg:text-xl text-[${colors.mutedText}]">
           <p className="mb-8">
