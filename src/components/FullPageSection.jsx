@@ -15,7 +15,7 @@ const FullPageSection = forwardRef(({ id, children, bgClass = '', alwaysVisible 
       id={id}
       ref={ref}
       // This is the full-screen parent container (relative and h-screen)
-      className={`relative w-full h-screen px-4 md:px-8 py-16 md:py-24 snap-start snap-always flex flex-col items-center justify-center overflow-hidden ${bgClass}`}
+      className={`relative w-full h-screen snap-start snap-always flex flex-col items-center justify-center overflow-hidden ${bgClass}`}
     >
       
       {/* 🚨 FIX: inViewRef placed on the content wrapper */}

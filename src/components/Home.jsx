@@ -212,7 +212,14 @@ const App = () => {
               <LogoSVG />
               <span className={`text-white`}>Storyline Digital Services</span>
             </div>
-            <a href="https://cal.com/asitdeva" target="_blank" rel="noopener noreferrer" className={`px-4 py-2 bg-[${colors.primary}] text-[#0a0a0a] rounded-full font-semibold text-sm transition-all duration-300 hover:scale-105`}>
+            <a 
+              href="https://cal.com/asitdeva" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className={`px-4 py-2 text-[#0a0a0a] rounded-full font-semibold text-sm transition-all duration-300 hover:scale-105`}
+              // Set the background color explicitly using the variable
+              style={{ backgroundColor: colors.primary, color: colors.dark }} 
+            >
               Book a Call
             </a>
           </div>
