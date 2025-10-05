@@ -92,7 +92,7 @@ const PhilosophySection = React.forwardRef((props, ref) => (
           transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
         >
-          OUR CORE PHILOSOPHY
+          Our Core Philosophy
         </motion.h2>
 
         {/* === PHILOSOPHY GRID CONTAINER === */}

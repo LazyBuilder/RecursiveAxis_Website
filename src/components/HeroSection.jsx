@@ -28,7 +28,7 @@ const HeroSection = React.forwardRef((props, ref) => (
         transition={{ duration: 0.8, delay: 0.4 }}
         className={`mt-6 md:mt-8 max-w-2xl mx-auto text-base md:text-lg lg:text-xl text-[${colors.mutedText}]`}
       >
-        We help founders, investors, and enterprises write their innovation story through powerful code, elegant design, and insightful data.
+        We help founders, investors, and enterprises innovate through powerful code, elegant design, and insightful data.
       </motion.p>
     </motion.div>
   </FullPageSection>
