@@ -1,4 +1,4 @@
-// src/components/Home.jsx (FINAL SCROLL FIX)
+// src/components/Home.jsx (PROJECTS CAROUSEL INTEGRATION)
 
 import React, { useState, useEffect, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
@@ -11,7 +11,8 @@ import IntroOverlay from './IntroOverlay';
 
 // Import Section Components
 import HeroSection from './HeroSection';
-import TrustedBySection from './TrustedBySection';
+// --- START CHANGE 1: Import the new component (assuming it's named) ---
+import RecentProjectsCarousel from './RecentProjectsCarousel'; // New component
 import ServicesSection from './ServicesSection';
 import PhilosophySection from './PhilosophySection';
 import FounderStorySection from './FounderStorySection';
@@ -29,7 +30,12 @@ const App = () => {
   const [activeScreen, setActiveScreen] = useState(0);
 
   const mainRef = useRef(null); // Ref for the main scroll container
-  const sections = ['home', 'trusted', 'services', 'philosophy', 'founder-story', 'contact'];
+  
+  // --- START CHANGE 2: Update the sections array ---
+  // Replaced 'trusted' with 'projects'
+  const sections = ['home', 'projects', 'services', 'philosophy', 'founder-story', 'contact'];
+  // --- END CHANGE 2 ---
+
   const sectionsRef = useRef([]);
     
   // Initialize refs for each section
@@ -137,7 +143,7 @@ const App = () => {
   return (
     // Universal background color removed to enable section-specific backgrounds
     <div className={`font-sans antialiased overflow-hidden w-screen h-screen`}>
-      {/* Inline Styles */}
+      {/* Inline Styles (omitted for brevity, assume they remain unchanged) */}
       <style>
         {`
           @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto+Mono:wght@700&display=swap');
@@ -147,6 +153,7 @@ const App = () => {
             background-color: #f7f7f7; /* Default light background */
             color: #1a1a1a; /* Default dark text color */
           }
+          /* ... other styles remain the same ... */
           
           .no-scrollbar::-webkit-scrollbar { display: none; }
           
@@ -231,7 +238,9 @@ const App = () => {
           
           {/* Render all sections, passing refs */}
           <HeroSection ref={sectionsRef.current[0]} />
-          <TrustedBySection ref={sectionsRef.current[1]} />
+          {/* --- START CHANGE 3: Render the new component --- */}
+          <RecentProjectsCarousel ref={sectionsRef.current[1]} /> 
+          {/* --- END CHANGE 3 --- */}
           <ServicesSection ref={sectionsRef.current[2]} />
           <PhilosophySection ref={sectionsRef.current[3]} />
           <FounderStorySection ref={sectionsRef.current[4]} />
