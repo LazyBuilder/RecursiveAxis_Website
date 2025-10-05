@@ -1,13 +1,13 @@
-// src/components/RecentProjectsCarousel.jsx (High-Quality, Robust RENDER)
+// src/components/RecentProjectsCarousel.jsx (Final, Fixed Rendering Version)
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import FullPageSection from './FullPageSection'; // Assumed to exist
+import FullPageSection from './FullPageSection'; 
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 // ==========================================================
-// 🚨 CRITICAL: LOCAL IMAGE IMPORTS - MUST BE 100% CORRECT
-// Please confirm the filenames and casing are EXACTLY as below in src/photos/
+// 🚨 CRITICAL: LOCAL IMAGE IMPORTS - CHECK NAMES IN src/photos/
+// These imports are confirmed to work if the file names are exact matches:
 import MSHImage from '../photos/mshcg-dugapuja.png';    
 import VerveImage from '../photos/verve-photography.png';  
 // ==========================================================
@@ -15,7 +15,7 @@ import VerveImage from '../photos/verve-photography.png';
 // Define global constants
 const PRIMARY_COLOR = '#00EAFF'; 
 const SECONDARY_COLOR = '#FF00EA'; 
-const BACKGROUND_LIGHT = '#f7f7f7'; // Slightly off-white for contrast
+const BACKGROUND_LIGHT = '#f7f7f7'; 
 const TEXT_DARK = '#1a1a1a'; 
 
 // --- PROJECT DATA ---
@@ -25,7 +25,8 @@ const projectData = [
     title: "MSH Cultural Group",
     subheading: "High-Volume Ticketing & Multi-Language Support",
     uniqueAspect: "Seamless **Multi-Language** Support and **High-Volume Ticketing** integrated into a sleek, cultural platform. Built for global scalability.",
-    imageSrc: MSHImage, // The imported module
+    description: "An elegant digital platform for cultural event management and content showcase, emphasizing accessibility and robust backend logistics.",
+    imageSrc: MSHImage, 
     link: 'https://www.mshculturalgroup.com/',
     color: PRIMARY_COLOR,
   },
@@ -34,7 +35,8 @@ const projectData = [
     title: "Verve Photography",
     subheading: "Custom CDN & Immersive Portfolio Delivery",
     uniqueAspect: "An **immersive, high-resolution** image delivery system built on a custom CDN, ensuring zero-latency portfolio viewing worldwide.",
-    imageSrc: VerveImage, // The imported module
+    description: "High-impact portfolio site showcasing professional photography and immersive visuals, optimized for retina displays and speed.",
+    imageSrc: VerveImage, 
     link: 'https://verve.photography/',
     color: SECONDARY_COLOR,
   },
@@ -44,7 +46,7 @@ const projectData = [
 const carouselVariants = {
   enter: (direction) => ({
     opacity: 0,
-    x: direction > 0 ? 500 : -500, // Faster, smoother movement
+    x: direction > 0 ? 500 : -500,
   }),
   center: {
     opacity: 1,
@@ -77,7 +79,7 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
 
     const currentProject = projectData[currentIndex];
 
-    // Check if image import failed. This helps debug a blank image.
+    // Check if image import failed (should be redundant now, but kept for safety)
     const isImageValid = currentProject.imageSrc && typeof currentProject.imageSrc === 'string';
 
     return (
@@ -165,7 +167,8 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                         Recent Projects
                     </motion.h2>
 
-                    {/* === CAROUSEL SLIDE CONTAINER === */}
+                    {/* === CAROUSEL SLIDE CONTAINER (CRITICAL FIX AREA) === */}
+                    {/* Outer wrapper is relative, w-full, h-full, centered flex */}
                     <div className="relative w-full h-full flex items-center justify-center py-8">
                         <AnimatePresence initial={false} custom={direction} exitBeforeEnter>
                             <motion.div
@@ -175,8 +178,8 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                                 initial="enter"
                                 animate="center"
                                 exit="exit"
-                                // Use absolute positioning for carousel item over grid for transition
-                                className="absolute inset-0 grid grid-cols-1 md:grid-cols-2 gap-12 w-full max-w-7xl mx-auto h-full items-center"
+                                // 🚨 FIX: Using w-full h-full and grid layout for the slide content
+                                className="w-full h-full grid grid-cols-1 md:grid-cols-2 gap-12 max-w-7xl mx-auto items-center" 
                             >
                                 
                                 {/* === RIGHT SIDE: PROJECT VISUAL (PHONE FRAME) === */}
