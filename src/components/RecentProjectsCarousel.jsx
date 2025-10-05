@@ -1,82 +1,60 @@
-// src/components/RecentProjectsCarousel.jsx
+// src/components/RecentProjectsCarousel.jsx (High-Quality, Robust RENDER)
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import FullPageSection from './FullPageSection';
+import FullPageSection from './FullPageSection'; // Assumed to exist
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-// Define colors (ensure these are globally consistent)
-const PRIMARY_COLOR = '#00EAFF'; // Cyan
-const SECONDARY_COLOR = '#FF00EA'; // Magenta
-const BACKGROUND_LIGHT = '#ffffff'; // Clean white background
-const TEXT_DARK = '#1a1a1a'; // Dark text color
-
 // ==========================================================
-// 🚨 CRITICAL: LOCAL IMAGE IMPORTS 
-// Make sure these paths and names are 100% correct and case-sensitive.
-// This structure (require.context) often resolves path issues when direct imports fail.
+// 🚨 CRITICAL: LOCAL IMAGE IMPORTS - MUST BE 100% CORRECT
+// Please confirm the filenames and casing are EXACTLY as below in src/photos/
+import MSHImage from '../photos/mshcg-dugapuja.png';    
+import VerveImage from '../photos/verve-photography.png';  
 // ==========================================================
 
-const getProjectImages = () => {
-    try {
-        // Use require.context for a more robust (though less modern) way to handle imports,
-        // which sometimes resolves CI/bundling issues.
-        const context = require.context('../photos', false, /\.(png|jpe?g|svg)$/);
-        
-        // Define a mapping based on the file names we KNOW exist from the screenshot
-        return {
-            MSHImage: context('./mshcg-dugapuja.png'),
-            VerveImage: context('./verve-photography.png'),
-            // If you add a third project, uncomment the next line:
-            // AlphaImage: context('./alpha-project-name.png'),
-        };
-    } catch (error) {
-        // If the import system fails (e.g., in a non-module environment), 
-        // fall back to a placeholder object to allow the component to render (blank images).
-        console.error("Error loading images:", error);
-        return { MSHImage: '', VerveImage: '' };
-    }
-};
+// Define global constants
+const PRIMARY_COLOR = '#00EAFF'; 
+const SECONDARY_COLOR = '#FF00EA'; 
+const BACKGROUND_LIGHT = '#f7f7f7'; // Slightly off-white for contrast
+const TEXT_DARK = '#1a1a1a'; 
 
-const images = getProjectImages();
-
-// --- PROJECT DATA (2 Projects) ---
+// --- PROJECT DATA ---
 const projectData = [
   {
     id: 1,
     title: "MSH Cultural Group",
+    subheading: "High-Volume Ticketing & Multi-Language Support",
     uniqueAspect: "Seamless **Multi-Language** Support and **High-Volume Ticketing** integrated into a sleek, cultural platform. Built for global scalability.",
-    description: "An elegant digital platform for cultural event management and content showcase, emphasizing accessibility and robust backend logistics.",
-    imageSrc: images.MSHImage, // Using the variable from the robust import
+    imageSrc: MSHImage, // The imported module
     link: 'https://www.mshculturalgroup.com/',
     color: PRIMARY_COLOR,
   },
   {
     id: 2,
     title: "Verve Photography",
+    subheading: "Custom CDN & Immersive Portfolio Delivery",
     uniqueAspect: "An **immersive, high-resolution** image delivery system built on a custom CDN, ensuring zero-latency portfolio viewing worldwide.",
-    description: "High-impact portfolio site showcasing professional photography and immersive visuals, optimized for retina displays and speed.",
-    imageSrc: images.VerveImage, // Using the variable from the robust import
+    imageSrc: VerveImage, // The imported module
     link: 'https://verve.photography/',
     color: SECONDARY_COLOR,
   },
 ];
 
-// Framer Motion carousel variants (Horizontal movement)
+// Framer Motion carousel configuration
 const carouselVariants = {
   enter: (direction) => ({
     opacity: 0,
-    x: direction > 0 ? 800 : -800, 
+    x: direction > 0 ? 500 : -500, // Faster, smoother movement
   }),
   center: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.6, ease: [0.17, 0.55, 0.55, 1] }
+    transition: { duration: 0.5, ease: [0.42, 0, 0.58, 1] } 
   },
   exit: (direction) => ({
     opacity: 0,
-    x: direction < 0 ? 800 : -800, 
-    transition: { duration: 0.6, ease: [0.17, 0.55, 0.55, 1] }
+    x: direction < 0 ? 500 : -500, 
+    transition: { duration: 0.5, ease: [0.42, 0, 0.58, 1] }
   })
 };
 
@@ -88,6 +66,7 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
     const paginate = (newDirection) => {
         setDirection(newDirection);
         let newIndex = currentIndex + newDirection;
+        // Circular logic
         if (newIndex < 0) {
             newIndex = totalProjects - 1; 
         } else if (newIndex >= totalProjects) {
@@ -98,12 +77,15 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
 
     const currentProject = projectData[currentIndex];
 
+    // Check if image import failed. This helps debug a blank image.
+    const isImageValid = currentProject.imageSrc && typeof currentProject.imageSrc === 'string';
+
     return (
         <>
-            {/* CSS STYLES for Phone Frame and Gradients */}
+            {/* CSS STYLES - Encapsulated for cleanliness */}
             <style>
             {`
-                /* Global Title Style */
+                /* Title Gradient */
                 .global-animated-title {
                     background: linear-gradient(45deg, ${PRIMARY_COLOR}, ${SECONDARY_COLOR}, ${PRIMARY_COLOR});
                     background-size: 400% 400%;
@@ -117,48 +99,57 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                     100% { background-position: 0% 50%; }
                 }
 
-                /* --- REDESIGNED PHONE FRAME STYLING --- */
+                /* --- CLEANED UP PHONE FRAME STYLING --- */
                 .responsive-phone-frame {
                     position: relative;
                     width: 25vmin; 
                     max-width: 320px; 
-                    padding-top: calc(25vmin * 2); 
+                    aspect-ratio: 9/18; /* Standard mobile ratio */
                     margin: 0 auto;
-                    border: 10px solid ${TEXT_DARK}; 
-                    border-radius: 40px;
-                    box-shadow: 0 0 0 1px #eee, 0 10px 30px rgba(0, 0, 0, 0.3);
-                    overflow: hidden;
+                    border: 12px solid ${TEXT_DARK}; 
+                    border-radius: 48px;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
                     background-color: ${TEXT_DARK}; 
+                    overflow: hidden;
+                    transition: all 0.5s ease-in-out;
                 }
                 .responsive-phone-screen {
-                    position: absolute;
-                    top: 10px; 
-                    left: 10px;
-                    right: 10px;
-                    bottom: 10px;
-                    border-radius: 30px; 
+                    width: calc(100% + 2px); 
+                    height: 100%;
+                    border-radius: 36px; 
                     overflow: hidden;
+                    transform: translate(-1px, -1px);
                     background-color: white; 
                 }
                 .responsive-phone-frame::before {
                     content: '';
                     position: absolute;
-                    top: 20px;
+                    top: 15px;
                     left: 50%;
                     transform: translateX(-50%);
-                    width: 60px;
-                    height: 10px;
-                    background-color: ${TEXT_DARK};
-                    border-radius: 10px;
+                    width: 70px;
+                    height: 8px;
+                    background-color: #333; /* Notch color */
+                    border-radius: 8px;
                     z-index: 10;
+                }
+                .image-error-box {
+                    background-color: #fcebeb;
+                    color: #cc0000;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 10px;
+                    padding: 10px;
+                    text-align: center;
                 }
             `}
             </style>
 
             <FullPageSection 
-                id="projects" // ID for navigation
+                id="projects" 
                 ref={ref} 
-                style={{ backgroundColor: BACKGROUND_LIGHT }}
+                style={{ backgroundColor: BACKGROUND_LIGHT, color: TEXT_DARK }}
                 bgClass="text-dark" 
             >
                 <div className="w-full relative z-10 flex flex-col pt-16 pb-16 px-4 h-full overflow-hidden">
@@ -175,7 +166,7 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                     </motion.h2>
 
                     {/* === CAROUSEL SLIDE CONTAINER === */}
-                    <div className="relative w-full h-full flex items-center justify-center">
+                    <div className="relative w-full h-full flex items-center justify-center py-8">
                         <AnimatePresence initial={false} custom={direction} exitBeforeEnter>
                             <motion.div
                                 key={currentIndex}
@@ -184,19 +175,51 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                                 initial="enter"
                                 animate="center"
                                 exit="exit"
-                                className="absolute inset-0 grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-7xl mx-auto h-full items-center"
+                                // Use absolute positioning for carousel item over grid for transition
+                                className="absolute inset-0 grid grid-cols-1 md:grid-cols-2 gap-12 w-full max-w-7xl mx-auto h-full items-center"
                             >
                                 
+                                {/* === RIGHT SIDE: PROJECT VISUAL (PHONE FRAME) === */}
+                                {/* Place visual first on small screens */}
+                                <div className="relative flex flex-col justify-center items-center h-full order-1 md:order-2">
+                                    <motion.div 
+                                        className="responsive-phone-frame"
+                                        whileHover={{ scale: 1.05, rotate: 1 }}
+                                        transition={{ type: "spring", stiffness: 300, damping: 10 }}
+                                    >
+                                        <div className="responsive-phone-screen">
+                                            {isImageValid ? (
+                                                <a 
+                                                    href={currentProject.link || '#'}
+                                                    target={currentProject.link ? '_blank' : '_self'}
+                                                    rel="noopener noreferrer"
+                                                    className="absolute inset-0 block"
+                                                >
+                                                    <img 
+                                                        src={currentProject.imageSrc} 
+                                                        alt={currentProject.title} 
+                                                        className="w-full h-full object-cover" 
+                                                    />
+                                                </a>
+                                            ) : (
+                                                <div className="image-error-box w-full h-full">
+                                                    <p>IMAGE PATH ERROR: Check imports in **RecentProjectsCarousel.jsx**</p>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </motion.div>
+                                </div>
+
                                 {/* === LEFT SIDE: PROJECT TEXT / DESCRIPTION === */}
-                                <div className="flex flex-col justify-center p-4 md:p-8 text-center md:text-left">
+                                <div className="flex flex-col justify-center p-4 md:p-8 text-center md:text-left order-2 md:order-1">
                                     <p className="text-sm font-semibold tracking-widest uppercase mb-2" style={{ color: currentProject.color }}>
                                         {currentProject.title}
                                     </p>
-                                    <h3 className="text-4xl md:text-5xl font-extrabold mb-6" style={{ color: TEXT_DARK }}>
-                                        The Unique Aspect
+                                    <h3 className="text-4xl md:text-5xl font-extrabold mb-3 text-gray-800">
+                                        {currentProject.subheading}
                                     </h3>
 
-                                    <div className="mb-8 text-lg text-gray-700 leading-relaxed">
+                                    <div className="mb-6 text-xl text-gray-700 leading-relaxed font-bold">
                                         <p dangerouslySetInnerHTML={{ __html: currentProject.uniqueAspect }}></p>
                                     </div>
                                     
@@ -210,58 +233,38 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                                             href={currentProject.link}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="mt-6 self-center md:self-start px-6 py-3 text-base rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
+                                            className="mt-8 self-center md:self-start px-8 py-3 text-base rounded-full font-semibold transition-all duration-300 shadow-xl hover:scale-[1.02] hover:shadow-2xl"
                                             style={{ backgroundColor: currentProject.color, color: TEXT_DARK }}
                                         >
-                                            View Live Project &rarr;
+                                            Explore Project &rarr;
                                         </a>
                                     )}
                                 </div>
 
-                                {/* === RIGHT SIDE: PROJECT VISUAL (PHONE FRAME) === */}
-                                <div className="relative flex flex-col justify-center items-center p-4 md:p-8 h-full">
-                                    <div className="responsive-phone-frame">
-                                        <div className="responsive-phone-screen">
-                                            <a 
-                                                href={currentProject.link || '#'}
-                                                target={currentProject.link ? '_blank' : '_self'}
-                                                rel="noopener noreferrer"
-                                                className="absolute inset-0 block"
-                                            >
-                                                <img 
-                                                    // CRITICAL: Ensure imageSrc is a valid path/URL or Base64 string
-                                                    src={currentProject.imageSrc} 
-                                                    alt={currentProject.title} 
-                                                    className="w-full h-full object-cover" 
-                                                />
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
                             </motion.div>
                         </AnimatePresence>
 
                         {/* === CAROUSEL NAVIGATION (Arrows) === */}
                         <motion.div 
-                            className="absolute z-20 left-4 md:left-0 cursor-pointer p-3 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors shadow-md"
+                            className="absolute z-20 left-4 md:left-2 cursor-pointer p-4 rounded-full bg-white hover:bg-gray-200 transition-colors shadow-lg"
                             onClick={() => paginate(-1)}
                         >
                             <FaChevronLeft size={20} color={TEXT_DARK} />
                         </motion.div>
                         <motion.div 
-                            className="absolute z-20 right-4 md:right-0 cursor-pointer p-3 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors shadow-md"
+                            className="absolute z-20 right-4 md:right-2 cursor-pointer p-4 rounded-full bg-white hover:bg-gray-200 transition-colors shadow-lg"
                             onClick={() => paginate(1)}
                         >
                             <FaChevronRight size={20} color={TEXT_DARK} />
                         </motion.div>
                         
                         {/* Pagination Dots */}
-                        <div className="absolute bottom-4 md:bottom-12 z-30 flex space-x-2">
+                        <div className="absolute bottom-4 z-30 flex space-x-2">
                             {projectData.map((_, index) => (
                                 <div 
                                     key={index}
                                     className={`w-3 h-3 rounded-full cursor-pointer transition-all duration-300 ${
-                                        currentIndex === index ? 'bg-black scale-125' : 'bg-gray-400 opacity-40 hover:opacity-80'
+                                        currentIndex === index ? 'bg-black scale-125 shadow-md' : 'bg-gray-400 opacity-60 hover:opacity-80'
                                     }`}
                                     onClick={() => setCurrentIndex(index)}
                                 />
