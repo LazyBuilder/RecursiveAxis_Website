@@ -1,14 +1,9 @@
-// src/components/RecentProjectsCarousel.jsx (FINAL CODE)
+// src/components/RecentProjectsCarousel.jsx
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import FullPageSection from './FullPageSection'; // Assumed to be imported correctly
+import FullPageSection from './FullPageSection';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-
-// --- IMPORTANT: Update these paths and file names to match your local photos folder ---
-import MSHImage from '../photos/mshcg-dugapuja.png';    
-import VerveImage from '../photos/verve-photography.png';
-// -----------------------------------------------------------------------------------
 
 // Define colors (ensure these are globally consistent)
 const PRIMARY_COLOR = '#00EAFF'; // Cyan
@@ -16,14 +11,43 @@ const SECONDARY_COLOR = '#FF00EA'; // Magenta
 const BACKGROUND_LIGHT = '#ffffff'; // Clean white background
 const TEXT_DARK = '#1a1a1a'; // Dark text color
 
-// --- PROJECT DATA ---
+// ==========================================================
+// 🚨 CRITICAL: LOCAL IMAGE IMPORTS 
+// Make sure these paths and names are 100% correct and case-sensitive.
+// This structure (require.context) often resolves path issues when direct imports fail.
+// ==========================================================
+
+const getProjectImages = () => {
+    try {
+        // Use require.context for a more robust (though less modern) way to handle imports,
+        // which sometimes resolves CI/bundling issues.
+        const context = require.context('../photos', false, /\.(png|jpe?g|svg)$/);
+        
+        // Define a mapping based on the file names we KNOW exist from the screenshot
+        return {
+            MSHImage: context('./mshcg-dugapuja.png'),
+            VerveImage: context('./verve-photography.png'),
+            // If you add a third project, uncomment the next line:
+            // AlphaImage: context('./alpha-project-name.png'),
+        };
+    } catch (error) {
+        // If the import system fails (e.g., in a non-module environment), 
+        // fall back to a placeholder object to allow the component to render (blank images).
+        console.error("Error loading images:", error);
+        return { MSHImage: '', VerveImage: '' };
+    }
+};
+
+const images = getProjectImages();
+
+// --- PROJECT DATA (2 Projects) ---
 const projectData = [
   {
     id: 1,
     title: "MSH Cultural Group",
     uniqueAspect: "Seamless **Multi-Language** Support and **High-Volume Ticketing** integrated into a sleek, cultural platform. Built for global scalability.",
     description: "An elegant digital platform for cultural event management and content showcase, emphasizing accessibility and robust backend logistics.",
-    imageSrc: MSHImage, // Local Import Variable
+    imageSrc: images.MSHImage, // Using the variable from the robust import
     link: 'https://www.mshculturalgroup.com/',
     color: PRIMARY_COLOR,
   },
@@ -32,7 +56,7 @@ const projectData = [
     title: "Verve Photography",
     uniqueAspect: "An **immersive, high-resolution** image delivery system built on a custom CDN, ensuring zero-latency portfolio viewing worldwide.",
     description: "High-impact portfolio site showcasing professional photography and immersive visuals, optimized for retina displays and speed.",
-    imageSrc: VerveImage, // Local Import Variable
+    imageSrc: images.VerveImage, // Using the variable from the robust import
     link: 'https://verve.photography/',
     color: SECONDARY_COLOR,
   },
@@ -76,7 +100,7 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
 
     return (
         <>
-            {/* CENTRALIZED CSS STYLES for Phone Frame and Gradients */}
+            {/* CSS STYLES for Phone Frame and Gradients */}
             <style>
             {`
                 /* Global Title Style */
@@ -132,7 +156,7 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
             </style>
 
             <FullPageSection 
-                id="projects" // ID must match the 'sections' array in Home.jsx
+                id="projects" // ID for navigation
                 ref={ref} 
                 style={{ backgroundColor: BACKGROUND_LIGHT }}
                 bgClass="text-dark" 
@@ -205,6 +229,7 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                                                 className="absolute inset-0 block"
                                             >
                                                 <img 
+                                                    // CRITICAL: Ensure imageSrc is a valid path/URL or Base64 string
                                                     src={currentProject.imageSrc} 
                                                     alt={currentProject.title} 
                                                     className="w-full h-full object-cover" 

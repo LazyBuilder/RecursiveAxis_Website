@@ -20,7 +20,7 @@ const serviceData = [
   },
   {
     tag: "INVESTORS",
-    title: "DE-RISK YOUR PORTFOLIO'S TECHNOLOGY.",
+    title: "DE-RISK YOUR INVESTMENTS.",
     description: "Diligence is deeper than spreadsheets. We provide expert technical due diligence and post-investment support to ensure your capital is funding scalable, maintainable, and defensible tech assets.",
     tagline: "TECHNICAL DILIGENCE. CONFIDENT INVESTMENT.",
     color: SECONDARY_COLOR,
