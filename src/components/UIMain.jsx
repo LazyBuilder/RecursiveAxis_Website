@@ -21,7 +21,7 @@ const LogoSVG = () => {
     return (
         <img 
             src={logoPath} 
-            alt="Storyline Digital Services Logo" 
+            alt="Recursive Axis Digital Services Logo" 
             className="h-12 w-auto" // Tailwind classes for sizing
         />
     );
