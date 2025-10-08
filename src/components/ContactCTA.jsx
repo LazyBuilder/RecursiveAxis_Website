@@ -1,8 +1,8 @@
-// src/components/ContactCTA.jsx (REPLACE COMPLETELY)
+// src/components/ContactCTA.jsx
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import FullPageSection from './FullPageSection';
+// import FullPageSection from './FullPageSection'; // This component is implicitly replaced by the <section> below
 import { colors } from './UIMain';
 
 // --- START: Footer Component Definition ---
@@ -41,10 +41,19 @@ const Footer = () => {
 
 
 const ContactCTA = React.forwardRef((props, ref) => (
-  // Inherits light body background. Ensure text is dark-ish.
-  <FullPageSection id="contact" ref={ref} bgClass="bg-radiant-pulse text-gray-800">
+  // 1. Using a standard <section> element which will be tracked by the IntersectionObserver.
+  // 2. The min-h-screen ensures the browser scroll will track this as the last full screen unit.
+  // 3. The 'flex flex-col justify-between' is crucial: it pushes the CTA content to the center 
+  //    and the Footer to the very bottom.
+  <section 
+    id="contact" 
+    ref={ref} 
+    className="min-h-screen bg-radiant-pulse text-gray-800 flex flex-col justify-between"
+  >
+    {/* CTA Content Container: Takes up the remaining space */}
     <motion.div
-      className="w-full relative z-10 flex flex-col items-center justify-center p-4"
+      // flex-grow ensures this div takes up all space that the Footer doesn't
+      className="w-full relative z-10 flex flex-col items-center justify-center p-4 py-20 flex-grow"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 0.2 }}
@@ -71,8 +80,10 @@ const ContactCTA = React.forwardRef((props, ref) => (
         </a>
       </div>
     </motion.div>
+
+    {/* Footer is placed at the bottom and is 15vh tall */}
     <Footer />
-  </FullPageSection>
+  </section>
 ));
 
 export default ContactCTA;
