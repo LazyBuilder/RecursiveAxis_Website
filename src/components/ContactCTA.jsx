@@ -1,11 +1,11 @@
 // src/components/ContactCTA.jsx
 
 import React from 'react';
-import { motion } from 'framer-motion'; // Keep motion for the main CTA content
+import { motion } from 'framer-motion'; // Keep motion for the h2 title
 import { colors } from './UIMain';
 
-// --- START: Footer Component Definition (unchanged) ---
-const FOOTER_BG_IMAGE_URL = `${process.env.PUBLIC_URL}/assets/Storyline_Background_Dark.png`; 
+// --- START: Footer Component Definition (unchanged, still inside this file) ---
+const FOOTER_BG_IMAGE_URL = '${process.env.PUBLIC_URL}/assets/Storyline_Background_Dark.png'; 
 
 const Footer = () => {
     const FOOTER_HEIGHT_CLASS = 'h-[15vh]'; 
@@ -38,22 +38,28 @@ const ContactCTA = React.forwardRef((props, ref) => (
   <section 
     id="contact" 
     ref={ref} 
-    className="min-h-screen bg-radiant-pulse text-gray-800 flex flex-col justify-between"
+    className="min-h-screen bg-radiant-pulse text-gray-800 flex flex-col justify-between p-4" // Added p-4 for general padding
   >
-    {/* ONLY the main CTA content is wrapped in motion.div for animation.
-      The Footer is now a direct child of the <section> and will not animate.
-    */}
-    <motion.div
-      className="w-full relative z-10 flex flex-col items-center justify-center p-4 py-20 flex-grow"
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.2 }}
-      viewport={{ once: true }}
-    >
-      <h2 className="text-4xl md:text-6xl font-extrabold text-center mb-4 animated-gradient">SIGN-UP FOR DISCOVERY CALL, NOW.</h2>
+    {/* Main content container for CTA (NO motion here) */}
+    <div className="w-full relative z-10 flex flex-col items-center justify-center flex-grow">
+      
+      {/* ONLY THE H2 IS A motion.h2 */}
+      <motion.h2
+        className="text-4xl md:text-6xl font-extrabold text-center mb-4 animated-gradient"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        viewport={{ once: true }}
+      >
+        SIGN-UP FOR DISCOVERY CALL, NOW.
+      </motion.h2>
+
+      {/* Subtext (standard p, no motion) */}
       <p className={`text-base md:text-xl text-gray-600 text-center max-w-2xl mx-auto mb-12`}>
         Lets put some life to your vision and see the results.
       </p>
+
+      {/* Buttons (standard div, no motion) */}
       <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8">
         <a
           href="https://cal.com/asitdeva"
@@ -70,9 +76,9 @@ const ContactCTA = React.forwardRef((props, ref) => (
           Send an Email
         </a>
       </div>
-    </motion.div>
+    </div>
 
-    {/* Footer is now outside the motion.div, so it won't animate */}
+    {/* Footer is completely separate and static */}
     <Footer />
   </section>
 ));
