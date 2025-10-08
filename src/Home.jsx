@@ -1,4 +1,4 @@
-// src/components/Home.jsx (PROJECTS CAROUSEL INTEGRATION)
+// src/Home.jsx (PROJECTS CAROUSEL INTEGRATION)
 
 import React, { useState, useEffect, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
@@ -25,7 +25,7 @@ const SCROLL_DEBOUNCE_TIME = 1100;
 // Threshold to ignore tiny residual scroll events (important for trackpads)
 const SCROLL_DELTA_THRESHOLD = 5;
 
-const App = () => {
+const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [activeScreen, setActiveScreen] = useState(0);
 
@@ -259,4 +259,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Home;
