@@ -1,4 +1,5 @@
-// src/components/RecentProjectsCarousel.jsx (Teaser Section for Multi-Page Solution)
+// src/components/RecentProjectsCarousel.jsx 
+// FINAL VERSION: Static 3-Project Teaser with Responsive Cards
 
 import React from 'react';
 import { motion } from 'framer-motion';
@@ -6,6 +7,7 @@ import FullPageSection from './FullPageSection';
 
 // ==========================================================
 // 🚨 CRITICAL: LOCAL IMAGE IMPORTS - CHECK NAMES IN src/photos/
+// You must have these image files for the component to work.
 import MSHImage from '../photos/mshcg-dugapuja.png';    
 import VerveImage from '../photos/verve-photography.png';  
 // ==========================================================
@@ -16,7 +18,7 @@ const SECONDARY_COLOR = '#FF00EA';
 const BACKGROUND_LIGHT = '#f7f7f7'; 
 const TEXT_DARK = '#1a1a1a'; 
 
-// --- PROJECT DATA (Using top 3 for teaser) ---
+// --- PROJECT DATA (Top 3 for Teaser) ---
 const projectData = [
   {
     id: 1,
@@ -46,15 +48,17 @@ const projectData = [
 
 
 // ==========================================================
-// --- PROJECT TEASER CARD COMPONENT (Updated) ---
+// --- PROJECT TEASER CARD COMPONENT (Compact & Responsive) ---
 // ==========================================================
 const ProjectTeaserCard = ({ project }) => (
     <motion.div
         className="w-full shadow-xl rounded-xl overflow-hidden bg-white transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]"
         whileHover={{ y: -5 }}
     >
+        {/* The anchor tag links to the full projects page, as per the multi-page plan */}
         <a href="/projects" className="block">
-            {/* 💡 CHANGE: Use 16/9 aspect ratio for a wider, shorter card */}
+            
+            {/* Aspect ratio 16/9 for a shorter card and less vertical space */}
             <div className="relative w-full aspect-[16/9] overflow-hidden">
                 <img 
                     src={project.imageSrc} 
@@ -64,9 +68,10 @@ const ProjectTeaserCard = ({ project }) => (
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
             </div>
             
-            {/* Text area is smaller now */}
-            <div className="p-4 md:p-5">
-                <h3 className="text-lg md:text-xl font-extrabold text-gray-800" style={{ color: project.color }}>
+            {/* 💡 FIX: Reduced padding for a more compact card */}
+            <div className="p-3 md:p-4">
+                {/* 💡 FIX: Reduced title size */}
+                <h3 className="text-base md:text-lg font-extrabold text-gray-800" style={{ color: project.color }}>
                     {project.title}
                 </h3>
             </div>
@@ -84,7 +89,7 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
 
     return (
         <>
-            {/* CSS STYLES (unchanged) */}
+            {/* CSS STYLES (Title Gradient) */}
             <style>
             {`
                 /* Title Gradient (Unchanged) */
@@ -109,7 +114,8 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                 style={{ backgroundColor: BACKGROUND_LIGHT, color: TEXT_DARK }}
                 bgClass="text-dark" 
             >
-                <div className="w-full relative z-10 flex flex-col items-center justify-center py-20 px-4">
+                {/* 💡 FIX: pt-32 ensures the content clears a fixed header/navbar */}
+                <div className="w-full relative z-10 flex flex-col items-center justify-center pt-32 pb-20 px-4"> 
                     
                     {/* === MAIN TITLE === */}
                     <motion.h2
@@ -136,9 +142,9 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                     
                     {/* === CALL TO ACTION === */}
                     <a
-                        href="/projects"
+                        href="/projects" // Links to the separate projects page
                         className="mt-8 px-10 py-4 text-lg font-bold rounded-full text-black transition-all duration-300 hover:scale-[1.05] hover:shadow-2xl shadow-xl"
-                        style={{ backgroundColor: PRIMARY_COLOR }} // Ensure text is black for high contrast
+                        style={{ backgroundColor: PRIMARY_COLOR }}
                     >
                         See All 9+ Case Studies &rarr;
                     </a>
