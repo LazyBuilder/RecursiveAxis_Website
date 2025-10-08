@@ -8,10 +8,13 @@ import './App.css';
 import Home from './Home';                 
 import ProjectsPage from './ProjectsPage'; 
 
+// 💡 Define the required base path
+const BASE_PATH = '/storylineds_website'; 
+
 function App() {
   return (
     // BrowserRouter is the necessary wrapper for all routing logic
-    <BrowserRouter>
+    <BrowserRouter basename={BASE_PATH}>
       <div className="App">
         {/* Routes component handles switching based on URL path */}
         <Routes>
