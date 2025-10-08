@@ -8,7 +8,7 @@ import { colors, CodeSVG, DesignSVG, DataSVG } from './UIMain';
 const FounderStorySection = React.forwardRef((props, ref) => (
   // Dark Background and white text
   <FullPageSection id="founder-story" ref={ref} bgClass="bg-[#0a0a0a] text-white">
-    <div className="w-full relative z-10 flex flex-col px-4 h-full">
+    <div className="w-full relative z-10 flex flex-col items-center justify-center pt-24 pb-20 px-4">
       <motion.h2 
           className={`text-4xl md:text-6xl font-extrabold mb-6 animated-gradient`}
           initial={{ opacity: 0, y: 50 }}
