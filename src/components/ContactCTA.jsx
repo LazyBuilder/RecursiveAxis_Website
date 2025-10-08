@@ -9,7 +9,7 @@ const FOOTER_BG_IMAGE_URL = '${process.env.PUBLIC_URL}/assets/Storyline_Backgrou
 
 const Footer = () => {
     const FOOTER_HEIGHT_CLASS = 'h-[15vh]'; 
-    const DARK_OVERLAY_CLASS = 'absolute inset-0 bg-black opacity-80'; 
+    const DARK_OVERLAY_CLASS = 'absolute inset-0 bg-black opacity-95'; 
 
     return (
         <footer 
@@ -39,16 +39,16 @@ const ContactCTA = React.forwardRef((props, ref) => (
   <section 
     id="contact" 
     ref={ref} 
-    className="min-h-screen text-gray-800 flex flex-col justify-between p-4" // NOTE: No bg-radiant-pulse here
+    className="min-h-screen text-gray-800 flex flex-col justify-between " // NOTE: No bg-radiant-pulse here
   >
     
     {/* 2. ADDED: bg-radiant-pulse to the inner div for the pulsing background effect.
        This div now contains the background and the content, but EXCLUDES the Footer. */}
-    <div className="w-full relative z-10 flex flex-col items-center justify-center flex-grow bg-radiant-pulse"> 
+    <div className="w-full relative z-10 flex flex-col items-center justify-center flex-grow p-4"> 
       
       {/* The motion.h2 is unchanged and still animates */}
       <motion.h2
-        className="text-4xl md:text-6xl font-extrabold text-center mb-4 animated-gradient"
+        className="text-4xl md:text-6xl font-extrabold text-center mb-4 animated-gradient bg-radiant-pulse"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
