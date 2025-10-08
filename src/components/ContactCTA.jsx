@@ -9,7 +9,7 @@ const FOOTER_BG_IMAGE_URL = `${process.env.PUBLIC_URL}/assets/Storyline_Backgrou
 
 const Footer = () => {
     const FOOTER_HEIGHT_CLASS = 'h-[15vh]'; 
-    const DARK_OVERLAY_CLASS = 'absolute inset-0 bg-black opacity-60'; // Reduced opacity
+    const DARK_OVERLAY_CLASS = 'absolute inset-0 bg-black opacity-10'; // Reduced opacity
 
     return (
         <footer 
