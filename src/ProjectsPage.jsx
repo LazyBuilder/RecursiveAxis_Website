@@ -1,7 +1,7 @@
 // src/ProjectsPage.jsx (New Dedicated Page Refactored for Inbox Layout & Search)
 
 import React, { useState, useMemo } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { colors } from './components/UIMain'; 
 import { FaArrowLeft, FaSearch, FaTimes } from 'react-icons/fa';
