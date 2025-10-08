@@ -1,4 +1,4 @@
-// src/ProjectsPage.jsx (FINAL, MOBILE-READY VERSION)
+// src/ProjectsPage.jsx (FINAL, MOBILE-READY, AND SCROLL-FIXED VERSION)
 
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion'; 
@@ -18,7 +18,7 @@ import VerveImage from './photos/verve-photography.png';
 
 // --- PROJECT DATA (Full List) ---
 const projectData = [
-    // Ensure all projectData is defined here or imported...
+    // ... (Project data remains the same)
     { id: 1, title: "MSH Cultural Group Platform", description: "Successfully delivered a full-featured, multi-language ticketing and information platform emphasizing ultra-low-cost deployment (under $25/year operational cost) and simplified content management for non-technical users. Key technologies: React, AWS Amplify.", tags: ['Web', 'Ticketing', 'Non-profit'], imageSrc: MSHImage, link: 'https://www.mshculturalgroup.com/', color: colors.primary, },
     { id: 2, title: "Verve Photography Portfolio", description: "A high-impact, high-resolution portfolio site optimized for speed and retina displays. Developed rapidly (2 days) using React and Tailwind CSS, demonstrating expertise in modern, rapid full-stack development. Key technologies: React, Tailwind, Performance.", tags: ['Web', 'Design', 'Portfolio'], imageSrc: VerveImage, link: 'https://verve.photography/', color: colors.secondary, },
     { id: 3, title: "EcoConnect Community Tracker", description: "Developed a mobile-first web app using Firebase and React Native Web for real-time tracking of community recycling efforts. This gamified approach resulted in a 20% increase in monthly recycling volume. Key technologies: React Native Web, Firebase, Gamification.", tags: ['Mobile', 'Tracker', 'Community'], imageSrc: MSHImage, link: '#', color: colors.primary, },
@@ -29,9 +29,9 @@ const projectData = [
 
 
 // ==========================================================
-// --- MOBILE/COLLAPSIBLE DETAIL COMPONENT ---
+// --- MOBILE/COLLAPSIBLE DETAIL COMPONENT & LIST ITEMS ---
+// (These components remain the same as they were correctly implemented)
 // ==========================================================
-// This replaces the right pane's content for mobile screens.
 const MobileProjectDetail = ({ project }) => (
     <motion.div
         className="w-full p-4 bg-white border-b"
@@ -68,10 +68,6 @@ const MobileProjectDetail = ({ project }) => (
     </motion.div>
 );
 
-
-// ==========================================================
-// --- MOBILE/SMALL SCREEN LIST ITEM ---
-// ==========================================================
 const MobileProjectListItem = ({ project, selected, onClick }) => (
     <>
         <motion.div
@@ -98,10 +94,6 @@ const MobileProjectListItem = ({ project, selected, onClick }) => (
     </>
 );
 
-
-// ==========================================================
-// --- LARGE SCREEN PROJECT LIST ITEM (Remains the same as before) ---
-// ==========================================================
 const DesktopProjectListItem = ({ project, selected, onClick }) => (
     <motion.div
         className={`w-full p-4 border-b transition-all duration-200 cursor-pointer ${selected ? 'bg-gray-100 border-l-4 border-l-black' : 'bg-white hover:bg-gray-50'}`}
@@ -119,12 +111,7 @@ const DesktopProjectListItem = ({ project, selected, onClick }) => (
     </motion.div>
 );
 
-
-// ==========================================================
-// --- PROJECT DETAIL PANEL COMPONENT (Right Pane for Desktop) ---
-// ==========================================================
 const ProjectDetailPanel = ({ project, onClose }) => {
-    // ... (This component remains the same as the previous response) ...
     if (!project) return null;
 
     return (
@@ -184,7 +171,7 @@ const ProjectDetailPanel = ({ project, onClose }) => {
 // --- MAIN PROJECTS PAGE COMPONENT (Unified) ---
 // ==========================================================
 const ProjectsPage = () => {
-    // For Desktop (Two-Pane) and Mobile (Collapsible List)
+    // ... (logic remains the same)
     const [selectedProjectId, setSelectedProjectId] = useState(null); 
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -207,41 +194,29 @@ const ProjectsPage = () => {
     const handleCloseDetail = () => setSelectedProjectId(null);
     const MotionLink = motion(Link);
 
-    // Determines which list item component to use
-    const ListItem = MobileProjectListItem; // Default to mobile behavior
-    const ListComponent = ({ project }) => (
-        <ListItem 
-            key={project.id} 
-            project={project} 
-            selected={selectedProjectId === project.id}
-            onClick={handleSelectProject} 
-        />
-    );
-
-
     return (
         // Root Container: h-screen flex flex-col overflow-hidden (static page)
         <div className="h-screen flex flex-col overflow-hidden" style={{ backgroundColor: colors.light, color: colors.dark }}>
             
             <Header />
 
-            {/* Content Wrapper: flex-grow for space between Header and Footer */}
-            <div className="flex-grow flex justify-center **h-full overflow-hidden**"> 
+            {/* 1. Content Wrapper: FLEX-GROW, H-FULL, OVERFLOW-HIDDEN FIXES APPLIED */}
+            <div className="flex-grow flex justify-center h-full overflow-hidden"> 
                 
-                {/* Central Content Area: Max width, centered. Defaults to single column on mobile. */}
-                <main className="w-full max-w-7xl flex pt-[80px] overflow-hidden **h-full**"> 
+                {/* 2. Central Content Area: H-FULL FIX APPLIED */}
+                <main className="w-full max-w-7xl flex pt-[80px] overflow-hidden h-full"> 
                     
                     {/* ---------------------------------------------------- */}
-                    {/* === LEFT/MAIN PANEL (Mobile: Full Width, Desktop: List) === */}
+                    {/* === LEFT/MAIN PANEL (List Container) === */}
                     {/* ---------------------------------------------------- */}
                     <div 
-                        // Mobile: w-full. Desktop: w-1/3 min-w-[350px] max-w-sm border-r
+                        // h-full is essential here
                         className={`h-full flex flex-col transition-all duration-300 flex-shrink-0 w-full lg:w-1/3 lg:min-w-[350px] lg:max-w-sm lg:border-r 
                             ${selectedProject ? 'lg:w-1/3' : 'lg:w-full lg:max-w-4xl lg:mx-auto'}`}
                         style={{ backgroundColor: colors.light }}
                     >
                         
-                        {/* List Header/Search (Sticky and NOT scrollable) */}
+                        {/* List Header/Search (STICKY/NON-SCROLLABLE AREA) */}
                         <div className="p-4 pt-8 bg-white z-20 shadow-sm flex-shrink-0">
                             {/* Title & Back Button */}
                             <MotionLink
@@ -279,7 +254,7 @@ const ProjectsPage = () => {
                             </div>
                         </div>
 
-                        {/* Project List (Scrollable Area) */}
+                        {/* Project List (SCROLLABLE AREA: flex-grow overflow-y-auto) */}
                         <div className="overflow-y-auto pb-4 flex-grow">
                             {/* Desktop List Rendering */}
                             <div className="hidden lg:block">
@@ -315,7 +290,7 @@ const ProjectsPage = () => {
                     {/* === RIGHT PANEL (Desktop Only) === */}
                     {/* ---------------------------------------------------- */}
                     <motion.div 
-                        // Mobile: hidden. Desktop: flex-grow w-2/3 (when open)
+                        // h-full is essential here
                         className={`h-full hidden lg:block lg:flex-grow transition-all duration-300 ${selectedProject ? 'lg:w-2/3' : 'lg:w-0'}`}
                     >
                         <AnimatePresence mode="wait">
