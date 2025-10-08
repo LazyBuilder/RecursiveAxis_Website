@@ -210,7 +210,7 @@ const App = () => {
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">
             <div className="flex items-center space-x-2 font-bold text-lg">
               <LogoSVG />
-              <span className={`text-white`}>Recursive Axis Digital Services</span>
+              <span className={`text-white`}>Recursive Axis</span>
             </div>
             <a 
               href="https://cal.com/asitdeva" 
