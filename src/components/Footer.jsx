@@ -1,4 +1,4 @@
-// src/components/Footer.jsx (NEW FILE)
+// src/components/Footer.jsx (CORRECTED)
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -74,12 +74,14 @@ const Footer = () => {
     const openModal = (type) => setActiveModal(type);
     const closeModal = () => setActiveModal(null);
     
-    const FOOTER_HEIGHT_CLASS = 'h-[20vh] md:h-[15vh]'; 
+    // 💡 FIX 1: REMOVED the fixed height class h-[20vh] md:h-[15vh].
+    const FOOTER_HEIGHT_CLASS = 'py-6'; 
     const DARK_OVERLAY_CLASS = 'absolute inset-0 bg-black opacity-25'; 
 
     return (
         <>
             <footer 
+                // 💡 FIX 2: Use natural padding (py-6) instead of fixed height
                 className={`w-full relative text-white flex items-center justify-center text-center text-sm overflow-hidden ${FOOTER_HEIGHT_CLASS}`} 
                 style={{ 
                     backgroundImage: `url('${FOOTER_BG_IMAGE_URL}')`,
@@ -89,7 +91,7 @@ const Footer = () => {
             >
                 <div className={DARK_OVERLAY_CLASS}></div>
                 
-                <div className="relative z-10 p-4 w-full px-4"> 
+                <div className="relative z-10 w-full px-4"> 
                     <p>© {new Date().getFullYear()} Recursive Axis. All rights reserved.</p>
                     <div className="flex justify-center space-x-4 mt-2">
                         <button onClick={() => openModal('privacy')} className="hover:text-white transition-colors underline">
