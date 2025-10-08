@@ -4,19 +4,19 @@ import React, { useState, useEffect, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
 
 // Import Utilities and Data
-import { colors, LogoSVG } from './UIMain';
+import { colors, LogoSVG } from './components/UIMain';
 
 // Import Feature Components
-import IntroOverlay from './IntroOverlay'; 
+import IntroOverlay from './components/IntroOverlay'; 
 
 // Import Section Components
-import HeroSection from './HeroSection';
+import HeroSection from './components/HeroSection';
 // --- START CHANGE 1: Import the new component (assuming it's named) ---
-import RecentProjectsCarousel from './RecentProjectsCarousel'; // New component
-import ServicesSection from './ServicesSection';
-import PhilosophySection from './PhilosophySection';
-import FounderStorySection from './FounderStorySection';
-import ContactCTA from './ContactCTA';
+import RecentProjectsCarousel from './components/RecentProjectsCarousel'; // New component
+import ServicesSection from './components/ServicesSection';
+import PhilosophySection from './components/PhilosophySection';
+import FounderStorySection from './components/FounderStorySection';
+import ContactCTA from './components/ContactCTA';
 
 // Global variables for robust scroll management
 let lastScrollTime = 0;
