@@ -15,7 +15,7 @@ const FounderStorySection = React.forwardRef((props, ref) => (
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
       >
-          ABOUT THE FOUNDER
+          MEET THE FOUNDER
       </motion.h2>
       <div className="flex flex-col md:flex-row items-center justify-center gap-12 w-full max-w-5xl">
         <div className="md:w-1/2 flex flex-col items-center text-center max-w-lg leading-relaxed text-base md:text-lg lg:text-xl text-[${colors.mutedText}]">
