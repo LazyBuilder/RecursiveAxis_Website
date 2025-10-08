@@ -1,16 +1,13 @@
 // src/components/ContactCTA.jsx
 
 import React from 'react';
-import { motion } from 'framer-motion';
-// import FullPageSection from './FullPageSection'; // This component is implicitly replaced by the <section> below
+import { motion } from 'framer-motion'; // Keep motion for the main CTA content
 import { colors } from './UIMain';
 
-// --- START: Footer Component Definition ---
-// NOTE: Replace 'YOUR_BACKGROUND_IMAGE_URL_HERE' with your actual image URL
-const FOOTER_BG_IMAGE_URL = 'YOUR_BACKGROUND_IMAGE_URL_HERE'; 
+// --- START: Footer Component Definition (unchanged) ---
+const FOOTER_BG_IMAGE_URL = `${process.env.PUBLIC_URL}/assets/Storyline_Background_Dark.png`; 
 
 const Footer = () => {
-    // Height is 15% of the viewport height (15vh)
     const FOOTER_HEIGHT_CLASS = 'h-[15vh]'; 
     const DARK_OVERLAY_CLASS = 'absolute inset-0 bg-black opacity-80'; 
 
@@ -23,10 +20,7 @@ const Footer = () => {
                 backgroundPosition: 'center',
             }}
         >
-            {/* Dark Overlay for text visibility (80% opacity) */}
             <div className={DARK_OVERLAY_CLASS}></div>
-
-            {/* Footer Content (z-index 10 to appear above the overlay) */}
             <div className="relative z-10 p-4">
                 <p>&copy; {new Date().getFullYear()} Recursive Axis. All rights reserved.</p>
                 <div className='flex justify-center space-x-4 mt-2'>
@@ -41,18 +35,15 @@ const Footer = () => {
 
 
 const ContactCTA = React.forwardRef((props, ref) => (
-  // 1. Using a standard <section> element which will be tracked by the IntersectionObserver.
-  // 2. The min-h-screen ensures the browser scroll will track this as the last full screen unit.
-  // 3. The 'flex flex-col justify-between' is crucial: it pushes the CTA content to the center 
-  //    and the Footer to the very bottom.
   <section 
     id="contact" 
     ref={ref} 
     className="min-h-screen bg-radiant-pulse text-gray-800 flex flex-col justify-between"
   >
-    {/* CTA Content Container: Takes up the remaining space */}
+    {/* ONLY the main CTA content is wrapped in motion.div for animation.
+      The Footer is now a direct child of the <section> and will not animate.
+    */}
     <motion.div
-      // flex-grow ensures this div takes up all space that the Footer doesn't
       className="w-full relative z-10 flex flex-col items-center justify-center p-4 py-20 flex-grow"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -81,7 +72,7 @@ const ContactCTA = React.forwardRef((props, ref) => (
       </div>
     </motion.div>
 
-    {/* Footer is placed at the bottom and is 15vh tall */}
+    {/* Footer is now outside the motion.div, so it won't animate */}
     <Footer />
   </section>
 ));
