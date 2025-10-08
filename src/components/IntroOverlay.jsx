@@ -9,7 +9,7 @@ const IntroOverlay = ({ onComplete }) => {
   const [isSkipped, setIsSkipped] = useState(false);
   const messages = [
     { text: 'Hello.', delay: 0.5, duration: 2 },
-    { text: 'Is your story... why are you waiting?', delay: 1, duration: 3.5 },
+    { text: 'Its your story... What are you waiting for?', delay: 1, duration: 3.5 },
     { text: 'Your vision is ready to become reality.', delay: 1, duration: 3.5 },
     { text: 'This new chapter starts now.', delay: 1, duration: 3.5 },
   ];
