@@ -1,33 +1,26 @@
-// src/ProjectsPage.jsx (New Dedicated Page for All Projects)
+// src/ProjectsPage.jsx
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { colors } from './components/UIMain'; 
 import { FaArrowLeft } from 'react-icons/fa';
 
-// ==========================================================
-// 🚨 CRITICAL: LOCAL IMAGE IMPORTS - You must define all projects here or import them from a shared file.
-// Assuming images are imported here for the sake of a working component
+// Image Imports: Confirmed to be correct assuming photos is a subdirectory of src/
 import MSHImage from './photos/mshcg-dugapuja.png';    
 import VerveImage from './photos/verve-photography.png';  
-// ==========================================================
 
 // --- PROJECT DATA (Full List) ---
-// This list should contain ALL your projects, including the ones used for the teaser.
 const projectData = [
     { id: 1, title: "MSH Cultural Group Platform", description: "Successfully delivered a full-featured, multi-language ticketing and information platform emphasizing ultra-low-cost deployment (under $25/year operational cost) and simplified content management for non-technical users.", imageSrc: MSHImage, link: 'https://www.mshculturalgroup.com/', color: colors.primary, },
     { id: 2, title: "Verve Photography Portfolio", description: "A high-impact, high-resolution portfolio site optimized for speed and retina displays. Developed rapidly (2 days) using React and Tailwind CSS, demonstrating expertise in modern, rapid full-stack development.", imageSrc: VerveImage, link: 'https://verve.photography/', color: colors.secondary, },
     { id: 3, title: "EcoConnect Community Tracker", description: "Developed a mobile-first web app using Firebase and React Native Web for real-time tracking of community recycling efforts. This gamified approach resulted in a 20% increase in monthly recycling volume.", imageSrc: MSHImage, link: '#', color: colors.primary, },
-    // Add additional projects here to fill out the list
     { id: 4, title: "FinTech Dashboard", description: "Built a secure, real-time analytics dashboard for wealth management clients using Node.js and PostgreSQL.", imageSrc: VerveImage, link: '#', color: colors.secondary, },
     { id: 5, title: "Healthcare Portal", description: "Designed and implemented a HIPAA-compliant patient communication portal.", imageSrc: MSHImage, link: '#', color: colors.primary, },
     { id: 6, title: "E-commerce Backend", description: "Scalable microservices architecture for a mid-sized e-commerce platform handling 10k+ daily transactions.", imageSrc: VerveImage, link: '#', color: colors.secondary, },
 ];
 
 
-// ==========================================================
-// --- PROJECT LIST ITEM COMPONENT (Reused from previous iteration) ---
-// ==========================================================
+// --- PROJECT LIST ITEM COMPONENT ---
 const ProjectListItem = ({ project, onClick }) => (
     <motion.div
         className="w-full flex items-center p-4 md:p-6 bg-white border border-gray-200 rounded-xl shadow-md cursor-pointer transition-all duration-300 hover:shadow-lg hover:border-gray-300 hover:bg-gray-50"
@@ -49,9 +42,7 @@ const ProjectListItem = ({ project, onClick }) => (
 );
 
 
-// ==========================================================
-// --- PROJECT DETAIL MODAL COMPONENT (Copied over) ---
-// ==========================================================
+// --- PROJECT DETAIL MODAL COMPONENT ---
 const ProjectModal = ({ project, onClose }) => {
     
     if (!project) return null;
@@ -111,9 +102,7 @@ const ProjectModal = ({ project, onClose }) => {
 };
 
 
-// ==========================================================
 // --- MAIN PROJECTS PAGE COMPONENT ---
-// ==========================================================
 const ProjectsPage = () => {
     const [selectedProject, setSelectedProject] = useState(null); 
 
@@ -126,7 +115,7 @@ const ProjectsPage = () => {
                 
                 {/* Back to Home Button */}
                 <motion.a
-                    href="/" // Link back to the home route
+                    href="/" 
                     className="flex items-center text-lg font-semibold text-gray-700 hover:text-black transition-colors duration-300 mb-8 max-w-5xl mx-auto"
                     initial={{ x: -20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
@@ -148,7 +137,7 @@ const ProjectsPage = () => {
                     A comprehensive look at our development, design, and strategy work.
                 </p>
 
-                {/* Full Vertical Scroll List - No Max-Height Constraint */}
+                {/* Full Vertical Scroll List */}
                 <div className="w-full max-w-5xl mx-auto space-y-6">
                     {projectData.map((project) => (
                         <ProjectListItem 

@@ -1,12 +1,12 @@
-// src/App.jsx (Updated to handle multiple pages via React Router)
+// src/App.jsx
 
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 
-// Import the two main views
-import Home from './Home';      // Your existing single-page component
-import ProjectsPage from './ProjectsPage'; // The new component we just created
+// Import the two main views from the src/ directory
+import Home from './Home';                 
+import ProjectsPage from './ProjectsPage'; 
 
 function App() {
   return (

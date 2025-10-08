@@ -1,18 +1,17 @@
-// src/Home.jsx (PROJECTS CAROUSEL INTEGRATION)
+// src/Home.jsx
 
 import React, { useState, useEffect, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
 
-// Import Utilities and Data
-import { colors, LogoSVG } from './components/UIMain';
+// Import Utilities and Data (Paths confirmed correct for inner components)
+import { colors, LogoSVG } from './components/UIMain'; 
 
 // Import Feature Components
 import IntroOverlay from './components/IntroOverlay'; 
 
 // Import Section Components
 import HeroSection from './components/HeroSection';
-// --- START CHANGE 1: Import the new component (assuming it's named) ---
-import RecentProjectsCarousel from './components/RecentProjectsCarousel'; // New component
+import RecentProjectsCarousel from './components/RecentProjectsCarousel'; 
 import ServicesSection from './components/ServicesSection';
 import PhilosophySection from './components/PhilosophySection';
 import FounderStorySection from './components/FounderStorySection';
@@ -20,25 +19,19 @@ import ContactCTA from './components/ContactCTA';
 
 // Global variables for robust scroll management
 let lastScrollTime = 0;
-// Increased debounce time to 1100ms to cover the full smooth scroll duration
 const SCROLL_DEBOUNCE_TIME = 1100; 
-// Threshold to ignore tiny residual scroll events (important for trackpads)
 const SCROLL_DELTA_THRESHOLD = 5;
 
+// Component name is correctly set to Home
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [activeScreen, setActiveScreen] = useState(0);
 
-  const mainRef = useRef(null); // Ref for the main scroll container
+  const mainRef = useRef(null); 
   
-  // --- START CHANGE 2: Update the sections array ---
-  // Replaced 'trusted' with 'projects'
   const sections = ['home', 'projects', 'services', 'philosophy', 'founder-story', 'contact'];
-  // --- END CHANGE 2 ---
-
   const sectionsRef = useRef([]);
     
-  // Initialize refs for each section
   useEffect(() => {
     sectionsRef.current = sections.map((_, i) => sectionsRef.current[i] ?? React.createRef());
   }, [sections]);
@@ -54,42 +47,32 @@ const Home = () => {
     }
   };
 
-  // --- REVISED: Custom Scroll Handling Function with Delta Threshold ---
   const handleScroll = (event) => {
-    // CRUCIAL: Immediately prevent default behavior to stop the native scroll jump
     event.preventDefault();
 
     const currentTime = new Date().getTime();
     
-    // 1. Time-based debounce check. If a scroll was recently executed, exit immediately.
     if (isLoading || currentTime - lastScrollTime < SCROLL_DEBOUNCE_TIME) { 
         return;
     }
     
-    // Determine direction and apply the delta threshold
     let direction = 0;
     if (event.deltaY > SCROLL_DELTA_THRESHOLD) {
-        direction = 1; // Scroll Down
+        direction = 1; 
     } else if (event.deltaY < -SCROLL_DELTA_THRESHOLD) {
-        direction = -1; // Scroll Up
+        direction = -1; 
     }
 
-    // Ignore non-vertical scroll events or movements below the threshold
     if (direction === 0) return;
     
     let nextIndex = activeScreen + direction;
 
-    // Boundary check
     if (nextIndex >= 0 && nextIndex < sections.length) {
-        
-        // 2. Lock: Update the time only when a successful scroll is initiated
         lastScrollTime = currentTime; 
-
         scrollToSection(nextIndex);
     }
   };
     
-  // Intersection Observer to track active section
   useEffect(() => {
     if (isLoading) return;
 
@@ -109,14 +92,12 @@ const Home = () => {
       }
     );
 
-    // Attach observer to section elements
     sectionsRef.current.forEach((ref) => {
       if (ref.current) {
         observer.observe(ref.current);
       }
     });
 
-    // Cleanup observer
     return () => {
       sectionsRef.current.forEach((ref) => {
         if (ref.current) {
@@ -126,11 +107,9 @@ const Home = () => {
     };
   }, [isLoading]);
 
-  // Attach Scroll Handler to Main Content
   useEffect(() => {
     const mainElement = mainRef.current;
     if (mainElement && !isLoading) {
-      // Use { passive: false } to allow event.preventDefault() inside handleScroll
       mainElement.addEventListener('wheel', handleScroll, { passive: false }); 
     }
     return () => {
@@ -141,19 +120,16 @@ const Home = () => {
   }, [isLoading, activeScreen]);
 
   return (
-    // Universal background color removed to enable section-specific backgrounds
     <div className={`font-sans antialiased overflow-hidden w-screen h-screen`}>
-      {/* Inline Styles (omitted for brevity, assume they remain unchanged) */}
       <style>
         {`
           @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto+Mono:wght@700&display=swap');
           
           body { 
             font-family: 'Poppins', sans-serif; 
-            background-color: #f7f7f7; /* Default light background */
-            color: #1a1a1a; /* Default dark text color */
+            background-color: #f7f7f7; 
+            color: #1a1a1a; 
           }
-          /* ... other styles remain the same ... */
           
           .no-scrollbar::-webkit-scrollbar { display: none; }
           
@@ -202,22 +178,22 @@ const Home = () => {
         {isLoading && <IntroOverlay onComplete={handleIntroComplete} />}
       </AnimatePresence>
 
-      {/* Main Content (Hidden until Intro is complete) */}
+      {/* Main Content */}
       <div className={`${isLoading ? 'hidden' : 'block'}`}>
         
-        {/* Header */}
+        {/* Header (fixed to viewport) */}
         <header className={`fixed top-0 z-50 w-full bg-[#0a0a0a] bg-opacity-90 backdrop-blur-md transition-shadow duration-300 shadow-sm`}>
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">
             <div className="flex items-center space-x-2 font-bold text-lg">
               <LogoSVG />
               <span className={`text-white text-3xl`}>Recursive Axis</span>
             </div>
+            {/* The link below will trigger a full page reload but is fine for external links */}
             <a 
               href="https://cal.com/asitdeva" 
               target="_blank" 
               rel="noopener noreferrer" 
               className={`px-4 py-2 text-[#0a0a0a] rounded-full font-semibold text-sm transition-all duration-300 hover:scale-105`}
-              // Set the background color explicitly using the variable
               style={{ backgroundColor: colors.primary, color: colors.dark }} 
             >
               Book a Call
@@ -227,7 +203,7 @@ const Home = () => {
 
         {/* Main Content Sections with Custom Scroll Handler */}
         <main 
-          ref={mainRef} // Attach ref for event listener
+          ref={mainRef} 
           className="w-screen min-h-screen overflow-y-scroll scroll-smooth relative h-full"
         >
           
@@ -245,9 +221,7 @@ const Home = () => {
           
           {/* Render all sections, passing refs */}
           <HeroSection ref={sectionsRef.current[0]} />
-          {/* --- START CHANGE 3: Render the new component --- */}
           <RecentProjectsCarousel ref={sectionsRef.current[1]} /> 
-          {/* --- END CHANGE 3 --- */}
           <ServicesSection ref={sectionsRef.current[2]} />
           <PhilosophySection ref={sectionsRef.current[3]} />
           <FounderStorySection ref={sectionsRef.current[4]} />
