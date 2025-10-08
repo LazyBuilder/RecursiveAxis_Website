@@ -11,6 +11,7 @@ import { colors, LogoSVG } from './components/UIMain';
 import IntroOverlay from './components/IntroOverlay'; 
 
 import Header from './components/Header'; 
+import Footer from './components/Footer';
 
 // Import Section Components
 import HeroSection from './components/HeroSection';
@@ -214,6 +215,7 @@ const Home = () => {
           <ContactCTA ref={sectionsRef.current[5]} />
 
         </main>
+        <Footer />
       </div>
     </div>
   );

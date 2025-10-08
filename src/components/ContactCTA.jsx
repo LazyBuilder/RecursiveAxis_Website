@@ -3,7 +3,7 @@
 import React from 'react'; // 💡 Removed useState, AnimatePresence
 import { motion } from 'framer-motion'; 
 import { colors } from './UIMain';
-import Footer from './Footer';
+
 
 // 💡 Removed SimpleModal and Footer definitions
 // 💡 Removed legal content definitions
@@ -66,7 +66,7 @@ const ContactCTA = React.forwardRef((props, ref) => {
             </div>
 
             {/* 💡 FOOTER REMOVED: Footer is now separate and must be rendered outside this component */}
-            <Footer />
+            
         </section>
     );
 });
