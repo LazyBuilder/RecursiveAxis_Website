@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { colors } from './components/UIMain'; 
 import { FaArrowLeft } from 'react-icons/fa';
+import { Link } from 'react-router-dom'; 
 
 // Image Imports: Confirmed to be correct assuming photos is a subdirectory of src/
 import MSHImage from './photos/mshcg-dugapuja.png';    
@@ -109,12 +110,14 @@ const ProjectsPage = () => {
     const openModal = (project) => setSelectedProject(project);
     const closeModal = () => setSelectedProject(null);
 
+    const MotionLink = motion(Link);
+
     return (
         <>
             <div className="min-h-screen pt-32 pb-16 px-4" style={{ backgroundColor: colors.light, color: colors.dark }}>
                 
                 {/* Back to Home Button */}
-                <motion.a
+                <MotionLink
                     href="/" 
                     className="flex items-center text-lg font-semibold text-gray-700 hover:text-black transition-colors duration-300 mb-8 max-w-5xl mx-auto"
                     initial={{ x: -20, opacity: 0 }}
@@ -122,7 +125,7 @@ const ProjectsPage = () => {
                     transition={{ delay: 0.2 }}
                 >
                     <FaArrowLeft className="mr-3" /> Back to Home
-                </motion.a>
+                </MotionLink>
 
                 {/* Page Title */}
                 <motion.h1

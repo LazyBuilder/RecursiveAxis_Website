@@ -4,6 +4,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import FullPageSection from './FullPageSection'; 
+import { Link } from 'react-router-dom'; 
 
 // ==========================================================
 // 🚨 CRITICAL: LOCAL IMAGE IMPORTS - CHECK NAMES IN src/photos/
@@ -56,7 +57,7 @@ const ProjectTeaserCard = ({ project }) => (
         whileHover={{ y: -5 }}
     >
         {/* The anchor tag links to the full projects page, as per the multi-page plan */}
-        <a href="/projects" className="block">
+        <Link to="/projects" className="block">
             
             {/* Aspect ratio 16/9 for a shorter card and less vertical space */}
             <div className="relative w-full aspect-[16/9] overflow-hidden">
@@ -75,7 +76,7 @@ const ProjectTeaserCard = ({ project }) => (
                     {project.title}
                 </h3>
             </div>
-        </a>
+        </Link>
     </motion.div>
 );
 
@@ -141,13 +142,13 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                     </div>
                     
                     {/* === CALL TO ACTION === */}
-                    <a
-                        href="/projects" // Links to the separate projects page
+                    <Link
+                        to="/projects" // Uses the router to handle the basename prefix
                         className="mt-8 px-10 py-4 text-lg font-bold rounded-full text-black transition-all duration-300 hover:scale-[1.05] hover:shadow-2xl shadow-xl"
                         style={{ backgroundColor: PRIMARY_COLOR }}
                     >
-                        See All 9+ Case Studies &rarr;
-                    </a>
+                        Explore all projects &rarr;
+                    </Link>
 
                 </div>
             </FullPageSection>
