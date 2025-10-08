@@ -40,14 +40,6 @@ const ServicesSection = React.forwardRef((props, ref) => (
     {/* CSS for the Glowing Cards and Global Animated Title */}
     <style>
       {`
-        /* --- GLOBAL TITLE STYLE (Ensure this is available everywhere) --- */
-        .global-animated-title {
-            background: linear-gradient(45deg, ${PRIMARY_COLOR}, ${SECONDARY_COLOR}, ${PRIMARY_COLOR});
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: global-gradient-shift 10s ease infinite;
-        }
         @keyframes global-gradient-shift {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -103,7 +95,7 @@ const ServicesSection = React.forwardRef((props, ref) => (
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-          Our Digital Services
+          SERVICES & OFFERINGS
         </motion.h2>
         
         {/* === SERVICES GRID CONTAINER === */}

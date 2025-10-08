@@ -163,7 +163,7 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 1 }}
                         >
-                            Recent Projects
+                            RECENT PROJECTS
                         </motion.h2>
                     </div>
 
