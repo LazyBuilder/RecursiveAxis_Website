@@ -158,7 +158,7 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                     <div className="pt-24 w-full flex flex-col items-center">
                         {/* === MAIN TITLE === */}
                         <motion.h2
-                            className={`text-4xl md:text-6xl font-extrabold mb-6 global-animated-title`}
+                            className={`text-3xl md:text-5xl font-extrabold mb-6 global-animated-title`}
                             initial={{ opacity: 0, y: 50 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 1 }}

@@ -15,9 +15,9 @@ const ContactCTA = React.forwardRef((props, ref) => (
       transition={{ duration: 0.8, delay: 0.2 }}
       viewport={{ once: true }}
     >
-      <h2 className="text-4xl md:text-6xl font-extrabold text-center mb-4 animated-gradient">Ready to write your story?</h2>
+      <h2 className="text-4xl md:text-6xl font-extrabold text-center mb-4 animated-gradient">READY TO RUN ??</h2>
       <p className={`text-base md:text-xl text-gray-600 text-center max-w-2xl mx-auto mb-12`}>
-        Let's connect and begin shaping your innovation journey.
+        Lets go get it done. If not anything, we will have a great conversation and some fun.
       </p>
       <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8">
         <a
