@@ -5,6 +5,41 @@ import { motion } from 'framer-motion';
 import FullPageSection from './FullPageSection';
 import { colors } from './UIMain';
 
+// --- START: Footer Component Definition ---
+// NOTE: Replace 'YOUR_BACKGROUND_IMAGE_URL_HERE' with your actual image URL
+const FOOTER_BG_IMAGE_URL = 'YOUR_BACKGROUND_IMAGE_URL_HERE'; 
+
+const Footer = () => {
+    // Height is 15% of the viewport height (15vh)
+    const FOOTER_HEIGHT_CLASS = 'h-[15vh]'; 
+    const DARK_OVERLAY_CLASS = 'absolute inset-0 bg-black opacity-80'; 
+
+    return (
+        <footer 
+            className={`w-full relative text-gray-400 flex items-center justify-center text-center text-sm overflow-hidden ${FOOTER_HEIGHT_CLASS}`}
+            style={{ 
+                backgroundImage: `url('${FOOTER_BG_IMAGE_URL}')`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+            }}
+        >
+            {/* Dark Overlay for text visibility (80% opacity) */}
+            <div className={DARK_OVERLAY_CLASS}></div>
+
+            {/* Footer Content (z-index 10 to appear above the overlay) */}
+            <div className="relative z-10 p-4">
+                <p>&copy; {new Date().getFullYear()} Recursive Axis. All rights reserved.</p>
+                <div className='flex justify-center space-x-4 mt-2'>
+                    <a href="/privacy" className="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="/terms" className="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </footer>
+    );
+}
+// --- END: Footer Component Definition ---
+
+
 const ContactCTA = React.forwardRef((props, ref) => (
   // Inherits light body background. Ensure text is dark-ish.
   <FullPageSection id="contact" ref={ref} bgClass="bg-radiant-pulse text-gray-800">
@@ -36,6 +71,7 @@ const ContactCTA = React.forwardRef((props, ref) => (
         </a>
       </div>
     </motion.div>
+    <Footer />
   </FullPageSection>
 ));
 
