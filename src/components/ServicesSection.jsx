@@ -98,7 +98,7 @@ const ServicesSection = React.forwardRef((props, ref) => (
         
         {/* Title: Uses the consistent global animated gradient class */}
         <motion.h2
-          className={`text-4xl md:text-6xl font-extrabold mb-6 animated-gradient`}
+          className={`text-2xl md:text-4xl font-extrabold mb-6 animated-gradient`}
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
