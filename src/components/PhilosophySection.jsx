@@ -82,7 +82,7 @@ const PhilosophySection = React.forwardRef((props, ref) => (
         style={{ backgroundColor: BACKGROUND_DARK }}
         bgClass="text-white"
     >
-      <div className="w-full relative z-10 flex flex-col items-center justify-center pt-24 pb-20 px-4 h-full">
+      <div className="w-full relative z-10 flex flex-col px-4 h-full">
         
         {/* Title: Uses the consistent global animated gradient class */}
         <motion.h2

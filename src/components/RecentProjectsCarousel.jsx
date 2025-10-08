@@ -151,7 +151,7 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                 style={{ backgroundColor: BACKGROUND_LIGHT, color: TEXT_DARK }}
                 bgClass="text-dark" 
             >
-                <div className="w-full relative z-10 flex flex-col px-4 h-full overflow-hidden">
+                <div className="w-full relative z-10 flex flex-col px-4 h-full">
                     
                     {/* 🚨 FIX 1: Add pt-24 (padding top) to clear the fixed header. 
                        This shifts the content down by a standard header height. */}
