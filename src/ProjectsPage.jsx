@@ -226,7 +226,7 @@ const ProjectsPage = () => {
             <Header />
 
             {/* Content Wrapper: flex-grow for space between Header and Footer */}
-            <div className="flex-grow flex justify-center"> 
+            <div className="flex-grow flex justify-center **h-full overflow-hidden**"> 
                 
                 {/* Central Content Area: Max width, centered. Defaults to single column on mobile. */}
                 <main className="w-full max-w-7xl flex pt-[80px] overflow-hidden"> 

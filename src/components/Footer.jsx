@@ -76,7 +76,7 @@ const Footer = () => {
     
     // 💡 FIX 1: REMOVED the fixed height class h-[20vh] md:h-[15vh].
     const FOOTER_HEIGHT_CLASS = 'py-6'; 
-    const DARK_OVERLAY_CLASS = 'absolute inset-0 bg-black opacity-25'; 
+    const DARK_OVERLAY_CLASS = 'absolute inset-0 bg-black opacity-45'; 
 
     return (
         <>
