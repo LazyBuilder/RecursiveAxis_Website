@@ -1,23 +1,22 @@
-// src/ProjectsPage.jsx (New Dedicated Page Refactored for Inbox Layout & Search)
+// src/ProjectsPage.jsx (FINAL, CORRECTED VERSION FOR INDEPENDENT SCROLLING)
 
 import React, { useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion'; 
 import { Link } from 'react-router-dom';
 import { colors } from './components/UIMain'; 
 import { FaArrowLeft, FaSearch, FaTimes } from 'react-icons/fa';
 
-// 💡 NEW IMPORTS: Shared Header and Footer (ContactCTA)
+// SHARED COMPONENTS: Header and Footer must be in src/components/
 import Header from './components/Header';
-// Assuming ContactCTA is in src/components/ and contains the footer content
-import ContactCTA from './components/ContactCTA'; 
+import Footer from './components/Footer'; 
 
 // ==========================================================
 // CRITICAL: LOCAL IMAGE IMPORTS 
 import MSHImage from './photos/mshcg-dugapuja.png';    
 import VerveImage from './photos/verve-photography.png';  
+// (Rest of project data definition remains the same)
 // ==========================================================
 
-// --- PROJECT DATA (Full List) ---
 const projectData = [
     { id: 1, title: "MSH Cultural Group Platform", description: "Successfully delivered a full-featured, multi-language ticketing and information platform emphasizing ultra-low-cost deployment (under $25/year operational cost) and simplified content management for non-technical users. Key technologies: React, AWS Amplify.", tags: ['Web', 'Ticketing', 'Non-profit'], imageSrc: MSHImage, link: 'https://www.mshculturalgroup.com/', color: colors.primary, },
     { id: 2, title: "Verve Photography Portfolio", description: "A high-impact, high-resolution portfolio site optimized for speed and retina displays. Developed rapidly (2 days) using React and Tailwind CSS, demonstrating expertise in modern, rapid full-stack development. Key technologies: React, Tailwind, Performance.", tags: ['Web', 'Design', 'Portfolio'], imageSrc: VerveImage, link: 'https://verve.photography/', color: colors.secondary, },
@@ -27,10 +26,7 @@ const projectData = [
     { id: 6, title: "E-commerce Backend", description: "Scalable microservices architecture for a mid-sized e-commerce platform handling 10k+ daily transactions. Key technologies: Microservices, E-commerce, Scaling.", tags: ['Backend', 'E-commerce', 'Scaling'], imageSrc: VerveImage, link: '#', color: colors.secondary, },
 ];
 
-
-// ==========================================================
-// --- PROJECT LIST ITEM COMPONENT ---
-// ==========================================================
+// (ProjectListItem component remains the same)
 const ProjectListItem = ({ project, selected, onClick }) => (
     <motion.div
         className={`w-full p-4 border-b transition-all duration-200 cursor-pointer ${selected ? 'bg-gray-100 border-l-4 border-l-black' : 'bg-white hover:bg-gray-50'}`}
@@ -48,10 +44,7 @@ const ProjectListItem = ({ project, selected, onClick }) => (
     </motion.div>
 );
 
-
-// ==========================================================
-// --- PROJECT DETAIL PANEL COMPONENT (Replaces Modal) ---
-// ==========================================================
+// (ProjectDetailPanel component remains the same)
 const ProjectDetailPanel = ({ project, onClose }) => {
     
     if (!project) return null;
@@ -129,26 +122,26 @@ const ProjectsPage = () => {
     const handleSelectProject = (project) => setSelectedProject(project);
     const handleCloseDetail = () => setSelectedProject(null);
 
-    // Use motion(Link) for the Back button animation
     const MotionLink = motion(Link);
 
     return (
-        <div className="min-h-screen flex flex-col" style={{ backgroundColor: colors.light, color: colors.dark }}>
+        // 1. Ensure the container takes the full viewport height
+        <div className="h-screen flex flex-col overflow-hidden" style={{ backgroundColor: colors.light, color: colors.dark }}>
             
-            {/* 💡 HEADER INTEGRATION */}
             <Header />
 
-            {/* Main Content Area: Padding top to clear fixed header */}
+            {/* 2. Main Content: Takes remaining vertical space (flex-grow) and hides overflow */}
             <main className="flex-grow pt-[80px] flex overflow-hidden"> 
                 
-                {/* === PROJECT LIST / INBOX PANEL === */}
+                {/* === PROJECT LIST / INBOX PANEL (Left Side) === */}
                 <div 
+                    // 3. Make the list scrollable within its height constraint
                     className={`h-full overflow-y-auto transition-all duration-300 ${selectedProject ? 'w-1/3 min-w-[350px] max-w-sm border-r' : 'w-full max-w-4xl mx-auto'}`}
                     style={{ backgroundColor: colors.light }}
                 >
                     
                     <div className="p-4 pt-8 sticky top-0 bg-white z-20 shadow-sm">
-                        {/* Title & Back Button */}
+                        {/* Title & Back Button (Remains the same) */}
                         <MotionLink
                             to="/" 
                             className="flex items-center text-lg font-semibold text-gray-700 hover:text-black transition-colors duration-300 mb-6"
@@ -166,7 +159,7 @@ const ProjectsPage = () => {
                             A comprehensive look at our work. ({filteredProjects.length} results)
                         </p>
 
-                        {/* Search Bar */}
+                        {/* Search Bar (Remains the same) */}
                         <div className="relative">
                             <input
                                 type="text"
@@ -185,6 +178,7 @@ const ProjectsPage = () => {
                     </div>
 
                     {/* Project List */}
+                    {/* The scrolling takes place on the parent div, so this is fine */}
                     <div className="mt-4 pb-4">
                         {filteredProjects.map((project) => (
                             <ProjectListItem 
@@ -200,8 +194,9 @@ const ProjectsPage = () => {
                     </div>
                 </div>
 
-                {/* === DETAIL PANEL AREA (Inbox Slide-In) === */}
+                {/* === DETAIL PANEL AREA (Right Side) === */}
                 <motion.div 
+                    // 4. Detail panel must also take full height and allow scrolling
                     className={`h-full ${selectedProject ? 'w-2/3' : 'w-0'}`}
                 >
                     <AnimatePresence mode="wait">
@@ -223,12 +218,10 @@ const ProjectsPage = () => {
                 </motion.div>
             </main>
 
-            {/* 💡 FOOTER INTEGRATION (Assuming ContactCTA renders the footer content) */}
-            {/* Note: In a dedicated page, you might just include the footer component directly, 
-               but ContactCTA is used here based on your description. */}
-            <ContactCTA />
+            {/* FOOTER INTEGRATION (Assumes Footer is short and doesn't push the viewport) */}
+            <Footer />
 
-            {/* CSS for gradient on this page's title */}
+            {/* CSS for gradient on this page's title (Remains the same) */}
             <style>
             {`
                 .animated-gradient {
