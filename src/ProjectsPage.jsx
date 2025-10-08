@@ -229,7 +229,7 @@ const ProjectsPage = () => {
             <div className="flex-grow flex justify-center **h-full overflow-hidden**"> 
                 
                 {/* Central Content Area: Max width, centered. Defaults to single column on mobile. */}
-                <main className="w-full max-w-7xl flex pt-[80px] overflow-hidden"> 
+                <main className="w-full max-w-7xl flex pt-[80px] overflow-hidden **h-full**"> 
                     
                     {/* ---------------------------------------------------- */}
                     {/* === LEFT/MAIN PANEL (Mobile: Full Width, Desktop: List) === */}
