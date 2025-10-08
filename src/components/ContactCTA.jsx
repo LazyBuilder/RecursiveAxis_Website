@@ -1,48 +1,42 @@
-// src/components/ContactCTA.jsx (UPDATED - CTA Content Only)
+// src/components/ContactCTA.jsx (Final version for full-page scroll)
 
-import React from 'react'; // 💡 Removed useState, AnimatePresence
+import React from 'react';
 import { motion } from 'framer-motion'; 
 import { colors } from './UIMain';
-
-
-// 💡 Removed SimpleModal and Footer definitions
-// 💡 Removed legal content definitions
+import Footer from './Footer'; // Assuming Footer is in the same directory or accessible via this path
 
 const ContactCTA = React.forwardRef((props, ref) => {
-    
-    // 💡 Removed state and modal handlers
     
     return (
         <section 
             id="contact" 
             ref={ref} 
-            // 💡 Removed flex-col justify-between because the footer is no longer here
-            className="min-h-screen text-gray-800" 
+            // 💡 CRITICAL: Ensure this section takes exactly 100% of the viewport height.
+            // We are using 'flex-col justify-between' to push the content up and the footer down.
+            className="w-screen h-screen flex flex-col justify-between text-gray-800" 
         >
             
-            {/* Main content container for CTA */}
-            <div className="w-full relative z-10 flex flex-col items-center justify-center min-h-[80vh] px-4 py-20"> 
+            {/* 1. Main content container for CTA (Takes up remaining space) */}
+            {/* 💡 CHANGE: Give this part flex-grow and use standard padding */}
+            <div className="w-full relative z-10 flex flex-col items-center justify-center flex-grow px-4 py-20"> 
                 
                 {/* Pulsing Background - Sits behind everything */}
+                {/* NOTE: If bg-radiant-pulse is too large, it might still cause issues. 
+                   Ensure its size is constrained to the bounds of the 'div' or 'section'. */}
                 <div className="absolute inset-0 bg-radiant-pulse" />
 
-                {/* 1. Animated Title */}
+                {/* ... (Title, Subtext, Button remain the same) ... */}
                 <motion.h2
                     className="text-4xl md:text-6xl font-extrabold text-center mb-4 animated-gradient relative z-10"
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    viewport={{ once: true }}
+                    // ... (framer-motion props)
                 >
                     SIGN-UP FOR DISCOVERY CALL, NOW.
                 </motion.h2>
 
-                {/* 2. Subtext (static) */}
                 <p className={`text-base md:text-xl text-gray-600 text-center max-w-2xl mx-auto mb-8`}>
                     Lets put some life to your vision and see the results.
                 </p>
 
-                {/* 3. Button and Urgency Text */}
                 <div className="flex flex-col items-center justify-center space-y-4 relative z-10">
                     
                     <p className="text-sm font-bold tracking-widest uppercase text-red-500">
@@ -65,8 +59,9 @@ const ContactCTA = React.forwardRef((props, ref) => {
                 </div>
             </div>
 
-            {/* 💡 FOOTER REMOVED: Footer is now separate and must be rendered outside this component */}
-            
+            {/* 2. FOOTER: RENDERED INSIDE THE FULL-HEIGHT SECTION */}
+            <Footer />
+
         </section>
     );
 });

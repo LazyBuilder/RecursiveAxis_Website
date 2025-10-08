@@ -87,6 +87,8 @@ const Footer = () => {
                     backgroundImage: `url('${FOOTER_BG_IMAGE_URL}')`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat', 
+                    backgroundAttachment: 'fixed', 
                 }}
             >
                 <div className={DARK_OVERLAY_CLASS}></div>
