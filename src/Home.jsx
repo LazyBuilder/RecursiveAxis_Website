@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 // Import Utilities and Data (Paths confirmed correct for inner components)
 import { colors, LogoSVG } from './components/UIMain'; 
@@ -189,15 +190,28 @@ const Home = () => {
               <span className={`text-white text-3xl`}>Recursive Axis</span>
             </div>
             {/* The link below will trigger a full page reload but is fine for external links */}
-            <a 
-              href="https://cal.com/asitdeva" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className={`px-4 py-2 text-[#0a0a0a] rounded-full font-semibold text-sm transition-all duration-300 hover:scale-105`}
-              style={{ backgroundColor: colors.primary, color: colors.dark }} 
-            >
-              Book a Call
-            </a>
+            {/* 💡 NEW: Navigation links */}
+            <nav className="flex items-center space-x-4">
+                {/* Link to Projects Page */}
+                <Link 
+                    to="/projects" 
+                    className="px-4 py-2 text-white rounded-full font-semibold text-sm transition-all duration-300 hover:text-opacity-80"
+                >
+                    All Projects
+                </Link>
+
+                {/* Original External CTA Link */}
+                <a 
+                    href="https://cal.com/asitdeva" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className={`px-4 py-2 text-[#0a0a0a] rounded-full font-semibold text-sm transition-all duration-300 hover:scale-105`}
+                    style={{ backgroundColor: colors.primary, color: colors.dark }} 
+                >
+                    Book a Call
+                </a>
+            </nav>
+            {/* 💡 END NEW */}
           </div>
         </header>
 
