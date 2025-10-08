@@ -1,7 +1,7 @@
-// src/components/RecentProjectsCarousel.jsx (Vertical Scroll List Showcase)
+// src/components/RecentProjectsCarousel.jsx (Teaser Section for Multi-Page Solution)
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import FullPageSection from './FullPageSection'; 
 
 // ==========================================================
@@ -16,7 +16,7 @@ const SECONDARY_COLOR = '#FF00EA';
 const BACKGROUND_LIGHT = '#f7f7f7'; 
 const TEXT_DARK = '#1a1a1a'; 
 
-// --- PROJECT DATA (Unchanged) ---
+// --- PROJECT DATA (Using top 3 for teaser) ---
 const projectData = [
   {
     id: 1,
@@ -38,30 +38,24 @@ const projectData = [
     id: 3,
     title: "EcoConnect Community Tracker",
     description: "Developed a mobile-first web app using Firebase and React Native Web for real-time tracking of community recycling efforts. This gamified approach resulted in a 20% increase in monthly recycling volume.",
-    imageSrc: MSHImage,
+    imageSrc: MSHImage, 
     link: '#',
     color: PRIMARY_COLOR,
   },
-    // Adding more duplicates to ensure the vertical scroll is visible and testable
-    { id: 4, title: "FinTech Dashboard", description: "Built a secure, real-time analytics dashboard for wealth management clients using Node.js and PostgreSQL.", imageSrc: VerveImage, link: '#', color: SECONDARY_COLOR, },
-    { id: 5, title: "Healthcare Portal", description: "Designed and implemented a HIPAA-compliant patient communication portal.", imageSrc: MSHImage, link: '#', color: PRIMARY_COLOR, },
-    { id: 6, title: "E-commerce Backend", description: "Scalable microservices architecture for a mid-sized e-commerce platform handling 10k+ daily transactions.", imageSrc: VerveImage, link: '#', color: PRIMARY_COLOR, },
 ];
 
-// ... (Imports and constants remain the same) ...
-// ... (Project data remains the same, but only the first 3 will be used in the layout) ...
 
 // ==========================================================
-// --- PROJECT TEASER CARD COMPONENT ---
-// Reuses the card style, but is static and links directly.
+// --- PROJECT TEASER CARD COMPONENT (Updated) ---
 // ==========================================================
 const ProjectTeaserCard = ({ project }) => (
     <motion.div
         className="w-full shadow-xl rounded-xl overflow-hidden bg-white transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]"
         whileHover={{ y: -5 }}
     >
-        <a href="/projects" className="block"> {/* 💡 Link to the new /projects route */}
-            <div className="relative w-full aspect-[4/3] overflow-hidden">
+        <a href="/projects" className="block">
+            {/* 💡 CHANGE: Use 16/9 aspect ratio for a wider, shorter card */}
+            <div className="relative w-full aspect-[16/9] overflow-hidden">
                 <img 
                     src={project.imageSrc} 
                     alt={project.title} 
@@ -69,8 +63,10 @@ const ProjectTeaserCard = ({ project }) => (
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
             </div>
-            <div className="p-5">
-                <h3 className="text-xl font-extrabold text-gray-800" style={{ color: project.color }}>
+            
+            {/* Text area is smaller now */}
+            <div className="p-4 md:p-5">
+                <h3 className="text-lg md:text-xl font-extrabold text-gray-800" style={{ color: project.color }}>
                     {project.title}
                 </h3>
             </div>
@@ -84,12 +80,11 @@ const ProjectTeaserCard = ({ project }) => (
 // ==========================================================
 const RecentProjectsCarousel = React.forwardRef((props, ref) => {
 
-    // Take only the top 3 projects for the homepage teaser
     const topThreeProjects = projectData.slice(0, 3);
 
     return (
         <>
-            {/* CSS STYLES (only gradient needed) */}
+            {/* CSS STYLES (unchanged) */}
             <style>
             {`
                 /* Title Gradient (Unchanged) */
@@ -113,7 +108,6 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                 ref={ref} 
                 style={{ backgroundColor: BACKGROUND_LIGHT, color: TEXT_DARK }}
                 bgClass="text-dark" 
-                // Restore min-h-screen if needed, as the content is now constrained and static
             >
                 <div className="w-full relative z-10 flex flex-col items-center justify-center py-20 px-4">
                     
@@ -130,8 +124,8 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                     <p className="mb-12 text-lg text-gray-500 italic">Our three latest featured works.</p>
 
 
-                    {/* === STATIC 3-COLUMN LAYOUT === */}
-                    <div className="w-full max-w-7xl grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                    {/* === STATIC 3-COLUMN LAYOUT (Responsive) === */}
+                    <div className="w-full max-w-7xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
                         {topThreeProjects.map((project) => (
                             <ProjectTeaserCard 
                                 key={project.id} 
@@ -142,9 +136,9 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
                     
                     {/* === CALL TO ACTION === */}
                     <a
-                        href="/projects" // 💡 Link to the dedicated project page
-                        className="mt-8 px-10 py-4 text-lg font-bold rounded-full text-white transition-all duration-300 hover:scale-[1.05] hover:shadow-2xl shadow-xl"
-                        style={{ backgroundColor: PRIMARY_COLOR }}
+                        href="/projects"
+                        className="mt-8 px-10 py-4 text-lg font-bold rounded-full text-black transition-all duration-300 hover:scale-[1.05] hover:shadow-2xl shadow-xl"
+                        style={{ backgroundColor: PRIMARY_COLOR }} // Ensure text is black for high contrast
                     >
                         See All 9+ Case Studies &rarr;
                     </a>
