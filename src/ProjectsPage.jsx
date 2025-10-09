@@ -215,29 +215,58 @@ const ProjectsPage = () => {
                 {/* ---------------------------------------------------- */}
                 {/* === TOP HEADER/SEARCH BAR (Fixed & Centered) === */}
                 {/* ---------------------------------------------------- */}
-                <div className="w-full flex-shrink-0 pt-[80px] p-6 bg-white shadow-md">
-                    <div className="max-w-4xl mx-auto text-center">
-                        {/* Title & Back Button */}
-                        <MotionLink
-                            to="/" 
-                            className="flex items-center justify-center text-lg font-semibold text-gray-700 hover:text-black transition-colors duration-300 mb-4"
-                            initial={{ y: -20, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            transition={{ delay: 0.1 }}
-                        >
-                            <FaArrowLeft className="mr-3" /> Back to Home
-                        </MotionLink>
-
-                        {/* Centered Title */}
-                        <h1 className="text-4xl md:text-5xl font-extrabold mb-6 animated-gradient">
-                            Project Portfolio
-                        </h1>
+                <div className="flex-grow flex flex-col justify-center h-full overflow-hidden"> 
+            
+            {/* ---------------------------------------------------- */}
+            {/* === TOP HEADER/SEARCH BAR (Fixed & Centered) === */}
+            {/* ---------------------------------------------------- */}
+            <div className="w-full flex-shrink-0 pt-[80px] p-6 bg-white shadow-md">
+                
+                {/* Max-width container for content alignment */}
+                <div className="max-w-7xl mx-auto px-4"> 
+                    
+                    {/* NEW STRUCTURE: Back Link, Title, and Search Bar */}
+                    <div className="flex items-center justify-between relative">
                         
-                        {/* Centered Search Bar */}
-                        <div className="relative mb-4 max-w-lg mx-auto">
+                            {/* 1. Back to Home Link (Left Side, Always Visible) */}
+                            <MotionLink
+                                to="/" 
+                                className="flex items-center text-lg font-semibold text-gray-700 hover:text-black transition-colors duration-300 flex-shrink-0"
+                                initial={{ y: -20, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                transition={{ delay: 0.1 }}
+                            >
+                                <FaArrowLeft className="mr-3" /> Back to Home
+                            </MotionLink>
+
+                            {/* 2. Centered Title (Takes Center Stage) */}
+                            <h1 className="text-4xl md:text-5xl font-extrabold animated-gradient absolute inset-0 flex items-center justify-center pointer-events-none">
+                                Project Portfolio
+                            </h1>
+                            
+                            {/* 3. Search Bar (Right Side, HIDDEN ON SMALL SCREENS) */}
+                            <div className="relative w-full max-w-xs ml-auto hidden lg:block flex-shrink-0">
+                                <input
+                                    type="text"
+                                    placeholder="Search by title, keyword, or tag..."
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    className="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-black transition-all"
+                                />
+                                <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                                {searchTerm && (
+                                    <button onClick={() => setSearchTerm('')} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700">
+                                        <FaTimes />
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+                        
+                        {/* Responsive Search Bar (VISIBLE ON MOBILE ONLY) */}
+                        <div className="relative mt-4 mb-2 lg:hidden">
                             <input
                                 type="text"
-                                placeholder="Search by title, keyword, or tag..."
+                                placeholder="Search projects..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 className="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-black transition-all"
@@ -249,7 +278,8 @@ const ProjectsPage = () => {
                                 </button>
                             )}
                         </div>
-                        <p className="text-md text-gray-600 mb-2">
+
+                        <p className="text-md text-gray-600 text-center mt-4">
                             A comprehensive look at our work. ({filteredProjects.length} results)
                         </p>
                     </div>
