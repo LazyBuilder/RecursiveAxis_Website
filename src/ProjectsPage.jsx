@@ -1,4 +1,4 @@
-// src/ProjectsPage.jsx (FINAL, MOBILE-READY, AND SCROLL-FIXED VERSION)
+// src/ProjectsPage.jsx (FINAL - INBOX UI LAYOUT)
 
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion'; 
@@ -10,15 +10,12 @@ import { FaArrowLeft, FaSearch, FaTimes, FaChevronDown } from 'react-icons/fa';
 import Header from './components/Header';
 import Footer from './components/Footer'; 
 
-// ==========================================================
-// CRITICAL: LOCAL IMAGE IMPORTS 
+// CRITICAL: LOCAL IMAGE IMPORTS (Assuming paths are correct)
 import MSHImage from './photos/mshcg-dugapuja.png';    
 import VerveImage from './photos/verve-photography.png';  
-// ==========================================================
 
 // --- PROJECT DATA (Full List) ---
 const projectData = [
-    // ... (Project data remains the same)
     { id: 1, title: "MSH Cultural Group Platform", description: "Successfully delivered a full-featured, multi-language ticketing and information platform emphasizing ultra-low-cost deployment (under $25/year operational cost) and simplified content management for non-technical users. Key technologies: React, AWS Amplify.", tags: ['Web', 'Ticketing', 'Non-profit'], imageSrc: MSHImage, link: 'https://www.mshculturalgroup.com/', color: colors.primary, },
     { id: 2, title: "Verve Photography Portfolio", description: "A high-impact, high-resolution portfolio site optimized for speed and retina displays. Developed rapidly (2 days) using React and Tailwind CSS, demonstrating expertise in modern, rapid full-stack development. Key technologies: React, Tailwind, Performance.", tags: ['Web', 'Design', 'Portfolio'], imageSrc: VerveImage, link: 'https://verve.photography/', color: colors.secondary, },
     { id: 3, title: "EcoConnect Community Tracker", description: "Developed a mobile-first web app using Firebase and React Native Web for real-time tracking of community recycling efforts. This gamified approach resulted in a 20% increase in monthly recycling volume. Key technologies: React Native Web, Firebase, Gamification.", tags: ['Mobile', 'Tracker', 'Community'], imageSrc: MSHImage, link: '#', color: colors.primary, },
@@ -27,10 +24,10 @@ const projectData = [
     { id: 6, title: "E-commerce Backend", description: "Scalable microservices architecture for a mid-sized e-commerce platform handling 10k+ daily transactions. Key technologies: Microservices, E-commerce, Scaling.", tags: ['Backend', 'E-commerce', 'Scaling'], imageSrc: VerveImage, link: '#', color: colors.secondary, },
 ];
 
+// --- (MobileProjectDetail, MobileProjectListItem, DesktopProjectListItem, ProjectDetailPanel components remain the same) ---
 
 // ==========================================================
-// --- MOBILE/COLLAPSIBLE DETAIL COMPONENT & LIST ITEMS ---
-// (These components remain the same as they were correctly implemented)
+// --- MOBILE/COLLAPSIBLE DETAIL COMPONENT ---
 // ==========================================================
 const MobileProjectDetail = ({ project }) => (
     <motion.div
@@ -68,6 +65,10 @@ const MobileProjectDetail = ({ project }) => (
     </motion.div>
 );
 
+
+// ==========================================================
+// --- MOBILE/SMALL SCREEN LIST ITEM ---
+// ==========================================================
 const MobileProjectListItem = ({ project, selected, onClick }) => (
     <>
         <motion.div
@@ -94,6 +95,10 @@ const MobileProjectListItem = ({ project, selected, onClick }) => (
     </>
 );
 
+
+// ==========================================================
+// --- LARGE SCREEN PROJECT LIST ITEM (Remains the same as before) ---
+// ==========================================================
 const DesktopProjectListItem = ({ project, selected, onClick }) => (
     <motion.div
         className={`w-full p-4 border-b transition-all duration-200 cursor-pointer ${selected ? 'bg-gray-100 border-l-4 border-l-black' : 'bg-white hover:bg-gray-50'}`}
@@ -111,6 +116,10 @@ const DesktopProjectListItem = ({ project, selected, onClick }) => (
     </motion.div>
 );
 
+
+// ==========================================================
+// --- PROJECT DETAIL PANEL COMPONENT (Right Pane for Desktop) ---
+// ==========================================================
 const ProjectDetailPanel = ({ project, onClose }) => {
     if (!project) return null;
 
@@ -195,67 +204,73 @@ const ProjectsPage = () => {
     const MotionLink = motion(Link);
 
     return (
-        // Root Container: h-screen flex flex-col overflow-hidden (static page)
+        // 1. Root Container: h-screen flex flex-col overflow-hidden (static page)
         <div className="h-screen flex flex-col overflow-hidden" style={{ backgroundColor: colors.light, color: colors.dark }}>
             
             <Header />
 
-            {/* 1. Content Wrapper: FLEX-GROW, H-FULL, OVERFLOW-HIDDEN FIXES APPLIED */}
-            <div className="flex-grow flex justify-center h-full overflow-hidden"> 
+            {/* 2. Content Wrapper: Takes space between Header and Footer. Now acts as main scroll container. */}
+            <div className="flex-grow flex flex-col justify-center h-full overflow-hidden"> 
                 
-                {/* 2. Central Content Area: H-FULL FIX APPLIED */}
-                <main className="w-full max-w-7xl flex pt-[80px] overflow-hidden h-full"> 
+                {/* ---------------------------------------------------- */}
+                {/* === TOP HEADER/SEARCH BAR (Fixed & Centered) === */}
+                {/* ---------------------------------------------------- */}
+                <div className="w-full flex-shrink-0 pt-[80px] p-6 bg-white shadow-md">
+                    <div className="max-w-4xl mx-auto text-center">
+                        {/* Title & Back Button */}
+                        <MotionLink
+                            to="/" 
+                            className="flex items-center justify-center text-lg font-semibold text-gray-700 hover:text-black transition-colors duration-300 mb-4"
+                            initial={{ y: -20, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ delay: 0.1 }}
+                        >
+                            <FaArrowLeft className="mr-3" /> Back to Home
+                        </MotionLink>
+
+                        {/* Centered Title */}
+                        <h1 className="text-4xl md:text-5xl font-extrabold mb-6 animated-gradient">
+                            Project Portfolio
+                        </h1>
+                        
+                        {/* Centered Search Bar */}
+                        <div className="relative mb-4 max-w-lg mx-auto">
+                            <input
+                                type="text"
+                                placeholder="Search by title, keyword, or tag..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-black transition-all"
+                            />
+                            <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                            {searchTerm && (
+                                <button onClick={() => setSearchTerm('')} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700">
+                                    <FaTimes />
+                                </button>
+                            )}
+                        </div>
+                        <p className="text-md text-gray-600 mb-2">
+                            A comprehensive look at our work. ({filteredProjects.length} results)
+                        </p>
+                    </div>
+                </div>
+
+                {/* ---------------------------------------------------- */}
+                {/* === INBOX LAYOUT (List + Detail Pane) === */}
+                {/* ---------------------------------------------------- */}
+                <main className="w-full max-w-7xl flex flex-grow mx-auto overflow-hidden"> 
                     
-                    {/* ---------------------------------------------------- */}
-                    {/* === LEFT/MAIN PANEL (List Container) === */}
-                    {/* ---------------------------------------------------- */}
+                    {/* === LEFT PANEL: PROJECT LIST (Scrollable) === */}
                     <div 
-                        // h-full is essential here
-                        className={`h-full flex flex-col transition-all duration-300 flex-shrink-0 w-full lg:w-1/3 lg:min-w-[350px] lg:max-w-sm lg:border-r 
-                            ${selectedProject ? 'lg:w-1/3' : 'lg:w-full lg:max-w-4xl lg:mx-auto'}`}
+                        // h-full and flex-grow ensure it fills the remaining height
+                        className={`h-full flex flex-col transition-all duration-300 flex-shrink-0 border-r 
+                            w-full lg:w-1/3 lg:min-w-[350px] lg:max-w-sm`}
                         style={{ backgroundColor: colors.light }}
                     >
                         
-                        {/* List Header/Search (STICKY/NON-SCROLLABLE AREA) */}
-                        <div className="p-4 pt-8 bg-white z-20 shadow-sm flex-shrink-0">
-                            {/* Title & Back Button */}
-                            <MotionLink
-                                to="/" 
-                                className="flex items-center text-lg font-semibold text-gray-700 hover:text-black transition-colors duration-300 mb-6"
-                                initial={{ x: -20, opacity: 0 }}
-                                animate={{ x: 0, opacity: 1 }}
-                                transition={{ delay: 0.2 }}
-                            >
-                                <FaArrowLeft className="mr-3" /> Back to Home
-                            </MotionLink>
-
-                            <h1 className="text-3xl md:text-4xl font-extrabold mb-4 animated-gradient">
-                                Project Portfolio
-                            </h1>
-                            <p className="text-md text-gray-600 mb-6">
-                                A comprehensive look at our work. ({filteredProjects.length} results)
-                            </p>
-
-                            {/* Search Bar */}
-                            <div className="relative mb-4">
-                                <input
-                                    type="text"
-                                    placeholder="Search by title, keyword, or tag..."
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-black transition-all"
-                                />
-                                <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                                {searchTerm && (
-                                    <button onClick={() => setSearchTerm('')} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700">
-                                        <FaTimes />
-                                    </button>
-                                )}
-                            </div>
-                        </div>
-
                         {/* Project List (SCROLLABLE AREA: flex-grow overflow-y-auto) */}
                         <div className="overflow-y-auto pb-4 flex-grow">
+                            
                             {/* Desktop List Rendering */}
                             <div className="hidden lg:block">
                                 {filteredProjects.map((project) => (
@@ -286,9 +301,7 @@ const ProjectsPage = () => {
                         </div>
                     </div>
 
-                    {/* ---------------------------------------------------- */}
-                    {/* === RIGHT PANEL (Desktop Only) === */}
-                    {/* ---------------------------------------------------- */}
+                    {/* === RIGHT PANEL: PROJECT DETAILS (Scrollable) === */}
                     <motion.div 
                         // h-full is essential here
                         className={`h-full hidden lg:block lg:flex-grow transition-all duration-300 ${selectedProject ? 'lg:w-2/3' : 'lg:w-0'}`}
