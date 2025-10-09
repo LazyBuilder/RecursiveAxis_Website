@@ -1,4 +1,4 @@
-// src/ProjectsPage.jsx (FINAL - INBOX UI LAYOUT)
+// src/ProjectsPage.jsx (FINAL, CLEANED, AND FIXED VERSION)
 
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion'; 
@@ -10,7 +10,7 @@ import { FaArrowLeft, FaSearch, FaTimes, FaChevronDown } from 'react-icons/fa';
 import Header from './components/Header';
 import Footer from './components/Footer'; 
 
-// CRITICAL: LOCAL IMAGE IMPORTS (Assuming paths are correct)
+// CRITICAL: LOCAL IMAGE IMPORTS 
 import MSHImage from './photos/mshcg-dugapuja.png';    
 import VerveImage from './photos/verve-photography.png';  
 
@@ -23,8 +23,6 @@ const projectData = [
     { id: 5, title: "Healthcare Portal", description: "Designed and implemented a HIPAA-compliant patient communication portal. Key technologies: HIPAA, AWS, UX.", tags: ['Web', 'Healthcare', 'Security'], imageSrc: MSHImage, link: '#', color: colors.primary, },
     { id: 6, title: "E-commerce Backend", description: "Scalable microservices architecture for a mid-sized e-commerce platform handling 10k+ daily transactions. Key technologies: Microservices, E-commerce, Scaling.", tags: ['Backend', 'E-commerce', 'Scaling'], imageSrc: VerveImage, link: '#', color: colors.secondary, },
 ];
-
-// --- (MobileProjectDetail, MobileProjectListItem, DesktopProjectListItem, ProjectDetailPanel components remain the same) ---
 
 // ==========================================================
 // --- MOBILE/COLLAPSIBLE DETAIL COMPONENT ---
@@ -180,7 +178,7 @@ const ProjectDetailPanel = ({ project, onClose }) => {
 // --- MAIN PROJECTS PAGE COMPONENT (Unified) ---
 // ==========================================================
 const ProjectsPage = () => {
-    // ... (logic remains the same)
+    // State and Memoized logic
     const [selectedProjectId, setSelectedProjectId] = useState(null); 
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -209,25 +207,20 @@ const ProjectsPage = () => {
             
             <Header />
 
-            {/* 2. Content Wrapper: Takes space between Header and Footer. Now acts as main scroll container. */}
-            <div className="flex-grow flex flex-col justify-center h-full overflow-hidden"> 
+            {/* 2. Content Wrapper: Takes space between Header and Footer. FIXES APPLIED. */}
+            <div className="flex-grow flex flex-col h-full overflow-hidden"> 
                 
                 {/* ---------------------------------------------------- */}
                 {/* === TOP HEADER/SEARCH BAR (Fixed & Centered) === */}
                 {/* ---------------------------------------------------- */}
-                <div className="flex-grow flex flex-col justify-center h-full overflow-hidden"> 
-            
-            {/* ---------------------------------------------------- */}
-            {/* === TOP HEADER/SEARCH BAR (Fixed & Centered) === */}
-            {/* ---------------------------------------------------- */}
-            <div className="w-full flex-shrink-0 pt-[80px] p-6 bg-white shadow-md">
-                
-                {/* Max-width container for content alignment */}
-                <div className="max-w-7xl mx-auto px-4"> 
+                <div className="w-full flex-shrink-0 pt-[80px] p-6 bg-white shadow-md">
                     
-                    {/* NEW STRUCTURE: Back Link, Title, and Search Bar */}
-                    <div className="flex items-center justify-between relative">
+                    {/* Max-width container for content alignment */}
+                    <div className="max-w-7xl mx-auto px-4"> 
                         
+                        {/* 1. NEW ROW STRUCTURE: Link, Title, Search */}
+                        <div className="flex items-center justify-between relative mb-4">
+                            
                             {/* 1. Back to Home Link (Left Side, Always Visible) */}
                             <MotionLink
                                 to="/" 
@@ -240,6 +233,7 @@ const ProjectsPage = () => {
                             </MotionLink>
 
                             {/* 2. Centered Title (Takes Center Stage) */}
+                            {/* NOTE: absolute positioning is used for visual centering without breaking flex flow */}
                             <h1 className="text-4xl md:text-5xl font-extrabold animated-gradient absolute inset-0 flex items-center justify-center pointer-events-none">
                                 Project Portfolio
                             </h1>
@@ -260,10 +254,10 @@ const ProjectsPage = () => {
                                     </button>
                                 )}
                             </div>
-                        </div>
+                        </div> 
                         
-                        {/* Responsive Search Bar (VISIBLE ON MOBILE ONLY) */}
-                        <div className="relative mt-4 mb-2 lg:hidden">
+                        {/* Responsive Search Bar (VISIBLE ON MOBILE ONLY, below main row) */}
+                        <div className="relative mb-2 lg:hidden">
                             <input
                                 type="text"
                                 placeholder="Search projects..."
@@ -279,20 +273,20 @@ const ProjectsPage = () => {
                             )}
                         </div>
 
-                        <p className="text-md text-gray-600 text-center mt-4">
+                        <p className="text-md text-gray-600 text-center mt-2">
                             A comprehensive look at our work. ({filteredProjects.length} results)
                         </p>
-                    </div>
-                </div>
+                    </div> 
+                </div> 
 
                 {/* ---------------------------------------------------- */}
                 {/* === INBOX LAYOUT (List + Detail Pane) === */}
                 {/* ---------------------------------------------------- */}
+                {/* flex-grow ensures this area fills the remaining height below the header/search bar */}
                 <main className="w-full max-w-7xl flex flex-grow mx-auto overflow-hidden"> 
                     
                     {/* === LEFT PANEL: PROJECT LIST (Scrollable) === */}
                     <div 
-                        // h-full and flex-grow ensure it fills the remaining height
                         className={`h-full flex flex-col transition-all duration-300 flex-shrink-0 border-r 
                             w-full lg:w-1/3 lg:min-w-[350px] lg:max-w-sm`}
                         style={{ backgroundColor: colors.light }}
@@ -333,7 +327,6 @@ const ProjectsPage = () => {
 
                     {/* === RIGHT PANEL: PROJECT DETAILS (Scrollable) === */}
                     <motion.div 
-                        // h-full is essential here
                         className={`h-full hidden lg:block lg:flex-grow transition-all duration-300 ${selectedProject ? 'lg:w-2/3' : 'lg:w-0'}`}
                     >
                         <AnimatePresence mode="wait">
@@ -354,7 +347,7 @@ const ProjectsPage = () => {
                         )}
                     </motion.div>
                 </main>
-            </div>
+            </div> 
 
             <Footer />
 
