@@ -1,4 +1,4 @@
-// src/ProjectsPage.jsx (FINAL, CLEANED, AND FIXED VERSION)
+// src/ProjectsPage.jsx (INNOVATIVE AI KNOWLEDGE GRAPH LAYOUT)
 
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion'; 
@@ -11,17 +11,19 @@ import Header from './components/Header';
 import Footer from './components/Footer'; 
 
 // CRITICAL: LOCAL IMAGE IMPORTS 
-import MSHImage from './photos/mshcg-dugapuja.png';    
+import MSHImage from './photos/mshcg-dugapuja.png';   
 import VerveImage from './photos/verve-photography.png';  
 
 // --- PROJECT DATA (Full List) ---
 const projectData = [
-    { id: 1, title: "MSH Cultural Group Platform", description: "Successfully delivered a full-featured, multi-language ticketing and information platform emphasizing ultra-low-cost deployment (under $25/year operational cost) and simplified content management for non-technical users. Key technologies: React, AWS Amplify.", tags: ['Web', 'Ticketing', 'Non-profit'], imageSrc: MSHImage, link: 'https://www.mshculturalgroup.com/', color: colors.primary, },
-    { id: 2, title: "Verve Photography Portfolio", description: "A high-impact, high-resolution portfolio site optimized for speed and retina displays. Developed rapidly (2 days) using React and Tailwind CSS, demonstrating expertise in modern, rapid full-stack development. Key technologies: React, Tailwind, Performance.", tags: ['Web', 'Design', 'Portfolio'], imageSrc: VerveImage, link: 'https://verve.photography/', color: colors.secondary, },
-    { id: 3, title: "EcoConnect Community Tracker", description: "Developed a mobile-first web app using Firebase and React Native Web for real-time tracking of community recycling efforts. This gamified approach resulted in a 20% increase in monthly recycling volume. Key technologies: React Native Web, Firebase, Gamification.", tags: ['Mobile', 'Tracker', 'Community'], imageSrc: MSHImage, link: '#', color: colors.primary, },
-    { id: 4, title: "FinTech Dashboard", description: "Built a secure, real-time analytics dashboard for wealth management clients using Node.js and PostgreSQL. Key technologies: Node.js, PostgreSQL, Security.", tags: ['Web', 'FinTech', 'Dashboard'], imageSrc: VerveImage, link: '#', color: colors.secondary, },
-    { id: 5, title: "Healthcare Portal", description: "Designed and implemented a HIPAA-compliant patient communication portal. Key technologies: HIPAA, AWS, UX.", tags: ['Web', 'Healthcare', 'Security'], imageSrc: MSHImage, link: '#', color: colors.primary, },
-    { id: 6, title: "E-commerce Backend", description: "Scalable microservices architecture for a mid-sized e-commerce platform handling 10k+ daily transactions. Key technologies: Microservices, E-commerce, Scaling.", tags: ['Backend', 'E-commerce', 'Scaling'], imageSrc: VerveImage, link: '#', color: colors.secondary, },
+    { id: 1, title: "MSH Cultural Group Platform", description: "Successfully delivered a full-featured, multi-language ticketing and information platform emphasizing ultra-low-cost deployment (under $25/year operational cost) and simplified content management for non-technical users. Key technologies: React, AWS Amplify.", tags: ['Web', 'Ticketing', 'Non-profit', 'React'], imageSrc: MSHImage, link: 'https://www.mshculturalgroup.com/', color: colors.primary, },
+    { id: 2, title: "Verve Photography Portfolio", description: "A high-impact, high-resolution portfolio site optimized for speed and retina displays. Developed rapidly (2 days) using React and Tailwind CSS, demonstrating expertise in modern, rapid full-stack development. Key technologies: React, Tailwind, Performance.", tags: ['Web', 'Design', 'Portfolio', 'React'], imageSrc: VerveImage, link: 'https://verve.photography/', color: colors.secondary, },
+    { id: 3, title: "EcoConnect Community Tracker", description: "Developed a mobile-first web app using Firebase and React Native Web for real-time tracking of community recycling efforts. This gamified approach resulted in a 20% increase in monthly recycling volume. Key technologies: React Native Web, Firebase, Gamification.", tags: ['Mobile', 'Tracker', 'Community', 'Firebase'], imageSrc: MSHImage, link: '#', color: colors.primary, },
+    { id: 4, title: "FinTech Dashboard", description: "Built a secure, real-time analytics dashboard for wealth management clients using Node.js and PostgreSQL. Key technologies: Node.js, PostgreSQL, Security.", tags: ['Web', 'FinTech', 'Dashboard', 'Node.js', 'Security'], imageSrc: VerveImage, link: '#', color: colors.secondary, },
+    { id: 5, title: "Healthcare Portal", description: "Designed and implemented a HIPAA-compliant patient communication portal. Key technologies: HIPAA, AWS, UX.", tags: ['Web', 'Healthcare', 'Security', 'AWS'], imageSrc: MSHImage, link: '#', color: colors.primary, },
+    { id: 6, title: "E-commerce Backend", description: "Scalable microservices architecture for a mid-sized e-commerce platform handling 10k+ daily transactions. Key technologies: Microservices, E-commerce, Scaling.", tags: ['Backend', 'E-commerce', 'Scaling', 'Microservices'], imageSrc: VerveImage, link: '#', color: colors.secondary, },
+    { id: 7, title: "AI Image Classifier Model", description: "Trained and deployed a high-accuracy convolutional neural network (CNN) for medical image classification using TensorFlow. Improved diagnostic speed by 35%.", tags: ['AI', 'Machine Learning', 'TensorFlow', 'Python'], imageSrc: MSHImage, link: '#', color: colors.primary, },
+    { id: 8, title: "Kubernetes Deployment Pipeline", description: "Automated end-to-end CI/CD pipeline using Jenkins and Kubernetes for zero-downtime deployment across multiple environments.", tags: ['DevOps', 'Kubernetes', 'CI/CD', 'AWS'], imageSrc: VerveImage, link: '#', color: colors.secondary, },
 ];
 
 // ==========================================================
@@ -65,26 +67,37 @@ const MobileProjectDetail = ({ project }) => (
 
 
 // ==========================================================
-// --- MOBILE/SMALL SCREEN LIST ITEM ---
+// --- MOBILE/SMALL SCREEN LIST ITEM (Enhanced) ---
 // ==========================================================
 const MobileProjectListItem = ({ project, selected, onClick }) => (
     <>
         <motion.div
-            className={`w-full p-4 border-b transition-all duration-200 cursor-pointer flex justify-between items-center ${selected ? 'bg-gray-100' : 'bg-white hover:bg-gray-50'}`}
+            className={`w-full p-4 border-b transition-all duration-200 cursor-pointer flex justify-between items-start ${selected ? 'bg-gray-100' : 'bg-white hover:bg-gray-50'}`} 
             onClick={() => onClick(project)}
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.3 }}
         >
-            <div>
-                <h3 className="text-lg font-bold truncate" style={{ color: project.color }}>
-                    {project.title}
-                </h3>
-                <p className="text-sm text-gray-500 line-clamp-2 mt-1">
-                    {project.description.substring(0, 80)}...
-                </p>
+            <div className="flex items-start w-full"> 
+                
+                {/* 1. Small Thumbnail */}
+                <div className="w-16 h-12 flex-shrink-0 mr-4 overflow-hidden rounded-md shadow-sm">
+                    <img src={project.imageSrc} alt={project.title} className="w-full h-full object-cover"/>
+                </div>
+
+                {/* 2. Text Content */}
+                <div className="flex-grow min-w-0">
+                    <h3 className="text-lg font-bold truncate" style={{ color: project.color }}>
+                        {project.title}
+                    </h3>
+                    <p className="text-sm text-gray-500 line-clamp-2 mt-1">
+                        {project.description.substring(0, 80)}...
+                    </p>
+                </div>
             </div>
-            <FaChevronDown className={`ml-4 transition-transform duration-300 ${selected ? 'rotate-180' : 'rotate-0'}`} />
+            
+            {/* 3. Dropdown Icon */}
+            <FaChevronDown className={`ml-4 mt-2 flex-shrink-0 transition-transform duration-300 ${selected ? 'rotate-180' : 'rotate-0'}`} />
         </motion.div>
         
         <AnimatePresence>
@@ -95,22 +108,32 @@ const MobileProjectListItem = ({ project, selected, onClick }) => (
 
 
 // ==========================================================
-// --- LARGE SCREEN PROJECT LIST ITEM (Remains the same as before) ---
+// --- NEW: LARGE SCREEN PROJECT GRID ITEM ---
 // ==========================================================
-const DesktopProjectListItem = ({ project, selected, onClick }) => (
+const DesktopProjectGridItem = ({ project, selected, onClick }) => (
     <motion.div
-        className={`w-full p-4 border-b transition-all duration-200 cursor-pointer ${selected ? 'bg-gray-100 border-l-4 border-l-black' : 'bg-white hover:bg-gray-50'}`}
+        className={`w-full p-4 border rounded-xl transition-all duration-300 cursor-pointer flex flex-col hover:shadow-lg ${selected ? 'bg-white shadow-2xl ring-4 ring-offset-2 ring-black' : 'bg-white hover:bg-gray-50'}`}
         onClick={() => onClick(project)}
-        initial={{ opacity: 0, x: -10 }}
-        animate={{ opacity: 1, x: 0 }}
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.3 }}
     >
-        <h3 className="text-lg font-bold truncate" style={{ color: project.color }}>
+        <div className="w-full aspect-[4/3] overflow-hidden rounded-lg mb-3">
+            <img src={project.imageSrc} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 hover:scale-[1.05]"/>
+        </div>
+        <h3 className="text-xl font-extrabold mb-1 truncate" style={{ color: project.color }}>
             {project.title}
         </h3>
-        <p className="text-sm text-gray-500 line-clamp-2 mt-1">
-            {project.description.substring(0, 80)}...
+        <p className="text-sm text-gray-500 line-clamp-3 mb-3 flex-grow">
+            {project.description}
         </p>
+        <div className="flex flex-wrap gap-1 mt-auto">
+            {project.tags.map(tag => (
+                <span key={tag} className="px-2 py-0.5 text-xs font-medium text-white rounded-full" style={{ backgroundColor: project.color }}>
+                    {tag}
+                </span>
+            ))}
+        </div>
     </motion.div>
 );
 
@@ -123,6 +146,7 @@ const ProjectDetailPanel = ({ project, onClose }) => {
 
     return (
         <motion.div
+            key={project.id} // Added key for AnimatePresence
             className="w-full h-full p-6 md:p-10 bg-white shadow-2xl overflow-y-auto"
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
@@ -181,16 +205,37 @@ const ProjectsPage = () => {
     // State and Memoized logic
     const [selectedProjectId, setSelectedProjectId] = useState(null); 
     const [searchTerm, setSearchTerm] = useState('');
+    const [activeTag, setActiveTag] = useState(null); // NEW: Active tag state
+
+    // NEW: Extract All Unique Tags
+    const allTags = useMemo(() => {
+        const tagCounts = projectData.reduce((acc, project) => {
+            project.tags.forEach(tag => {
+                acc[tag] = (acc[tag] || 0) + 1;
+            });
+            return acc;
+        }, {});
+        // Sort tags by count
+        return Object.entries(tagCounts)
+            .map(([tag, count]) => ({ tag, count }))
+            .sort((a, b) => b.count - a.count); 
+    }, []);
+
 
     const filteredProjects = useMemo(() => {
-        if (!searchTerm) return projectData;
-        const lowerCaseSearch = searchTerm.toLowerCase();
-        return projectData.filter(project => 
-            project.title.toLowerCase().includes(lowerCaseSearch) ||
-            project.description.toLowerCase().includes(lowerCaseSearch) ||
-            (project.tags && project.tags.some(tag => tag.toLowerCase().includes(lowerCaseSearch)))
+        let results = projectData.filter(project => 
+            project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (project.tags && project.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())))
         );
-    }, [searchTerm]);
+        
+        // NEW: Apply Tag Filter
+        if (activeTag) {
+            results = results.filter(project => project.tags.includes(activeTag));
+        }
+        
+        return results;
+    }, [searchTerm, activeTag]);
 
     const selectedProject = projectData.find(p => p.id === selectedProjectId);
 
@@ -200,6 +245,12 @@ const ProjectsPage = () => {
 
     const handleCloseDetail = () => setSelectedProjectId(null);
     const MotionLink = motion(Link);
+    
+    // NEW: Tag click handler
+    const handleTagClick = (tag) => {
+        setActiveTag(activeTag === tag ? null : tag); // Toggle logic
+        setSelectedProjectId(null); // Deselect any open project for clean transition
+    };
 
     return (
         // 1. Root Container: h-screen flex flex-col overflow-hidden (static page)
@@ -207,13 +258,13 @@ const ProjectsPage = () => {
             
             <Header />
 
-            {/* 2. Content Wrapper: Takes space between Header and Footer. FIXES APPLIED. */}
+            {/* 2. Content Wrapper: Takes space between Header and Footer. */}
             <div className="flex-grow flex flex-col h-full overflow-hidden"> 
                 
                 {/* ---------------------------------------------------- */}
                 {/* === TOP HEADER/SEARCH BAR (Fixed & Centered) === */}
                 {/* ---------------------------------------------------- */}
-                <div className="w-full flex-shrink-0 pt-[80px] p-6 bg-white shadow-md">
+                <div className="w-full flex-shrink-0 pt-[80px] p-6 bg-white shadow-md z-20">
                     
                     {/* Max-width container for content alignment */}
                     <div className="max-w-7xl mx-auto px-4"> 
@@ -233,7 +284,6 @@ const ProjectsPage = () => {
                             </MotionLink>
 
                             {/* 2. Centered Title (Takes Center Stage) */}
-                            {/* NOTE: absolute positioning is used for visual centering without breaking flex flow */}
                             <h1 className="text-4xl md:text-5xl font-extrabold animated-gradient absolute inset-0 flex items-center justify-center pointer-events-none">
                                 Project Portfolio
                             </h1>
@@ -287,18 +337,37 @@ const ProjectsPage = () => {
                     
                     {/* === LEFT PANEL: PROJECT LIST (Scrollable) === */}
                     <div 
-                        className={`h-full flex flex-col transition-all duration-300 flex-shrink-0 border-r 
-                            w-full lg:w-1/3 lg:min-w-[350px] lg:max-w-sm`}
+                        className={`h-full flex flex-col transition-all duration-300 flex-shrink-0 border-r w-full lg:w-1/3 lg:min-w-[350px] lg:max-w-sm`}
                         style={{ backgroundColor: colors.light }}
                     >
+                        
+                        {/* Dynamic Tag Cloud Filter (Desktop Only) */}
+                        <div className="hidden lg:flex flex-wrap gap-2 p-4 border-b bg-gray-50 flex-shrink-0">
+                            <h4 className="w-full text-sm font-bold text-gray-700 mb-1">Filter by Skill/Area:</h4>
+                            <button
+                                onClick={() => handleTagClick(null)}
+                                className={`px-3 py-1 text-sm font-medium rounded-full transition-all duration-200 ${activeTag === null ? 'bg-black text-white shadow-md' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                            >
+                                All Projects ({projectData.length})
+                            </button>
+                            {allTags.map(({ tag, count }) => (
+                                <button
+                                    key={tag}
+                                    onClick={() => handleTagClick(tag)}
+                                    className={`px-3 py-1 text-sm font-medium rounded-full transition-all duration-200 hover:scale-[1.03] ${activeTag === tag ? 'bg-blue-600 text-white shadow-lg' : 'bg-blue-100 text-blue-700 hover:bg-blue-200'}`}
+                                >
+                                    {tag} ({count})
+                                </button>
+                            ))}
+                        </div>
                         
                         {/* Project List (SCROLLABLE AREA: flex-grow overflow-y-auto) */}
                         <div className="overflow-y-auto pb-4 flex-grow">
                             
-                            {/* Desktop List Rendering */}
-                            <div className="hidden lg:block">
+                            {/* Desktop Project Grid Rendering */}
+                            <div className="hidden lg:grid grid-cols-1 gap-4 p-4">
                                 {filteredProjects.map((project) => (
-                                    <DesktopProjectListItem 
+                                    <DesktopProjectGridItem 
                                         key={project.id} 
                                         project={project} 
                                         selected={selectedProjectId === project.id}
@@ -320,7 +389,9 @@ const ProjectsPage = () => {
                             </div>
 
                             {filteredProjects.length === 0 && (
-                                <p className="text-center text-gray-500 p-10">No projects found matching "{searchTerm}".</p>
+                                <p className="text-center text-gray-500 p-10">
+                                    No projects found matching "{(searchTerm || activeTag)}"
+                                </p>
                             )}
                         </div>
                     </div>
@@ -341,8 +412,8 @@ const ProjectsPage = () => {
                         
                         {/* Placeholder when no project is selected */}
                         {!selectedProject && (
-                            <div className="flex items-center justify-center w-full h-full bg-gray-50 text-gray-400 text-xl">
-                                Select a project to view details.
+                            <div className="flex items-center justify-center w-full h-full bg-gray-50 text-gray-400 text-xl p-8 text-center">
+                                Select a project card from the list to view its full details, key technologies, and live demo.
                             </div>
                         )}
                     </motion.div>
