@@ -1,18 +1,16 @@
-// src/Home.jsx (ADAPTIVE SCROLL IMPLEMENTATION - FIXES SYNTAX ERROR)
+// src/Home.jsx
+// Main application container managing navigation, scrolling, and global styles.
 
 import React, { useState, useEffect, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
-// Import Utilities and Data (Paths confirmed correct for inner components)
-import { colors, LogoSVG } from './components/UIMain'; 
+// Utility Imports: colors provides global palette, imported from UIMain.jsx
+import { colors } from './components/UIMain'; 
 
-// Import Feature Components
+// Component Imports (Foreign Links)
 import IntroOverlay from './components/IntroOverlay'; 
 import Header from './components/Header'; 
-
-
-// Import Section Components
 import HeroSection from './components/HeroSection';
 import RecentProjectsCarousel from './components/RecentProjectsCarousel'; 
 import ServicesSection from './components/ServicesSection';
@@ -20,13 +18,12 @@ import PhilosophySection from './components/PhilosophySection';
 import FounderStorySection from './components/FounderStorySection';
 import ContactCTA from './components/ContactCTA';
 
-// Global variables for robust scroll management (DEPRECATED FOR MOBILE, BUT KEPT FOR DESKTOP SNAP)
+// Global variables for robust scroll management (Primarily for desktop snap logic)
 let lastScrollTime = 0;
 const SCROLL_DEBOUNCE_TIME = 1100; 
-const SCROLL_DELTA_THRESHOLD = 5;
 
-// Helper function to check if we are on a large screen (where snap is active)
-const isLargeScreen = () => window.innerWidth >= 1024; // Tailwind's 'lg' breakpoint
+// Helper function to detect large screens (where snap-scroll is active)
+const isLargeScreen = () => window.innerWidth >= 1024; // Corresponds to Tailwind's 'lg' breakpoint
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -34,11 +31,12 @@ const Home = () => {
 
   const mainRef = useRef(null); 
   
-  // NOTE: Order of sections matters here and must match the render order
+  // NOTE: This array defines the canonical order of sections and corresponds to ref indices.
   const sections = ['home', 'projects', 'services', 'philosophy', 'founder-story', 'contact'];
   const sectionsRef = useRef([]);
     
   useEffect(() => {
+    // Initialize or assign refs for each section
     sectionsRef.current = sections.map((_, i) => sectionsRef.current[i] ?? React.createRef());
   }, [sections]);
 
@@ -46,12 +44,10 @@ const Home = () => {
     setIsLoading(false);
   };
 
-  // --- Snap Scroll Logic (Only active on LG screens) ---
+  // --- Snap Scroll Logic (Only active on LG screens for programmatic jumps) ---
   const scrollToSection = (index) => {
-    // Only execute if on a large screen and refs are available
     if (!isLargeScreen() || !mainRef.current || !sectionsRef.current[index].current) return;
     
-    // Smooth scroll to the section using its container's offsetTop
     const targetElement = sectionsRef.current[index].current;
     if (targetElement) {
         mainRef.current.scrollTo({
@@ -70,11 +66,10 @@ const Home = () => {
     const main = e.target;
     let newActiveScreen = activeScreen;
     
-    // Find the section closest to the top of the viewport
+    // Logic to determine which section is currently active (closest to viewport center)
     sectionsRef.current.forEach((ref, index) => {
       const section = ref.current;
       if (section) {
-        // Center of the section is within 50% of the viewport height
         const rect = section.getBoundingClientRect();
         if (rect.top <= main.clientHeight / 2 && rect.bottom >= main.clientHeight / 2) {
           newActiveScreen = index;
@@ -88,8 +83,36 @@ const Home = () => {
   };
   // --------------------------------------------------------
 
+  // Destructure colors for use in injected CSS
+  const { primary, secondary } = colors;
+
   return (
     <>
+      {/* 🚨 FIX 1: Global CSS injection for animated-gradient and Tag Box. 
+          This makes the 'animated-gradient' class available to ALL child components. */}
+      <style global jsx>{`
+        .animated-gradient {
+            background: linear-gradient(45deg, ${primary}, ${secondary}, ${primary});
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: global-gradient-shift 10s ease infinite; 
+        }
+        @keyframes global-gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .tag-box {
+            font-size: 0.75rem; 
+            font-weight: 700; 
+            letter-spacing: 0.1em; 
+            text-transform: uppercase;
+            padding-bottom: 0.5rem; 
+            border-bottom-width: 2px;
+        }
+      `}</style>
+
       <AnimatePresence>
         {isLoading && <IntroOverlay onComplete={handleIntroComplete} />}
       </AnimatePresence>
@@ -97,33 +120,31 @@ const Home = () => {
       {/* Main Content */}
       <div className={`${isLoading ? 'hidden' : 'block'}`}>
         
-        {/* Header (fixed to viewport) */}
+        {/* Header: Fixed position, imported from './components/Header'. */}
         <Header />
 
-        {/* Main Content Sections with Adaptive Scroll Handler */}
+        {/* Main Scroll Container (Adaptive) */}
         <main 
           ref={mainRef} 
           onScroll={handleScroll}
-          // ADAPTIVE SCROLL CLASSES:
-          // Default (mobile): traditional overflow-y-scroll, min-h-screen
-          // lg: (desktop): h-screen, overflow-y-scroll, snap-y snap-mandatory
+          // ADAPTIVE SCROLL CLASSES: Default (mobile) uses min-h-screen for natural scroll.
+          // lg: (desktop) activates h-screen and snap-scrolling.
           className="w-screen relative scroll-smooth overflow-y-scroll min-h-screen lg:h-screen lg:snap-y lg:snap-mandatory"
         >
           
-          {/* Vertical Navigation Dots (HIDDEN ON MOBILE) */}
+          {/* Vertical Navigation Dots (Hidden on mobile via 'hidden lg:flex') */}
           <div className="fixed right-4 top-1/2 -translate-y-1/2 z-50 flex flex-col space-y-2 hidden lg:flex">
             {sections.map((_, index) => (
               <button
                 key={index}
                 className={`w-4 h-4 rounded-full transition-all duration-300 ${activeScreen === index ? `bg-[${colors.primary}] scale-125` : 'bg-gray-500 hover:bg-white'}`}
                 onClick={() => scrollToSection(index)}
-                // SYNTAX ERROR FIXED: Removed the trailing backslash here
                 aria-label={`Go to section ${index + 1}`} 
               />
             ))}
           </div>
           
-          {/* Render all sections, passing refs. */}
+          {/* Render Sections in the correct order based on the 'sections' array */}
           <HeroSection ref={sectionsRef.current[0]} />
           <RecentProjectsCarousel ref={sectionsRef.current[2]} /> 
           <ServicesSection ref={sectionsRef.current[1]} />

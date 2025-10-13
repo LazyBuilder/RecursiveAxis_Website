@@ -1,15 +1,17 @@
-// src/components/PhilosophySection.jsx (D.I.V.E. FRAMEWORK WITH MODAL - COMPACT UI REFRESH)
+// src/components/PhilosophySection.jsx 
+// Component: D.I.V.E. FRAMEWORK WITH MODAL - FULL CODE & FIXES
 
 import React, { useState, forwardRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+// Foreign Link: Imports the section wrapper component for consistent layout and scroll behavior.
 import FullPageSection from './FullPageSection';
-// Updated Icons to represent the new framework concepts
+// Updated Icons from react-icons/fa
 import { FaBrain, FaRocket, FaChartLine, FaCogs, FaTimes } from 'react-icons/fa'; 
 
-// --- Color Constants (Imported from UIMain, but redefined here for component-level control) ---
+// --- Color Constants: Defined locally for component-level control ---
 const PRIMARY_COLOR = '#00EAFF'; // Cyan
 const SECONDARY_COLOR = '#FF00EA'; // Magenta
-const BACKGROUND_DARK = '#0a0a0a'; // Deep background color
+const BACKGROUND_DARK = '#0a0a0a'; // The correct deep background color (FIX: ensures dark background)
 const CARD_DARK = '#1f1f1f'; // Dark card color
 const LIGHT_TEXT = '#ffffff'; // White text
 
@@ -20,98 +22,99 @@ const diveData = [
     acronym: 'D',
     icon: FaBrain, 
     title: "Decision: Hypothesis-Led Strategy",
-    fullDescription: "We build sharp, data-backed hypotheses based on our best knowledge and technical expertise. This systematic approach ensures we are always investigating the **highest-leverage problems**, giving your project a clear strategic axis from day one. (This aligns with your Data-Informed Direction and Hypothesis-Driven Design initial concepts.)",
+    fullDescription: "We build sharp, data-backed hypotheses based on our best knowledge and technical expertise. This systematic approach ensures we are always investigating the **highest-leverage problems**, giving your project a clear strategic axis from day one.",
     color: PRIMARY_COLOR,
   },
   {
     step: 2,
     acronym: 'I',
     icon: FaRocket,
-    title: "Iteration: Velocity-Focused Design",
-    fullDescription: "Our process demands **rapid, high-quality iteration** to quickly test our core assumptions. We leverage our scalable methods and hypothesis-driven design to maximize learning and minimize time-to-market for every feature. (This clearly addresses the need for speed, tested methods, and hypothesis-driven design.)",
-    color: '#00FFC2', // ACCENT_COLOR_1
+    title: "Iteration: Velocity-Focused Delivery",
+    fullDescription: "Our process demands rapid, high-quality iteration to quickly test core assumptions, maximizing learning and minimizing time-to-market for every feature. We prioritize a lean, fast approach.",
+    color: SECONDARY_COLOR,
   },
   {
     step: 3,
     acronym: 'V',
     icon: FaChartLine,
-    title: "Verification: Analytics-Driven Learning",
-    fullDescription: "We verify every learning and pivot with **rigorous data analytics**. This step eliminates guesswork and confirms that your iterative efforts are driving measurable growth, not just activity. (This reinforces your technical rigor and the importance of data/analytics.)",
-    color: '#FF52A3', // ACCENT_COLOR_2
+    title: "Validation: Data-Informed Direction",
+    fullDescription: "Every iteration is measured against clear, predefined metrics. We use rigorous analytics to validate or pivot hypotheses, ensuring development is always guided by market reality, not just assumption.",
+    color: PRIMARY_COLOR,
   },
   {
     step: 4,
     acronym: 'E',
     icon: FaCogs,
-    title: "Execution: Scalable Delivery",
-    fullDescription: "Once verified, we devise the long-term execution plan with our tested, **scalable methods**. We build a clean, robust foundation that is future-proofed for growth and ensures your vision transforms into a tangible, successful product. (This closes the loop, promising the ultimate outcome: expert, scalable execution.)",
+    title: "Execution: Technical Excellence",
+    fullDescription: "We commit to scalable, robust, and maintainable code architecture. Our focus on technical rigor means the solutions we build are future-proof, easy to deploy, and ready for exponential growth.",
     color: SECONDARY_COLOR,
   },
 ];
-// -----------------------
+// -------------------------------------------------------------------
 
-// --- Modal Component for Details (No change, remains the detail view) ---
+// --- 1. Modal Component for Details (Used when a StepCard is clicked) ---
 const DiveModal = ({ item, onClose }) => {
+    // Framer Motion variants for the modal content
     const modalVariants = {
-        hidden: { opacity: 0, scale: 0.8 },
-        visible: { opacity: 1, scale: 1, transition: { type: "spring", stiffness: 300, damping: 30 } },
-        exit: { opacity: 0, scale: 0.8, transition: { duration: 0.2 } }
+        hidden: { opacity: 0, scale: 0.9 },
+        visible: { opacity: 1, scale: 1, transition: { duration: 0.3 } },
+        exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } }
     };
-
+    
     return (
-        <motion.div 
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm p-4" 
+        <motion.div
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black bg-opacity-80 backdrop-blur-sm p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
         >
             <motion.div
-                className="bg-gray-900 border-t-4 p-8 rounded-xl shadow-2xl max-w-2xl w-full relative overflow-hidden"
-                style={{ borderColor: item.color }}
+                className="bg-gray-900 p-8 rounded-2xl shadow-2xl max-w-2xl w-full relative text-white border border-gray-700"
                 variants={modalVariants}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                onClick={(e) => e.stopPropagation()} 
+                onClick={(e) => e.stopPropagation()} // Prevents closing when clicking inside the modal
             >
-                <button
-                    className="absolute top-4 right-4 text-gray-400 hover:text-white transition"
-                    onClick={onClose}
+                {/* Close Button */}
+                <button 
+                    onClick={onClose} 
+                    className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+                    aria-label="Close"
                 >
-                    <FaTimes size={20} />
+                    <FaTimes size={24} />
                 </button>
 
-                <div className="flex items-center mb-4">
-                    <item.icon size={36} style={{ color: item.color }} className="mr-3" />
-                    <h3 className="text-3xl font-extrabold text-white">
-                        {item.acronym} - {item.title}
-                    </h3>
-                </div>
+                {/* Acronym and Title */}
+                <span className="text-8xl font-black mb-4 inline-block" style={{ color: item.color, lineHeight: 0.8 }}>
+                    {item.acronym}
+                </span>
+                <h3 className="text-3xl font-extrabold mb-4 mt-2" style={{ color: item.color }}>
+                    {item.title}
+                </h3>
                 
-                <hr className="border-gray-700 mb-6" />
+                {/* Full Description */}
+                <p className="text-lg text-gray-300 leading-relaxed whitespace-pre-line">
+                    {item.fullDescription}
+                </p>
 
-                <div className="text-gray-300 space-y-4 text-base overflow-y-auto max-h-[60vh] pr-2">
-                    <p className="font-light">{item.fullDescription}</p>
-                </div>
-                
             </motion.div>
         </motion.div>
     );
 };
 
-
-// --- Clickable Step Card Component (COMPACT REFRESH) ---
+// --- 2. Clickable Step Card Component (Used in the grid) ---
 const StepCard = ({ item, onClick }) => (
     <motion.div
-        // Smaller padding, fixed height/aspect ratio for a tighter grid look
-        className={`glowing-card p-4 aspect-square rounded-xl flex flex-col justify-center items-center cursor-pointer transition-all duration-300 hover:scale-[1.05] hover:shadow-xl relative`}
-        style={{ border: `2px solid ${item.color}30` }} // Subtle border
+        // Class names for the glow effect and dark card background
+        className="glowing-card relative p-6 rounded-xl shadow-xl flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 hover:scale-[1.03] active:scale-[0.98]"
+        style={{ backgroundColor: CARD_DARK }}
         onClick={() => onClick(item)}
-        initial={{ opacity: 0, scale: 0.8 }}
-        whileInView={{ opacity: 1, scale: 1 }}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        viewport={{ once: true, amount: 0.4 }}
+        viewport={{ once: true }}
     >
         
         {/* Acronym: Large and central */}
@@ -124,6 +127,11 @@ const StepCard = ({ item, onClick }) => (
             <item.icon /> 
         </div>
 
+        {/* Title */}
+        <h4 className="text-lg font-bold mt-2 text-white">
+            {item.title.split(': ')[0]} {/* Show only the first word before the colon */}
+        </h4>
+
         {/* Action Text */}
         <p className="text-xs text-gray-500 mt-4 absolute bottom-2 tracking-wider">
             VIEW DETAILS
@@ -133,50 +141,23 @@ const StepCard = ({ item, onClick }) => (
 );
 
 
-// --- Main Philosophy Section Component ---
+// --- 3. Main Philosophy Section Component ---
 const PhilosophySection = forwardRef((props, ref) => {
-    const [activeItem, setActiveItem] = useState(null);
+    const [activeItem, setActiveItem] = useState(null); // State to control the modal
 
     return (
         <>
-            {/* Custom CSS for the Glowing Cards AND the Global Header Gradient */}
-            <style>
-            {`
-                /* --- GLOBAL TITLE STYLE (For all section headers) --- */
-                .global-animated-title {
-                    background: linear-gradient(45deg, ${PRIMARY_COLOR}, ${SECONDARY_COLOR}, ${PRIMARY_COLOR});
-                    background-size: 400% 400%;
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                    animation: global-gradient-shift 10s ease infinite;
-                }
-                @keyframes global-gradient-shift {
-                    0% { background-position: 0% 50%; }
-                    50% { background-position: 100% 50%; }
-                    100% { background-position: 0% 50%; }
-                }
-                
-                /* --- GLOWING CARD STYLES --- */
-                .glowing-card {
-                    background: ${CARD_DARK};
-                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Stronger shadow for depth */
-                }
-                .glowing-card:hover {
-                    box-shadow: 0 0 20px 5px ${PRIMARY_COLOR}20, 0 0 5px 1px ${PRIMARY_COLOR}60; /* More defined glow */
-                }
-            `}
-            </style>
-
-            {/* Section Background: Deep Dark Mode */}
+            {/* 💡 FIX: FullPageSection now receives the background color via the 'style' prop. */}
             <FullPageSection 
                 id="philosophy" 
                 ref={ref} 
+                // CRITICAL FIX: Explicitly setting the dark background color.
                 style={{ backgroundColor: BACKGROUND_DARK }}
-                bgClass="text-white"
+                bgClass="text-white" // Ensures text inside is white
             >
                 <div className="w-full relative z-10 flex flex-col items-center justify-center h-full max-h-full py-16 px-4">
                     
-                    {/* Title */}
+                    {/* Title: Uses the globally injected 'animated-gradient' class (from Home.jsx) */}
                     <motion.h2
                         className={`text-3xl md:text-5xl font-extrabold mb-4 animated-gradient flex-shrink-0`}
                         initial={{ opacity: 0, y: -20 }}
