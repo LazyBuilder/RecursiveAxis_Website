@@ -1,4 +1,4 @@
-// src/components/HeroSection.jsx (FIXED Layout for Full Background & Content Offset)
+// src/components/HeroSection.jsx (FIXED: Background Height and Centering)
 
 import React from 'react';
 import { motion } from 'framer-motion';
@@ -12,21 +12,22 @@ const HeroSection = React.forwardRef((props, ref) => {
         <FullPageSection 
             id="home" 
             ref={ref} 
+            // Ensures the section itself has a dark background color in case the image fails to load.
             bgClass="text-white" 
             style={{ backgroundColor: '#000000' }} 
         >
             
             {/* 1. BACKGROUND CONTAINER with Image and Positioning */}
             <div 
-                // Removed min-h-screen here as the parent FullPageSection handles responsive sizing (min-h-screen/lg:h-screen).
-                // This ensures the background correctly fills the parent container.
-                className="absolute inset-0 bg-cover bg-center w-full h-full" 
+                // 🚨 FIX 1: Re-added min-h-screen to ensure the absolute element reliably covers 
+                // the full mobile viewport height, fixing the scaling issue.
+                className="absolute inset-0 bg-cover bg-center w-full h-full min-h-screen" 
                 style={{ 
                     backgroundImage: `url(${BACKGROUND_IMAGE_PATH})`,
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                    // The background image position is fixed to center, which is generally what you want.
-                    backgroundPosition: 'center', 
+                    // 'cover' is the CSS background-size equivalent of 'fill'
+                    backgroundSize: 'cover', 
+                    backgroundRepeat: 'no-repeat', // Equivalent of no 'repeat'
+                    backgroundPosition: 'center',
                 }}
             >
                 {/* 2. OVERLAY for Contrast/Readability */}
@@ -34,10 +35,10 @@ const HeroSection = React.forwardRef((props, ref) => {
             </div>
             
             {/* 3. HERO CONTENT */}
-            {/* 🚨 FIX 1: Added z-20 to stack above background (which defaults to z-0 or z-10) */}
-            {/* 🚨 FIX 2: Added pt-20 to push the content below the fixed Header component */}
             <div 
-                className="w-full h-full flex flex-col justify-center items-center text-center p-4 pt-20 relative z-20"
+                // 🚨 FIX 2: Removed pt-20 to restore vertical centering. 
+                // The z-20 correctly stacks content above the background.
+                className="w-full h-full flex flex-col justify-center items-center text-center p-4 relative z-20"
             >
                 
                 <motion.h1
