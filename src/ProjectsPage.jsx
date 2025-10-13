@@ -1,10 +1,10 @@
-// src/ProjectsPage.jsx (FIXED-WIDTH MASONRY/KEEP LAYOUT)
+// src/ProjectsPage.jsx (FINAL, STREAMLINED KEEP LAYOUT)
 
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion'; 
 import { Link } from 'react-router-dom';
 import { colors } from './components/UIMain'; 
-import { FaArrowLeft, FaSearch, FaTimes, FaChevronDown, FaChevronUp } from 'react-icons/fa'; // Added FaChevronUp
+import { FaArrowLeft, FaSearch, FaTimes, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
 // SHARED COMPONENTS
 import Header from './components/Header';
@@ -14,45 +14,53 @@ import Footer from './components/Footer';
 import MSHImage from './photos/mshcg-dugapuja.png';   
 import VerveImage from './photos/verve-photography.png';  
 
-// --- PROJECT DATA (Full List with varying content/type) ---
+// --- PROJECT DATA (Full List with New 3-Tag Structure) ---
 const projectData = [
-    // Long Text, Image
-    { id: 1, title: "AI Image Classifier Model", description: "Trained and deployed a high-accuracy Convolutional Neural Network (CNN) for medical image classification using TensorFlow/Keras. Achieved 98.5% accuracy, significantly improving diagnostic speed for three key conditions. This was a complex, data-intensive ML project that involved extensive data preprocessing, model tuning, and cloud deployment on AWS SageMaker.", tags: ['AI', 'Machine Learning', 'TensorFlow', 'Python', 'Healthcare', 'AWS'], imageSrc: MSHImage, link: '#', color: colors.primary, },
-    // Medium Text, Image
-    { id: 2, title: "FinTech Dashboard", description: "Built a secure, real-time analytics dashboard for wealth management clients using Node.js, PostgreSQL, and React. Focused on data visualization and robust authentication.", tags: ['Web', 'FinTech', 'Dashboard', 'Security', 'React', 'Node.js'], imageSrc: VerveImage, link: '#', color: colors.secondary, },
-    // Short Text, No Image
-    { id: 3, title: "Kubernetes Deployment Pipeline", description: "Automated E2E CI/CD pipeline using Jenkins and Kubernetes for zero-downtime deployment.", tags: ['DevOps', 'Kubernetes', 'CI/CD', 'AWS'], imageSrc: null, link: '#', color: colors.secondary, },
-    // Long Text, Image
-    { id: 4, title: "MSH Cultural Group Platform", description: "Delivered a full-featured, multi-language ticketing and information platform emphasizing ultra-low-cost deployment (under $25/year operational cost) using React and AWS Amplify. The platform handles thousands of ticket transactions annually and significantly reduced manual overhead.", tags: ['Web', 'Ticketing', 'Non-profit', 'React', 'Amplify', 'Low-Cost'], imageSrc: MSHImage, link: 'https://www.mshculturalgroup.com/', color: colors.primary, },
-    // Short Text, No Image
-    { id: 5, title: "Verve Photography Portfolio", description: "A high-impact portfolio site optimized for speed and retina displays using React and Tailwind CSS.", tags: ['Web', 'Design', 'Portfolio', 'Performance'], imageSrc: null, link: 'https://verve.photography/', color: colors.primary, },
-    // Very Long Text, Image
-    { id: 6, title: "E-commerce Microservices Backend", description: "Designed and implemented a scalable microservices architecture for a mid-sized e-commerce platform handling 10k+ daily transactions. Utilized RabbitMQ for message queuing, Docker for containerization, and implemented circuit breakers for resilience, ensuring high availability and fault tolerance across all core services including inventory, payments, and fulfillment.", tags: ['Backend', 'E-commerce', 'Scaling', 'Microservices', 'Node.js', 'Docker', 'RabbitMQ'], imageSrc: VerveImage, link: '#', color: colors.secondary, },
-    // Medium Text, Image
-    { id: 7, title: "EcoConnect Community Tracker", description: "Mobile-first web app using Firebase and React Native Web for real-time tracking of community recycling efforts, resulting in a 20% increase in volume.", tags: ['Mobile', 'Tracker', 'Community', 'Firebase', 'React Native'], imageSrc: MSHImage, link: '#', color: colors.primary, },
-    // Short Text, No Image
-    { id: 8, title: "Healthcare Portal Compliance", description: "Designed and implemented a HIPAA-compliant patient communication portal on AWS.", tags: ['Web', 'Healthcare', 'Security', 'HIPAA', 'AWS'], imageSrc: null, link: '#', color: colors.secondary, },
+    // Tech: Python, Type: Code, Industry: Healthcare
+    { id: 1, title: "AI Image Classifier Model", description: "Trained and deployed a high-accuracy Convolutional Neural Network (CNN) for medical image classification using TensorFlow/Keras. Achieved 98.5% accuracy, significantly improving diagnostic speed.", tags: ['Python', 'Code', 'Healthcare'], imageSrc: MSHImage, link: '#', color: colors.primary, },
+    // Tech: Node.js, Type: Website, Industry: FinTech
+    { id: 2, title: "FinTech Dashboard", description: "Built a secure, real-time analytics dashboard for wealth management clients using Node.js, PostgreSQL, and React. Focused on data visualization and robust authentication.", tags: ['Node.js', 'Website', 'FinTech'], imageSrc: VerveImage, link: '#', color: colors.secondary, },
+    // Tech: Kubernetes, Type: Strategy, Industry: DevOps
+    { id: 3, title: "Kubernetes Deployment Pipeline", description: "Automated E2E CI/CD pipeline using Jenkins and Kubernetes for zero-downtime deployment across multiple environments.", tags: ['Kubernetes', 'Strategy', 'DevOps'], imageSrc: null, link: '#', color: colors.secondary, },
+    // Tech: React, Type: Website, Industry: Non-profit
+    { id: 4, title: "MSH Cultural Group Platform", description: "Delivered a full-featured, multi-language ticketing and information platform emphasizing ultra-low-cost deployment using React and AWS Amplify.", tags: ['React', 'Website', 'Non-profit'], imageSrc: MSHImage, link: 'https://www.mshculturalgroup.com/', color: colors.primary, },
+    // Tech: Tailwind, Type: Website, Industry: Design
+    { id: 5, title: "Verve Photography Portfolio", description: "A high-impact portfolio site optimized for speed and retina displays using React and Tailwind CSS.", tags: ['Tailwind', 'Website', 'Design'], imageSrc: null, link: 'https://verve.photography/', color: colors.primary, },
+    // Tech: Microservices, Type: Code, Industry: E-commerce
+    { id: 6, title: "E-commerce Microservices Backend", description: "Designed and implemented a scalable microservices architecture for a mid-sized e-commerce platform handling 10k+ daily transactions. Utilized RabbitMQ and Docker for containerization.", tags: ['Microservices', 'Code', 'E-commerce'], imageSrc: VerveImage, link: '#', color: colors.secondary, },
+    // Tech: React Native, Type: Website, Industry: Community
+    { id: 7, title: "EcoConnect Community Tracker", description: "Mobile-first web app using Firebase and React Native Web for real-time tracking of community recycling efforts, resulting in a 20% increase in volume.", tags: ['React Native', 'Website', 'Community'], imageSrc: MSHImage, link: '#', color: colors.primary, },
+    // Tech: AWS, Type: Reports, Industry: Healthcare
+    { id: 8, title: "Healthcare Portal Compliance", description: "Designed and implemented a HIPAA-compliant patient communication portal on AWS, focusing on security and data privacy.", tags: ['AWS', 'Reports', 'Healthcare'], imageSrc: null, link: '#', color: colors.secondary, },
+    // Tech: Python, Type: Code, Industry: NLP
+    { id: 9, title: "Real-Time NLP Chatbot", description: "Developed a natural language processing model using Hugging Face transformers for a customer service chatbot, reducing ticket escalation by 40%.", tags: ['Python', 'Code', 'NLP'], imageSrc: MSHImage, link: '#', color: colors.primary, },
+    // Tech: Redis, Type: Code, Industry: Performance
+    { id: 10, title: "High-Speed Caching Service", description: "Implemented a Redis-based caching layer that reduced database load times by 75% for key endpoints.", tags: ['Redis', 'Code', 'Performance'], imageSrc: null, link: '#', color: colors.secondary, },
 ];
 
 // ==========================================================
-// --- NEW: PROJECT CARD COMPONENT (Dynamic Height, Collapsible Tags) ---
+// --- PROJECT CARD COMPONENT (Dynamic Height, Simplified Tags) ---
 // ==========================================================
 const ProjectCard = ({ project }) => {
-    const [tagsExpanded, setTagsExpanded] = useState(false);
     const descriptionRef = useRef(null);
     const [isDescriptionScrollable, setIsDescriptionScrollable] = useState(false);
+    const [cardHeight, setCardHeight] = useState('auto');
+    const [textCollapsed, setTextCollapsed] = useState(true);
 
-    // Check if the description content overflows its container
+    // Dynamic Height Calculation: Check if the text overflows
     useEffect(() => {
         if (descriptionRef.current) {
             const { offsetHeight, scrollHeight } = descriptionRef.current;
-            setIsDescriptionScrollable(scrollHeight > offsetHeight);
+            // The max height for the text is set by the CSS class `line-clamp-4` when textCollapsed is true
+            // If the content is taller than the max collapsed height, it's scrollable/expandable
+            const shouldCollapse = scrollHeight > offsetHeight + 5; 
+            setIsDescriptionScrollable(shouldCollapse);
         }
-    }, [project.description, project.imageSrc]); // Rerun when content changes
+    }, [project.description, project.imageSrc]);
 
-    // Get the first line of tags for the initial view
-    const visibleTags = tagsExpanded ? project.tags : project.tags.slice(0, 4);
-    const showMoreButton = project.tags.length > 4;
+    // Use a short description for determining if the card should be visually smaller
+    const isMinimalContent = !project.imageSrc && project.description.length < 100;
+
 
     return (
         <motion.a
@@ -66,12 +74,11 @@ const ProjectCard = ({ project }) => {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             style={{ 
                 borderTop: `6px solid ${project.color}`, 
-                minHeight: '200px', // Minimum height
-                maxHeight: '550px', // Maximum height
-                overflow: 'hidden', // Contain content
+                minHeight: isMinimalContent ? '140px' : '200px', // Shrink height for minimal content
+                maxHeight: '550px', 
             }}
         >
-            <h3 className="text-xl md:text-2xl font-extrabold mb-2" style={{ color: colors.dark }}>
+            <h3 className="text-xl font-extrabold mb-2" style={{ color: colors.dark }}>
                 {project.title}
             </h3>
 
@@ -86,42 +93,38 @@ const ProjectCard = ({ project }) => {
                 </div>
             )}
             
-            {/* Description Section with conditional scroll */}
+            {/* Description Section with conditional expansion/clamping */}
             <div 
                 ref={descriptionRef}
-                className={`text-sm text-gray-700 leading-relaxed mb-4 ${project.imageSrc ? 'mt-0' : 'mt-2'} ${isDescriptionScrollable ? 'overflow-y-auto pr-2' : ''}`}
-                style={{ maxHeight: project.imageSrc ? '150px' : '220px' }} // Tighter max-height if image is present
+                className={`text-sm text-gray-700 leading-relaxed mb-4 flex-grow ${textCollapsed ? 'line-clamp-4' : ''} ${project.imageSrc ? 'mt-0' : 'mt-1'}`}
+                // When expanded, use overflow-y-auto to handle massive text
+                style={!textCollapsed ? { overflowY: 'auto', maxHeight: project.imageSrc ? '180px' : '280px' } : {}}
             >
                 {project.description}
             </div>
-            
-            {/* Tags Section (Collapsible) */}
-            <div className="mt-auto pt-2 border-t border-gray-100">
-                <motion.div
-                    className="flex flex-wrap gap-2"
-                    initial={false}
-                    animate={{ height: tagsExpanded ? 'auto' : '24px' }} // Fixed height for one row of tags
-                    transition={{ duration: 0.3 }}
-                    style={{ overflow: 'hidden' }}
-                >
-                    {project.tags.map(tag => (
-                        <span key={tag} className="px-3 py-1 text-xs font-semibold text-white rounded-full flex-shrink-0" style={{ backgroundColor: project.color }}>
-                            {tag}
-                        </span>
-                    ))}
-                </motion.div>
 
-                {/* Show More/Less Button */}
-                {showMoreButton && (
-                    <button
-                        onClick={(e) => { e.preventDefault(); setTagsExpanded(!tagsExpanded); }}
-                        className="mt-2 text-xs font-semibold text-blue-600 hover:text-blue-800 flex items-center transition-colors"
-                        aria-expanded={tagsExpanded}
+            {/* Read More/Less Button for Text (only shows if text is scrollable/collapsible) */}
+            {isDescriptionScrollable && (
+                <button
+                    onClick={(e) => { e.preventDefault(); setTextCollapsed(!textCollapsed); }}
+                    className="mb-2 text-xs font-semibold text-blue-600 hover:text-blue-800 flex items-center transition-colors"
+                >
+                    {textCollapsed ? 'Read More' : 'Read Less'} 
+                    {textCollapsed ? <FaChevronDown className="ml-1 text-blue-600" size={10} /> : <FaChevronUp className="ml-1 text-blue-600" size={10} />}
+                </button>
+            )}
+            
+            {/* Tags Section (Only 3 tags, clearly defined) */}
+            <div className="mt-auto pt-2 border-t border-gray-100 flex flex-wrap gap-2">
+                {project.tags.slice(0, 3).map((tag, index) => (
+                    <span 
+                        key={tag} 
+                        className={`px-3 py-1 text-xs font-semibold text-white rounded-full flex-shrink-0 ${index === 0 ? 'bg-gray-600' : index === 1 ? 'bg-indigo-600' : 'bg-green-600'}`}
+                        style={{ opacity: 0.9 }}
                     >
-                        {tagsExpanded ? 'Show Less' : 'Show More'} 
-                        {tagsExpanded ? <FaChevronUp className="ml-1 text-blue-600" size={10} /> : <FaChevronDown className="ml-1 text-blue-600" size={10} />}
-                    </button>
-                )}
+                        {tag}
+                    </span>
+                ))}
             </div>
             
         </motion.a>
@@ -134,39 +137,17 @@ const ProjectCard = ({ project }) => {
 // ==========================================================
 const ProjectsPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [activeTag, setActiveTag] = useState(null); 
-
-    // Extract All Unique Tags
-    const allTags = useMemo(() => {
-        const tagCounts = projectData.reduce((acc, project) => {
-            project.tags.forEach(tag => {
-                acc[tag] = (acc[tag] || 0) + 1;
-            });
-            return acc;
-        }, {});
-        return Object.entries(tagCounts)
-            .map(([tag, count]) => ({ tag, count }))
-            .sort((a, b) => b.count - a.count); 
-    }, []);
-
 
     const filteredProjects = useMemo(() => {
-        let results = projectData.filter(project => 
-            project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            (project.tags && project.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())))
+        if (!searchTerm) return projectData;
+        const lowerCaseSearch = searchTerm.toLowerCase();
+        
+        return projectData.filter(project => 
+            project.title.toLowerCase().includes(lowerCaseSearch) ||
+            project.description.toLowerCase().includes(lowerCaseSearch) ||
+            (project.tags && project.tags.some(tag => tag.toLowerCase().includes(lowerCaseSearch)))
         );
-        
-        if (activeTag) {
-            results = results.filter(project => project.tags.includes(activeTag));
-        }
-        
-        return results;
-    }, [searchTerm, activeTag]);
-
-    const handleTagClick = (tag) => {
-        setActiveTag(activeTag === tag ? null : tag); 
-    };
+    }, [searchTerm]);
 
     const MotionLink = motion(Link);
 
@@ -180,13 +161,13 @@ const ProjectsPage = () => {
             <div className="flex-grow flex flex-col overflow-y-auto"> 
                 
                 {/* ---------------------------------------------------- */}
-                {/* === TOP FILTER BAR (Thin and Responsive) === */}
+                {/* === TOP HEADER/SEARCH BAR (Thin and Clean) === */}
                 {/* ---------------------------------------------------- */}
                 <div className="w-full flex-shrink-0 pt-[80px] px-4 py-3 bg-white shadow-md sticky top-0 z-10 border-b border-gray-200">
                     <div className="max-w-7xl mx-auto"> 
                         
                         {/* Title, Back Link, and Search in a compact row */}
-                        <div className="flex items-center justify-between relative mb-2">
+                        <div className="flex items-center justify-between relative">
                             
                             {/* Back Link (Left) */}
                             <MotionLink
@@ -201,16 +182,16 @@ const ProjectsPage = () => {
                                 <span className="md:hidden">Home</span>
                             </MotionLink>
 
-                            {/* Centered Title (Hidden on small screens to save space) */}
+                            {/* Centered Title */}
                             <h1 className="text-xl md:text-3xl font-extrabold animated-gradient hidden lg:flex items-center justify-center pointer-events-none absolute inset-0">
                                 Project Portfolio
                             </h1>
                             
-                            {/* Search Bar (Right) */}
+                            {/* Search Bar (Right) - Now the primary filtering tool */}
                             <div className="relative w-full max-w-sm ml-auto">
                                 <input
                                     type="text"
-                                    placeholder="Search projects..."
+                                    placeholder="Search technologies, types, or industries..."
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                     className="w-full p-2 pl-9 border border-gray-300 rounded-full text-sm focus:ring-2 focus:ring-black focus:border-black transition-all"
@@ -223,26 +204,6 @@ const ProjectsPage = () => {
                                 )}
                             </div>
                         </div> 
-                        
-                        {/* Tag Filter Cloud (Below Search, takes full width) */}
-                        <div className="flex flex-wrap gap-2 pt-2 border-t border-gray-100">
-                            <h4 className="text-sm font-bold text-gray-700 mr-2 flex-shrink-0 hidden sm:block">Filter:</h4>
-                            <button
-                                onClick={() => handleTagClick(null)}
-                                className={`px-3 py-1 text-xs font-medium rounded-full transition-all duration-200 flex-shrink-0 ${activeTag === null ? 'bg-black text-white shadow-md' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
-                            >
-                                All ({projectData.length})
-                            </button>
-                            {allTags.map(({ tag }) => (
-                                <button
-                                    key={tag}
-                                    onClick={() => handleTagClick(tag)}
-                                    className={`px-3 py-1 text-xs font-medium rounded-full transition-all duration-200 hover:scale-[1.02] flex-shrink-0 ${activeTag === tag ? 'bg-blue-600 text-white shadow-lg' : 'bg-blue-100 text-blue-700 hover:bg-blue-200'}`}
-                                >
-                                    {tag}
-                                </button>
-                            ))}
-                        </div>
                     </div> 
                 </div> 
 
@@ -251,9 +212,8 @@ const ProjectsPage = () => {
                 {/* ---------------------------------------------------- */}
                 <main className="w-full max-w-7xl mx-auto p-4 md:p-6 lg:p-8 flex-grow"> 
                     
-                    <AnimatePresence>
+                    <AnimatePresence mode="wait">
                         {filteredProjects.length > 0 ? (
-                            // Grid Container: Responsive columns, fixed width (no auto-rows-min needed for this style)
                             <motion.div 
                                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
                                 layout
@@ -264,12 +224,13 @@ const ProjectsPage = () => {
                             </motion.div>
                         ) : (
                              <motion.div
+                                key="no-results"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
                                 className="flex items-center justify-center w-full min-h-[300px] text-gray-500 text-xl"
                             >
-                                No projects found matching your filters.
+                                No projects found matching your search term.
                             </motion.div>
                         )}
                     </AnimatePresence>
