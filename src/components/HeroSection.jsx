@@ -1,4 +1,4 @@
-// src/components/HeroSection.jsx (FIXED Layout for Mobile Background Cover)
+// src/components/HeroSection.jsx (FIXED Layout for Full Background & Content Offset)
 
 import React from 'react';
 import { motion } from 'framer-motion';
@@ -12,22 +12,21 @@ const HeroSection = React.forwardRef((props, ref) => {
         <FullPageSection 
             id="home" 
             ref={ref} 
-            // Setting bgClass and style ensures the whole section area is dark
             bgClass="text-white" 
             style={{ backgroundColor: '#000000' }} 
-            // The FullPageSection component already handles the responsive min-h-screen/lg:h-screen logic.
         >
             
             {/* 1. BACKGROUND CONTAINER with Image and Positioning */}
-            {/* CRITICAL FIX: Use min-h-screen to ensure full coverage on mobile, 
-                and h-full to occupy the section's full height on desktop. */}
             <div 
-                className="absolute inset-0 bg-cover bg-center w-full h-full min-h-screen" // ADDED min-h-screen
+                // Removed min-h-screen here as the parent FullPageSection handles responsive sizing (min-h-screen/lg:h-screen).
+                // This ensures the background correctly fills the parent container.
+                className="absolute inset-0 bg-cover bg-center w-full h-full" 
                 style={{ 
                     backgroundImage: `url(${BACKGROUND_IMAGE_PATH})`,
                     backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center',
+                    // The background image position is fixed to center, which is generally what you want.
+                    backgroundPosition: 'center', 
                 }}
             >
                 {/* 2. OVERLAY for Contrast/Readability */}
@@ -35,7 +34,11 @@ const HeroSection = React.forwardRef((props, ref) => {
             </div>
             
             {/* 3. HERO CONTENT */}
-            <div className="w-full h-full flex flex-col justify-center items-center text-center p-4">
+            {/* 🚨 FIX 1: Added z-20 to stack above background (which defaults to z-0 or z-10) */}
+            {/* 🚨 FIX 2: Added pt-20 to push the content below the fixed Header component */}
+            <div 
+                className="w-full h-full flex flex-col justify-center items-center text-center p-4 pt-20 relative z-20"
+            >
                 
                 <motion.h1
                     className="text-5xl md:text-7xl font-extrabold mb-6"
