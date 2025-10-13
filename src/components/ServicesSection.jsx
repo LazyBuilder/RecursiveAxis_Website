@@ -133,6 +133,14 @@ const ServicesSection = React.forwardRef((props, ref) => (
               </p>
             </motion.div>
           ))}
+          <motion.a
+                href="https://cal.com/asitdeva"
+                className={`px-8 py-3 text-lg rounded-full font-bold transition-all duration-300 shadow-lg hover:shadow-xl bg-white text-black`}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1, type: "spring", stiffness: 150 }}>
+                Book a Discovery Call.
+            </motion.a>
         </div>
       </div>
     </FullPageSection>

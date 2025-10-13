@@ -42,7 +42,7 @@ const HeroSection = React.forwardRef((props, ref) => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1 }}
                 >
-                    We Build <span className="animated-gradient">Digital Stories.</span>
+                    Your Strategic Partners for <span className="animated-gradient">Technology & Innovation.</span>
                 </motion.h1>
                 
                 <motion.p
@@ -51,7 +51,7 @@ const HeroSection = React.forwardRef((props, ref) => {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.5, duration: 1 }}
                 >
-                    Turning complex challenges into elegant, scalable software solutions that drive growth and user engagement.
+                    We create, design, and evaluate technology to accelerate your entire innovation journey effectively and efficiently.
                 </motion.p>
 
                 <motion.a
@@ -61,7 +61,7 @@ const HeroSection = React.forwardRef((props, ref) => {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 1, type: "spring", stiffness: 150 }}
                 >
-                    Start Your Project
+                    Services & Solutions
                 </motion.a>
             </div>
         </FullPageSection>

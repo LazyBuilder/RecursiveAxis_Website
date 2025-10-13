@@ -208,8 +208,8 @@ const Home = () => {
           
           {/* Render all sections, passing refs */}
           <HeroSection ref={sectionsRef.current[0]} />
-          <RecentProjectsCarousel ref={sectionsRef.current[1]} /> 
           <ServicesSection ref={sectionsRef.current[2]} />
+          <RecentProjectsCarousel ref={sectionsRef.current[1]} /> 
           <PhilosophySection ref={sectionsRef.current[3]} />
           <FounderStorySection ref={sectionsRef.current[4]} />
           <ContactCTA ref={sectionsRef.current[5]} />
