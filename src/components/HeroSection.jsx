@@ -1,4 +1,4 @@
-// src/components/HeroSection.jsx (FIXED Layout for Full Background)
+// src/components/HeroSection.jsx (FIXED Layout for Mobile Background Cover)
 
 import React from 'react';
 import { motion } from 'framer-motion';
@@ -12,15 +12,17 @@ const HeroSection = React.forwardRef((props, ref) => {
         <FullPageSection 
             id="home" 
             ref={ref} 
+            // Setting bgClass and style ensures the whole section area is dark
             bgClass="text-white" 
             style={{ backgroundColor: '#000000' }} 
-            // 🚨 CRITICAL: Assuming FullPageSection root element has h-screen or h-full
+            // The FullPageSection component already handles the responsive min-h-screen/lg:h-screen logic.
         >
             
             {/* 1. BACKGROUND CONTAINER with Image and Positioning */}
-            {/* This div must be a direct child of FullPageSection and span the whole thing */}
+            {/* CRITICAL FIX: Use min-h-screen to ensure full coverage on mobile, 
+                and h-full to occupy the section's full height on desktop. */}
             <div 
-                className="absolute inset-0 bg-cover bg-center w-full h-full"
+                className="absolute inset-0 bg-cover bg-center w-full h-full min-h-screen" // ADDED min-h-screen
                 style={{ 
                     backgroundImage: `url(${BACKGROUND_IMAGE_PATH})`,
                     backgroundSize: 'cover',
@@ -33,8 +35,7 @@ const HeroSection = React.forwardRef((props, ref) => {
             </div>
             
             {/* 3. HERO CONTENT */}
-            {/* Make sure the content wrapper itself takes full height and width */}
-            <div className="relative z-10 w-full h-full flex flex-col justify-center items-center text-center p-4">
+            <div className="w-full h-full flex flex-col justify-center items-center text-center p-4">
                 
                 <motion.h1
                     className="text-5xl md:text-7xl font-extrabold mb-6"
