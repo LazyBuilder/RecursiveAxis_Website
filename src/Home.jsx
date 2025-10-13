@@ -33,7 +33,7 @@ const Home = () => {
 
   const mainRef = useRef(null); 
   
-  const sections = ['home', 'projects', 'services', 'philosophy', 'founder-story', 'contact'];
+  const sections = ['home',  'services', 'projects', 'philosophy', 'founder-story', 'contact'];
   const sectionsRef = useRef([]);
     
   useEffect(() => {
