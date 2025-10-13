@@ -1,4 +1,4 @@
-// src/components/PhilosophySection.jsx (D.I.V.E. FRAMEWORK WITH MODAL - H-SCREEN SAFE)
+// src/components/PhilosophySection.jsx (D.I.V.E. FRAMEWORK WITH MODAL - COMPACT UI REFRESH)
 
 import React, { useState, forwardRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -13,7 +13,7 @@ const BACKGROUND_DARK = '#0a0a0a'; // Deep background color
 const CARD_DARK = '#1f1f1f'; // Dark card color
 const LIGHT_TEXT = '#ffffff'; // White text
 
-// --- New D.I.V.E. Philosophy Data ---
+// --- D.I.V.E. Philosophy Data ---
 const diveData = [
   {
     step: 1,
@@ -50,7 +50,7 @@ const diveData = [
 ];
 // -----------------------
 
-// --- Modal Component for Details ---
+// --- Modal Component for Details (No change, remains the detail view) ---
 const DiveModal = ({ item, onClose }) => {
     const modalVariants = {
         hidden: { opacity: 0, scale: 0.8 },
@@ -101,35 +101,34 @@ const DiveModal = ({ item, onClose }) => {
 };
 
 
-// --- Clickable Step Card Component ---
+// --- Clickable Step Card Component (COMPACT REFRESH) ---
 const StepCard = ({ item, onClick }) => (
     <motion.div
-        className={`glowing-card p-6 rounded-xl flex flex-col justify-between cursor-pointer transition-all duration-300 hover:scale-[1.03] hover:shadow-xl`}
-        style={{ borderBottom: `4px solid ${item.color}` }}
+        // Smaller padding, fixed height/aspect ratio for a tighter grid look
+        className={`glowing-card p-4 aspect-square rounded-xl flex flex-col justify-center items-center cursor-pointer transition-all duration-300 hover:scale-[1.05] hover:shadow-xl relative`}
+        style={{ border: `2px solid ${item.color}30` }} // Subtle border
         onClick={() => onClick(item)}
         initial={{ opacity: 0, scale: 0.8 }}
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
         viewport={{ once: true, amount: 0.4 }}
     >
-        {/* Acronym and Icon */}
-        <div className="flex items-center justify-between mb-4">
-            <span className="text-5xl font-extrabold" style={{ color: item.color }}>
-                {item.acronym}
-            </span>
-            <div className="text-4xl text-gray-400">
-                <item.icon /> 
-            </div>
-        </div>
         
-        {/* Title */}
-        <p className="text-base font-semibold text-white tracking-wide">
-            {item.title.split(': ')[1]}
+        {/* Acronym: Large and central */}
+        <span className="text-7xl font-black mb-2" style={{ color: item.color }}>
+            {item.acronym}
+        </span>
+        
+        {/* Icon: Small and positioned subtly */}
+        <div className="absolute top-4 right-4 text-2xl text-gray-500 opacity-80">
+            <item.icon /> 
+        </div>
+
+        {/* Action Text */}
+        <p className="text-xs text-gray-500 mt-4 absolute bottom-2 tracking-wider">
+            VIEW DETAILS
         </p>
 
-        <p className="text-xs text-gray-500 mt-2">
-            Click for full details
-        </p>
     </motion.div>
 );
 
@@ -160,10 +159,10 @@ const PhilosophySection = forwardRef((props, ref) => {
                 /* --- GLOWING CARD STYLES --- */
                 .glowing-card {
                     background: ${CARD_DARK};
-                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); 
+                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Stronger shadow for depth */
                 }
                 .glowing-card:hover {
-                    box-shadow: 0 0 15px 3px rgba(0, 234, 255, 0.4); 
+                    box-shadow: 0 0 20px 5px ${PRIMARY_COLOR}20, 0 0 5px 1px ${PRIMARY_COLOR}60; /* More defined glow */
                 }
             `}
             </style>
@@ -175,7 +174,7 @@ const PhilosophySection = forwardRef((props, ref) => {
                 style={{ backgroundColor: BACKGROUND_DARK }}
                 bgClass="text-white"
             >
-                <div className="w-full relative z-10 flex flex-col items-center justify-center h-full max-h-full py-16 px-4 overflow-hidden">
+                <div className="w-full relative z-10 flex flex-col items-center justify-center h-full max-h-full py-16 px-4">
                     
                     {/* Title */}
                     <motion.h2
@@ -190,7 +189,7 @@ const PhilosophySection = forwardRef((props, ref) => {
 
                     {/* Subtitle/Summary Text */}
                     <motion.p
-                        className="text-base md:text-lg text-gray-400 max-w-2xl text-center mb-8 flex-shrink-0"
+                        className="text-base md:text-lg text-gray-400 max-w-3xl text-center mb-12 flex-shrink-0"
                         initial={{ opacity: 0, y: -10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
@@ -200,9 +199,9 @@ const PhilosophySection = forwardRef((props, ref) => {
                     </motion.p>
 
 
-                    {/* === D.I.V.E. FRAMEWORK CARD GRID === */}
-                    <div className="w-full max-w-6xl grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 lg:gap-8 flex-grow overflow-y-auto pt-4 pb-4">
-                        {diveData.map((item, index) => (
+                    {/* === D.I.V.E. FRAMEWORK CARD GRID (Compact) === */}
+                    <div className="w-full max-w-4xl grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6 lg:gap-8 flex-shrink">
+                        {diveData.map((item) => (
                             <StepCard 
                                 key={item.step} 
                                 item={item} 
