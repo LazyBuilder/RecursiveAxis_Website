@@ -50,7 +50,7 @@ const Home = () => {
     
     const targetElement = sectionsRef.current[index].current;
     if (targetElement) {
-        // 🚨 FIX 1: Ensure smooth scroll is possible by setting top correctly
+        // Ensure smooth scroll is possible by setting top correctly
         mainRef.current.scrollTo({
             top: targetElement.offsetTop,
             behavior: 'smooth',
@@ -89,12 +89,11 @@ const Home = () => {
 
   return (
     <>
-      {/* 🚨 FIX 2: Added global background color for the entire body/container 
-          to ensure a light base, falling back to the main container's background 
-          for non-section areas. */}
+      {/* Added global background color for the entire body/container 
+          to ensure a light base. */}
       <div style={{ backgroundColor: light }} className={`${isLoading ? 'hidden' : 'block'}`}>
 
-        {/* 🚨 FIX 3: Global CSS injection for animated-gradient and Tag Box. */}
+        {/* Global CSS injection for animated-gradient and Tag Box. */}
         <style global jsx>{`
           .animated-gradient {
               background: linear-gradient(45deg, ${primary}, ${secondary}, ${primary});
@@ -129,9 +128,7 @@ const Home = () => {
         <main 
           ref={mainRef} 
           onScroll={handleScroll}
-          // ADAPTIVE SCROLL CLASSES: Default (mobile) uses min-h-screen for natural scroll.
-          // lg: (desktop) activates h-screen and snap-scrolling.
-          // Set DEFAULT background to light, which FullPageSection will inherit unless overridden.
+          // Set DEFAULT background to light
           className={`w-screen relative scroll-smooth overflow-y-scroll min-h-screen lg:h-screen lg:snap-y lg:snap-mandatory bg-[${light}]`}
         >
           
@@ -148,13 +145,12 @@ const Home = () => {
           </div>
           
           {/* Render Sections in the correct order based on the 'sections' array */}
-          {/* NOTE: If projects and services are swapped, update the array above too. */}
           <HeroSection ref={sectionsRef.current[0]} />
-          <RecentProjectsCarousel ref={sectionsRef.current[2]} /> 
-          <ServicesSection ref={sectionsRef.current[1]} />
+          <RecentProjectsCarousel ref={sectionsRef.current[1]} /> 
+          <ServicesSection ref={sectionsRef.current[2]} />
           <PhilosophySection ref={sectionsRef.current[3]} />
           <FounderStorySection ref={sectionsRef.current[4]} />
-          {/* 🚨 FIX 4: ContactCTA is now the final scrollable section */}
+          {/* ContactCTA is the final scrollable section (ID: contact) */}
           <ContactCTA ref={sectionsRef.current[5]} />
 
         </main>

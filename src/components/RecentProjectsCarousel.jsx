@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 // CRITICAL: Ensure your image paths are correct
 import MSHImage from '../photos/mshcg-dugapuja.png';    
 import VerveImage from '../photos/verve-photography.png';  
-import StartupImage from '../photos/startup-mock.png';
+ 
 
 // Define global constants (assuming these are defined in UIMain.jsx or globally)
 const PRIMARY_COLOR = '#00EAFF'; 
@@ -41,7 +41,7 @@ const topThreeProjects = [
     id: 3,
     title: "Stealth Startup Analytics MVP", 
     description: "Built the core MVP for a next-gen data analytics platform, focusing on real-time data ingestion and visualization. This allowed the client to secure Series A funding based on technical proof of concept.", 
-    imageSrc: StartupImage,
+    imageSrc: VerveImage,
     link: 'https://www.example.com/',
     color: PRIMARY_COLOR,
   },
@@ -77,7 +77,7 @@ const RecentProjectsCarousel = React.forwardRef((props, ref) => {
             <FullPageSection 
                 id="projects" 
                 ref={ref} 
-                // 🚨 FIX: Removed explicit dark style prop. It will now inherit the light background from Home.jsx.
+                // Background is now inherited as light
                 bgClass="text-gray-800" // Ensures text is dark on the light background
             >
                 <div className="w-full relative z-10 flex flex-col items-center justify-center h-full max-w-7xl px-4 py-20">

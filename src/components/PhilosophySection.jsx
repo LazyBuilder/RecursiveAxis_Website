@@ -146,7 +146,7 @@ const PhilosophySection = forwardRef((props, ref) => {
 
     return (
         <>
-            {/* 🚨 FIX: Removed explicit dark style prop. It will now inherit the light background from Home.jsx. */}
+            {/* Removed explicit dark style prop. It will now inherit the light background from Home.jsx. */}
             <FullPageSection 
                 id="philosophy" 
                 ref={ref} 

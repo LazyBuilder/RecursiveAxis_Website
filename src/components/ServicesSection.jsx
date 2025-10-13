@@ -79,7 +79,7 @@ const ServiceCard = ({ service, index }) => (
 
 const ServicesSection = React.forwardRef((props, ref) => (
   <>
-    {/* 🚨 FIX: Removed explicit dark style prop. It will now inherit the light background from Home.jsx. */}
+    {/* Removed explicit dark style prop. It will now inherit the light background from Home.jsx. */}
     <FullPageSection 
       id="services" 
       ref={ref} 
