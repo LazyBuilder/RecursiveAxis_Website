@@ -1,6 +1,6 @@
-// src/ProjectsPage.jsx (FINAL, FIXED VARIABLE HEIGHT)
+// src/ProjectsPage.jsx (FINAL, TRUE CSS MASONRY LAYOUT)
 
-import React, { useState, useMemo, useRef, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion'; 
 import { Link } from 'react-router-dom';
 import { colors } from './components/UIMain'; 
@@ -32,10 +32,12 @@ const projectData = [
     { id: 7, title: "EcoConnect Community Tracker", description: "Mobile-first web app using Firebase and React Native Web for real-time tracking of community recycling efforts, resulting in a 20% increase in volume.", tags: ['React Native', 'Website', 'Community'], imageSrc: MSHImage, link: '#', color: colors.primary, },
     // Short Text, No Image (Should be SHORT/SHRUNK)
     { id: 8, title: "Healthcare Portal Compliance", description: "Designed and implemented a HIPAA-compliant patient communication portal on AWS, focusing on security and data privacy.", tags: ['AWS', 'Reports', 'Healthcare'], imageSrc: null, link: '#', color: colors.secondary, },
+    { id: 9, title: "Real-Time NLP Chatbot", description: "Developed a natural language processing model using Hugging Face transformers for a customer service chatbot.", tags: ['Python', 'Code', 'NLP'], imageSrc: MSHImage, link: '#', color: colors.primary, },
+    { id: 10, title: "High-Speed Caching Service", description: "Implemented a Redis-based caching layer that reduced database load times by 75% for key endpoints.", tags: ['Redis', 'Code', 'Performance'], imageSrc: null, link: '#', color: colors.secondary, },
 ];
 
 // ==========================================================
-// --- PROJECT CARD COMPONENT (Dynamic Height, Fixed) ---
+// --- PROJECT CARD COMPONENT (Masonry Item) ---
 // ==========================================================
 const ProjectCard = ({ project }) => {
     
@@ -44,8 +46,8 @@ const ProjectCard = ({ project }) => {
             href={project.link === '#' ? undefined : project.link}
             target={project.link === '#' ? undefined : "_blank"}
             rel={project.link === '#' ? undefined : "noopener noreferrer"}
-            // Removed fixed minHeight/maxHeight. Card height is now truly 'auto' based on content.
-            className={`flex flex-col w-full p-4 bg-white rounded-xl border border-gray-200 transition-all duration-300 transform hover:shadow-xl hover:scale-[1.01] cursor-pointer`}
+            // IMPORTANT: Removed fixed sizing/grid classes. Added `break-inside-avoid-column` for masonry.
+            className={`flex flex-col w-full p-4 bg-white rounded-xl border border-gray-200 transition-all duration-300 transform hover:shadow-xl hover:scale-[1.01] cursor-pointer mb-4 break-inside-avoid-column`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
@@ -72,13 +74,13 @@ const ProjectCard = ({ project }) => {
             {/* Description Section with a controlled maxHeight for scrolling */}
             <div 
                 className={`text-sm text-gray-700 leading-relaxed mb-4 flex-grow pr-2`}
-                // This is the key: it grows until it hits this limit, then a scrollbar appears.
+                // Ensures text container grows to fit content, but scrolls if it exceeds max.
                 style={{ maxHeight: project.imageSrc ? '150px' : '200px', overflowY: 'auto' }}
             >
                 {project.description}
             </div>
             
-            {/* Tags Section (Only 3 tags, clearly defined) */}
+            {/* Tags Section */}
             <div className="mt-auto pt-2 border-t border-gray-100 flex flex-wrap gap-2">
                 {project.tags.slice(0, 3).map((tag, index) => (
                     <span 
@@ -97,7 +99,7 @@ const ProjectCard = ({ project }) => {
 
 
 // ==========================================================
-// --- MAIN PROJECTS PAGE COMPONENT (Masonry Grid) ---
+// --- MAIN PROJECTS PAGE COMPONENT (Masonry Layout) ---
 // ==========================================================
 const ProjectsPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -125,15 +127,12 @@ const ProjectsPage = () => {
             <div className="flex-grow flex flex-col overflow-y-auto"> 
                 
                 {/* ---------------------------------------------------- */}
-                {/* === TOP HEADER/SEARCH BAR (Thin and Clean) === */}
+                {/* === TOP HEADER/SEARCH BAR (Fixed and Clean) === */}
                 {/* ---------------------------------------------------- */}
                 <div className="w-full flex-shrink-0 pt-[80px] px-4 py-3 bg-white shadow-md sticky top-0 z-10 border-b border-gray-200">
                     <div className="max-w-7xl mx-auto"> 
-                        
-                        {/* Title, Back Link, and Search in a compact row */}
                         <div className="flex items-center justify-between relative">
                             
-                            {/* Back Link (Left) */}
                             <MotionLink
                                 to="/" 
                                 className="flex items-center text-sm font-semibold text-gray-700 hover:text-black transition-colors duration-300 flex-shrink-0 mr-4 md:mr-6"
@@ -146,12 +145,10 @@ const ProjectsPage = () => {
                                 <span className="md:hidden">Home</span>
                             </MotionLink>
 
-                            {/* Centered Title */}
                             <h1 className="text-xl md:text-3xl font-extrabold animated-gradient hidden lg:flex items-center justify-center pointer-events-none absolute inset-0">
                                 Project Portfolio
                             </h1>
                             
-                            {/* Search Bar (Right) - The only filtering tool */}
                             <div className="relative w-full max-w-sm ml-auto">
                                 <input
                                     type="text"
@@ -172,15 +169,19 @@ const ProjectsPage = () => {
                 </div> 
 
                 {/* ---------------------------------------------------- */}
-                {/* === FIXED-WIDTH MASONRY STYLE PROJECT GRID === */}
+                {/* === TRUE MASONRY COLUMN LAYOUT === */}
                 {/* ---------------------------------------------------- */}
                 <main className="w-full max-w-7xl mx-auto p-4 md:p-6 lg:p-8 flex-grow"> 
                     
                     <AnimatePresence mode="wait">
                         {filteredProjects.length > 0 ? (
                             <motion.div 
-                                // This grid structure provides the fixed-width columns and flexible vertical spacing
-                                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+                                // CRUCIAL FIX: Using Tailwind's column utilities for true masonry effect.
+                                // columns-1: Mobile (single column)
+                                // sm:columns-2: Small screens (2 columns)
+                                // lg:columns-3: Large screens (3 columns)
+                                // xl:columns-4: Extra-large screens (4 columns)
+                                className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4"
                                 layout
                             >
                                 {filteredProjects.map((project) => (
