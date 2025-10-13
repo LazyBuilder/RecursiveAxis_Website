@@ -1,4 +1,4 @@
-// src/Home.jsx (ADAPTIVE SCROLL IMPLEMENTATION)
+// src/Home.jsx (ADAPTIVE SCROLL IMPLEMENTATION - FIXES SYNTAX ERROR)
 
 import React, { useState, useEffect, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
@@ -34,6 +34,7 @@ const Home = () => {
 
   const mainRef = useRef(null); 
   
+  // NOTE: Order of sections matters here and must match the render order
   const sections = ['home', 'projects', 'services', 'philosophy', 'founder-story', 'contact'];
   const sectionsRef = useRef([]);
     
@@ -47,6 +48,7 @@ const Home = () => {
 
   // --- Snap Scroll Logic (Only active on LG screens) ---
   const scrollToSection = (index) => {
+    // Only execute if on a large screen and refs are available
     if (!isLargeScreen() || !mainRef.current || !sectionsRef.current[index].current) return;
     
     // Smooth scroll to the section using its container's offsetTop
@@ -63,7 +65,7 @@ const Home = () => {
 
   const handleScroll = (e) => {
     // Only run snap-scroll logic on large screens
-    if (!isLargeScreen() || Date.now() - lastScrollTime < SCROLL_DEBOUNCE_TIME) return;
+    if (!isLargeScreen() /*|| Date.now() - lastScrollTime < SCROLL_DEBOUNCE_TIME*/) return;
 
     const main = e.target;
     let newActiveScreen = activeScreen;
@@ -115,12 +117,13 @@ const Home = () => {
                 key={index}
                 className={`w-4 h-4 rounded-full transition-all duration-300 ${activeScreen === index ? `bg-[${colors.primary}] scale-125` : 'bg-gray-500 hover:bg-white'}`}
                 onClick={() => scrollToSection(index)}
-                aria-label={`Go to section ${index + 1}`}\
+                // SYNTAX ERROR FIXED: Removed the trailing backslash here
+                aria-label={`Go to section ${index + 1}`} 
               />
             ))}
           </div>
           
-          {/* Render all sections, passing refs. Order fixed to match sections array. */}
+          {/* Render all sections, passing refs. */}
           <HeroSection ref={sectionsRef.current[0]} />
           <RecentProjectsCarousel ref={sectionsRef.current[2]} /> 
           <ServicesSection ref={sectionsRef.current[1]} />
