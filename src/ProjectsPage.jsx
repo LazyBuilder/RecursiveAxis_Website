@@ -1,12 +1,12 @@
-// src/ProjectsPage.jsx (FINAL, STREAMLINED KEEP LAYOUT)
+// src/ProjectsPage.jsx (FINAL, FIXED VARIABLE HEIGHT)
 
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion'; 
 import { Link } from 'react-router-dom';
 import { colors } from './components/UIMain'; 
-import { FaArrowLeft, FaSearch, FaTimes, FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { FaArrowLeft, FaSearch, FaTimes } from 'react-icons/fa';
 
-// SHARED COMPONENTS
+// SHARED COMPONENTS (Assuming these exist and are correct)
 import Header from './components/Header';
 import Footer from './components/Footer'; 
 
@@ -14,59 +14,40 @@ import Footer from './components/Footer';
 import MSHImage from './photos/mshcg-dugapuja.png';   
 import VerveImage from './photos/verve-photography.png';  
 
-// --- PROJECT DATA (Full List with New 3-Tag Structure) ---
+// --- PROJECT DATA (Using the 3-Tag Structure) ---
 const projectData = [
-    // Tech: Python, Type: Code, Industry: Healthcare
-    { id: 1, title: "AI Image Classifier Model", description: "Trained and deployed a high-accuracy Convolutional Neural Network (CNN) for medical image classification using TensorFlow/Keras. Achieved 98.5% accuracy, significantly improving diagnostic speed.", tags: ['Python', 'Code', 'Healthcare'], imageSrc: MSHImage, link: '#', color: colors.primary, },
-    // Tech: Node.js, Type: Website, Industry: FinTech
+    // Long Text, Image (Should be TALL)
+    { id: 1, title: "AI Image Classifier Model", description: "Trained and deployed a high-accuracy Convolutional Neural Network (CNN) for medical image classification using TensorFlow/Keras. Achieved 98.5% accuracy, significantly improving diagnostic speed. This was a complex, data-intensive ML project that involved extensive data preprocessing, model tuning, and cloud deployment on AWS SageMaker.", tags: ['Python', 'Code', 'Healthcare'], imageSrc: MSHImage, link: '#', color: colors.primary, },
+    // Medium Text, Image (Should be MEDIUM)
     { id: 2, title: "FinTech Dashboard", description: "Built a secure, real-time analytics dashboard for wealth management clients using Node.js, PostgreSQL, and React. Focused on data visualization and robust authentication.", tags: ['Node.js', 'Website', 'FinTech'], imageSrc: VerveImage, link: '#', color: colors.secondary, },
-    // Tech: Kubernetes, Type: Strategy, Industry: DevOps
-    { id: 3, title: "Kubernetes Deployment Pipeline", description: "Automated E2E CI/CD pipeline using Jenkins and Kubernetes for zero-downtime deployment across multiple environments.", tags: ['Kubernetes', 'Strategy', 'DevOps'], imageSrc: null, link: '#', color: colors.secondary, },
-    // Tech: React, Type: Website, Industry: Non-profit
-    { id: 4, title: "MSH Cultural Group Platform", description: "Delivered a full-featured, multi-language ticketing and information platform emphasizing ultra-low-cost deployment using React and AWS Amplify.", tags: ['React', 'Website', 'Non-profit'], imageSrc: MSHImage, link: 'https://www.mshculturalgroup.com/', color: colors.primary, },
-    // Tech: Tailwind, Type: Website, Industry: Design
+    // Short Text, No Image (Should be SHORT/SHRUNK)
+    { id: 3, title: "Kubernetes Deployment Pipeline", description: "Automated E2E CI/CD pipeline using Jenkins and Kubernetes for zero-downtime deployment.", tags: ['Kubernetes', 'Strategy', 'DevOps'], imageSrc: null, link: '#', color: colors.secondary, },
+    // Long Text, Image (Should be TALL)
+    { id: 4, title: "MSH Cultural Group Platform", description: "Delivered a full-featured, multi-language ticketing and information platform emphasizing ultra-low-cost deployment using React and AWS Amplify. The platform handles thousands of ticket transactions annually and significantly reduced manual overhead.", tags: ['React', 'Website', 'Non-profit'], imageSrc: MSHImage, link: 'https://www.mshculturalgroup.com/', color: colors.primary, },
+    // Short Text, No Image (Should be SHORT/SHRUNK)
     { id: 5, title: "Verve Photography Portfolio", description: "A high-impact portfolio site optimized for speed and retina displays using React and Tailwind CSS.", tags: ['Tailwind', 'Website', 'Design'], imageSrc: null, link: 'https://verve.photography/', color: colors.primary, },
-    // Tech: Microservices, Type: Code, Industry: E-commerce
-    { id: 6, title: "E-commerce Microservices Backend", description: "Designed and implemented a scalable microservices architecture for a mid-sized e-commerce platform handling 10k+ daily transactions. Utilized RabbitMQ and Docker for containerization.", tags: ['Microservices', 'Code', 'E-commerce'], imageSrc: VerveImage, link: '#', color: colors.secondary, },
-    // Tech: React Native, Type: Website, Industry: Community
+    // Very Long Text, Image (Should be TALL with scrollbar)
+    { id: 6, title: "E-commerce Microservices Backend", description: "Designed and implemented a scalable microservices architecture for a mid-sized e-commerce platform handling 10k+ daily transactions. Utilized RabbitMQ for message queuing, Docker for containerization, and implemented circuit breakers for resilience, ensuring high availability and fault tolerance across all core services including inventory, payments, and fulfillment. This was a critical production system upgrade.", tags: ['Microservices', 'Code', 'E-commerce'], imageSrc: VerveImage, link: '#', color: colors.secondary, },
+    // Medium Text, Image (Should be MEDIUM)
     { id: 7, title: "EcoConnect Community Tracker", description: "Mobile-first web app using Firebase and React Native Web for real-time tracking of community recycling efforts, resulting in a 20% increase in volume.", tags: ['React Native', 'Website', 'Community'], imageSrc: MSHImage, link: '#', color: colors.primary, },
-    // Tech: AWS, Type: Reports, Industry: Healthcare
+    // Short Text, No Image (Should be SHORT/SHRUNK)
     { id: 8, title: "Healthcare Portal Compliance", description: "Designed and implemented a HIPAA-compliant patient communication portal on AWS, focusing on security and data privacy.", tags: ['AWS', 'Reports', 'Healthcare'], imageSrc: null, link: '#', color: colors.secondary, },
-    // Tech: Python, Type: Code, Industry: NLP
-    { id: 9, title: "Real-Time NLP Chatbot", description: "Developed a natural language processing model using Hugging Face transformers for a customer service chatbot, reducing ticket escalation by 40%.", tags: ['Python', 'Code', 'NLP'], imageSrc: MSHImage, link: '#', color: colors.primary, },
-    // Tech: Redis, Type: Code, Industry: Performance
-    { id: 10, title: "High-Speed Caching Service", description: "Implemented a Redis-based caching layer that reduced database load times by 75% for key endpoints.", tags: ['Redis', 'Code', 'Performance'], imageSrc: null, link: '#', color: colors.secondary, },
 ];
 
 // ==========================================================
-// --- PROJECT CARD COMPONENT (Dynamic Height, Simplified Tags) ---
+// --- PROJECT CARD COMPONENT (Dynamic Height, Fixed) ---
 // ==========================================================
 const ProjectCard = ({ project }) => {
-    const descriptionRef = useRef(null);
-    const [isDescriptionScrollable, setIsDescriptionScrollable] = useState(false);
-    const [cardHeight, setCardHeight] = useState('auto');
-    const [textCollapsed, setTextCollapsed] = useState(true);
-
-    // Dynamic Height Calculation: Check if the text overflows
-    useEffect(() => {
-        if (descriptionRef.current) {
-            const { offsetHeight, scrollHeight } = descriptionRef.current;
-            // The max height for the text is set by the CSS class `line-clamp-4` when textCollapsed is true
-            // If the content is taller than the max collapsed height, it's scrollable/expandable
-            const shouldCollapse = scrollHeight > offsetHeight + 5; 
-            setIsDescriptionScrollable(shouldCollapse);
-        }
-    }, [project.description, project.imageSrc]);
-
-    // Use a short description for determining if the card should be visually smaller
+    
+    // Determine if the content is minimal to set a lower min-height for clean shrinking
     const isMinimalContent = !project.imageSrc && project.description.length < 100;
-
-
+    
     return (
         <motion.a
             href={project.link === '#' ? undefined : project.link}
             target={project.link === '#' ? undefined : "_blank"}
             rel={project.link === '#' ? undefined : "noopener noreferrer"}
+            // Removed fixed max-height on the card itself. It will now grow/shrink naturally.
             className={`flex flex-col w-full p-4 bg-white rounded-xl border border-gray-200 transition-all duration-300 transform hover:shadow-xl hover:scale-[1.01] cursor-pointer`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -74,8 +55,8 @@ const ProjectCard = ({ project }) => {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             style={{ 
                 borderTop: `6px solid ${project.color}`, 
-                minHeight: isMinimalContent ? '140px' : '200px', // Shrink height for minimal content
-                maxHeight: '550px', 
+                minHeight: isMinimalContent ? '140px' : '180px', // Shrink minimum height
+                height: 'auto', // Crucial: Let the content define the height
             }}
         >
             <h3 className="text-xl font-extrabold mb-2" style={{ color: colors.dark }}>
@@ -93,26 +74,17 @@ const ProjectCard = ({ project }) => {
                 </div>
             )}
             
-            {/* Description Section with conditional expansion/clamping */}
+            {/* Description Section with Hard Max-Height and Scroll */}
             <div 
-                ref={descriptionRef}
-                className={`text-sm text-gray-700 leading-relaxed mb-4 flex-grow ${textCollapsed ? 'line-clamp-4' : ''} ${project.imageSrc ? 'mt-0' : 'mt-1'}`}
-                // When expanded, use overflow-y-auto to handle massive text
-                style={!textCollapsed ? { overflowY: 'auto', maxHeight: project.imageSrc ? '180px' : '280px' } : {}}
+                // CRITICAL FIX: Removed all text-collapsing state/logic. 
+                // Added a max height to allow natural growth but prevent excessive height, forcing a scrollbar if needed.
+                className={`text-sm text-gray-700 leading-relaxed mb-4 flex-grow overflow-y-auto pr-2`}
+                style={{ 
+                    maxHeight: project.imageSrc ? '150px' : '200px', // More space for text if no image is present
+                }}
             >
                 {project.description}
             </div>
-
-            {/* Read More/Less Button for Text (only shows if text is scrollable/collapsible) */}
-            {isDescriptionScrollable && (
-                <button
-                    onClick={(e) => { e.preventDefault(); setTextCollapsed(!textCollapsed); }}
-                    className="mb-2 text-xs font-semibold text-blue-600 hover:text-blue-800 flex items-center transition-colors"
-                >
-                    {textCollapsed ? 'Read More' : 'Read Less'} 
-                    {textCollapsed ? <FaChevronDown className="ml-1 text-blue-600" size={10} /> : <FaChevronUp className="ml-1 text-blue-600" size={10} />}
-                </button>
-            )}
             
             {/* Tags Section (Only 3 tags, clearly defined) */}
             <div className="mt-auto pt-2 border-t border-gray-100 flex flex-wrap gap-2">
@@ -187,7 +159,7 @@ const ProjectsPage = () => {
                                 Project Portfolio
                             </h1>
                             
-                            {/* Search Bar (Right) - Now the primary filtering tool */}
+                            {/* Search Bar (Right) - The only filtering tool */}
                             <div className="relative w-full max-w-sm ml-auto">
                                 <input
                                     type="text"
@@ -215,6 +187,7 @@ const ProjectsPage = () => {
                     <AnimatePresence mode="wait">
                         {filteredProjects.length > 0 ? (
                             <motion.div 
+                                // This grid structure provides the fixed-width columns and flexible vertical spacing
                                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
                                 layout
                             >
