@@ -1,19 +1,20 @@
 // src/components/ServicesSection.jsx 
-// Component: Services Section (DARK MODE GLOW EDITION)
+// Component: Services Section (LIGHT MODE DEFAULT)
 
 import React from 'react';
 import { motion } from 'framer-motion';
 // Foreign Link: Imports the section wrapper component for consistent layout and scroll behavior.
 import FullPageSection from './FullPageSection'; 
 
-// --- Color Constants: Defined locally for component-level control ---
+// --- Color Constants: Defined locally for clarity but should match UIMain.jsx ---
 const PRIMARY_COLOR = '#00EAFF'; // Cyan (for accent)
 const SECONDARY_COLOR = '#FF00EA'; // Magenta (for accent)
-const BACKGROUND_DARK = '#0a0a0a'; // The correct deep background color (FIX: ensures dark background)
-const CARD_DARK = '#1f1f1f'; // Dark card color
+const CARD_LIGHT = '#ffffff'; // Light card color
+const TEXT_DARK = '#1a1a1a';
 
 // --- Service Data (Top 3 focus areas) ---
 const serviceData = [
+  // ... (service data remains the same)
   {
     tag: "FOUNDERS",
     title: "ACHIEVE PRODUCT-MARKET FIT. FASTER.",
@@ -40,11 +41,11 @@ const serviceData = [
 // --- Service Card Component (Used internally) ---
 const ServiceCard = ({ service, index }) => (
     <motion.div
-      // Class names for the glow effect and dark card background
-      className={`p-6 rounded-xl shadow-2xl glowing-card flex flex-col items-start h-full`} 
-      style={{ backgroundColor: CARD_DARK }}
+      // Card component styling using local constants
+      className={`p-6 rounded-xl shadow-lg flex flex-col items-start h-full transition-shadow duration-300 hover:shadow-xl`} 
+      style={{ backgroundColor: CARD_LIGHT }} // Use light card background
       // Framer Motion for entrance animation
-      initial={{ opacity: 0, y: 50, scale: 0.95 }}
+      initial={{ opacity: 0, y: 50, scale: 0.98 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.8, delay: index * 0.15 }}
       viewport={{ once: true }}
@@ -53,18 +54,18 @@ const ServiceCard = ({ service, index }) => (
       {/* Tag Box: Uses the global 'tag-box' CSS class injected in Home.jsx */}
       <div 
         className="tag-box mb-8" 
-        style={{ borderBottomColor: service.color }}
+        style={{ borderBottomColor: service.color, color: TEXT_DARK }} // Text color is dark
       >
         {service.tag}
       </div>
       
       {/* Main Title: Uses accent color */}
-      <h3 className="text-2xl font-extrabold mb-3 tracking-widest" style={{ color: service.color }}>
+      <h3 className="text-2xl font-extrabold mb-3 tracking-widest" style={{ color: TEXT_DARK }}>
         {service.title}
       </h3>
       
       {/* Description */}
-      <p className="text-base text-gray-300 leading-relaxed mb-6">
+      <p className="text-base text-gray-700 leading-relaxed mb-6">
         {service.description}
       </p>
       
@@ -78,17 +79,15 @@ const ServiceCard = ({ service, index }) => (
 
 const ServicesSection = React.forwardRef((props, ref) => (
   <>
-    {/* 💡 FIX: FullPageSection now receives the background color via the 'style' prop. */}
+    {/* 🚨 FIX: Removed explicit dark style prop. It will now inherit the light background from Home.jsx. */}
     <FullPageSection 
       id="services" 
       ref={ref} 
-      // CRITICAL FIX: Explicitly setting the dark background color.
-      style={{ backgroundColor: BACKGROUND_DARK }} 
-      bgClass="text-white" // Ensures all text inside is white
+      bgClass="text-gray-800" // Ensures all text inside is dark on light background
     >
       <div className="w-full relative z-10 flex flex-col items-center justify-center h-full max-w-7xl px-4 py-20">
         
-        {/* Title: Uses the globally injected 'animated-gradient' class (from Home.jsx) */}
+        {/* Title: Uses the globally injected 'animated-gradient' class from Home.jsx */}
         <motion.h2
             className={`text-3xl md:text-5xl font-extrabold mb-10 animated-gradient`}
             initial={{ opacity: 0, y: 50 }}
@@ -116,7 +115,8 @@ const ServicesSection = React.forwardRef((props, ref) => (
             href="https://cal.com/asitdeva"
             target="_blank"
             rel="noopener noreferrer"
-            className={`px-8 py-3 text-lg rounded-full font-bold transition-all duration-300 shadow-lg hover:shadow-xl bg-white text-black`}
+            className={`px-8 py-3 text-lg rounded-full font-bold transition-all duration-300 shadow-lg hover:shadow-xl text-black`}
+            style={{ backgroundColor: PRIMARY_COLOR }} // Primary accent color button
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, type: "spring", stiffness: 150 }}

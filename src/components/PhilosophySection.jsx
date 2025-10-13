@@ -1,22 +1,23 @@
 // src/components/PhilosophySection.jsx 
-// Component: D.I.V.E. FRAMEWORK WITH MODAL - FULL CODE & FIXES
+// Component: D.I.V.E. FRAMEWORK WITH MODAL - LIGHT MODE DEFAULT
 
 import React, { useState, forwardRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-// Foreign Link: Imports the section wrapper component for consistent layout and scroll behavior.
-import FullPageSection from './FullPageSection';
-// Updated Icons from react-icons/fa
+// Foreign Link: Imports the section wrapper component
+import FullPageSection from './FullPageSection'; 
+// Imported Icons
 import { FaBrain, FaRocket, FaChartLine, FaCogs, FaTimes } from 'react-icons/fa'; 
 
-// --- Color Constants: Defined locally for component-level control ---
-const PRIMARY_COLOR = '#00EAFF'; // Cyan
-const SECONDARY_COLOR = '#FF00EA'; // Magenta
-const BACKGROUND_DARK = '#0a0a0a'; // The correct deep background color (FIX: ensures dark background)
-const CARD_DARK = '#1f1f1f'; // Dark card color
-const LIGHT_TEXT = '#ffffff'; // White text
+// --- Color Constants: Defined locally for component styling ---
+const PRIMARY_COLOR = '#00EAFF'; 
+const SECONDARY_COLOR = '#FF00EA'; 
+const CARD_LIGHT = '#ffffff'; // Light card color
+const TEXT_DARK = '#1a1a1a';
+const TEXT_GRAY = '#6b7280'; 
 
 // --- D.I.V.E. Philosophy Data ---
 const diveData = [
+  // ... (data remains the same)
   {
     step: 1,
     acronym: 'D',
@@ -70,7 +71,7 @@ const DiveModal = ({ item, onClose }) => {
             onClick={onClose}
         >
             <motion.div
-                className="bg-gray-900 p-8 rounded-2xl shadow-2xl max-w-2xl w-full relative text-white border border-gray-700"
+                className="bg-white p-8 rounded-2xl shadow-2xl max-w-2xl w-full relative text-gray-900 border border-gray-200"
                 variants={modalVariants}
                 initial="hidden"
                 animate="visible"
@@ -80,7 +81,7 @@ const DiveModal = ({ item, onClose }) => {
                 {/* Close Button */}
                 <button 
                     onClick={onClose} 
-                    className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+                    className="absolute top-4 right-4 text-gray-500 hover:text-gray-900 transition-colors"
                     aria-label="Close"
                 >
                     <FaTimes size={24} />
@@ -90,12 +91,12 @@ const DiveModal = ({ item, onClose }) => {
                 <span className="text-8xl font-black mb-4 inline-block" style={{ color: item.color, lineHeight: 0.8 }}>
                     {item.acronym}
                 </span>
-                <h3 className="text-3xl font-extrabold mb-4 mt-2" style={{ color: item.color }}>
+                <h3 className="text-3xl font-extrabold mb-4 mt-2" style={{ color: TEXT_DARK }}>
                     {item.title}
                 </h3>
                 
                 {/* Full Description */}
-                <p className="text-lg text-gray-300 leading-relaxed whitespace-pre-line">
+                <p className="text-lg text-gray-700 leading-relaxed whitespace-pre-line">
                     {item.fullDescription}
                 </p>
 
@@ -107,9 +108,7 @@ const DiveModal = ({ item, onClose }) => {
 // --- 2. Clickable Step Card Component (Used in the grid) ---
 const StepCard = ({ item, onClick }) => (
     <motion.div
-        // Class names for the glow effect and dark card background
-        className="glowing-card relative p-6 rounded-xl shadow-xl flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 hover:scale-[1.03] active:scale-[0.98]"
-        style={{ backgroundColor: CARD_DARK }}
+        className="bg-white relative p-6 rounded-xl shadow-lg flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] hover:shadow-xl"
         onClick={() => onClick(item)}
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -123,12 +122,12 @@ const StepCard = ({ item, onClick }) => (
         </span>
         
         {/* Icon: Small and positioned subtly */}
-        <div className="absolute top-4 right-4 text-2xl text-gray-500 opacity-80">
+        <div className="absolute top-4 right-4 text-2xl text-gray-400 opacity-80">
             <item.icon /> 
         </div>
 
         {/* Title */}
-        <h4 className="text-lg font-bold mt-2 text-white">
+        <h4 className="text-lg font-bold mt-2" style={{ color: TEXT_DARK }}>
             {item.title.split(': ')[0]} {/* Show only the first word before the colon */}
         </h4>
 
@@ -147,13 +146,11 @@ const PhilosophySection = forwardRef((props, ref) => {
 
     return (
         <>
-            {/* 💡 FIX: FullPageSection now receives the background color via the 'style' prop. */}
+            {/* 🚨 FIX: Removed explicit dark style prop. It will now inherit the light background from Home.jsx. */}
             <FullPageSection 
                 id="philosophy" 
                 ref={ref} 
-                // CRITICAL FIX: Explicitly setting the dark background color.
-                style={{ backgroundColor: BACKGROUND_DARK }}
-                bgClass="text-white" // Ensures text inside is white
+                bgClass="text-gray-800" // Ensures text inside is dark
             >
                 <div className="w-full relative z-10 flex flex-col items-center justify-center h-full max-h-full py-16 px-4">
                     
@@ -170,7 +167,7 @@ const PhilosophySection = forwardRef((props, ref) => {
 
                     {/* Subtitle/Summary Text */}
                     <motion.p
-                        className="text-base md:text-lg text-gray-400 max-w-3xl text-center mb-12 flex-shrink-0"
+                        className="text-base md:text-lg text-gray-600 max-w-3xl text-center mb-12 flex-shrink-0"
                         initial={{ opacity: 0, y: -10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.2 }}

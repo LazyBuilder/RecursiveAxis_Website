@@ -50,6 +50,7 @@ const Home = () => {
     
     const targetElement = sectionsRef.current[index].current;
     if (targetElement) {
+        // 🚨 FIX 1: Ensure smooth scroll is possible by setting top correctly
         mainRef.current.scrollTo({
             top: targetElement.offsetTop,
             behavior: 'smooth',
@@ -84,42 +85,43 @@ const Home = () => {
   // --------------------------------------------------------
 
   // Destructure colors for use in injected CSS
-  const { primary, secondary } = colors;
+  const { primary, secondary, light } = colors; // Added 'light' from UIMain
 
   return (
     <>
-      {/* 🚨 FIX 1: Global CSS injection for animated-gradient and Tag Box. 
-          This makes the 'animated-gradient' class available to ALL child components. */}
-      <style global jsx>{`
-        .animated-gradient {
-            background: linear-gradient(45deg, ${primary}, ${secondary}, ${primary});
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: global-gradient-shift 10s ease infinite; 
-        }
-        @keyframes global-gradient-shift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        .tag-box {
-            font-size: 0.75rem; 
-            font-weight: 700; 
-            letter-spacing: 0.1em; 
-            text-transform: uppercase;
-            padding-bottom: 0.5rem; 
-            border-bottom-width: 2px;
-        }
-      `}</style>
+      {/* 🚨 FIX 2: Added global background color for the entire body/container 
+          to ensure a light base, falling back to the main container's background 
+          for non-section areas. */}
+      <div style={{ backgroundColor: light }} className={`${isLoading ? 'hidden' : 'block'}`}>
 
-      <AnimatePresence>
-        {isLoading && <IntroOverlay onComplete={handleIntroComplete} />}
-      </AnimatePresence>
+        {/* 🚨 FIX 3: Global CSS injection for animated-gradient and Tag Box. */}
+        <style global jsx>{`
+          .animated-gradient {
+              background: linear-gradient(45deg, ${primary}, ${secondary}, ${primary});
+              background-size: 400% 400%;
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              animation: global-gradient-shift 10s ease infinite; 
+          }
+          @keyframes global-gradient-shift {
+              0% { background-position: 0% 50%; }
+              50% { background-position: 100% 50%; }
+              100% { background-position: 0% 50%; }
+          }
+          .tag-box {
+              font-size: 0.75rem; 
+              font-weight: 700; 
+              letter-spacing: 0.1em; 
+              text-transform: uppercase;
+              padding-bottom: 0.5rem; 
+              border-bottom-width: 2px;
+          }
+        `}</style>
 
-      {/* Main Content */}
-      <div className={`${isLoading ? 'hidden' : 'block'}`}>
-        
+        <AnimatePresence>
+          {isLoading && <IntroOverlay onComplete={handleIntroComplete} />}
+        </AnimatePresence>
+
         {/* Header: Fixed position, imported from './components/Header'. */}
         <Header />
 
@@ -129,7 +131,8 @@ const Home = () => {
           onScroll={handleScroll}
           // ADAPTIVE SCROLL CLASSES: Default (mobile) uses min-h-screen for natural scroll.
           // lg: (desktop) activates h-screen and snap-scrolling.
-          className="w-screen relative scroll-smooth overflow-y-scroll min-h-screen lg:h-screen lg:snap-y lg:snap-mandatory"
+          // Set DEFAULT background to light, which FullPageSection will inherit unless overridden.
+          className={`w-screen relative scroll-smooth overflow-y-scroll min-h-screen lg:h-screen lg:snap-y lg:snap-mandatory bg-[${light}]`}
         >
           
           {/* Vertical Navigation Dots (Hidden on mobile via 'hidden lg:flex') */}
@@ -145,11 +148,13 @@ const Home = () => {
           </div>
           
           {/* Render Sections in the correct order based on the 'sections' array */}
+          {/* NOTE: If projects and services are swapped, update the array above too. */}
           <HeroSection ref={sectionsRef.current[0]} />
           <RecentProjectsCarousel ref={sectionsRef.current[2]} /> 
           <ServicesSection ref={sectionsRef.current[1]} />
           <PhilosophySection ref={sectionsRef.current[3]} />
           <FounderStorySection ref={sectionsRef.current[4]} />
+          {/* 🚨 FIX 4: ContactCTA is now the final scrollable section */}
           <ContactCTA ref={sectionsRef.current[5]} />
 
         </main>

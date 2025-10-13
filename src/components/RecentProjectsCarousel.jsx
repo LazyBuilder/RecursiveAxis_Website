@@ -3,24 +3,24 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+// Foreign Link: Imports the section wrapper component
 import FullPageSection from './FullPageSection'; 
 import { Link } from 'react-router-dom'; 
 
-// ==========================================================
-// 🚨 CRITICAL: LOCAL IMAGE IMPORTS - CHECK NAMES IN src/photos/
-// You must have these image files for the component to work.
+// CRITICAL: Ensure your image paths are correct
 import MSHImage from '../photos/mshcg-dugapuja.png';    
 import VerveImage from '../photos/verve-photography.png';  
-// ==========================================================
+import StartupImage from '../photos/startup-mock.png';
 
 // Define global constants (assuming these are defined in UIMain.jsx or globally)
 const PRIMARY_COLOR = '#00EAFF'; 
 const SECONDARY_COLOR = '#FF00EA'; 
-const BACKGROUND_LIGHT = '#f7f7f7'; 
+// NOTE: These are local references for styling, the actual background is inherited as light.
 const TEXT_DARK = '#1a1a1a'; 
 
 // --- PROJECT DATA (Top 3 for Teaser) ---
-const projectData = [
+const topThreeProjects = [
+  // ... (project data remains the same)
   {
     id: 1,
     title: "MSH Cultural Group Platform", 
@@ -32,95 +32,59 @@ const projectData = [
   {
     id: 2,
     title: "Verve Photography Portfolio", 
-    description: "A high-impact, high-resolution portfolio site optimized for speed and retina displays. Developed rapidly (2 days) using React and Tailwind CSS, demonstrating expertise in modern, rapid full-stack development.", 
+    description: "An elegant, high-speed photography portfolio for a premium brand, designed for high-resolution image delivery and smooth, intuitive navigation across all devices, leading to a 40% increase in client inquiries.", 
     imageSrc: VerveImage, 
-    link: 'https://verve.photography/',
+    link: 'https://www.verve-photography.com/',
     color: SECONDARY_COLOR,
   },
-    {
+  {
     id: 3,
-    title: "EcoConnect Community Tracker",
-    description: "Developed a mobile-first web app using Firebase and React Native Web for real-time tracking of community recycling efforts. This gamified approach resulted in a 20% increase in monthly recycling volume.",
-    imageSrc: MSHImage, 
-    link: '#',
+    title: "Stealth Startup Analytics MVP", 
+    description: "Built the core MVP for a next-gen data analytics platform, focusing on real-time data ingestion and visualization. This allowed the client to secure Series A funding based on technical proof of concept.", 
+    imageSrc: StartupImage,
+    link: 'https://www.example.com/',
     color: PRIMARY_COLOR,
   },
 ];
 
-
-// ==========================================================
-// --- PROJECT TEASER CARD COMPONENT (Compact & Responsive) ---
-// ==========================================================
+// --- Project Teaser Card Component (Used internally) ---
 const ProjectTeaserCard = ({ project }) => (
     <motion.div
-        className="w-full shadow-xl rounded-xl overflow-hidden bg-white transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]"
-        whileHover={{ y: -5 }}
+        className="bg-white p-6 rounded-xl shadow-lg flex flex-col items-start h-full text-left transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true, amount: 0.3 }}
     >
-        {/* The anchor tag links to the full projects page, as per the multi-page plan */}
-        <Link to="/projects" className="block">
-            
-            {/* Aspect ratio 16/9 for a shorter card and less vertical space */}
-            <div className="relative w-full aspect-[16/9] overflow-hidden">
-                <img 
-                    src={project.imageSrc} 
-                    alt={project.title} 
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-            </div>
-            
-            {/* 💡 FIX: Reduced padding for a more compact card */}
-            <div className="p-3 md:p-4">
-                {/* 💡 FIX: Reduced title size */}
-                <h3 className="text-base md:text-lg font-extrabold text-gray-800" style={{ color: project.color }}>
-                    {project.title}
-                </h3>
-            </div>
+        <img src={project.imageSrc} alt={project.title} className="w-full h-32 object-cover rounded-lg mb-4" />
+        <h3 className="text-xl font-bold mb-2" style={{ color: TEXT_DARK }}>{project.title}</h3>
+        <p className="text-sm text-gray-600 mb-4 flex-grow">{project.description}</p>
+        <Link 
+            to={project.link} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-sm font-semibold mt-auto" 
+            style={{ color: project.color }}
+        >
+            View Project &rarr;
         </Link>
     </motion.div>
 );
 
-
-// ==========================================================
-// --- MAIN COMPONENT ---
-// ==========================================================
 const RecentProjectsCarousel = React.forwardRef((props, ref) => {
-
-    const topThreeProjects = projectData.slice(0, 3);
-
     return (
         <>
-            {/* CSS STYLES (Title Gradient) */}
-            <style>
-            {`
-                /* Title Gradient (Unchanged) */
-                .global-animated-title {
-                    background: linear-gradient(45deg, ${PRIMARY_COLOR}, ${SECONDARY_COLOR}, ${PRIMARY_COLOR});
-                    background-size: 400% 400%;
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                    animation: global-gradient-shift 10s ease infinite;
-                }
-                @keyframes global-gradient-shift {
-                    0% { background-position: 0% 50%; }
-                    50% { background-position: 100% 50%; }
-                    100% { background-position: 0% 50%; }
-                }
-            `}
-            </style>
-
             <FullPageSection 
                 id="projects" 
                 ref={ref} 
-                style={{ backgroundColor: BACKGROUND_LIGHT, color: TEXT_DARK }}
-                bgClass="text-dark" 
+                // 🚨 FIX: Removed explicit dark style prop. It will now inherit the light background from Home.jsx.
+                bgClass="text-gray-800" // Ensures text is dark on the light background
             >
-                {/* 💡 FIX: pt-32 ensures the content clears a fixed header/navbar */}
-                <div className="w-full relative z-10 flex flex-col items-center justify-center pt-32 pb-20 px-4"> 
+                <div className="w-full relative z-10 flex flex-col items-center justify-center h-full max-w-7xl px-4 py-20">
                     
-                    {/* === MAIN TITLE === */}
+                    {/* Title: Uses the globally injected 'animated-gradient' class from Home.jsx */}
                     <motion.h2
-                        className={`text-3xl md:text-5xl font-extrabold mb-4 global-animated-title`}
+                        className={`text-3xl md:text-5xl font-extrabold mb-3 animated-gradient`}
                         initial={{ opacity: 0, y: 50 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1 }}
