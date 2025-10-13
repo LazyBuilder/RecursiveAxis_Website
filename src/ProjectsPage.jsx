@@ -39,15 +39,12 @@ const projectData = [
 // ==========================================================
 const ProjectCard = ({ project }) => {
     
-    // Determine if the content is minimal to set a lower min-height for clean shrinking
-    const isMinimalContent = !project.imageSrc && project.description.length < 100;
-    
     return (
         <motion.a
             href={project.link === '#' ? undefined : project.link}
             target={project.link === '#' ? undefined : "_blank"}
             rel={project.link === '#' ? undefined : "noopener noreferrer"}
-            // Removed fixed max-height on the card itself. It will now grow/shrink naturally.
+            // Removed fixed minHeight/maxHeight. Card height is now truly 'auto' based on content.
             className={`flex flex-col w-full p-4 bg-white rounded-xl border border-gray-200 transition-all duration-300 transform hover:shadow-xl hover:scale-[1.01] cursor-pointer`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -55,8 +52,6 @@ const ProjectCard = ({ project }) => {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             style={{ 
                 borderTop: `6px solid ${project.color}`, 
-                minHeight: isMinimalContent ? '140px' : '180px', // Shrink minimum height
-                height: 'auto', // Crucial: Let the content define the height
             }}
         >
             <h3 className="text-xl font-extrabold mb-2" style={{ color: colors.dark }}>
@@ -74,14 +69,11 @@ const ProjectCard = ({ project }) => {
                 </div>
             )}
             
-            {/* Description Section with Hard Max-Height and Scroll */}
+            {/* Description Section with a controlled maxHeight for scrolling */}
             <div 
-                // CRITICAL FIX: Removed all text-collapsing state/logic. 
-                // Added a max height to allow natural growth but prevent excessive height, forcing a scrollbar if needed.
-                className={`text-sm text-gray-700 leading-relaxed mb-4 flex-grow overflow-y-auto pr-2`}
-                style={{ 
-                    maxHeight: project.imageSrc ? '150px' : '200px', // More space for text if no image is present
-                }}
+                className={`text-sm text-gray-700 leading-relaxed mb-4 flex-grow pr-2`}
+                // This is the key: it grows until it hits this limit, then a scrollbar appears.
+                style={{ maxHeight: project.imageSrc ? '150px' : '200px', overflowY: 'auto' }}
             >
                 {project.description}
             </div>
