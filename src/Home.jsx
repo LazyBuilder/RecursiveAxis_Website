@@ -140,7 +140,7 @@ const TRUSTED_COMPANIES = [
   { name: 'Kare Granola', url: 'https://karegranola.com/', logo: 'https://karegranola.com/cdn/shop/files/kare_granola_logos-05_medium.png?v=1754530040' },
   { name: 'StartupFuel', url: 'https://www.startupfuel.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Startup-Fuel.png` },
   { name: 'Innovation Factory', url: 'https://innovationfactory.ca/', logo: `${process.env.PUBLIC_URL}/assets/asit_logos/iF_Logo.png` },
-  { name: 'FutureSight', url: 'https://futuresight.ventures/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/FutuSight_Logo.png` },
+  { name: 'FutureSight', url: 'https://futuresight.ventures/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/FutureSight_Logo.png` },
   { name: 'Untrap', url: 'https://getuntrap.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Untrap_logo.png` },
   { name: 'Addie', url: 'https://getaddie.com/' /*, logo: `${process.env.PUBLIC_URL}*/ },
   { name: 'CaringAI', url: 'https://getcaring.ai/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/CaringAI_logo.png` },
@@ -383,7 +383,7 @@ const ServiceModal = ({ isOpen, onClose, content }) => {
         <p className="text-gray-500 italic text-sm mb-8">... and more custom solutions tailored to your unique challenges.</p>
 
         {/* Modal CTA Button */}
-        <a href={content.ctaLink} onClick={onClose} className={`w-full block text-center font-bold py-3 px-6 rounded-lg ${DARK_BACKGROUND} border border-pink-500 text-white transition-all duration-300 hover:bg-pink-500 hover:text-gray-950`}>
+        <a href={content.ctaLink} target="_blank" rel="RecursiveAxis Website" onClick={onClose} className={`w-full block text-center font-bold py-3 px-6 rounded-lg ${DARK_BACKGROUND} border border-pink-500 text-white transition-all duration-300 hover:bg-pink-500 hover:text-gray-950`}>
           {content.modalCta} <ArrowRight className="inline ml-2" size={16} />
         </a>
       </div>
@@ -467,7 +467,7 @@ const Header = React.memo(({ setPage, scrollToSection }) => {
             </button>
           ))}
           {/* Main CTA Button */}
-          <a href="https://cal.com/asitdeva" className={`ml-8 px-5 py-2 rounded-lg font-bold transition-all duration-300 bg-pink-600 hover:bg-pink-700 text-white shadow-lg shadow-pink-500/30`}>
+          <a href="https://cal.com/asitdeva" target="_blank" rel="RecursiveAxis Website" className={`ml-8 px-5 py-2 rounded-lg font-bold transition-all duration-300 bg-pink-600 hover:bg-pink-700 text-white shadow-lg shadow-pink-500/30`}>
             Book a Call
           </a>
         </nav>
@@ -719,7 +719,7 @@ const TeamSection = React.memo(() => {
 
     // Component for the horizontally scrolling company logos
 const TrustedCompaniesMarquee = () => (
-  <div className="relative w-full overflow-hidden whitespace-nowrap py-4 border-y border-gray-700 mt-8">
+  <div className="relative w-full overflow-hidden whitespace-nowrap py-4 border-y border-gray-700 bg_white mt-8">
       <style jsx="true">{`
           /* CSS for the infinite horizontal scroll effect */
           @keyframes marquee {
