@@ -445,7 +445,7 @@ const Header = React.memo(({ setPage, scrollToSection }) => {
   }, [setPage, scrollToSection]);
 
   return (
-    <header className={`sticky top-0 z-40 w-full ${DARK_BACKGROUND} bg-opacity-100 border-b border-gray-800/50 backdrop-blur-md`}>
+    <header className={`sticky top-0 z-40 w-full ${DARK_BACKGROUND} bg-opacity-100 border-b border-gray-800/50`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Logo/Brand (Always visible) */}
         <button onClick={() => setPage('home')} 
@@ -1041,7 +1041,7 @@ const App = () => {
       {/* The Header is always visible */}
       <Header setPage={setPage} scrollToSection={scrollToSection} />
 
-      <main className="pt-0 overflow-hidden">
+      <main>
         {/* Conditional Rendering of Views (Simple Router) */}
         {page === 'home' && (
             <HomeView 
