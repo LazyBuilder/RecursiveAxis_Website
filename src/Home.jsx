@@ -992,8 +992,8 @@ const HomeView = React.memo(({ openServiceModal, openTextModal, setPage }) => {
         <>
             <HeroSection scrollToServices={scrollToServices} />
             <ServicesSection openModal={openServiceModal} />
-            <PhilosophySection openTextModal={openTextModal} />
             <ProjectsShowcase setPage={setPage} />
+            <PhilosophySection openTextModal={openTextModal} />
             <TeamSection />
             <FinalCTASection />
         </>
