@@ -132,8 +132,8 @@ const DIVE_FRAMEWORK = [
 const TRUSTED_COMPANIES = [
   { name: 'TCS', url: 'https://www.tcs.com/' , logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Tata_Consultancy_Services_old_logo.svg/2560px-Tata_Consultancy_Services_old_logo.svg.png' },
   { name: 'Equifax', url: 'https://www.equifax.ca/canada/equifax/b_en.html', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Equifax_Logo.svg/2560px-Equifax_Logo.svg.png' },
-  { name:  'J&J', url: 'https://www.oracle.com/' /* , logo: '/logos/oracle.png' */ },
-  { name: 'Siemens', url: 'https://www.google.com/', logo: '/logos/google.png' },
+  { name: 'J&J', url: 'https://www.jnj.com/', logo: 'https://upload.wikimedia.org/wikipedia/commons/c/cd/Johnson_and_Johnson_Logo.svg' },
+  { name: 'Siemens', url: 'https://www.siemens.com/global/en.html', logo: 'https://upload.wikimedia.org/wikipedia/commons/3/3c/Siemens_AG_logo.svg' },
   { name: 'PUDO', url: 'https://www.amazon.com/' /* , logo: '/logos/amazon.png' */ },
   { name: 'Ignite AI', url: 'https://www.meta.com/', logo: '/logos/meta.png' },
   { name: 'YorkU', url: 'https://www.netflix.com/' /* , logo: '/logos/netflix.png' */ },
