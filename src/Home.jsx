@@ -716,7 +716,7 @@ const TeamSection = React.memo(() => {
 
     // Component for the horizontally scrolling company logos
 const TrustedCompaniesMarquee = () => (
-  <div className="relative w-full overflow-hidden whitespace-nowrap py-4 border-y border-gray-700 bg-white mt-8">
+  <div className="relative w-full overflow-hidden whitespace-nowrap py-4 border-y border-gray-700 mt-8">
       <style jsx="true">{`
           /* CSS for the infinite horizontal scroll effect */
           @keyframes marquee {
@@ -739,7 +739,7 @@ const TrustedCompaniesMarquee = () => (
           .company-logo {
               max-height: 2rem; /* Adjust this value as needed for logo size */
               width: auto;
-              opacity: 0.3; /* Initial opacity for a subtle look */
+              opacity: 0.9; /* Initial opacity for a subtle look */
               transition: opacity 0.1s, transform 0.3s;
           }
           .company-logo:hover {
