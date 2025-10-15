@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/storylineds_website/static/css/main.6bcfe1cd.css",
-    "main.js": "/storylineds_website/static/js/main.ee540dc9.js",
+    "main.css": "/storylineds_website/static/css/main.e4f41ebf.css",
+    "main.js": "/storylineds_website/static/js/main.bc61ecc9.js",
     "index.html": "/storylineds_website/index.html",
-    "main.6bcfe1cd.css.map": "/storylineds_website/static/css/main.6bcfe1cd.css.map",
-    "main.ee540dc9.js.map": "/storylineds_website/static/js/main.ee540dc9.js.map"
+    "main.e4f41ebf.css.map": "/storylineds_website/static/css/main.e4f41ebf.css.map",
+    "main.bc61ecc9.js.map": "/storylineds_website/static/js/main.bc61ecc9.js.map"
   },
   "entrypoints": [
-    "static/css/main.6bcfe1cd.css",
-    "static/js/main.ee540dc9.js"
+    "static/css/main.e4f41ebf.css",
+    "static/js/main.bc61ecc9.js"
   ]
 }
