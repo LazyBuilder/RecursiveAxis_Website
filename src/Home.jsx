@@ -491,7 +491,10 @@ const Header = React.memo(({ setPage, scrollToSection }) => {
                 {link.name}
               </button>
             ))}
-            <a href="https://cal.com/asitdeva" onClick={() => setIsMenuOpen(false)} className={`w-full text-center font-bold py-3 rounded-lg mt-4 transition-all duration-300 bg-pink-600 hover:bg-pink-700 text-white shadow-lg shadow-pink-500/30`}>
+            <a href="https://cal.com/asitdeva" 
+              target="_blank" rel="RecursiveAxis Website"
+              onClick={() => setIsMenuOpen(false)} 
+              className={`w-full text-center font-bold py-3 rounded-lg mt-4 transition-all duration-300 bg-pink-600 hover:bg-pink-700 text-white shadow-lg shadow-pink-500/30`}>
               Book a Call
             </a>
           </nav>
@@ -769,8 +772,7 @@ const TrustedCompaniesMarquee = () => (
                       {company.url ? (
                           <a
                               href={company.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
+                              target="_blank" rel="RecursiveAxis Website"
                               aria-label={`Visit ${company.name}'s website`}
                               className="focus:outline-none focus:ring-2 focus:ring-blue-500 rounded" // Add focus styles
                           >
@@ -801,8 +803,7 @@ const TrustedCompaniesMarquee = () => (
 
                             <a
                                 href={partner.linkedin}
-                                target="_blank"
-                                rel="noopener noreferrer"
+                                target="_blank" rel="RecursiveAxis Website"
                                 className={`inline-flex items-center font-bold text-lg ${PRIMARY_ACCENT} hover:text-white transition-colors`}
                             >
                                 Connect with {partner.name.split(' ')[0]} on LinkedIn <Link className="ml-2" size={20} />
@@ -851,8 +852,7 @@ const FinalCTASection = React.memo(() => (
       {/* Final CTA Button (Prominent size and hover effect) */}
       <a
         href="https://cal.com/asitdeva" // Placeholder for Calendly link
-        target="_blank"
-        rel="noopener noreferrer"
+        target="_blank" rel="RecursiveAxis Website"
         className="inline-flex items-center px-10 py-4 rounded-lg text-xl font-extrabold transition-all duration-300 bg-gray-950 hover:bg-gray-800 text-white shadow-xl shadow-gray-950/50 transform hover:scale-[1.05]"
       >
         Reserve Your Free Discovery Session Now
@@ -927,6 +927,7 @@ const ProjectsView = React.memo(({ setPage, openFullDescriptionModal }) => {
           <h3 className="text-2xl font-bold text-white mb-4">Ready to be our next success story?</h3>
           <a
               href="https://cal.com/asitdeva"
+              target="_blank" rel="RecursiveAxis Website"
               className={`inline-flex items-center px-6 py-3 rounded-lg text-lg font-bold transition-all duration-300 bg-pink-600 hover:bg-pink-700 text-white shadow-lg shadow-pink-500/30`}
           >
               Reserve Your Session
