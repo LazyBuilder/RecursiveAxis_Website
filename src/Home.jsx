@@ -130,19 +130,19 @@ const DIVE_FRAMEWORK = [
 // New structure for the list of trusted companies
 // 'url' and 'logo' are optional fields. If 'logo' is not present, the 'name' will be displayed.
 const TRUSTED_COMPANIES = [
-  { name: 'TCS', url: 'https://www.tcs.com/' , logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Tata_Consultancy_Services_old_logo.svg/2560px-Tata_Consultancy_Services_old_logo.svg.png' },
-  { name: 'Equifax', url: 'https://www.equifax.ca/canada/equifax/b_en.html', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Equifax_Logo.svg/2560px-Equifax_Logo.svg.png' },
-  { name: 'J&J', url: 'https://www.jnj.com/', logo: 'https://upload.wikimedia.org/wikipedia/commons/c/cd/Johnson_and_Johnson_Logo.svg' },
-  { name: 'Siemens', url: 'https://www.siemens.com/global/en.html', logo: 'https://upload.wikimedia.org/wikipedia/commons/3/3c/Siemens_AG_logo.svg' },
-  { name: 'PUDO', url: 'https://pudopoint.com/' /* , logo: '/logos/amazon.png' */ },
-  { name: 'Ignite AI', url: 'https://www.linkedin.com/company/ignite-ai/about/'},
-  { name: 'YorkU', url: 'https://www.yorku.ca/' , logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Logo_York_University.svg/330px-Logo_York_University.svg.png' },
-  { name: 'Kare Granola', url: 'https://karegranola.com/', logo: 'https://karegranola.com/cdn/shop/files/kare_granola_logos-05_medium.png?v=1754530040' },
+  { name: 'TCS', url: 'https://www.tcs.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/TCS_logo.png` },
+  { name: 'Equifax', url: 'https://www.equifax.ca/canada/equifax/b_en.html', logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Equifax_Logo.png` },
+  { name: 'J&J', url: 'https://www.jnj.com/', logo: `${process.env.PUBLIC_URL}/assets/asit_logos/JnJ_Logo.png` },
+  { name: 'Siemens', url: 'https://www.siemens.com/global/en.html', logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Simenes_logo.png` },
+  { name: 'PUDO', url: 'https://pudopoint.com/'  , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/PUDO_logo.png` },
+  { name: 'Ignite AI', url: "https://www.linkedin.com/company/ignite-ai/posts" },
+  { name: 'YorkU', url: 'https://www.yorku.ca/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/York_U_Logo.png` },
+  { name: 'Kare Granola', url: 'https://karegranola.com/', logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Kare_Granola.png` },
   { name: 'StartupFuel', url: 'https://www.startupfuel.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Startup-Fuel.png` },
   { name: 'Innovation Factory', url: 'https://innovationfactory.ca/', logo: `${process.env.PUBLIC_URL}/assets/asit_logos/iF_Logo.png` },
   { name: 'FutureSight', url: 'https://futuresight.ventures/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/FutureSight_Logo.png` },
   { name: 'Untrap', url: 'https://getuntrap.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Untrap_logo.png` },
-  { name: 'Addie', url: 'https://getaddie.com/' /*, logo: `${process.env.PUBLIC_URL}*/ },
+  { name: 'Addie', url: 'https://getaddie.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Addie_Logo.png` },
   { name: 'CaringAI', url: 'https://getcaring.ai/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/CaringAI_logo.png` },
   { name: 'Mercata', url: 'https://mercataintel.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Mercata.jpeg` }
 ];
@@ -548,7 +548,7 @@ const HeroSection = React.memo(({ scrollToServices }) => (
     }}
   >
     {/* Dark Overlay for text legibility */}
-    <div className="absolute inset-0 bg-gray-950/50"></div>
+    <div className="absolute inset-0 bg-gray-950/80"></div>
     
     <div className="relative z-10 max-w-4xl text-center px-4">
       {/* H1: Fully responsive font sizes (text-4xl up to lg:text-7xl) */}
