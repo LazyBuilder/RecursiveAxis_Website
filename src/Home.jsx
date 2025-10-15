@@ -127,9 +127,21 @@ const DIVE_FRAMEWORK = [
   },
 ];
 
-// List of companies for the marquee in the Team section
+// New structure for the list of trusted companies
+// 'url' and 'logo' are optional fields. If 'logo' is not present, the 'name' will be displayed.
 const TRUSTED_COMPANIES = [
-    'SFDC', 'Tesla', 'Oracle', 'Google', 'Amazon', 'Meta', 'Netflix', 'Microsoft', 'SpaceX', 'Apple', 'IBM', 'Intel'
+  { name: 'SFDC', url: 'https://www.salesforce.com/' /* , logo: '/logos/sfdc.png' */ },
+  { name: 'Tesla', url: 'https://www.tesla.com/', logo: '/logos/tesla.png' },
+  { name: 'Oracle', url: 'https://www.oracle.com/' /* , logo: '/logos/oracle.png' */ },
+  { name: 'Google', url: 'https://www.google.com/', logo: '/logos/google.png' },
+  { name: 'Amazon', url: 'https://www.amazon.com/' /* , logo: '/logos/amazon.png' */ },
+  { name: 'Meta', url: 'https://www.meta.com/', logo: '/logos/meta.png' },
+  { name: 'Netflix', url: 'https://www.netflix.com/' /* , logo: '/logos/netflix.png' */ },
+  { name: 'Microsoft', url: 'https://www.microsoft.com/', logo: '/logos/microsoft.png' },
+  { name: 'SpaceX', url: 'https://www.spacex.com/' /* , logo: '/logos/spacex.png' */ },
+  { name: 'Apple', url: 'https://www.apple.com/', logo: '/logos/apple.png' },
+  { name: 'IBM', url: 'https://www.ibm.com/' /* , logo: '/logos/ibm.png' */ },
+  { name: 'Intel', url: 'https://www.intel.com/' /* , logo: '/logos/intel.png' */ }
 ];
 
 // Partner/Founder details
@@ -700,39 +712,76 @@ const TeamSection = React.memo(() => {
     const [isImageLoaded, setIsImageLoaded] = useState(false);
 
     // Component for the horizontally scrolling company logos
-    const TrustedCompaniesMarquee = () => (
-        <div className="relative w-full overflow-hidden whitespace-nowrap py-4 border-y border-gray-700 mt-8">
-            <style jsx="true">{`
-                /* CSS for the infinite horizontal scroll effect */
-                @keyframes marquee {
-                    0% { transform: translateX(0); }
-                    100% { transform: translateX(-50%); }
-                }
-                .marquee {
-                    display: flex;
-                    width: 200%; /* Double width to allow smooth looping */
-                    animation: marquee 30s linear infinite;
-                }
-                .marquee-item {
-                    display: inline-flex;
-                    align-items: center;
-                    justify-content: center;
-                    padding: 0 2rem;
-                    min-width: fit-content;
-                }
-            `}</style>
-            <div className="marquee">
-                {/* Duplicating the list ensures a seamless loop */}
-                {[...TRUSTED_COMPANIES, ...TRUSTED_COMPANIES].map((company, index) => (
-                    <div key={index} className="marquee-item">
-                        <span className="text-2xl font-bold text-gray-500 hover:text-white transition-colors cursor-default select-none tracking-wider">
-                            {company}
-                        </span>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
+const TrustedCompaniesMarquee = () => (
+  <div className="relative w-full overflow-hidden whitespace-nowrap py-4 border-y border-gray-700 mt-8">
+      <style jsx="true">{`
+          /* CSS for the infinite horizontal scroll effect */
+          @keyframes marquee {
+              0% { transform: translateX(0); }
+              100% { transform: translateX(-50%); }
+          }
+          .marquee {
+              display: flex;
+              width: 200%; /* Double width to allow smooth looping */
+              animation: marquee 30s linear infinite;
+          }
+          .marquee-item {
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              padding: 0 2rem;
+              min-width: fit-content;
+          }
+          /* Style for the company logo images */
+          .company-logo {
+              max-height: 2rem; /* Adjust this value as needed for logo size */
+              width: auto;
+              opacity: 0.5; /* Initial opacity for a subtle look */
+              transition: opacity 0.3s, transform 0.3s;
+          }
+          .company-logo:hover {
+              opacity: 1;
+              transform: scale(1.05);
+          }
+      `}</style>
+      <div className="marquee">
+          {/* Duplicating the list ensures a seamless loop */}
+          {[...TRUSTED_COMPANIES, ...TRUSTED_COMPANIES].map((company, index) => {
+              // Determine the content based on whether a logo exists
+              const content = company.logo ? (
+                  <img
+                      src={company.logo}
+                      alt={`${company.name} Logo`}
+                      className="company-logo"
+                  />
+              ) : (
+                  <span className="text-2xl font-bold text-gray-500 hover:text-white transition-colors cursor-default select-none tracking-wider">
+                      {company.name}
+                  </span>
+              );
+
+              // Wrap the content in an anchor tag if a URL exists, otherwise use a simple div
+              return (
+                  <div key={index} className="marquee-item">
+                      {company.url ? (
+                          <a
+                              href={company.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label={`Visit ${company.name}'s website`}
+                              className="focus:outline-none focus:ring-2 focus:ring-blue-500 rounded" // Add focus styles
+                          >
+                              {content}
+                          </a>
+                      ) : (
+                          content
+                      )}
+                  </div>
+              );
+          })}
+      </div>
+  </div>
+);
 
     return (
         <section className={`py-20 md:py-32 ${DARK_BACKGROUND} border-t border-b border-gray-800`}>
