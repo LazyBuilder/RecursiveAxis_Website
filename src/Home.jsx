@@ -19,6 +19,7 @@ const SECONDARY_ACCENT = 'text-cyan-600'; // Used for sub-headings and distincti
  * --- ASSET CONFIGURATION ---
  * Images are loaded directly from the environment using unique contentFetchIds.
  */
+const SIMPLE_LOGO_PATH = `${process.env.PUBLIC_URL}/assets/StorylineDS_Logo_NoBackground_AccentColor.png`;
 const LOGO_PATH = `${process.env.PUBLIC_URL}/assets/StorylineDS_Logo_White.png`;
 const HERO_BG_PATH = `${process.env.PUBLIC_URL}/assets/Storyline_Background_Dark.png`;
 const FOUNDER_IMAGE_PATH = `${process.env.PUBLIC_URL}/assets/TeamProfilePic_Asit.jpeg`; // Placeholder (Update with actual ID)
@@ -366,7 +367,13 @@ const ServiceModal = ({ isOpen, onClose, content }) => {
             onClick={(e) => e.stopPropagation()} // Prevents closing when clicking inside
       >
         <div className="flex justify-between items-start mb-6">
-          <h3 className={`text-2xl font-bold ${PRIMARY_ACCENT}`}>{content.modalTitle}</h3>
+          {/* Logo and Title Group */}
+          <div className="flex items-center space-x-3">
+             {/* Logo added here: Small size (h-7) and slightly transparent */}
+             <img src={SIMPLE_LOGO_PATH} alt="Recursive Axis Logo" className={`h-7 opacity-70`} />
+             <h3 className={`text-2xl font-bold ${PRIMARY_ACCENT}`}>{content.modalTitle}</h3>
+          </div>
+          {/* Close Button */}
           <button onClick={onClose} className="text-gray-400 hover:text-white transition-colors">
             <X size={24} />
           </button>
@@ -395,30 +402,46 @@ const ServiceModal = ({ isOpen, onClose, content }) => {
  * Generic Modal for Philosophy and Legal Texts
  */
 const TextModal = ({ isOpen, onClose, content }) => {
-    if (!isOpen || !content) return null;
+  if (!isOpen || !content) return null;
 
-    return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-950/90 backdrop-blur-sm transition-opacity duration-300">
-            <div className="bg-white border border-gray-300 rounded-xl shadow-2xl max-w-xl w-full p-8 transition-transform duration-300 scale-100 transform-gpu animate-in fade-in zoom-in-95"
-                onClick={(e) => e.stopPropagation()} // Prevents closing when clicking inside
-            >
-                <div className="flex justify-between items-start mb-6">
-                    <h3 className={`text-2xl font-bold ${LIGHT_TEXT}`}>{content.title}</h3>
-                    <button onClick={onClose} className="text-gray-500 hover:text-gray-900 transition-colors">
-                        <X size={24} />
-                    </button>
-                </div>
-                {/* Handles content which can be a single string or array of strings (for paragraphs) */}
-                {typeof content.body === 'string' ? (
-                    <p className={`text-gray-700 mb-4`}>{content.body}</p>
-                ) : (
-                    content.body.map((paragraph, index) => (
-                        <p key={index} className={`text-gray-700 mb-4`}>{paragraph}</p>
-                    ))
-                )}
-            </div>
-        </div>
-    );
+  return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-950/90 backdrop-blur-sm transition-opacity duration-300">
+          <div 
+              // Border accent added here: border-pink-300/50
+              className="bg-white border border-pink-300/50 rounded-xl shadow-2xl max-w-xl w-full p-8 transition-transform duration-300 scale-100 transform-gpu animate-in fade-in zoom-in-95"
+              onClick={(e) => e.stopPropagation()} // Prevents closing when clicking inside
+          >
+              {/* Header section with Logo, Title, and Close Button */}
+              <div 
+                  // Added a subtle pink divider and padding at the bottom of the header
+                  className="flex justify-between items-start mb-6 border-b border-pink-100 pb-4"
+              >
+                  {/* Logo and Title Group */}
+                  <div className="flex items-center space-x-3">
+                       {/* Logo added here: h-7 size and slightly transparent */}
+                      <img src={SIMPLE_LOGO_PATH} alt="Recursive Axis Logo" className={`h-7 opacity-80`} />
+                      
+                      {/* Title color changed to PRIMARY_ACCENT (pink) */}
+                      <h3 className={`text-2xl font-bold ${PRIMARY_ACCENT}`}>{content.title}</h3>
+                  </div>
+                  
+                  {/* Close Button */}
+                  <button onClick={onClose} className="text-gray-500 hover:text-gray-900 transition-colors">
+                      <X size={24} />
+                  </button>
+              </div>
+              
+              {/* Handles content which can be a single string or array of strings (for paragraphs) */}
+              {typeof content.body === 'string' ? (
+                  <p className={`text-gray-700 mb-4`}>{content.body}</p>
+              ) : (
+                  content.body.map((paragraph, index) => (
+                      <p key={index} className={`text-gray-700 mb-4`}>{paragraph}</p>
+                  ))
+              )}
+          </div>
+      </div>
+  );
 };
 
 
