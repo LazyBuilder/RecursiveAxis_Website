@@ -22,9 +22,6 @@ function App() {
           {/* 1. Home Route: Renders your main single-page application */}
           <Route path="/" element={<Home />} /> 
           
-          {/* 2. Projects Route: Renders the dedicated project list page */}
-          <Route path="/projects" element={<ProjectsPage />} /> 
-          
         </Routes>
       </div>
     </BrowserRouter>
