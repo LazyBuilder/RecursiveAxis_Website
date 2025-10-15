@@ -1,8 +1,8 @@
-{
-  "name": "storylineds_website",
+u{
+  "name": "RecursiveAxis_Website",
   "version": "1.0.0",
   "private": true,
-  "homepage": "/storylineds_website",
+  "homepage": "/RecursiveAxis_Website",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
