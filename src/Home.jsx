@@ -448,9 +448,16 @@ const Header = React.memo(({ setPage, scrollToSection }) => {
     <header className={`sticky top-0 z-40 w-full ${DARK_BACKGROUND} bg-opacity-100 border-b border-gray-800/50 backdrop-blur-md`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Logo/Brand (Always visible) */}
-        <button onClick={() => setPage('home')} className="flex items-center space-x-2 text-white transition-opacity hover:opacity-80">
+        <button onClick={() => setPage('home')} 
+          className={`
+            flex items-center space-x-2 text-white 
+            p-3 rounded-xl shadow-xl z-50 transition-all duration-300 
+            ${DARK_BACKGROUND} transform -translate-y-2 
+            hover:shadow-2xl hover:scale-[1.02]
+          `}
+        >
           <img src={LOGO_PATH} alt="Recursive Axis Logo" className={`h-12`} />
-          <span className="text-xl font-extrabold tracking-tight">Recursive Axis</span>
+          {/* <span className="text-xl font-extrabold tracking-tight">Recursive Axis</span>*/}
         </button>
 
         {/* Desktop Navigation (Hidden on small screens) */}
