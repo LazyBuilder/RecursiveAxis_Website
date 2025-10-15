@@ -20,9 +20,9 @@ const HeroSection = React.forwardRef((props, ref) => {
         >
             
             {/* 1. BACKGROUND CONTAINER with Image and Positioning */}
-            {/* This div must be a direct child of FullPageSection and span the whole thing */}
+            {/* FIX 1: Removed redundant w-full h-full, ADDED z-0 to put it in the back. */}
             <div 
-                className="absolute inset-0 bg-cover bg-center w-full h-full"
+                className="absolute inset-0 bg-cover bg-center z-0" // Corrected classes
                 style={{ 
                     backgroundImage: `url(${BACKGROUND_IMAGE_PATH})`,
                     backgroundSize: 'cover',
@@ -35,8 +35,8 @@ const HeroSection = React.forwardRef((props, ref) => {
             </div>
             
             {/* 3. HERO CONTENT */}
-            {/* Make sure the content wrapper itself takes full height and width */}
-            <div className="w-full h-full flex flex-col justify-center items-center text-center p-4">
+            {/* FIX 2: Added relative z-10 to ensure content sits on top of the z-0 background. */}
+            <div className="w-full h-full flex flex-col justify-center items-center text-center p-4 relative z-10">
                 
                 <motion.h1
                     className="text-5xl md:text-7xl font-extrabold mb-6"
