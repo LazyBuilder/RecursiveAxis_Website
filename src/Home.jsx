@@ -374,7 +374,7 @@ const ServiceModal = ({ isOpen, onClose, content }) => {
               <img 
                 src={SIMPLE_LOGO_PATH} 
                 alt="Recursive Axis Logo" 
-                className={`h-full w-full object-contain opacity-80`} 
+                className={`h-10 w-10 object-contain opacity-80`} 
               />
             </div>
              <h3 className={`text-2xl font-bold ${PRIMARY_ACCENT}`}>{content.modalTitle}</h3>
@@ -429,7 +429,7 @@ const TextModal = ({ isOpen, onClose, content }) => {
                           <img 
                             src={SIMPLE_LOGO_PATH} 
                             alt="Recursive Axis Logo" 
-                            className={`h-full w-full object-contain opacity-80`} 
+                            className={`h-10 w-10 object-contain opacity-80`} 
                           />
                         </div>
                       
@@ -553,14 +553,19 @@ const Header = React.memo(({ setPage, scrollToSection }) => {
 const Footer = React.memo(({ openTextModal }) => (
   // ADDED: bg-opacity-70, backdrop-blur-sm, and style attribute for the background image
   <footer 
-    className={`${DARK_BACKGROUND} bg-opacity-70 border-t border-gray-800/50 mt-20 backdrop-blur-sm`}
-    style={{
-      // Copy the background image styles from the section
-      backgroundImage: `url(${HERO_BG_PATH})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center'
-    }}
+    className={`${DARK_BACKGROUND} border-t border-gray-800/50 mt-20 relative overflow-hidden`} // ADDED: relative, overflow-hidden
   >
+    {/* --- NEW BACKGROUND LAYER --- */}
+    <div 
+      className="absolute inset-0 z-0 bg-opacity-70"
+      style={{
+        backgroundImage: `url(${HERO_BG_PATH})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        filter: 'blur(3px)', 
+      }}
+    />
+    {/* ---------------------------- */}
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center text-gray-500 text-sm">
       {/* Footer Navigation - Uses buttons to trigger text modals for legal content */}
       <div className="flex justify-center space-x-4 mb-4 flex-wrap">
@@ -842,15 +847,19 @@ const TrustedCompaniesMarquee = () => (
 );
 
     return (
-        <section className={`py-20 md:py-32 ${DARK_BACKGROUND} bg-opacity-70 border-t border-b border-gray-800 backdrop-blur-sm`}
-        style={{
-          // Responsive Background Style: Uses repeating pattern for consistency across all sizes.
-          // NOTE: If using a single, large image (e.g., 1920x1080px), change '150px' to 'cover' and 'backgroundRepeat' to 'no-repeat'.
-          backgroundImage: `url(${HERO_BG_PATH})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center'
-        }}
-        >
+        <section className={`py-20 md:py-32 ${DARK_BACKGROUND} border-t border-b border-gray-800 relative overflow-hidden`}>
+          {/* --- NEW BACKGROUND LAYER --- */}
+          <div 
+            className="absolute inset-0 z-0 bg-opacity-70" // z-0 puts it behind content
+            style={{
+              backgroundImage: `url(${HERO_BG_PATH})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              // ADDED: Native CSS filter: blur(3px)
+              filter: 'blur(3px)', 
+            }}
+          />
+          {/* ---------------------------- */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {PARTNER_DATA.map((partner, index) => (
                     // Responsive layout: image/text switch order on desktop
