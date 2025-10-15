@@ -362,19 +362,23 @@ const ServiceModal = ({ isOpen, onClose, content }) => {
   if (!isOpen || !content) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-950/90 backdrop-blur-sm transition-opacity duration-300">
-      <div className="bg-gray-900 border border-gray-700 rounded-xl shadow-2xl max-w-xl w-full p-8 transition-transform duration-300 scale-100 transform-gpu animate-in fade-in zoom-in-95"
+    // 1. ADDED: overflow-y-auto to allow scrolling of the entire overlay
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-950/90 backdrop-blur-sm transition-opacity duration-300 overflow-y-auto">
+      <div 
+            // 2. ADDED: max-h-[90vh] to constrain height
+            // 3. ADDED: overflow-y-auto to allow scrolling within the box
+            className="bg-gray-900 border border-gray-700 rounded-xl shadow-2xl max-w-xl w-full p-8 transition-transform duration-300 scale-100 transform-gpu animate-in fade-in zoom-in-95 max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()} // Prevents closing when clicking inside
       >
         <div className="flex justify-between items-start mb-6">
           {/* Logo and Title Group */}
           <div className="flex items-center space-x-3">
-             {/* Logo added here: Small size (h-7) and slightly transparent */}
-             <div className="p-2 rounded-md bg-cyan-600/30 flex-shrink-0 aspect-square"> 
+             {/* CORRECTED LOGO SIZE: w-8 container, inner image h-full w-full */}
+             <div className="p-2 rounded-md bg-cyan-600/30 flex-shrink-0 aspect-square w-8"> 
               <img 
                 src={SIMPLE_LOGO_PATH} 
                 alt="Recursive Axis Logo" 
-                className={`h-10 w-10 object-contain opacity-80`} 
+                className={`h-full w-full object-contain opacity-80`} 
               />
             </div>
              <h3 className={`text-2xl font-bold ${PRIMARY_ACCENT}`}>{content.modalTitle}</h3>
@@ -411,39 +415,34 @@ const TextModal = ({ isOpen, onClose, content }) => {
   if (!isOpen || !content) return null;
 
   return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-950/90 backdrop-blur-sm transition-opacity duration-300">
+      <div 
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-950/90 backdrop-blur-sm transition-opacity duration-300 overflow-y-auto"
+      >
           <div 
-              // Border accent added here: border-pink-300/50
-              className="bg-white border border-pink-300/50 rounded-xl shadow-2xl max-w-xl w-full p-8 transition-transform duration-300 scale-100 transform-gpu animate-in fade-in zoom-in-95"
-              onClick={(e) => e.stopPropagation()} // Prevents closing when clicking inside
+              className="bg-white border border-pink-300/50 rounded-xl shadow-2xl max-w-xl w-full p-8 transition-transform duration-300 scale-100 transform-gpu animate-in fade-in zoom-in-95 max-h-[90vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
           >
-              {/* Header section with Logo, Title, and Close Button */}
               <div 
-                  // Added a subtle pink divider and padding at the bottom of the header
                   className="flex justify-between items-start mb-6 border-b border-pink-100 pb-4"
               >
-                  {/* Logo and Title Group */}
                   <div className="flex items-center space-x-3">
-                       {/* Logo added here: h-7 size and slightly transparent */}
-                       <div className="p-2 rounded-md bg-cyan-600/30 flex-shrink-0 aspect-square"> 
+                       {/* CORRECTED LOGO SIZE: Outer div sets size (w-8), inner image fills it (h-full w-full) */}
+                       <div className="p-2 rounded-md bg-cyan-600/30 flex-shrink-0 aspect-square w-8"> 
                           <img 
                             src={SIMPLE_LOGO_PATH} 
                             alt="Recursive Axis Logo" 
-                            className={`h-10 w-10 object-contain opacity-80`} 
+                            className={`h-full w-full object-contain opacity-80`} 
                           />
                         </div>
                       
-                      {/* Title color changed to PRIMARY_ACCENT (pink) */}
                       <h3 className={`text-2xl font-bold ${PRIMARY_ACCENT}`}>{content.title}</h3>
                   </div>
                   
-                  {/* Close Button */}
                   <button onClick={onClose} className="text-gray-500 hover:text-gray-900 transition-colors">
                       <X size={24} />
                   </button>
               </div>
               
-              {/* Handles content which can be a single string or array of strings (for paragraphs) */}
               {typeof content.body === 'string' ? (
                   <p className={`text-gray-700 mb-4`}>{content.body}</p>
               ) : (
@@ -455,7 +454,6 @@ const TextModal = ({ isOpen, onClose, content }) => {
       </div>
   );
 };
-
 
 // ----------------------------------------------------------------------
 // --- Main Layout Components ---
