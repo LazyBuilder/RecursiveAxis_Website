@@ -6,7 +6,6 @@ import './App.css';
 
 // Import the two main views from the src/ directory
 import Home from './Home';                 
-import ProjectsPage from './ProjectsPage'; 
 
 // 💡 Define the required base path
 const BASE_PATH = '/storylineds_website'; 
