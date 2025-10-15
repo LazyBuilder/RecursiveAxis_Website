@@ -703,57 +703,90 @@ const ServicesSection = React.memo(({ openModal }) => (
  * Section 3: Recent Projects Showcase (Limited to 4 items)
  */
 const ProjectsShowcase = React.memo(({ setPage }) => {
-    // Show only the first 4 projects for the homepage showcase
-    const showcaseProjects = projectsData.slice(0, 4);
+    
+  // --- 4. IMPLEMENT RANDOM SELECTION ---
+  // Create a shuffled array and take the first 4 projects
+  const shuffledProjects = [...projectsData].sort(() => 0.5 - Math.random());
+  const showcaseProjects = shuffledProjects.slice(0, 4);
 
-    return (
-        <section id="projects" className={`py-20 md:py-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${LIGHT_BACKGROUND} ${LIGHT_TEXT}`}>
-            <div className="text-center mb-16">
-                <h3 className={`text-sm tracking-widest uppercase font-bold mb-3 ${PRIMARY_ACCENT}`}>Social Proof</h3>
-                <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">Recent Projects: Evidence of Our Impact</h2>
-                <p className="text-gray-600 mt-4 max-w-3xl mx-auto">See how we've partnered with leaders to turn complex challenges into elegant, scalable outcomes.</p>
-            </div>
+  return (
+      <section id="projects" className={`py-20 md:py-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${LIGHT_BACKGROUND} ${LIGHT_TEXT}`}>
+          <div className="text-center mb-16">
+              <h3 className={`text-sm tracking-widest uppercase font-bold mb-3 ${PRIMARY_ACCENT}`}>Social Proof</h3>
+              <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">Recent Projects: Evidence of Our Impact</h2>
+              <p className="text-gray-600 mt-4 max-w-3xl mx-auto">See how we've partnered with leaders to turn complex challenges into elegant, scalable outcomes.</p>
+          </div>
 
-            {/* Responsive Grid Layout (2 columns mobile, 4 columns desktop) */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                {showcaseProjects.map((project) => {
-                    const colors = PROJECT_COLORS[project.color];
-                    return (
-                        <div
-                            key={project.id}
-                            className={`bg-white p-6 rounded-xl border ${colors.border} shadow-lg transition-all duration-300 hover:shadow-xl hover:${colors.shadow}`}
-                        >
-                            <div className={`h-16 w-16 mb-4 rounded-lg ${colors.iconBg} flex items-center justify-center`}>
-                                <Globe className={colors.iconText} size={28} />
-                            </div>
-                            <h4 className="text-lg font-bold text-gray-900 mb-2">{project.title}</h4>
-                            <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                                {project.description.substring(0, 90)}...
-                            </p>
-                            {/* Tags display at the bottom of the card */}
-                            <div className="flex flex-wrap gap-2">
-                                {project.tags.map(tag => (
-                                    <span key={tag} className={`text-xs font-medium px-2 py-0.5 rounded-full border border-gray-300 text-gray-600 bg-gray-50`}>
-                                        {tag}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
-                    );
-                })}
-            </div>
+          {/* 1. FIX MOBILE LAYOUT: Changed grid-cols-2 to grid-cols-1 on mobile, only starting 2/4 columns on md/lg */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {showcaseProjects.map((project) => {
+                  // Assuming project.image is the path to the project-specific image
+                  const projectImage = project.image || SIMPLE_LOGO_PATH; 
+                  
+                  // The colors object is only used for styling the border/shadow, not the icon/iconBg anymore
+                  const colors = PROJECT_COLORS[project.color]; 
+                  
+                  return (
+                      <div
+                          key={project.id}
+                          className={`bg-white p-6 rounded-xl border ${colors.border} shadow-lg transition-all duration-300 hover:shadow-xl hover:${colors.shadow}`}
+                      >
+                          {/* 3. USE LOGO & IMAGE EFFICIENTLY */}
+                          <div className="flex items-center justify-between mb-4">
+                              {/* Project Logo / Image Space */}
+                              <div className="flex items-center space-x-3">
+                                  {/* Logo: Small, fixed size with cyan border */}
+                                  <div className="p-1 rounded-md bg-white border border-cyan-600 flex-shrink-0 aspect-square w-6">
+                                      <img 
+                                          src={SIMPLE_LOGO_PATH} 
+                                          alt="Recursive Axis Logo" 
+                                          className="h-full w-full object-contain" 
+                                      />
+                                  </div>
+                                  <h4 className="text-lg font-bold text-gray-900">{project.title}</h4>
+                              </div>
+                              
+                              {/* Placeholder for Project Photo (if available) */}
+                              {project.image && (
+                                   <div className="w-10 h-10 flex-shrink-0">
+                                      <img
+                                          src={projectImage}
+                                          alt={`Image for ${project.title}`}
+                                          className="w-full h-full object-cover rounded-md"
+                                      />
+                                   </div>
+                              )}
+                          </div>
+                          
+                          {/* Summary Text */}
+                          <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                              {project.description.substring(0, 90)}...
+                          </p>
+                          
+                          {/* Tags display at the bottom of the card */}
+                          <div className="flex flex-wrap gap-2">
+                              {project.tags.map(tag => (
+                                  <span key={tag} className={`text-xs font-medium px-2 py-0.5 rounded-full border border-gray-300 text-gray-600 bg-gray-50`}>
+                                      {tag}
+                                  </span>
+                              ))}
+                          </div>
+                      </div>
+                  );
+              })}
+          </div>
 
-            <div className="text-center mt-12">
-                {/* Button to switch to the dedicated Projects page */}
-                <button
-                    onClick={() => setPage('projects')}
-                    className={`inline-flex items-center font-bold text-lg ${SECONDARY_ACCENT} hover:text-cyan-800 transition-colors`}
-                >
-                    Explore All Projects & Case Studies <ArrowRight className="ml-2" size={20} />
-                </button>
-            </div>
-        </section>
-    );
+          <div className="text-center mt-12">
+              {/* 2. BUTTON FEEL: Added background, padding, shadow, and scale hover */}
+              <button
+                  onClick={() => setPage('projects')}
+                  className={`inline-flex items-center font-bold text-lg px-6 py-3 rounded-lg text-white bg-cyan-600 transition-all duration-300 hover:bg-cyan-700 shadow-md shadow-cyan-500/30 transform hover:scale-[1.03]`}
+              >
+                  Explore All Projects & Case Studies <ArrowRight className="ml-2" size={20} />
+              </button>
+          </div>
+      </section>
+  );
 }) // REMOVED trailing semicolon from React.memo
 
 /**
@@ -768,7 +801,7 @@ const PhilosophySection = React.memo(({ openTextModal }) => (
       </div>
 
       {/* Responsive Grid Layout (4 columns desktop) */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mx-auto">
         {DIVE_FRAMEWORK.map((item, index) => (
           <button
             key={item.letter}
