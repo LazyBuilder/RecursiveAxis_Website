@@ -560,7 +560,7 @@ const HeroSection = React.memo(({ scrollToServices }) => (
     <div className="relative z-10 max-w-4xl text-center px-4">
       {/* H1: Fully responsive font sizes (text-4xl up to lg:text-7xl) */}
       <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight tracking-tighter animate-in fade-in duration-1000">
-        Your Strategic Partner for Effective and <span className={SECONDARY_ACCENT}>Efficient Innovation.</span>
+        Your Strategic Partner for <span className={SECONDARY_ACCENT}>Technology</span>,<span className={SECONDARY_ACCENT}>Analytics</span> & <span className={SECONDARY_ACCENT}>Innovation</span>.
       </h1>
       {/* H2: Responsive font size (text-xl up to sm:text-2xl) */}
       <h2 className="text-xl sm:text-2xl text-gray-400 mb-10 font-light max-w-3xl mx-auto animate-in fade-in delay-300 duration-1000">
