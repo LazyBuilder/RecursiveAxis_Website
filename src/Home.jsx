@@ -19,9 +19,9 @@ const SECONDARY_ACCENT = 'text-cyan-600'; // Used for sub-headings and distincti
  * --- ASSET CONFIGURATION ---
  * Images are loaded directly from the environment using unique contentFetchIds.
  */
-const LOGO_PATH = "uploaded:StorylineDS_Logo_NoBackground_AccentColor.png-e53024d8-c634-4d71-a496-7c838faec8f4";
-const HERO_BG_PATH = "uploaded:Storyline_Background_Dark.png-80dd036f-80a4-4c5d-8991-2a330e61d964";
-const FOUNDER_IMAGE_PATH = "uploaded:AsitDeva_Headshot_Placeholder.png-some-unique-id"; // Placeholder (Update with actual ID)
+const LOGO_PATH = `${process.env.PUBLIC_URL}/assets/StorylineDS_Logo_NoBackground_AccentColor.pngg`;
+const HERO_BG_PATH = `${process.env.PUBLIC_URL}/assets/Storyline_Background_Dark.png`;
+const FOUNDER_IMAGE_PATH = `${process.env.PUBLIC_URL}public/assets/TeamProfilePic_Asit.jpeg`; // Placeholder (Update with actual ID)
 
 // Project Card Color Mapping (Tailwind classes must be full strings for compilation)
 const PROJECT_COLORS = {
@@ -138,7 +138,7 @@ const PARTNER_DATA = [
         name: 'Asit Deva',
         title: 'Founder & Principal',
         copy: 'Asit Deva is a seasoned expert dedicated to helping businesses navigate the complexities of technology and innovation. With a passion for building, advising, and strategizing, he transforms ideas into tangible, successful products.',
-        linkedin: '#', // Placeholder for LinkedIn URL
+        linkedin: 'https://www.linkedin.com/in/asitkdeva/', // Placeholder for LinkedIn URL
         isFounder: true,
     }
 ];
