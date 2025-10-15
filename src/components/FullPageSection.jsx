@@ -1,4 +1,4 @@
-// src/components/FullPageSection.jsx (ADAPTIVE STRUCTURE)
+// src/components/FullPageSection.jsx (TRADITIONAL SCROLL UPDATE)
 
 import React, { useRef, forwardRef } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
@@ -14,11 +14,9 @@ const FullPageSection = forwardRef(({ id, children, bgClass = '', alwaysVisible 
     <section
       id={id}
       ref={ref}
-      // ADAPTIVE CLASSES:
-      // Default (mobile): min-h-screen (traditional scroll)
-      // lg: (desktop): h-screen, snap-start snap-always
-      className={`relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden ${bgClass} 
-                  lg:h-screen lg:snap-start lg:snap-always`}
+      // 💡 CHANGE: Removed scroll-snapping classes (snap-start, snap-always, lg:h-screen, etc.).
+      // It now uses 'min-h-screen' to ensure the section is at least full height but can grow with content.
+      className={`relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden ${bgClass}`}
       {...props}
     >
       
@@ -40,7 +38,6 @@ const FullPageSection = forwardRef(({ id, children, bgClass = '', alwaysVisible 
           )}
         </AnimatePresence>
       </div>
-
     </section>
   );
 });
