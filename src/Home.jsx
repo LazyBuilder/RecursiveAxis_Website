@@ -145,7 +145,7 @@ const TRUSTED_COMPANIES = [
   { name: 'Untrap', url: 'https://getuntrap.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Untrap_logo.png` },
   { name: 'Addie', url: 'https://getaddie.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Addie_Logo.png` },
   { name: 'CaringAI', url: 'https://getcaring.ai/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/CaringAI_logo.png` },
-  { name: 'Mercata', url: 'https://mercataintel.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Mercata.jpeg` }
+  { name: 'Mercata', url: 'https://mercataintel.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Mercata_Logo.jpeg` }
 ];
 
 // Partner/Founder details
@@ -551,7 +551,16 @@ const Header = React.memo(({ setPage, scrollToSection }) => {
  * Footer Component (Minimal and Professional)
  */
 const Footer = React.memo(({ openTextModal }) => (
-  <footer className={`${DARK_BACKGROUND} border-t border-gray-800/50 mt-20`}>
+  // ADDED: bg-opacity-70, backdrop-blur-sm, and style attribute for the background image
+  <footer 
+    className={`${DARK_BACKGROUND} bg-opacity-70 border-t border-gray-800/50 mt-20 backdrop-blur-sm`}
+    style={{
+      // Copy the background image styles from the section
+      backgroundImage: `url(${HERO_BG_PATH})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center'
+    }}
+  >
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center text-gray-500 text-sm">
       {/* Footer Navigation - Uses buttons to trigger text modals for legal content */}
       <div className="flex justify-center space-x-4 mb-4 flex-wrap">
@@ -833,7 +842,15 @@ const TrustedCompaniesMarquee = () => (
 );
 
     return (
-        <section className={`py-20 md:py-32 ${DARK_BACKGROUND} border-t border-b border-gray-800`}>
+        <section className={`py-20 md:py-32 ${DARK_BACKGROUND} bg-opacity-70 border-t border-b border-gray-800 backdrop-blur-sm`}
+        style={{
+          // Responsive Background Style: Uses repeating pattern for consistency across all sizes.
+          // NOTE: If using a single, large image (e.g., 1920x1080px), change '150px' to 'cover' and 'backgroundRepeat' to 'no-repeat'.
+          backgroundImage: `url(${HERO_BG_PATH})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
+        >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {PARTNER_DATA.map((partner, index) => (
                     // Responsive layout: image/text switch order on desktop
