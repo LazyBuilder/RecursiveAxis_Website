@@ -700,14 +700,13 @@ const ServicesSection = React.memo(({ openModal }) => (
 )) // REMOVED trailing semicolon from React.memo
 
 /**
- * Section 3: Recent Projects Showcase (Limited to 4 items)
+ * Section 3: Recent Projects Showcase (Limited to 3 items)
  */
 const ProjectsShowcase = React.memo(({ setPage }) => {
     
-  // --- 4. IMPLEMENT RANDOM SELECTION ---
-  // Create a shuffled array and take the first 4 projects
+  // 1. IMPLEMENT RANDOM SELECTION: Create a shuffled array and take the first 3 projects
   const shuffledProjects = [...projectsData].sort(() => 0.5 - Math.random());
-  const showcaseProjects = shuffledProjects.slice(0, 4);
+  const showcaseProjects = shuffledProjects.slice(0, 3); // Now selecting 3
 
   return (
       <section id="projects" className={`py-20 md:py-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${LIGHT_BACKGROUND} ${LIGHT_TEXT}`}>
@@ -717,53 +716,52 @@ const ProjectsShowcase = React.memo(({ setPage }) => {
               <p className="text-gray-600 mt-4 max-w-3xl mx-auto">See how we've partnered with leaders to turn complex challenges into elegant, scalable outcomes.</p>
           </div>
 
-          {/* 1. FIX MOBILE LAYOUT: Changed grid-cols-2 to grid-cols-1 on mobile, only starting 2/4 columns on md/lg */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* 1. GRID LAYOUT: Changed to 1 column mobile, 2 columns medium, 3 columns large */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {showcaseProjects.map((project) => {
-                  // Assuming project.image is the path to the project-specific image
-                  const projectImage = project.image || SIMPLE_LOGO_PATH; 
+                  const colors = PROJECT_COLORS[project.color];
                   
-                  // The colors object is only used for styling the border/shadow, not the icon/iconBg anymore
-                  const colors = PROJECT_COLORS[project.color]; 
-                  
+                  // Use a project-specific image or a default logo path
+                  const projectVisual = project.image || SIMPLE_LOGO_PATH; 
+
                   return (
                       <div
                           key={project.id}
                           className={`bg-white p-6 rounded-xl border ${colors.border} shadow-lg transition-all duration-300 hover:shadow-xl hover:${colors.shadow}`}
                       >
-                          {/* 3. USE LOGO & IMAGE EFFICIENTLY */}
-                          <div className="flex items-center justify-between mb-4">
-                              {/* Project Logo / Image Space */}
-                              <div className="flex items-center space-x-3">
-                                  {/* Logo: Small, fixed size with cyan border */}
-                                  <div className="p-1 rounded-md bg-white border border-cyan-600 flex-shrink-0 aspect-square w-6">
-                                      <img 
-                                          src={SIMPLE_LOGO_PATH} 
-                                          alt="Recursive Axis Logo" 
-                                          className="h-full w-full object-contain" 
-                                      />
+                          
+                          {/* 2. DEDICATED IMAGE SPACE: Fixed height (h-48) */}
+                          <div className="mb-4 h-48 w-full overflow-hidden rounded-lg relative">
+                              {project.image ? (
+                                  <img
+                                      src={projectVisual}
+                                      alt={`Image of ${project.title}`}
+                                      className="w-full h-full object-cover"
+                                  />
+                              ) : (
+                                  // Fallback: Show the logo prominently if no image is available
+                                  <div className="w-full h-full bg-gray-100/50 flex flex-col items-center justify-center p-8">
+                                      <div className="p-2 rounded-md bg-white border border-cyan-600 flex-shrink-0 aspect-square w-16 mb-2"> 
+                                          <img 
+                                              src={SIMPLE_LOGO_PATH} 
+                                              alt="Recursive Axis Logo" 
+                                              className="h-full w-full object-contain" 
+                                          />
+                                      </div>
+                                      <p className="text-gray-700 text-sm text-center font-semibold">Image Coming Soon</p>
                                   </div>
-                                  <h4 className="text-lg font-bold text-gray-900">{project.title}</h4>
-                              </div>
-                              
-                              {/* Placeholder for Project Photo (if available) */}
-                              {project.image && (
-                                   <div className="w-10 h-10 flex-shrink-0">
-                                      <img
-                                          src={projectImage}
-                                          alt={`Image for ${project.title}`}
-                                          className="w-full h-full object-cover rounded-md"
-                                      />
-                                   </div>
                               )}
                           </div>
+                          
+                          {/* Title (Now takes full width under the image) */}
+                          <h4 className="text-xl font-bold text-gray-900 mb-2">{project.title}</h4>
                           
                           {/* Summary Text */}
                           <p className="text-gray-600 text-sm mb-4 line-clamp-3">
                               {project.description.substring(0, 90)}...
                           </p>
                           
-                          {/* Tags display at the bottom of the card */}
+                          {/* Tags display */}
                           <div className="flex flex-wrap gap-2">
                               {project.tags.map(tag => (
                                   <span key={tag} className={`text-xs font-medium px-2 py-0.5 rounded-full border border-gray-300 text-gray-600 bg-gray-50`}>
@@ -777,7 +775,7 @@ const ProjectsShowcase = React.memo(({ setPage }) => {
           </div>
 
           <div className="text-center mt-12">
-              {/* 2. BUTTON FEEL: Added background, padding, shadow, and scale hover */}
+              {/* Button to switch to the dedicated Projects page */}
               <button
                   onClick={() => setPage('projects')}
                   className={`inline-flex items-center font-bold text-lg px-6 py-3 rounded-lg text-white bg-cyan-600 transition-all duration-300 hover:bg-cyan-700 shadow-md shadow-cyan-500/30 transform hover:scale-[1.03]`}
