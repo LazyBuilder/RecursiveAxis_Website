@@ -563,6 +563,10 @@ const Footer = React.memo(({ openTextModal }) => (
       }}
     />
     {/* ---------------------------- */}
+
+    {/* Dark Overlay for text legibility */}
+    <div className="absolute inset-0 bg-gray-950/75"></div>
+
     {/* CONTENT LAYER (relative z-10) */}
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center text-gray-500 text-sm relative z-10">
       {/* Footer Navigation - Uses buttons to trigger text modals for legal content */}
@@ -603,7 +607,7 @@ const HeroSection = React.memo(({ scrollToServices }) => (
     }}
   >
     {/* Dark Overlay for text legibility */}
-    <div className="absolute inset-0 bg-gray-950/80"></div>
+    <div className="absolute inset-0 bg-gray-950/75"></div>
     
     <div className="relative z-10 max-w-4xl text-center px-4">
       {/* H1: Fully responsive font sizes (text-4xl up to lg:text-7xl) */}
@@ -858,6 +862,9 @@ const TrustedCompaniesMarquee = () => (
         }}
       />
       {/* ---------------------------- */}
+
+      {/* Dark Overlay for text legibility */}
+      <div className="absolute inset-0 bg-gray-950/75"></div>
         
       {/* CONTENT LAYER: ADDED relative and ensured z-10 for stacking context */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
