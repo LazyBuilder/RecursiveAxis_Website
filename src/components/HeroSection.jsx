@@ -47,7 +47,7 @@ const HeroSection = React.forwardRef((props, ref) => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1 }}
                 >
-                    Your Strategic Partners for <span className="animated-gradient">Technology & Innovation.</span>
+                    Your Strategic Partners for <span className="animated-gradient">Technology, Analytics & Innovation.</span>
                 </motion.h1>
                 
                 <motion.p
@@ -56,7 +56,7 @@ const HeroSection = React.forwardRef((props, ref) => {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.5, duration: 1 }}
                 >
-                    We create, design, and evaluate technology to accelerate your entire innovation journey effectively and efficiently.
+                    We provide Tech Strategy, Execution, and Advisory services, designed to accelerate innovation for founders, investors, and corporate ventures.
                 </motion.p>
 
                 <motion.a

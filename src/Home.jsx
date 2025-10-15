@@ -35,96 +35,77 @@ const Home = () => {
   const sections = ['home', 'projects', 'services', 'philosophy', 'founder-story', 'contact'];
   const sectionsRef = useRef([]);
     
+  // Get colors directly for the background class interpolation
+  const { light } = colors;
+
   useEffect(() => {
-    // Initialize or assign refs for each section
     sectionsRef.current = sections.map((_, i) => sectionsRef.current[i] ?? React.createRef());
   }, [sections]);
 
+  // Handler for the Intro Overlay completion
   const handleIntroComplete = () => {
     setIsLoading(false);
   };
-
-  // --- Snap Scroll Logic (Only active on LG screens for programmatic jumps) ---
-  const scrollToSection = (index) => {
-    if (!isLargeScreen() || !mainRef.current || !sectionsRef.current[index].current) return;
-    
-    const targetElement = sectionsRef.current[index].current;
-    if (targetElement) {
-        // Ensure smooth scroll is possible by setting top correctly
-        mainRef.current.scrollTo({
-            top: targetElement.offsetTop,
-            behavior: 'smooth',
-        });
-        setActiveScreen(index);
-        lastScrollTime = Date.now();
-    }
-  };
-
+  
+  // Custom scroll logic to enforce snapping on desktop
   const handleScroll = (e) => {
-    // Only run snap-scroll logic on large screens
-    if (!isLargeScreen() /*|| Date.now() - lastScrollTime < SCROLL_DEBOUNCE_TIME*/) return;
-
-    const main = e.target;
-    let newActiveScreen = activeScreen;
+    if (!isLargeScreen()) {
+      return;
+    }
     
-    // Logic to determine which section is currently active (closest to viewport center)
-    sectionsRef.current.forEach((ref, index) => {
-      const section = ref.current;
-      if (section) {
-        const rect = section.getBoundingClientRect();
-        if (rect.top <= main.clientHeight / 2 && rect.bottom >= main.clientHeight / 2) {
-          newActiveScreen = index;
-        }
-      }
-    });
+    // Throttle scroll events to prevent rapid snapping
+    const now = Date.now();
+    if (now - lastScrollTime < SCROLL_DEBOUNCE_TIME) {
+      return;
+    }
+    lastScrollTime = now;
 
-    if (newActiveScreen !== activeScreen) {
-      setActiveScreen(newActiveScreen);
+    // Determine scroll direction
+    const container = mainRef.current;
+    if (!container) return;
+
+    const scrollDirection = container.scrollTop > container.lastScrollTop ? 1 : -1;
+    container.lastScrollTop = container.scrollTop;
+
+    // Find the next active screen based on direction
+    let nextScreen = activeScreen + scrollDirection;
+    
+    // Clamp the next screen index
+    nextScreen = Math.max(0, Math.min(sections.length - 1, nextScreen));
+
+    // Only scroll if the screen actually changed
+    if (nextScreen !== activeScreen) {
+      scrollToSection(nextScreen);
     }
   };
-  // --------------------------------------------------------
+  
+  // Function to scroll to a specific section by index
+  const scrollToSection = (index) => {
+    const targetRef = sectionsRef.current[index];
+    if (targetRef && targetRef.current) {
+      setActiveScreen(index);
+      targetRef.current.scrollIntoView({ behavior: 'smooth' });
+      // Debounce scroll for manual navigation as well
+      lastScrollTime = Date.now(); 
+    }
+  };
 
-  // Destructure colors for use in injected CSS
-  const { primary, secondary, light } = colors; // Added 'light' from UIMain
 
   return (
-    <>
-      {/* Added global background color for the entire body/container 
-          to ensure a light base. */}
-      <div style={{ backgroundColor: light }} className={`${isLoading ? 'hidden' : 'block'}`}>
+    // Outer container ensures the full viewport is covered
+    <div className="w-screen min-h-screen bg-[#f7f7f7]">
+      {/* Intro Overlay */}
+      <AnimatePresence>
+        {isLoading && <IntroOverlay onComplete={handleIntroComplete} />}
+      </AnimatePresence>
 
-        {/* Global CSS injection for animated-gradient and Tag Box. */}
-        <style global jsx>{`
-          .animated-gradient {
-              background: linear-gradient(45deg, ${primary}, ${secondary}, ${primary});
-              background-size: 400% 400%;
-              -webkit-background-clip: text;
-              -webkit-text-fill-color: transparent;
-              animation: global-gradient-shift 10s ease infinite; 
-          }
-          @keyframes global-gradient-shift {
-              0% { background-position: 0% 50%; }
-              50% { background-position: 100% 50%; }
-              100% { background-position: 0% 50%; }
-          }
-          .tag-box {
-              font-size: 0.75rem; 
-              font-weight: 700; 
-              letter-spacing: 0.1em; 
-              text-transform: uppercase;
-              padding-bottom: 0.5rem; 
-              border-bottom-width: 2px;
-          }
-        `}</style>
-
-        <AnimatePresence>
-          {isLoading && <IntroOverlay onComplete={handleIntroComplete} />}
-        </AnimatePresence>
-
-        {/* Header: Fixed position, imported from './components/Header'. */}
+      {/* Main Content */}
+      <div className={`${isLoading ? 'hidden' : 'block'}`}>
+        
+        {/* Header (fixed to viewport) */}
         <Header />
 
-        {/* Main Scroll Container (Adaptive) */}
+        {/* Main Content Sections with Custom Scroll Handler */}
         <main 
           ref={mainRef} 
           onScroll={handleScroll}
@@ -146,16 +127,17 @@ const Home = () => {
           
           {/* Render Sections in the correct order based on the 'sections' array */}
           <HeroSection ref={sectionsRef.current[0]} />
-          <RecentProjectsCarousel ref={sectionsRef.current[1]} /> 
-          <ServicesSection ref={sectionsRef.current[2]} />
+          <ServicesSection ref={sectionsRef.current[1]} />
+          <RecentProjectsCarousel ref={sectionsRef.current[2]} />
           <PhilosophySection ref={sectionsRef.current[3]} />
           <FounderStorySection ref={sectionsRef.current[4]} />
           {/* ContactCTA is the final scrollable section (ID: contact) */}
           <ContactCTA ref={sectionsRef.current[5]} />
 
         </main>
+        
       </div>
-    </>
+    </div>
   );
 };
 

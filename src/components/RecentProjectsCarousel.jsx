@@ -56,7 +56,7 @@ const ProjectTeaserCard = ({ project }) => (
         transition={{ duration: 0.6 }}
         viewport={{ once: true, amount: 0.3 }}
     >
-        <img src={project.imageSrc} alt={project.title} className="w-full h-32 object-cover rounded-lg mb-4" />
+        <img src={project.imageSrc} alt={project.title} className="w-full h-32 object-cover rounded-lg mb-4" loading="lazy" />
         <h3 className="text-xl font-bold mb-2" style={{ color: TEXT_DARK }}>{project.title}</h3>
         <p className="text-sm text-gray-600 mb-4 flex-grow">{project.description}</p>
         <Link 
