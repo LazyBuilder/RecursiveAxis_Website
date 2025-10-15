@@ -548,7 +548,7 @@ const HeroSection = React.memo(({ scrollToServices }) => (
     }}
   >
     {/* Dark Overlay for text legibility */}
-    <div className="absolute inset-0 bg-gray-950/20"></div>
+    <div className="absolute inset-0 bg-gray-950/50"></div>
     
     <div className="relative z-10 max-w-4xl text-center px-4">
       {/* H1: Fully responsive font sizes (text-4xl up to lg:text-7xl) */}
