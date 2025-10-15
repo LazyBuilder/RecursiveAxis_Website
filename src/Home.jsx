@@ -134,16 +134,17 @@ const TRUSTED_COMPANIES = [
   { name: 'Equifax', url: 'https://www.equifax.ca/canada/equifax/b_en.html', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Equifax_Logo.svg/2560px-Equifax_Logo.svg.png' },
   { name: 'J&J', url: 'https://www.jnj.com/', logo: 'https://upload.wikimedia.org/wikipedia/commons/c/cd/Johnson_and_Johnson_Logo.svg' },
   { name: 'Siemens', url: 'https://www.siemens.com/global/en.html', logo: 'https://upload.wikimedia.org/wikipedia/commons/3/3c/Siemens_AG_logo.svg' },
-  { name: 'PUDO', url: 'https://www.amazon.com/' /* , logo: '/logos/amazon.png' */ },
-  { name: 'Ignite AI', url: 'https://www.meta.com/', logo: '/logos/meta.png' },
-  { name: 'YorkU', url: 'https://www.netflix.com/' /* , logo: '/logos/netflix.png' */ },
-  { name: 'Kare Granola', url: 'https://www.microsoft.com/', logo: '/logos/microsoft.png' },
-  { name: 'StartupFuel', url: 'https://www.spacex.com/' /* , logo: '/logos/spacex.png' */ },
-  { name: 'Innovation Factory', url: 'https://www.apple.com/', logo: '/logos/apple.png' },
-  { name: 'FutureSight', url: 'https://www.ibm.com/' /* , logo: '/logos/ibm.png' */ },
-  { name: 'Untrap', url: 'https://www.intel.com/' /* , logo: '/logos/intel.png' */ },
-  { name: 'Addie', url: 'https://www.intel.com/' /* , logo: '/logos/intel.png' */ },
-  { name: 'CaringAI', url: 'https://www.intel.com/' /* , logo: '/logos/intel.png' */ }
+  { name: 'PUDO', url: 'https://pudopoint.com/' /* , logo: '/logos/amazon.png' */ },
+  { name: 'Ignite AI', url: 'https://www.linkedin.com/company/ignite-ai/about/'},
+  { name: 'YorkU', url: 'https://www.yorku.ca/' , logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Logo_York_University.svg/330px-Logo_York_University.svg.png' },
+  { name: 'Kare Granola', url: 'https://karegranola.com/', logo: 'https://karegranola.com/cdn/shop/files/kare_granola_logos-05_medium.png?v=1754530040' },
+  { name: 'StartupFuel', url: 'https://www.startupfuel.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/public/assets/asit_logos/Startup-Fuel.png` },
+  { name: 'Innovation Factory', url: 'https://innovationfactory.ca/', logo: '/logos/apple.png' },
+  { name: 'FutureSight', url: 'https://futuresight.ventures/' /* , logo: '/logos/ibm.png' */ },
+  { name: 'Untrap', url: 'https://getuntrap.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Untrap_logo.png` },
+  { name: 'Addie', url: 'https://getaddie.com/' /*, logo: `${process.env.PUBLIC_URL}*/ },
+  { name: 'CaringAI', url: 'https://getcaring.ai/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/CaringAI_logo.png` },
+  { name: 'Mercata', url: 'https://mercataintel.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Mercata.jpeg` }
 ];
 
 // Partner/Founder details
@@ -725,7 +726,7 @@ const TrustedCompaniesMarquee = () => (
           .marquee {
               display: flex;
               width: 200%; /* Double width to allow smooth looping */
-              animation: marquee 30s linear infinite;
+              animation: marquee 45s linear infinite;
           }
           .marquee-item {
               display: inline-flex;
