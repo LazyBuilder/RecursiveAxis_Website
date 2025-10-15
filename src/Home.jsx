@@ -445,7 +445,7 @@ const Header = React.memo(({ setPage, scrollToSection }) => {
   }, [setPage, scrollToSection]);
 
   return (
-    <header className={`sticky top-0 z-40 w-full ${DARK_BACKGROUND} border-b border-gray-800/50 backdrop-blur-md`}>
+    <header className={`sticky top-0 z-40 w-full ${DARK_BACKGROUND} bg-opacity-100 border-b border-gray-800/50 backdrop-blur-md`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Logo/Brand (Always visible) */}
         <button onClick={() => setPage('home')} className="flex items-center space-x-2 text-white transition-opacity hover:opacity-80">
