@@ -1048,7 +1048,7 @@ const ProjectsView = React.memo(({ setPage, openFullDescriptionModal }) => {
       </div>
 
       <div className="mt-20 text-center">
-          <h3 className="text-2xl font-bold text-white mb-4">Ready to be our next success story?</h3>
+          <h3 className="text-2xl font-bold text-white mb-4">Ready to be the next success story?</h3>
           <a
               href="https://cal.com/asitdeva"
               target="_blank" rel="RecursiveAxis Website"
