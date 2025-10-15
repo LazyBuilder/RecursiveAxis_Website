@@ -1007,15 +1007,23 @@ const App = () => {
 
   // EFFECT: Handles page change and scroll position (Ensures view starts at top)
   useEffect(() => {
-    // Scroll to the top immediately upon page state change (important for mobile UX)
-    window.scrollTo(0, 0);
+    // 1. **Immediate Scroll to Top with a short delay**
+    // This ensures the scroll happens *after* the DOM has updated
+    // to the new 'page' content (like the ProjectsView).
+    const scrollTimeout = setTimeout(() => {
+      window.scrollTo(0, 0);
+  }, 1); // A 1ms delay is often enough to push it to the end of the stack
 
-    // If on the home page and a hash exists, try to scroll to that section.
-    if (page === 'home' && window.location.hash) {
-      const id = window.location.hash.substring(1);
-      // Short delay to wait for the DOM to fully render the home view
-      setTimeout(() => scrollToSection(id), 100);
-    }
+  // 2. **Handle Hash Scroll only if on the 'home' page**
+  if (page === 'home' && window.location.hash) {
+    const id = window.location.hash.substring(1);
+    // Keep the delay for smooth hash scrolling on the home page
+    setTimeout(() => scrollToSection(id), 100);
+  }
+
+  // 3. **Cleanup function**
+  // Important to clear the timeout if the page state changes again quickly
+  return () => clearTimeout(scrollTimeout);
   }, [page]); // Dependency on 'page' state
 
 
