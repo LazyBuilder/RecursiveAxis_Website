@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/RecursiveAxis_Website/static/css/main.41dfcd6d.css",
-    "main.js": "/RecursiveAxis_Website/static/js/main.2de41b77.js",
+    "main.js": "/RecursiveAxis_Website/static/js/main.c8c85dc3.js",
     "index.html": "/RecursiveAxis_Website/index.html",
     "main.41dfcd6d.css.map": "/RecursiveAxis_Website/static/css/main.41dfcd6d.css.map",
-    "main.2de41b77.js.map": "/RecursiveAxis_Website/static/js/main.2de41b77.js.map"
+    "main.c8c85dc3.js.map": "/RecursiveAxis_Website/static/js/main.c8c85dc3.js.map"
   },
   "entrypoints": [
     "static/css/main.41dfcd6d.css",
-    "static/js/main.2de41b77.js"
+    "static/js/main.c8c85dc3.js"
   ]
 }
