@@ -130,18 +130,20 @@ const DIVE_FRAMEWORK = [
 // New structure for the list of trusted companies
 // 'url' and 'logo' are optional fields. If 'logo' is not present, the 'name' will be displayed.
 const TRUSTED_COMPANIES = [
-  { name: 'SFDC', url: 'https://www.salesforce.com/' /* , logo: '/logos/sfdc.png' */ },
-  { name: 'Tesla', url: 'https://www.tesla.com/', logo: '/logos/tesla.png' },
-  { name: 'Oracle', url: 'https://www.oracle.com/' /* , logo: '/logos/oracle.png' */ },
-  { name: 'Google', url: 'https://www.google.com/', logo: '/logos/google.png' },
-  { name: 'Amazon', url: 'https://www.amazon.com/' /* , logo: '/logos/amazon.png' */ },
-  { name: 'Meta', url: 'https://www.meta.com/', logo: '/logos/meta.png' },
-  { name: 'Netflix', url: 'https://www.netflix.com/' /* , logo: '/logos/netflix.png' */ },
-  { name: 'Microsoft', url: 'https://www.microsoft.com/', logo: '/logos/microsoft.png' },
-  { name: 'SpaceX', url: 'https://www.spacex.com/' /* , logo: '/logos/spacex.png' */ },
-  { name: 'Apple', url: 'https://www.apple.com/', logo: '/logos/apple.png' },
-  { name: 'IBM', url: 'https://www.ibm.com/' /* , logo: '/logos/ibm.png' */ },
-  { name: 'Intel', url: 'https://www.intel.com/' /* , logo: '/logos/intel.png' */ }
+  { name: 'TCS', url: 'https://www.tcs.com/' , logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Tata_Consultancy_Services_old_logo.svg/2560px-Tata_Consultancy_Services_old_logo.svg.png' },
+  { name: 'Equifax', url: 'https://www.equifax.ca/canada/equifax/b_en.html', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Equifax_Logo.svg/2560px-Equifax_Logo.svg.png' },
+  { name:  'J&J', url: 'https://www.oracle.com/' /* , logo: '/logos/oracle.png' */ },
+  { name: 'Siemens', url: 'https://www.google.com/', logo: '/logos/google.png' },
+  { name: 'PUDO', url: 'https://www.amazon.com/' /* , logo: '/logos/amazon.png' */ },
+  { name: 'Ignite AI', url: 'https://www.meta.com/', logo: '/logos/meta.png' },
+  { name: 'YorkU', url: 'https://www.netflix.com/' /* , logo: '/logos/netflix.png' */ },
+  { name: 'Kare Granola', url: 'https://www.microsoft.com/', logo: '/logos/microsoft.png' },
+  { name: 'StartupFuel', url: 'https://www.spacex.com/' /* , logo: '/logos/spacex.png' */ },
+  { name: 'Innovation Factory', url: 'https://www.apple.com/', logo: '/logos/apple.png' },
+  { name: 'FutureSight', url: 'https://www.ibm.com/' /* , logo: '/logos/ibm.png' */ },
+  { name: 'Untrap', url: 'https://www.intel.com/' /* , logo: '/logos/intel.png' */ },
+  { name: 'Addie', url: 'https://www.intel.com/' /* , logo: '/logos/intel.png' */ },
+  { name: 'CaringAI', url: 'https://www.intel.com/' /* , logo: '/logos/intel.png' */ }
 ];
 
 // Partner/Founder details
