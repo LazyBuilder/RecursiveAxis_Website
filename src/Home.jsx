@@ -848,7 +848,7 @@ const TrustedCompaniesMarquee = () => (
       <section className={`py-20 md:py-32 ${DARK_BACKGROUND} border-t border-b border-gray-800 relative overflow-hidden`}>
       {/* --- NEW BACKGROUND LAYER (z-0) --- */}
       <div 
-        className="absolute inset-0 z-0 bg-opacity-50"
+        className="absolute inset-0 z-0 bg-opacity-30"
         style={{
           backgroundImage: `url(${HERO_BG_PATH})`,
           backgroundSize: 'cover',
