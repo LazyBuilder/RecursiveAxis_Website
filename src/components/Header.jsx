@@ -33,7 +33,7 @@ const Header = () => {
                 className={`px-4 py-2 text-[#0a0a0a] rounded-full font-semibold text-sm transition-all duration-300 hover:scale-105`}
                 style={{ backgroundColor: colors.primary, color: colors.dark }} 
             >
-                Book a Call
+                Book Call
             </a>
         </nav>
       </div>

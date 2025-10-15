@@ -14,104 +14,108 @@ const logoPlaceholders = [
     { name: 'IBM', src: 'https://placehold.co/120x60/333333/fff?text=IBM' },
     { name: 'Cisco', src: 'https://placehold.co/120x60/333333/fff?text=Cisco' },
     { name: 'Deloitte', src: 'https://placehold.co/120x60/333333/fff?text=Deloitte' },
-    { name: 'Salesforce', src: 'https://placehold.co/120x60/333333/fff?text=SFDC' },
-    { name: 'Tesla', src: 'https://placehold.co/120x60/333333/fff?text=Tesla' },
-    { name: 'Oracle', src: 'https://placehold.co/120x60/333333/fff?text=Oracle' },
-    { name: 'HP', src: 'https://placehold.co/120x60/333333/fff?text=HP' },
+    { name: 'Salesforce', src: 'https://placehold.co/120x60/333333/fff?text=Salesforce' },
+    { name: 'SAP', src: 'https://placehold.co/120x60/333333/fff?text=SAP' },
+    // Duplicate the logos to create a seamless infinite loop
+    { name: 'Google-2', src: 'https://placehold.co/120x60/333333/fff?text=Google' },
+    { name: 'Microsoft-2', src: 'https://placehold.co/120x60/333333/fff?text=MSFT' },
+    { name: 'Amazon-2', src: 'https://placehold.co/120x60/333333/fff?text=Amazon' },
+    { name: 'IBM-2', src: 'https://placehold.co/120x60/333333/fff?text=IBM' },
 ];
 
-// Combine the logos and duplicate them for the seamless loop
-const allLogos = [...logoPlaceholders, ...logoPlaceholders]; 
-// --- END PLACEHOLDER LOGO DATA ---
+// --- LogoScroller Component (Local Helper) ---
+const LogoScroller = () => {
+    return (
+        <div className="w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]">
+            <motion.div 
+                className="flex"
+                animate={{
+                    x: ['0%', '-50%'], // Scrolls half the content length
+                    transition: {
+                        x: {
+                            repeat: Infinity,
+                            ease: 'linear',
+                            duration: 30, // Adjust for desired speed
+                        },
+                    },
+                }}
+            >
+                {logoPlaceholders.map((logo, index) => (
+                    <div key={index} className="flex-shrink-0 mx-8 opacity-60">
+                        <img 
+                            src={logo.src} 
+                            alt={logo.name} 
+                            className="h-10 w-auto object-contain filter invert" // 'invert' to make logos white on dark bg
+                        />
+                    </div>
+                ))}
+            </motion.div>
+        </div>
+    );
+};
 
 
+// --- Main FounderStorySection Component ---
 const FounderStorySection = React.forwardRef((props, ref) => (
     <>
-        {/* === CRITICAL CSS FOR AUTO-SCROLL === */}
-        <style>
-            {`
-                /* Defines the keyframes for the continuous horizontal scroll */
-                @keyframes logo-scroll {
-                    /* Scroll 50% of the total content width (which is one full set of logos) */
-                    from { transform: translateX(0); }
-                    to { transform: translateX(-50%); } 
-                }
+        <FullPageSection 
+            id="founder-story" 
+            ref={ref} 
+            // Dark background for this section
+            bgClass="text-white bg-[#0a0a0a]" 
+        >
+            <div className="container mx-auto px-4 py-16 w-full h-full flex flex-col justify-center">
 
-                /* Class to apply the animation */
-                .logo-scroll-strip {
-                    display: flex;
-                    /* Total scroll duration. Adjust time based on number of logos */
-                    animation: logo-scroll 45s linear infinite; 
-                    /* Prevents images from shrinking */
-                    width: max-content; 
-                }
+                {/* === LOGO SCROLLER (Desktop-only on top) === */}
+                <div className="mb-12 hidden md:block">
+                    <LogoScroller />
+                </div>
                 
-                /* Optional: Pause animation on hover */
-                .logo-scroll-container:hover .logo-scroll-strip {
-                    animation-play-state: paused;
-                }
-                
-                /* Ensure logos don't get squished */
-                .logo-item {
-                    flex-shrink: 0;
-                    margin: 0 1.5rem; /* Space between logos */
-                    height: 50px; /* Uniform height for all logos */
-                    width: 120px; /* Width for placeholder images */
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-
-                /* Styling for the container to hide the repeating effect */
-                .logo-scroll-container {
-                    overflow: hidden;
-                    mask-image: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
-                    max-width: 100%;
-                }
-            `}
-        </style>
-
-        <FullPageSection id="founder-story" ref={ref} bgClass="bg-[#0a0a0a] text-white">
-            <div className="w-full relative z-10 flex flex-col items-center justify-center pt-24 pb-20 px-4">
-                <motion.h2 
-                    className={`text-3xl md:text-5xl font-extrabold mb-6 animated-gradient`}
+                <motion.h2
+                    className={`text-3xl md:text-5xl font-extrabold mb-12 text-center`}
                     initial={{ opacity: 0, y: 50 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1 }}
+                    viewport={{ once: true }}
                 >
-                    MEET THE FOUNDER
+                    OUR FOUNDER'S <span style={{ color: colors.primary }}>AXIS</span>
                 </motion.h2>
-                
-                <div className="flex flex-col md:flex-row items-center justify-center gap-12 w-full max-w-5xl">
-                    {/* === LEFT SIDE: STORY & LOGO SCROLLER (Replaces Metrics) === */}
-                    <div className="md:w-1/2 flex flex-col items-center text-center max-w-lg leading-relaxed text-base md:text-lg lg:text-xl text-gray-400">
-                        <p className="mb-8">
-                            Asit Deva is a seasoned expert dedicated to helping businesses navigate the complexities of technology and innovation. With a passion for building, advising, and strategizing, he transforms ideas into tangible, successful products.
-                        </p>
+
+                {/* === MAIN CONTENT: 2-Column Layout === */}
+                <div className="flex flex-col md:flex-row items-center gap-12 max-w-6xl mx-auto">
+                    
+                    {/* === LEFT SIDE: STORY TEXT === */}
+                    <div className="md:w-1/2 md:text-left text-center">
+                        <motion.h3
+                            className="text-2xl md:text-3xl font-bold mb-4"
+                            style={{ color: colors.secondary }}
+                            initial={{ opacity: 0, x: -50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}
+                            viewport={{ once: true, amount: 0.5 }}
+                        >
+                            "I build what lasts, and lead what scales."
+                        </motion.h3>
                         
-                        {/* === START: LOGO SCROLLER CONTAINER === */}
-                        <div className="w-full mt-8 md:mt-12">
-                            <h3 className="text-sm font-semibold tracking-widest uppercase mb-4 text-white/50">
-                                Trusted By Experience From:
-                            </h3>
-                            <div className="logo-scroll-container bg-white/5 border border-white/10 rounded-xl py-4 shadow-inner">
-                                <div className="logo-scroll-strip">
-                                    {/* Map through the duplicated logos for infinite scroll */}
-                                    {allLogos.map((logo, index) => (
-                                        <div key={index} className="logo-item">
-                                            {/* Logo image placeholder. Use actual imported components/paths here. */}
-                                            <img 
-                                                src={logo.src} 
-                                                alt={logo.name} 
-                                                className="h-full w-auto opacity-70 hover:opacity-100 transition-opacity duration-300 object-contain"
-                                                style={{ filter: 'grayscale(100%)' }} // Optional: grayscale for sleekness
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                        {/* === END: LOGO SCROLLER CONTAINER === */}
+                        <motion.p
+                            className="text-lg text-gray-300 mb-6"
+                            initial={{ opacity: 0, x: -50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8, delay: 0.1 }}
+                            viewport={{ once: true, amount: 0.5 }}
+                        >
+                            Recursive Axis was founded by **Asit Deva**, a deep technical expert with a decade of experience across both high-velocity startups and Fortune 50 enterprises. His journey, marked by senior engineering and architect roles, instilled a philosophy: **Innovation must be technically rigorous and strategically sound.**
+                        </motion.p>
+                        
+                        <motion.p
+                            className="text-lg text-gray-300 mb-8 italic"
+                            initial={{ opacity: 0, x: -50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
+                            viewport={{ once: true, amount: 0.5 }}
+                        >
+                            We bring the discipline of enterprise architecture and the agility of a startup to every project, ensuring your technology isn't just a solution, but a competitive axis.
+                        </motion.p>
                         
                     </div>
                     

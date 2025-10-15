@@ -11,10 +11,10 @@ const PRIMARY_COLOR = '#00EAFF'; // Cyan (for accent)
 const SECONDARY_COLOR = '#FF00EA'; // Magenta (for accent)
 const CARD_LIGHT = '#ffffff'; // Light card color
 const TEXT_DARK = '#1a1a1a';
+const TEXT_GRAY = '#6b7280';
 
 // --- Service Data (Top 3 focus areas) ---
 const serviceData = [
-  // ... (service data remains the same)
   {
     tag: "FOUNDERS",
     title: "ACHIEVE PRODUCT-MARKET FIT. FASTER.",
@@ -38,54 +38,71 @@ const serviceData = [
   },
 ];
 
-// --- Service Card Component (Used internally) ---
-const ServiceCard = ({ service, index }) => (
-    <motion.div
-      // Card component styling using local constants
-      className={`p-6 rounded-xl shadow-lg flex flex-col items-start h-full transition-shadow duration-300 hover:shadow-xl`} 
-      style={{ backgroundColor: CARD_LIGHT }} // Use light card background
-      // Framer Motion for entrance animation
-      initial={{ opacity: 0, y: 50, scale: 0.98 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ duration: 0.8, delay: index * 0.15 }}
-      viewport={{ once: true }}
-    >
-      
-      {/* Tag Box: Uses the global 'tag-box' CSS class injected in Home.jsx */}
-      <div 
-        className="tag-box mb-8" 
-        style={{ borderBottomColor: service.color, color: TEXT_DARK }} // Text color is dark
-      >
-        {service.tag}
-      </div>
-      
-      {/* Main Title: Uses accent color */}
-      <h3 className="text-2xl font-extrabold mb-3 tracking-widest" style={{ color: TEXT_DARK }}>
-        {service.title}
-      </h3>
-      
-      {/* Description */}
-      <p className="text-base text-gray-700 leading-relaxed mb-6">
-        {service.description}
-      </p>
-      
-      {/* Tagline/Call to Action */}
-      <p className="text-sm font-bold mt-auto" style={{ color: service.color }}>
-        {service.tagline}
-      </p>
-    </motion.div>
-);
+// --- Service Card Component (Local Helper) ---
+const ServiceCard = ({ service, index }) => {
+    // Animation variant for staggered entry
+    const cardVariants = {
+        hidden: { opacity: 0, y: 50, scale: 0.95 },
+        visible: { 
+            opacity: 1, 
+            y: 0, 
+            scale: 1, 
+            transition: { 
+                duration: 0.6, 
+                delay: index * 0.1, 
+                ease: "easeOut" 
+            } 
+        }
+    };
+
+    return (
+        <motion.div
+            className="flex flex-col p-8 rounded-2xl shadow-xl border-t-4 hover:shadow-2xl transition-shadow duration-300 transform hover:scale-[1.02] cursor-pointer"
+            style={{ 
+                backgroundColor: CARD_LIGHT, 
+                borderColor: service.color, 
+                color: TEXT_DARK 
+            }}
+            variants={cardVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+        >
+            
+            {/* Tag Box (FOUNDER, INVESTOR, CORPORATE) */}
+            <div 
+              className="px-3 py-1 mb-8 text-xs font-bold tracking-widest uppercase rounded-full inline-block self-start" 
+              style={{ backgroundColor: service.color, color: TEXT_DARK }}
+            >
+              {service.tag}
+            </div>
+            
+            {/* Main Title: Uses accent color */}
+            <h3 className="text-2xl font-extrabold mb-3 leading-snug" style={{ color: TEXT_DARK }}>{service.title}</h3>
+            
+            {/* Description: Subtler gray text */}
+            <p className="text-base text-gray-700 leading-relaxed mb-6 flex-grow">
+              {service.description}
+            </p>
+            
+            {/* Tagline/Call to Action: Bright accent color */}
+            <p className="text-sm font-bold mt-auto" style={{ color: service.color }}>
+              {service.tagline}
+            </p>
+        </motion.div>
+    );
+};
 
 
+// --- Main ServicesSection Component ---
 const ServicesSection = React.forwardRef((props, ref) => (
   <>
-    {/* Removed explicit dark style prop. It will now inherit the light background from Home.jsx. */}
     <FullPageSection 
-      id="services" 
-      ref={ref} 
-      bgClass="text-gray-800" // Ensures all text inside is dark on light background
+        id="services" 
+        ref={ref} 
+        bgClass="text-center bg-[#f7f7f7]" // Light background
     >
-      <div className="w-full relative z-10 flex flex-col items-center justify-center h-full max-w-7xl px-4 py-20">
+      <div className="container mx-auto px-4 py-16">
         
         {/* Title: Uses the globally injected 'animated-gradient' class from Home.jsx */}
         <motion.h2

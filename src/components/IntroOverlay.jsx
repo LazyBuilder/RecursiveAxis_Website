@@ -39,35 +39,32 @@ const IntroOverlay = ({ onComplete }) => {
     }
   }, [step, isSkipped, currentMessage, onComplete]);
 
-  const handleSkip = () => {
-    setIsSkipped(true);
-    onComplete();
+  // Split text into an array of characters
+  const textArray = currentMessage ? currentMessage.text.split('') : [];
+
+  // Animation for the main overlay panel
+  const overlayVariants = {
+    visible: { opacity: 1 },
+    exit: { opacity: 0, transition: { duration: 0.8, delay: 0.5 } }
   };
 
-  // ⬅️ CRITICAL FIX: Guard clause to prevent rendering when currentMessage is undefined
-  if (!currentMessage) {
-    return null; 
-  }
-
-  const textArray = Array.from(currentMessage.text);
-
+  const handleSkip = () => {
+    setIsSkipped(true);
+    // Immediately fade out and call onComplete
+    setTimeout(onComplete, 500); 
+  };
+  
+  // Prevent any interaction with the main page while the overlay is active
   return (
     <motion.div
-      key="intro"
-      // Tailwind fix applied: using hardcoded hex for guaranteed compilation
-      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#0a0a0a] p-8`} 
-      initial={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 1.5, delay: 0.2 }}
+      className="fixed inset-0 z-[999] bg-[#0a0a0a] flex flex-col items-center justify-center p-4"
+      variants={overlayVariants}
+      initial="visible"
+      exit="exit"
     >
-      <div className="relative z-10 text-center">
+      <div className="flex flex-col items-center justify-center text-white">
         <motion.h1 
-          className="text-4xl md:text-6xl font-bold max-w-4xl mx-auto leading-tight text-white"
-          key={step} 
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          // Now safe because of the 'if (!currentMessage)' guard
-          transition={{ delay: currentMessage.delay, duration: 0.5 }} 
+          className="text-3xl md:text-5xl lg:text-7xl font-mono font-extrabold tracking-tight whitespace-pre-wrap flex items-center"
         >
           {/* Typing effect */}
           {textArray.map((char, index) => (
@@ -104,10 +101,11 @@ const IntroOverlay = ({ onComplete }) => {
         className={`absolute bottom-8 right-8 px-6 py-2 bg-white/10 text-white/80 rounded-full text-sm font-semibold transition-all duration-300 hover:bg-white/20`}
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
+        transition={{ delay: 0.5, duration: 0.5 }}
       >
         Skip Intro
       </motion.button>
+
     </motion.div>
   );
 };

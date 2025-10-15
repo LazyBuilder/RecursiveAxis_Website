@@ -29,13 +29,17 @@ const SimpleModal = ({ title, content, isOpen, onClose }) => {
                     >
                         <h3 className="text-3xl font-extrabold text-gray-900 mb-4 border-b pb-2">{title}</h3>
                         
-                        <div className="text-gray-700 space-y-3 text-base overflow-y-auto max-h-[60vh]">
-                            {content}
+                        <div className="text-gray-700 space-y-3 text-base overflow-y-auto max-h-[60vh] py-2">
+                            {/* Render content, respecting newlines as paragraphs */}
+                            {content.split('\n\n').map((paragraph, index) => (
+                                <p key={index}>{paragraph}</p>
+                            ))}
                         </div>
-                        
+
                         <button
-                            className={`mt-6 w-full py-3 bg-gray-200 text-gray-800 font-semibold rounded-lg transition hover:bg-gray-300`}
                             onClick={onClose}
+                            className={`mt-6 px-6 py-2 rounded-full font-semibold text-sm transition-all duration-300 hover:opacity-80`}
+                            style={{ backgroundColor: colors.primary, color: colors.dark }}
                         >
                             Close
                         </button>
@@ -48,50 +52,49 @@ const SimpleModal = ({ title, content, isOpen, onClose }) => {
 // --- END: SimpleModal Component Definition ---
 
 
-// --- START: Footer Component Definition ---
+// --- START: Modal Content Definitions ---
+const privacyContent = `
+**Privacy Policy**
 
-const FOOTER_BG_IMAGE_URL = `${process.env.PUBLIC_URL}/assets/Storyline_Background_Dark.png`; 
+1. **Information We Collect:** We only collect the necessary information you provide directly through contact forms or scheduling tools (like Cal.com). This typically includes your name, email address, and details about your project.
 
-const privacyContent = (
-    <>
-        <p><strong>Data Collection:</strong> This website **does not collect, store, or process any personal user information, cookies, or tracking data.**</p>
-        <p><strong>External Links:</strong> The only external links are to our scheduling service and email, which are not covered by this policy.</p>
-        <p>Your privacy is simple and protected because we don't handle your data.</p>
-    </>
-);
+2. **Use of Information:** Your information is used solely to respond to your inquiries, schedule calls, and communicate about potential or current projects. We do not sell or rent your personal data to third parties.
 
-const termsContent = (
-    <>
-        <p><strong>Service Focus:</strong> This website serves as an informational page to describe and promote our services.</p>
-        <p><strong>Disclaimer:</strong> The information provided here is for general guidance only and does not constitute a contractual agreement. Formal service agreements are handled via direct communication.</p>
-        <p>By using this site, you agree to these simple terms.</p>
-    </>
-);
+3. **Data Security:** We employ standard security measures to protect your information. Please note that no transmission over the internet is 100% secure.
+
+4. **Cookies and Tracking:** We do not use third-party tracking cookies on this site. We rely on standard browser storage for necessary functional purposes only.
+`;
+
+const termsContent = `
+**Terms of Service**
+
+1. **Acceptance of Terms:** By accessing and using this website, you agree to be bound by these Terms of Service.
+
+2. **Services Offered:** Recursive Axis offers technology consulting, design, and development services as outlined in the Services section. All engagements are subject to a separate, formal contract.
+
+3. **Intellectual Property:** All content on this site, including text, graphics, logos, and code, is the property of Recursive Axis and protected by copyright law. Unauthorized use is prohibited.
+
+4. **Limitation of Liability:** Recursive Axis is not liable for any damages arising from the use or inability to use the materials on this site.
+`;
+// --- END: Modal Content Definitions ---
+
+// Tailwind class for the subtle background overlay at the footer
+const OVERLAY_CLASS = `absolute inset-0 bg-[#0a0a0a] opacity-80 backdrop-blur-sm`;
+
 
 const Footer = () => {
     const [activeModal, setActiveModal] = useState(null);
 
     const openModal = (type) => setActiveModal(type);
     const closeModal = () => setActiveModal(null);
-    
-    // 💡 FIX 1: REMOVED the fixed height class h-[20vh] md:h-[15vh].
-    const FOOTER_HEIGHT_CLASS = 'py-6'; 
-    const DARK_OVERLAY_CLASS = 'absolute inset-0 bg-black opacity-45'; 
 
     return (
         <>
-            <footer 
-                // 💡 FIX 2: Use natural padding (py-6) instead of fixed height
-                className={`w-full relative text-white flex items-center justify-center text-center text-sm overflow-hidden ${FOOTER_HEIGHT_CLASS}`} 
-                style={{ 
-                    backgroundImage: `url('${FOOTER_BG_IMAGE_URL}')`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat', 
-                    backgroundAttachment: 'fixed', 
-                }}
-            >
-                <div className={DARK_OVERLAY_CLASS}></div>
+            {/* The footer is a fixed height element inside ContactCTA, sitting at the bottom */}
+            <footer className="w-full bg-[#0a0a0a] text-white text-center py-6 text-sm relative z-20 mt-auto">
+                
+                {/* Visual Overlay - Optional: for aesthetic consistency */}
+                <div className={OVERLAY_CLASS}></div>
                 
                 <div className="relative z-10 w-full px-4"> 
                     <p>© {new Date().getFullYear()} Recursive Axis. All rights reserved.</p>

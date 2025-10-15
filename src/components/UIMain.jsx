@@ -56,6 +56,6 @@ export {
     colors, 
     LogoSVG,
     CodeSVG,      // Exported to fix the "Attempted import error"
-    DesignSVG,    // Exported for the middle services card
-    DataSVG       // Exported for the rightmost services card
+    DesignSVG,    // Exported for the same reason
+    DataSVG,      // Exported for the same reason
 };

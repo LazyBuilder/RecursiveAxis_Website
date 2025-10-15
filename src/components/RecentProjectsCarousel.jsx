@@ -17,10 +17,11 @@ const PRIMARY_COLOR = '#00EAFF';
 const SECONDARY_COLOR = '#FF00EA'; 
 // NOTE: These are local references for styling, the actual background is inherited as light.
 const TEXT_DARK = '#1a1a1a'; 
+const TEXT_GRAY = '#6b7280';
+
 
 // --- PROJECT DATA (Top 3 for Teaser) ---
 const topThreeProjects = [
-  // ... (project data remains the same)
   {
     id: 1,
     title: "MSH Cultural Group Platform", 
@@ -28,59 +29,94 @@ const topThreeProjects = [
     imageSrc: MSHImage, 
     link: 'https://www.mshculturalgroup.com/',
     color: PRIMARY_COLOR,
+    tags: ['React', 'Full Stack', 'Low-Cost'],
   },
   {
     id: 2,
     title: "Verve Photography Portfolio", 
-    description: "An elegant, high-speed photography portfolio for a premium brand, designed for high-resolution image delivery and smooth, intuitive navigation across all devices, leading to a 40% increase in client inquiries.", 
+    description: "An elegant, high-speed photography portfolio built with Next.js and optimized for image delivery and SEO, achieving a 99/100 Lighthouse performance score.", 
     imageSrc: VerveImage, 
-    link: 'https://www.verve-photography.com/',
+    link: '#', 
     color: SECONDARY_COLOR,
+    tags: ['Next.js', 'Design', 'Performance'],
   },
   {
     id: 3,
-    title: "Stealth Startup Analytics MVP", 
-    description: "Built the core MVP for a next-gen data analytics platform, focusing on real-time data ingestion and visualization. This allowed the client to secure Series A funding based on technical proof of concept.", 
-    imageSrc: VerveImage,
-    link: 'https://www.example.com/',
+    title: "Financial Planning Tool API", 
+    description: "Engineered a robust, scalable backend API using Python (FastAPI) to handle complex financial calculations and real-time data integration for a B2B SaaS platform.", 
+    imageSrc: null, // Placeholder for a code-focused project without a visual
+    link: '#', 
     color: PRIMARY_COLOR,
+    tags: ['Python', 'API', 'Finance'],
   },
 ];
 
-// --- Project Teaser Card Component (Used internally) ---
-const ProjectTeaserCard = ({ project }) => (
-    <motion.div
-        className="bg-white p-6 rounded-xl shadow-lg flex flex-col items-start h-full text-left transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true, amount: 0.3 }}
-    >
-        <img src={project.imageSrc} alt={project.title} className="w-full h-32 object-cover rounded-lg mb-4" loading="lazy" />
-        <h3 className="text-xl font-bold mb-2" style={{ color: TEXT_DARK }}>{project.title}</h3>
-        <p className="text-sm text-gray-600 mb-4 flex-grow">{project.description}</p>
-        <Link 
-            to={project.link} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="text-sm font-semibold mt-auto" 
-            style={{ color: project.color }}
+// --- Project Teaser Card Component (Local Helper) ---
+const ProjectTeaserCard = ({ project }) => {
+    return (
+        <motion.a
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex flex-col rounded-xl shadow-lg border p-6 h-full transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl"
+            style={{ 
+                borderColor: `${project.color}50`, 
+                backgroundColor: '#ffffff',
+                color: TEXT_DARK 
+            }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true, amount: 0.3 }}
         >
-            View Project &rarr;
-        </Link>
-    </motion.div>
-);
+            {project.imageSrc && (
+                <div className="h-40 overflow-hidden rounded-lg mb-4">
+                    <img 
+                        src={project.imageSrc} 
+                        alt={project.title} 
+                        className="w-full h-full object-cover"
+                    />
+                </div>
+            )}
+            
+            <h3 className="text-xl font-extrabold mb-2 leading-snug" style={{ color: TEXT_DARK }}>
+                {project.title}
+            </h3>
 
+            <p className="text-base text-gray-700 mb-4 flex-grow">
+                {project.description}
+            </p>
+            
+            <div className="flex flex-wrap gap-2 mt-auto pt-2">
+                {project.tags.map(tag => (
+                    <span 
+                        key={tag} 
+                        className="px-3 py-1 text-xs font-semibold rounded-full"
+                        style={{ backgroundColor: project.color, color: TEXT_DARK }}
+                    >
+                        {tag}
+                    </span>
+                ))}
+            </div>
+
+            <span className="mt-3 text-sm font-bold block" style={{ color: project.color }}>
+                View Project &rarr;
+            </span>
+        </motion.a>
+    );
+};
+
+
+// --- Main RecentProjectsCarousel Component ---
 const RecentProjectsCarousel = React.forwardRef((props, ref) => {
     return (
         <>
             <FullPageSection 
                 id="projects" 
                 ref={ref} 
-                // Background is now inherited as light
-                bgClass="text-gray-800" // Ensures text is dark on the light background
+                bgClass="text-center bg-[#f7f7f7]" // Light background
             >
-                <div className="w-full relative z-10 flex flex-col items-center justify-center h-full max-w-7xl px-4 py-20">
+                <div className="container mx-auto px-4 py-16">
                     
                     {/* Title: Uses the globally injected 'animated-gradient' class from Home.jsx */}
                     <motion.h2

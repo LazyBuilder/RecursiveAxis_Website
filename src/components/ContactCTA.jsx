@@ -13,7 +13,7 @@ const ContactCTA = React.forwardRef((props, ref) => {
             ref={ref} 
             // 💡 CRITICAL: Ensure this section takes exactly 100% of the viewport height.
             // We are using 'flex-col justify-between' to push the content up and the footer down.
-            className="w-screen h-screen flex flex-col justify-between text-gray-800" 
+            className="w-screen h-screen flex flex-col justify-between text-gray-800 bg-[#f7f7f7] relative" 
         >
             
             {/* 1. Main content container for CTA (Takes up remaining space) */}
@@ -27,8 +27,13 @@ const ContactCTA = React.forwardRef((props, ref) => {
 
                 {/* ... (Title, Subtext, Button remain the same) ... */}
                 <motion.h2
-                    className="text-4xl md:text-6xl font-extrabold text-center mb-4 animated-gradient relative z-10"
-                    // ... (framer-motion props)
+                    className="text-4xl md:text-6xl font-extrabold mb-4 text-center max-w-4xl z-10"
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    viewport={{ once: true }} // Only animate once
+                    style={{ color: colors.dark }} // Use dark text on light background
+                    {...props}
                 >
                     SIGN-UP FOR DISCOVERY CALL, NOW.
                 </motion.h2>
