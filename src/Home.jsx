@@ -370,14 +370,13 @@ const ServiceModal = ({ isOpen, onClose, content }) => {
           {/* Logo and Title Group */}
           <div className="flex items-center space-x-3">
              {/* Logo added here: Small size (h-7) and slightly transparent */}
-             <div className="p-1 rounded-md bg-cyan-600 flex-shrink-0"> 
-                        <img 
-                          src={SIMPLE_LOGO_PATH} 
-                          alt="Recursive Axis Logo" 
-                          // Removed px-3 from here, as the padding is now on the wrapper
-                          className={`h-14 opacity-80`} 
-                        />
-                      </div>
+             <div className="p-2 rounded-md bg-cyan-600/30 flex-shrink-0 aspect-square"> 
+              <img 
+                src={SIMPLE_LOGO_PATH} 
+                alt="Recursive Axis Logo" 
+                className={`h-full w-full object-contain opacity-80`} 
+              />
+            </div>
              <h3 className={`text-2xl font-bold ${PRIMARY_ACCENT}`}>{content.modalTitle}</h3>
           </div>
           {/* Close Button */}
@@ -426,14 +425,13 @@ const TextModal = ({ isOpen, onClose, content }) => {
                   {/* Logo and Title Group */}
                   <div className="flex items-center space-x-3">
                        {/* Logo added here: h-7 size and slightly transparent */}
-                       <div className="p-1 rounded-md bg-cyan-600 flex-shrink-0"> 
-                        <img 
-                          src={SIMPLE_LOGO_PATH} 
-                          alt="Recursive Axis Logo" 
-                          // Removed px-3 from here, as the padding is now on the wrapper
-                          className={`h-10 opacity-80`} 
-                        />
-                      </div>
+                       <div className="p-2 rounded-md bg-cyan-600/30 flex-shrink-0 aspect-square"> 
+                          <img 
+                            src={SIMPLE_LOGO_PATH} 
+                            alt="Recursive Axis Logo" 
+                            className={`h-full w-full object-contain opacity-80`} 
+                          />
+                        </div>
                       
                       {/* Title color changed to PRIMARY_ACCENT (pink) */}
                       <h3 className={`text-2xl font-bold ${PRIMARY_ACCENT}`}>{content.title}</h3>
