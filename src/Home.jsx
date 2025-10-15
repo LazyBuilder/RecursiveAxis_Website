@@ -55,7 +55,7 @@ const SERVICE_DATA = [
         "Due Diligence Preparation: Readying your technology for investor scrutiny.",
     ],
     modalCta: 'Book a Strategy Session',
-    ctaLink: 'https://cal.com/asitdeva'
+    ctaLink: 'https://cal.com/asitdeva/founders'
   },
   {
     segment: 'Investors',
@@ -71,7 +71,7 @@ const SERVICE_DATA = [
         "Exit Readiness Audits: Ensuring tech stack is optimized for maximum valuation upon sale.",
     ],
     modalCta: 'Request Due Diligence Scope',
-    ctaLink: 'https://cal.com/asitdeva'
+    ctaLink: 'https://cal.com/asitdeva/investors'
   },
   {
     segment: 'Corporates',
@@ -87,14 +87,14 @@ const SERVICE_DATA = [
         "In-House Venture Design: Frameworks to validate and spin out new internal ventures.",
     ],
     modalCta: 'Explore Program Options',
-    ctaLink: 'https://cal.com/asitdeva'
+    ctaLink: 'https://cal.com/asitdeva/corporates'
   },
 ];
 
 // Data structure for the Philosophy section (D.I.V.E. Framework)
 const DIVE_FRAMEWORK = [
   { 
-    letter: 'D', icon: TrendingUp, title: 'Decision', description: 'Hypothesis-Led Strategy', 
+    letter: 'D', title: 'Decision', description: 'Hypothesis-Led Strategy', 
     modalTitle: 'D: Decision - Hypothesis-Led Strategy', 
     modalBody: [
         "The Strategy: Why we build what we build.",
@@ -102,7 +102,7 @@ const DIVE_FRAMEWORK = [
     ]
   },
   { 
-    letter: 'I', icon: Zap, title: 'Iteration', description: 'Velocity-Focused Design', 
+    letter: 'I', title: 'Iteration', description: 'Velocity-Focused Design', 
     modalTitle: 'I: Iteration - Velocity-Focused Design', 
     modalBody: [
         "The Process: How we build and learn fast.",
@@ -110,7 +110,7 @@ const DIVE_FRAMEWORK = [
     ]
   },
   { 
-    letter: 'V', icon: ShieldCheck, title: 'Verification', description: 'Analytics-Driven Learning', 
+    letter: 'V', title: 'Verification', description: 'Analytics-Driven Learning', 
     modalTitle: 'V: Verification - Analytics-Driven Learning', 
     modalBody: [
         "The Rigor: How we know it's working.",
@@ -118,7 +118,7 @@ const DIVE_FRAMEWORK = [
     ]
   },
   { 
-    letter: 'E', icon: HardHat, title: 'Execution', description: 'Scalable Delivery', 
+    letter: 'E', title: 'Execution', description: 'Scalable Delivery', 
     modalTitle: 'E: Execution - Scalable Delivery', 
     modalBody: [
         "The Outcome: How we deliver lasting value.",
@@ -540,7 +540,7 @@ const HeroSection = React.memo(({ scrollToServices }) => (
       // Responsive Background Style: Uses repeating pattern for consistency across all sizes.
       // NOTE: If using a single, large image (e.g., 1920x1080px), change '150px' to 'cover' and 'backgroundRepeat' to 'no-repeat'.
       backgroundImage: `url(${HERO_BG_PATH})`,
-      backgroundSize: '150px',
+      backgroundSize: 'cover',
       backgroundRepeat: 'repeat',
       backgroundBlendMode: 'overlay', // Blends the pattern with the solid color
       backgroundColor: '#0A0A0A',
@@ -548,7 +548,7 @@ const HeroSection = React.memo(({ scrollToServices }) => (
     }}
   >
     {/* Dark Overlay for text legibility */}
-    <div className="absolute inset-0 bg-gray-950/80 backdrop-blur-sm"></div>
+    <div className="absolute inset-0 bg-gray-950/40 backdrop-blur-sm"></div>
     
     <div className="relative z-10 max-w-4xl text-center px-4">
       {/* H1: Fully responsive font sizes (text-4xl up to lg:text-7xl) */}
@@ -644,7 +644,6 @@ const PhilosophySection = React.memo(({ openTextModal }) => (
             className="text-center p-6 border border-gray-200 rounded-xl shadow-lg bg-white transition-all duration-300 hover:shadow-cyan-200 hover:border-cyan-500 transform hover:-translate-y-0.5"
           >
             <div className={`text-5xl font-extrabold mb-4 ${PRIMARY_ACCENT}`}>{item.letter}</div>
-            <item.icon className={`${SECONDARY_ACCENT} mx-auto mb-4`} size={32} />
             <h4 className="text-xl font-semibold text-gray-900 mb-2">{item.title}</h4>
             <p className="text-gray-600 text-sm">{item.description}</p>
           </button>
