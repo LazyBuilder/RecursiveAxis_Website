@@ -1,15 +1,13 @@
 {
   "files": {
-    "main.css": "/storylineds_website/static/css/main.52cc19cc.css",
-    "main.js": "/storylineds_website/static/js/main.f5c38416.js",
-    "static/media/mshcg-dugapuja.png": "/storylineds_website/static/media/mshcg-dugapuja.e4bd5c6a6c5b7f22755b.png",
-    "static/media/verve-photography.png": "/storylineds_website/static/media/verve-photography.dce75fa927954aeab51f.png",
+    "main.css": "/storylineds_website/static/css/main.9345093a.css",
+    "main.js": "/storylineds_website/static/js/main.0fb4c257.js",
     "index.html": "/storylineds_website/index.html",
-    "main.52cc19cc.css.map": "/storylineds_website/static/css/main.52cc19cc.css.map",
-    "main.f5c38416.js.map": "/storylineds_website/static/js/main.f5c38416.js.map"
+    "main.9345093a.css.map": "/storylineds_website/static/css/main.9345093a.css.map",
+    "main.0fb4c257.js.map": "/storylineds_website/static/js/main.0fb4c257.js.map"
   },
   "entrypoints": [
-    "static/css/main.52cc19cc.css",
-    "static/js/main.f5c38416.js"
+    "static/css/main.9345093a.css",
+    "static/js/main.0fb4c257.js"
   ]
 }
