@@ -19,7 +19,7 @@ const SECONDARY_ACCENT = 'text-cyan-600'; // Used for sub-headings and distincti
  * --- ASSET CONFIGURATION ---
  * Images are loaded directly from the environment using unique contentFetchIds.
  */
-const LOGO_PATH = `${process.env.PUBLIC_URL}/assets/StorylineDS_Logo_NoBackground_AccentColor.png`;
+const LOGO_PATH = `${process.env.PUBLIC_URL}/assets/StorylineDS_Logo_White.png`;
 const HERO_BG_PATH = `${process.env.PUBLIC_URL}/assets/Storyline_Background_Dark.png`;
 const FOUNDER_IMAGE_PATH = `${process.env.PUBLIC_URL}/assets/TeamProfilePic_Asit.jpeg`; // Placeholder (Update with actual ID)
 
