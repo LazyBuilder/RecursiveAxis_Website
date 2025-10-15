@@ -55,7 +55,7 @@ const SERVICE_DATA = [
         "Due Diligence Preparation: Readying your technology for investor scrutiny.",
     ],
     modalCta: 'Book a Strategy Session',
-    ctaLink: '#booking'
+    ctaLink: 'https://cal.com/asitdeva'
   },
   {
     segment: 'Investors',
@@ -71,7 +71,7 @@ const SERVICE_DATA = [
         "Exit Readiness Audits: Ensuring tech stack is optimized for maximum valuation upon sale.",
     ],
     modalCta: 'Request Due Diligence Scope',
-    ctaLink: '#booking'
+    ctaLink: 'https://cal.com/asitdeva'
   },
   {
     segment: 'Corporates',
@@ -87,7 +87,7 @@ const SERVICE_DATA = [
         "In-House Venture Design: Frameworks to validate and spin out new internal ventures.",
     ],
     modalCta: 'Explore Program Options',
-    ctaLink: '#booking'
+    ctaLink: 'https://cal.com/asitdeva'
   },
 ];
 
