@@ -370,7 +370,7 @@ const ServiceModal = ({ isOpen, onClose, content }) => {
           {/* Logo and Title Group */}
           <div className="flex items-center space-x-3">
              {/* Logo added here: Small size (h-7) and slightly transparent */}
-             <img src={SIMPLE_LOGO_PATH} alt="Recursive Axis Logo" className={`h-7 opacity-70`} />
+             <img src={SIMPLE_LOGO_PATH} alt="Recursive Axis Logo" className={`h-10 px-3 opacity-70`} />
              <h3 className={`text-2xl font-bold ${PRIMARY_ACCENT}`}>{content.modalTitle}</h3>
           </div>
           {/* Close Button */}
@@ -419,7 +419,7 @@ const TextModal = ({ isOpen, onClose, content }) => {
                   {/* Logo and Title Group */}
                   <div className="flex items-center space-x-3">
                        {/* Logo added here: h-7 size and slightly transparent */}
-                      <img src={SIMPLE_LOGO_PATH} alt="Recursive Axis Logo" className={`h-7 opacity-80`} />
+                      <img src={SIMPLE_LOGO_PATH} alt="Recursive Axis Logo" className={`h-10 px-3 opacity-80`} />
                       
                       {/* Title color changed to PRIMARY_ACCENT (pink) */}
                       <h3 className={`text-2xl font-bold ${PRIMARY_ACCENT}`}>{content.title}</h3>
