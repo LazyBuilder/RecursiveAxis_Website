@@ -727,7 +727,7 @@ const ProjectsShowcase = React.memo(({ setPage }) => {
                   return (
                       <div
                           key={project.id}
-                          className={`bg-white p-6 rounded-xl border ${colors.border} shadow-lg transition-all duration-300 hover:shadow-xl hover:${colors.shadow}`}
+                          className={`bg-white p-6 rounded-xl border ${colors.border} shadow-lg transition-all duration-300 hover:shadow-xl hover:${colors.shadow} cursor-pointer`}
                       >
                           
                           {/* 2. DEDICATED IMAGE SPACE: Fixed height (h-48) */}
@@ -743,12 +743,11 @@ const ProjectsShowcase = React.memo(({ setPage }) => {
                                   <div className="w-full h-full bg-gray-100/50 flex flex-col items-center justify-center p-8">
                                       <div className="p-2 rounded-md bg-white border border-cyan-600 flex-shrink-0 aspect-square w-16 mb-2"> 
                                           <img 
-                                              src={SIMPLE_LOGO_PATH} 
+                                              src={LOGO_PATH} 
                                               alt="Recursive Axis Logo" 
                                               className="h-full w-full object-contain" 
                                           />
                                       </div>
-                                      <p className="text-gray-700 text-sm text-center font-semibold">Image Coming Soon</p>
                                   </div>
                               )}
                           </div>
