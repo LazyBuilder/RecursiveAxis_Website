@@ -360,7 +360,7 @@ const ServiceModal = ({ isOpen, onClose, content }) => {
         <ul className="list-disc list-inside space-y-3 text-gray-300 mb-6 pl-4">
             {content.modalBulletPoints.map((item, index) => (
                 <li key={index} className="text-sm md:text-base">
-                    <span className="font-semibold text-white mr-1">•</span>{item}
+                    {item}
                 </li>
             ))}
         </ul>
