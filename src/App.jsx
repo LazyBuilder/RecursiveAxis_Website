@@ -14,7 +14,7 @@ function App() {
   return (
     // BrowserRouter is the necessary wrapper for all routing logic
     <BrowserRouter basename={BASE_PATH}>
-      <div className="App">
+      <div className="App overflow-hidden">
         {/* Routes component handles switching based on URL path */}
         <Routes>
           

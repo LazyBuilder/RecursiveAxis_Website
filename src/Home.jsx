@@ -452,7 +452,7 @@ const Header = React.memo(({ setPage, scrollToSection }) => {
           className={`
             flex items-center space-x-2 text-white 
             p-3 rounded-xl shadow-xl z-50 transition-all duration-300 
-            ${DARK_BACKGROUND} transform -translate-y-2 
+            ${DARK_BACKGROUND} transform -translate-y-2
             hover:shadow-2xl hover:scale-[1.02]
           `}
         >
