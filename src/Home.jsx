@@ -549,22 +549,22 @@ const Header = React.memo(({ setPage, scrollToSection }) => {
  * Footer Component (Minimal and Professional)
  */
 const Footer = React.memo(({ openTextModal }) => (
-  // ADDED: bg-opacity-70, backdrop-blur-sm, and style attribute for the background image
   <footer 
-    className={`${DARK_BACKGROUND} border-t border-gray-800/50 mt-20 relative overflow-hidden`} // ADDED: relative, overflow-hidden
+    className={`${DARK_BACKGROUND} border-t border-gray-800/50 mt-20 relative overflow-hidden`}
   >
-    {/* --- NEW BACKGROUND LAYER --- */}
+    {/* --- NEW BACKGROUND LAYER (z-0) --- */}
     <div 
-      className="absolute inset-0 z-0 bg-opacity-70"
+      className="absolute inset-0 z-0 bg-opacity-30"
       style={{
         backgroundImage: `url(${HERO_BG_PATH})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        filter: 'blur(3px)', 
+        filter: 'blur(1px)', 
       }}
     />
     {/* ---------------------------- */}
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center text-gray-500 text-sm z-10">
+    {/* CONTENT LAYER (relative z-10) */}
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center text-gray-500 text-sm relative z-10">
       {/* Footer Navigation - Uses buttons to trigger text modals for legal content */}
       <div className="flex justify-center space-x-4 mb-4 flex-wrap">
         <a href="#services" onClick={() => scrollToSection('services')} className="hover:text-pink-500 transition-colors">Services</a>
@@ -578,7 +578,7 @@ const Footer = React.memo(({ openTextModal }) => (
       <p>&copy; {new Date().getFullYear()} Recursive Axis. All rights reserved. | Strategic Partner for Innovation.</p>
     </div>
   </footer>
-)) // REMOVED trailing semicolon from React.memo
+)); // REMOVED trailing semicolon from React.memo
 
 // ----------------------------------------------------------------------
 // --- Home Page Sections ---
@@ -845,63 +845,65 @@ const TrustedCompaniesMarquee = () => (
 );
 
     return (
-        <section className={`py-20 md:py-32 ${DARK_BACKGROUND} border-t border-b border-gray-800 relative overflow-hidden`}>
-          {/* --- NEW BACKGROUND LAYER --- */}
-          <div 
-            className="absolute inset-0 z-0 bg-opacity-70" // z-0 puts it behind content
-            style={{
-              backgroundImage: `url(${HERO_BG_PATH})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              // ADDED: Native CSS filter: blur(3px)
-              filter: 'blur(3px)', 
-            }}
-          />
-          {/* ---------------------------- */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
-                {PARTNER_DATA.map((partner, index) => (
-                    // Responsive layout: image/text switch order on desktop
-                    <div key={index} className="grid md:grid-cols-2 gap-12 items-center p-10 rounded-xl">
-                        <div className="md:order-1">
-                            <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
-                                Meet The {partner.isFounder ? 'Founder' : 'Partner'}: {partner.name}
-                            </h2>
-                            <p className={`text-lg mb-8 ${SECONDARY_ACCENT}`}>{partner.title}</p>
-                            <p className="text-gray-300 text-lg mb-8">{partner.copy}</p>
+      <section className={`py-20 md:py-32 ${DARK_BACKGROUND} border-t border-b border-gray-800 relative overflow-hidden`}>
+      {/* --- NEW BACKGROUND LAYER (z-0) --- */}
+      <div 
+        className="absolute inset-0 z-0 bg-opacity-50"
+        style={{
+          backgroundImage: `url(${HERO_BG_PATH})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          // ADDED: Native CSS filter: blur(3px)
+          filter: 'blur(3px)', 
+        }}
+      />
+      {/* ---------------------------- */}
+        
+      {/* CONTENT LAYER: ADDED relative and ensured z-10 for stacking context */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            {PARTNER_DATA.map((partner, index) => (
+                // Responsive layout: image/text switch order on desktop
+                <div key={index} className="grid md:grid-cols-2 gap-12 items-center p-10 rounded-xl">
+                    <div className="md:order-1">
+                        <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
+                            Meet The {partner.isFounder ? 'Founder' : 'Partner'}: {partner.name}
+                        </h2>
+                        <p className={`text-lg mb-8 ${SECONDARY_ACCENT}`}>{partner.title}</p>
+                        <p className="text-gray-300 text-lg mb-8">{partner.copy}</p>
 
-                            <a
-                                href={partner.linkedin}
-                                target="_blank" rel="RecursiveAxis Website"
-                                className={`inline-flex items-center font-bold text-lg ${PRIMARY_ACCENT} hover:text-white transition-colors`}
-                            >
-                                Connect with {partner.name.split(' ')[0]} on LinkedIn <Link className="ml-2" size={20} />
-                            </a>
-                        </div>
-                        <div className="md:order-2 flex justify-center">
-                            {/* Founder Image Placeholder/Container */}
-                            {/* NOTE: Recommended founder image size is 500x500px. */}
-                            <div className={`w-64 h-64 rounded-full bg-gray-800 border-4 border-pink-500 flex items-center justify-center shadow-2xl shadow-pink-500/20 overflow-hidden`}>
-                                <img
-                                    src={FOUNDER_IMAGE_PATH}
-                                    alt={`Headshot of ${partner.name}`}
-                                    className={`w-full h-full object-cover transition-opacity duration-500 ${isImageLoaded ? 'opacity-100' : 'opacity-0'}`}
-                                    onLoad={() => setIsImageLoaded(true)}
-                                    // Ensure fallback icon shows on error by setting isImageLoaded to false
-                                    onError={(e) => { 
-                                        e.target.onerror = null; 
-                                        setIsImageLoaded(false); 
-                                    }}
-                                />
-                                {/* Fallback icon - only visible if image hasn't loaded (either loading or error) */}
-                                {!isImageLoaded && <User className='text-gray-400' size={64}/>}
-                            </div>
+                        <a
+                            href={partner.linkedin}
+                            target="_blank" rel="RecursiveAxis Website"
+                            className={`inline-flex items-center font-bold text-lg ${PRIMARY_ACCENT} hover:text-white transition-colors`}
+                        >
+                            Connect with {partner.name.split(' ')[0]} on LinkedIn <Link className="ml-2" size={20} />
+                        </a>
+                    </div>
+                    <div className="md:order-2 flex justify-center">
+                        {/* Founder Image Placeholder/Container */}
+                        {/* NOTE: Recommended founder image size is 500x500px. */}
+                        <div className={`w-64 h-64 rounded-full bg-gray-800 border-4 border-pink-500 flex items-center justify-center shadow-2xl shadow-pink-500/20 overflow-hidden`}>
+                            <img
+                                src={FOUNDER_IMAGE_PATH}
+                                alt={`Headshot of ${partner.name}`}
+                                className={`w-full h-full object-cover transition-opacity duration-500 ${isImageLoaded ? 'opacity-100' : 'opacity-0'}`}
+                                onLoad={() => setIsImageLoaded(true)}
+                                // Ensure fallback icon shows on error by setting isImageLoaded to false
+                                onError={(e) => { 
+                                    e.target.onerror = null; 
+                                    setIsImageLoaded(false); 
+                                }}
+                            />
+                            {/* Fallback icon - only visible if image hasn't loaded (either loading or error) */}
+                            {!isImageLoaded && <User className='text-gray-400' size={64}/>}
                         </div>
                     </div>
-                ))}
-            </div>
-            {/* Trusted Companies Marquee */}
-            <TrustedCompaniesMarquee />
-        </section>
+                </div>
+            ))}
+        </div>
+        {/* Trusted Companies Marquee */}
+        <TrustedCompaniesMarquee />
+    </section>
     );
 }) // REMOVED trailing semicolon from React.memo
 
