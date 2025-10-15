@@ -245,59 +245,75 @@ const TagPill = ({ text }) => (
  * Designed to be a highly visible overlay with a backdrop blur.
  */
 const FullDescriptionModal = ({ project, onClose }) => {
-    if (!project) return null;
+  if (!project) return null;
 
-    return (
-        // Modal Overlay (Responsive: fixed, full screen, centered content)
-        <div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-950/90 backdrop-blur-sm transition-opacity duration-300"
-            aria-modal="true"
-            role="dialog"
-            onClick={onClose}
-        >
-            <div
-                // Modal Content Container (Responsive: max width, max height, scrollable)
-                className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-xl bg-gray-900 shadow-2xl transform transition-transform duration-300 scale-100 border border-gray-700"
-                onClick={(e) => e.stopPropagation()} // Prevents closing when clicking inside
-            >
-                <div className="p-6 sm:p-8">
-                    {/* Close Button */}
-                    <button
-                        onClick={onClose}
-                        className="absolute top-4 right-4 text-gray-400 hover:text-white transition duration-200 p-2 rounded-full hover:bg-gray-800"
-                        aria-label="Close modal"
-                    >
-                        <X className="w-6 h-6" />
-                    </button>
+  return (
+      // Modal Overlay (1. ADDED: overflow-y-auto for scrolling the entire overlay)
+      <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-950/90 backdrop-blur-sm transition-opacity duration-300 overflow-y-auto"
+          aria-modal="true"
+          role="dialog"
+          onClick={onClose}
+      >
+          <div
+              // Modal Content Container (2. ADDED: max-h-[90vh] to constrain height)
+              // 3. ADDED: p-4 to the container itself ensures a minimum gap from screen edge on mobile
+              className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-xl bg-gray-900 shadow-2xl transform transition-transform duration-300 scale-100 border border-gray-700"
+              onClick={(e) => e.stopPropagation()} // Prevents closing when clicking inside
+          >
+              <div className="p-6 sm:p-8">
+                  
+                  {/* Header Group: Logo, Title, and Close Button */}
+                  <div className="flex items-start justify-between mb-4">
+                      {/* 4. Logo and Title Group */}
+                      <div className="flex items-center space-x-4">
+                          {/* Logo: Small, fixed size with cyan border */}
+                          <div className="p-2 rounded-md bg-white border border-cyan-600 flex-shrink-0 aspect-square w-8"> 
+                              <img 
+                                  src={SIMPLE_LOGO_PATH} 
+                                  alt="Recursive Axis Logo" 
+                                  className={`h-full w-full object-contain opacity-80`} 
+                              />
+                          </div>
+                          <h2 className="text-3xl font-extrabold text-pink-400 border-b border-pink-600 pb-2">
+                              {project.title}
+                          </h2>
+                      </div>
+                      
+                      {/* Close Button (Moved out of the flow for clean alignment) */}
+                      <button
+                          onClick={onClose}
+                          className="text-gray-400 hover:text-white transition duration-200 p-2 rounded-full hover:bg-gray-800 flex-shrink-0"
+                          aria-label="Close modal"
+                      >
+                          <X className="w-6 h-6" />
+                      </button>
+                  </div>
 
-                    <h2 className="text-3xl font-extrabold text-pink-400 mb-4 border-b border-pink-600 pb-2">
-                        {project.title}
-                    </h2>
+                  {/* Tags */}
+                  <div className="flex flex-wrap mb-4">
+                      {project.tags.map((tag, index) => (
+                          <TagPill key={index} text={tag} />
+                      ))}
+                  </div>
+                  
+                  {/* Full Description - using whitespace-pre-wrap for cleaner paragraph formatting */}
+                  <p className="text-gray-300 leading-relaxed whitespace-pre-wrap">{project.description}</p>
 
-                    {/* Tags */}
-                    <div className="flex flex-wrap mb-4">
-                        {project.tags.map((tag, index) => (
-                            <TagPill key={index} text={tag} />
-                        ))}
-                    </div>
-                    
-                    {/* Full Description - using whitespace-pre-wrap for cleaner paragraph formatting */}
-                    <p className="text-gray-300 leading-relaxed whitespace-pre-wrap">{project.description}</p>
-
-                    {/* Project Image - Responsive and with error fallback */}
-                    {project.image && (
-                        <img
-                            src={project.image}
-                            alt={project.title}
-                            className="mt-6 w-full h-auto object-cover rounded-lg shadow-lg"
-                            // Error handler for broken images, replacing them with a placeholder
-                            onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/600x400/555/eee?text=${project.title.replace(/\s/g, '+')}`; }}
-                        />
-                    )}
-                </div>
-            </div>
-        </div>
-    );
+                  {/* Project Image - Responsive and with error fallback */}
+                  {project.image && (
+                      <img
+                          src={project.image}
+                          alt={project.title}
+                          className="mt-6 w-full h-auto object-cover rounded-lg shadow-lg"
+                          // Error handler for broken images, replacing them with a placeholder
+                          onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/600x400/555/eee?text=${project.title.replace(/\s/g, '+')}`; }}
+                      />
+                  )}
+              </div>
+          </div>
+      </div>
+  );
 };
 
 
@@ -1089,7 +1105,7 @@ const App = () => {
     // to the new 'page' content (like the ProjectsView).
     const scrollTimeout = setTimeout(() => {
       window.scrollTo(0, 0);
-  }, 1); // A 1ms delay is often enough to push it to the end of the stack
+  }, 50); // A 1ms delay is often enough to push it to the end of the stack
 
   // 2. **Handle Hash Scroll only if on the 'home' page**
   if (page === 'home' && window.location.hash) {
