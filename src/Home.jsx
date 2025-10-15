@@ -541,14 +541,14 @@ const HeroSection = React.memo(({ scrollToServices }) => (
       // NOTE: If using a single, large image (e.g., 1920x1080px), change '150px' to 'cover' and 'backgroundRepeat' to 'no-repeat'.
       backgroundImage: `url(${HERO_BG_PATH})`,
       backgroundSize: 'cover',
-      backgroundRepeat: 'repeat',
-      backgroundBlendMode: 'overlay', // Blends the pattern with the solid color
+      backgroundRepeat: 'no-repeat',
+      //backgroundBlendMode: 'overlay', // Blends the pattern with the solid color
       backgroundColor: '#0A0A0A',
       backgroundPosition: 'center',
     }}
   >
     {/* Dark Overlay for text legibility */}
-    <div className="absolute inset-0 bg-gray-950/40 backdrop-blur-sm"></div>
+    <div className="absolute inset-0 bg-gray-950/20 backdrop-blur-sm"></div>
     
     <div className="relative z-10 max-w-4xl text-center px-4">
       {/* H1: Fully responsive font sizes (text-4xl up to lg:text-7xl) */}
