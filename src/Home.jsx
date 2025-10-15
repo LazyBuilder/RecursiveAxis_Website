@@ -724,6 +724,10 @@ const ProjectsShowcase = React.memo(({ setPage }) => {
                   // Use a project-specific image or a default logo path
                   const projectVisual = project.image || LOGO_PATH; 
 
+                  const imageClass = project.image 
+                    ? "w-full h-full object-cover" 
+                    : "w-full h-full object-contain p-8 bg-gray-100";
+
                   return (
                       <div
                           key={project.id}
@@ -732,26 +736,12 @@ const ProjectsShowcase = React.memo(({ setPage }) => {
                           
                           {/* 2. DEDICATED IMAGE SPACE: Fixed height (h-48) */}
                           <div className="mb-4 h-48 w-full overflow-hidden rounded-lg relative">
-                              {project.image ? (
-                                  <img
-                                      src={projectVisual}
-                                      alt={`Image of ${project.title}`}
-                                      className="w-full h-full object-cover"
-                                  />
-                              ) : (
-                                  // Fallback: Show the logo prominently if no image is available
-                                  <div className="w-full h-full bg-gray-100/50 flex flex-col items-center justify-center p-8">
-                                      <div className="p-2 rounded-md bg-white border border-cyan-600 flex-shrink-0 aspect-square w-16 mb-2"> 
-                                          <img 
-                                              src={LOGO_PATH} 
-                                              alt="Recursive Axis Logo" 
-                                              className="h-full w-full object-contain" 
-                                          />
-                                      </div>
-                                  </div>
-                              )}
+                              <img
+                                  src={projectVisual}
+                                  alt={`Visual for ${project.title}`}
+                                  className={imageClass}
+                              />
                           </div>
-                          
                           {/* Title (Now takes full width under the image) */}
                           <h4 className="text-xl font-bold text-gray-900 mb-2">{project.title}</h4>
                           
