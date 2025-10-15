@@ -564,7 +564,7 @@ const Footer = React.memo(({ openTextModal }) => (
       }}
     />
     {/* ---------------------------- */}
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center text-gray-500 text-sm">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center text-gray-500 text-sm z-10">
       {/* Footer Navigation - Uses buttons to trigger text modals for legal content */}
       <div className="flex justify-center space-x-4 mb-4 flex-wrap">
         <a href="#services" onClick={() => scrollToSection('services')} className="hover:text-pink-500 transition-colors">Services</a>
@@ -858,7 +858,7 @@ const TrustedCompaniesMarquee = () => (
             }}
           />
           {/* ---------------------------- */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
                 {PARTNER_DATA.map((partner, index) => (
                     // Responsive layout: image/text switch order on desktop
                     <div key={index} className="grid md:grid-cols-2 gap-12 items-center p-10 rounded-xl">
