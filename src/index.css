@@ -17,6 +17,22 @@ html, body {
   }
   /* ---------------------------- */
 
+  @media print {
+    /* Use this to force all elements to be visible */
+    * {
+        visibility: visible !important;
+        display: block !important;
+        /* Optionally, override any problematic positioning */
+        position: static !important; 
+    }
+
+    /* Keep the header from repeating or breaking layout */
+    header {
+        position: absolute !important; 
+        top: 0 !important;
+    }
+}
+
 
 @tailwind base;
 @tailwind components;

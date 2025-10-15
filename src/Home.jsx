@@ -134,7 +134,7 @@ const TRUSTED_COMPANIES = [
   { name: 'TCS', url: 'https://www.tcs.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/TCS_logo.png` },
   { name: 'Equifax', url: 'https://www.equifax.ca/canada/equifax/b_en.html', logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Equifax_Logo.png` },
   { name: 'J&J', url: 'https://www.jnj.com/', logo: `${process.env.PUBLIC_URL}/assets/asit_logos/JnJ_Logo.png` },
-  { name: 'Siemens', url: 'https://www.siemens.com/global/en.html', logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Simenes_logo.png` },
+  { name: 'Siemens', url: 'https://www.siemens.com/global/en.html', logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Siemens_logo.png` },
   { name: 'PUDO', url: 'https://pudopoint.com/'  , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/PUDO_logo.png` },
   { name: 'Ignite AI', url: "https://www.linkedin.com/company/ignite-ai/posts" },
   { name: 'YorkU', url: 'https://www.yorku.ca/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/York_U_Logo.png` },
