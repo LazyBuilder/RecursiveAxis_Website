@@ -449,7 +449,7 @@ const Header = React.memo(({ setPage, scrollToSection }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Logo/Brand (Always visible) */}
         <button onClick={() => setPage('home')} className="flex items-center space-x-2 text-white transition-opacity hover:opacity-80">
-          <img src={LOGO_PATH} alt="Recursive Axis Logo" className={`h-8`} />
+          <img src={LOGO_PATH} alt="Recursive Axis Logo" className={`h-12`} />
           <span className="text-xl font-extrabold tracking-tight">Recursive Axis</span>
         </button>
 
@@ -739,8 +739,9 @@ const TrustedCompaniesMarquee = () => (
           }
           /* Style for the company logo images */
           .company-logo {
-              max-height: 2rem; /* Adjust this value as needed for logo size */
+              height: 2rem; /* Adjust this value as needed for logo size */
               width: auto;
+              object-fit: contain;
               opacity: 0.9; /* Initial opacity for a subtle look */
               transition: opacity 0.1s, transform 0.3s;
           }
