@@ -477,7 +477,7 @@ const Header = React.memo(({ setPage, scrollToSection }) => {
             p-5 rounded-xl shadow-xl z-50 transition-all duration-300 
             ${DARK_BACKGROUND} transform translate-y-6
             hover:scale-[1.2]
-            hover:shadow-2xl hover:shadow-cyan-100 cursor-pointer transform hover:-translate-y-1
+            hover:shadow-2xl hover:shadow-cyan-100 cursor-pointer transform hover:translate-y-3
           `}
         >
           <img src={LOGO_PATH} alt="Recursive Axis Logo" className={`h-20`} />
