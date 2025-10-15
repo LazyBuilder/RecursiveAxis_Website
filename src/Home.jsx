@@ -1041,7 +1041,7 @@ const App = () => {
       {/* The Header is always visible */}
       <Header setPage={setPage} scrollToSection={scrollToSection} />
 
-      <main className="pt-20 overflow-hidden">
+      <main className="pt-0 overflow-hidden">
         {/* Conditional Rendering of Views (Simple Router) */}
         {page === 'home' && (
             <HomeView 
