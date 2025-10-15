@@ -474,13 +474,13 @@ const Header = React.memo(({ setPage, scrollToSection }) => {
         <button onClick={() => setPage('home')} 
           className={`
             flex items-center space-x-2 text-white 
-            p-5 rounded-xl shadow-xl z-50 transition-all duration-300 
-            ${DARK_BACKGROUND} transform translate-y-6
+            p3 md:p-5 rounded-xl shadow-xl z-50 transition-all duration-300 
+            ${DARK_BACKGROUND} transform translate-y-3 md:translate-y-6
             hover:scale-[1.2]
             hover:shadow-2xl hover:shadow-cyan-100 cursor-pointer transform hover:translate-y-3
           `}
         >
-          <img src={LOGO_PATH} alt="Recursive Axis Logo" className={`h-20`} />
+          <img src={LOGO_PATH} alt="Recursive Axis Logo" className={`h-10 md:h-20`} />
           {/* <span className="text-xl font-extrabold tracking-tight">Recursive Axis</span>*/}
         </button>
 
@@ -517,7 +517,7 @@ const Header = React.memo(({ setPage, scrollToSection }) => {
               <button
                 key={link.id}
                 onClick={() => handleNavClick(link.id)}
-                className="text-lg text-gray-300 hover:text-white text-left py-2 border-b border-gray-800"
+                className="text-lg text-gray-300 hover:text-white text-right py-2 border-b border-gray-800"
               >
                 {link.name}
               </button>
