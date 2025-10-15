@@ -374,7 +374,7 @@ const ServiceModal = ({ isOpen, onClose, content }) => {
           {/* Logo and Title Group */}
           <div className="flex items-center space-x-3">
              {/* CORRECTED LOGO SIZE: w-8 container, inner image h-full w-full */}
-             <div className="p-2 rounded-md bg-cyan-600/30 flex-shrink-0 aspect-square w-8"> 
+             <div className="p-2 rounded-md bg-white border border-cyan-600 flex-shrink-0 aspect-square w-12"> 
               <img 
                 src={SIMPLE_LOGO_PATH} 
                 alt="Recursive Axis Logo" 
@@ -427,7 +427,7 @@ const TextModal = ({ isOpen, onClose, content }) => {
               >
                   <div className="flex items-center space-x-3">
                        {/* CORRECTED LOGO SIZE: Outer div sets size (w-8), inner image fills it (h-full w-full) */}
-                       <div className="p-2 rounded-md bg-cyan-600/30 flex-shrink-0 aspect-square w-8"> 
+                       <div className="p-2 rounded-md bg-gray-950 border border-cyan-600 flex-shrink-0 aspect-square w-12"> 
                           <img 
                             src={SIMPLE_LOGO_PATH} 
                             alt="Recursive Axis Logo" 
