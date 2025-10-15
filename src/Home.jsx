@@ -670,36 +670,7 @@ const ServicesSection = React.memo(({ openModal }) => (
 )) // REMOVED trailing semicolon from React.memo
 
 /**
- * Section 3: Our Core Philosophy (The D.I.V.E. Framework)
- */
-const PhilosophySection = React.memo(({ openTextModal }) => (
-  <section id="philosophy" className={`py-20 md:py-32 bg-gray-50 border-t border-b border-gray-200 ${LIGHT_TEXT}`}>
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="text-center mb-16">
-        <h3 className={`text-sm tracking-widest uppercase font-bold mb-3 ${SECONDARY_ACCENT}`}>Our Blueprint</h3>
-        <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">Our Core Philosophy: The D.I.V.E. Framework.</h2>
-      </div>
-
-      {/* Responsive Grid Layout (4 columns desktop) */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {DIVE_FRAMEWORK.map((item, index) => (
-          <button
-            key={item.letter}
-            onClick={() => openTextModal({title: item.modalTitle, body: item.modalBody})}
-            className="text-center p-6 border border-gray-200 rounded-xl shadow-lg bg-white transition-all duration-300 hover:shadow-cyan-200 hover:border-cyan-500 transform hover:-translate-y-0.5"
-          >
-            <div className={`text-5xl font-extrabold mb-4 ${PRIMARY_ACCENT}`}>{item.letter}</div>
-            <h4 className="text-xl font-semibold text-gray-900 mb-2">{item.title}</h4>
-            <p className="text-gray-600 text-sm">{item.description}</p>
-          </button>
-        ))}
-      </div>
-    </div>
-  </section>
-)) // REMOVED trailing semicolon from React.memo
-
-/**
- * Section 4: Recent Projects Showcase (Limited to 4 items)
+ * Section 3: Recent Projects Showcase (Limited to 4 items)
  */
 const ProjectsShowcase = React.memo(({ setPage }) => {
     // Show only the first 4 projects for the homepage showcase
@@ -754,6 +725,36 @@ const ProjectsShowcase = React.memo(({ setPage }) => {
         </section>
     );
 }) // REMOVED trailing semicolon from React.memo
+
+/**
+ * Section 4: Our Core Philosophy (The D.I.V.E. Framework)
+ */
+const PhilosophySection = React.memo(({ openTextModal }) => (
+  <section id="philosophy" className={`py-20 md:py-32 bg-gray-50 border-t border-b border-gray-200 ${LIGHT_TEXT}`}>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="text-center mb-16">
+        <h3 className={`text-sm tracking-widest uppercase font-bold mb-3 ${SECONDARY_ACCENT}`}>Our Blueprint</h3>
+        <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">Our Core Philosophy: The D.I.V.E. Framework.</h2>
+      </div>
+
+      {/* Responsive Grid Layout (4 columns desktop) */}
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {DIVE_FRAMEWORK.map((item, index) => (
+          <button
+            key={item.letter}
+            onClick={() => openTextModal({title: item.modalTitle, body: item.modalBody})}
+            // ADDED: max-w-xs (limit width) and mx-auto (center it)
+            className="text-center p-6 border border-gray-200 rounded-xl shadow-lg bg-white transition-all duration-300 hover:shadow-cyan-200 hover:border-cyan-500 transform hover:-translate-y-0.5 max-w-xs mx-auto"
+          >
+            <div className={`text-5xl font-extrabold mb-4 ${PRIMARY_ACCENT}`}>{item.letter}</div>
+            <h4 className="text-xl font-semibold text-gray-900 mb-2">{item.title}</h4>
+            <p className="text-gray-600 text-sm">{item.description}</p>
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+)) // REMOVED trailing semicolon from React.memo
 
 /**
  * Section 5: Meet The Team & Trusted Companies Marquee (Dark Background)
