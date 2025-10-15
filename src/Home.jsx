@@ -722,7 +722,7 @@ const ProjectsShowcase = React.memo(({ setPage }) => {
                   const colors = PROJECT_COLORS[project.color];
                   
                   // Use a project-specific image or a default logo path
-                  const projectVisual = project.image || SIMPLE_LOGO_PATH; 
+                  const projectVisual = project.image || LOGO_PATH; 
 
                   return (
                       <div
