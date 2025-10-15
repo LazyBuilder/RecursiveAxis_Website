@@ -467,7 +467,7 @@ const Header = React.memo(({ setPage, scrollToSection }) => {
             </button>
           ))}
           {/* Main CTA Button */}
-          <a href="#booking" className={`ml-8 px-5 py-2 rounded-lg font-bold transition-all duration-300 bg-pink-600 hover:bg-pink-700 text-white shadow-lg shadow-pink-500/30`}>
+          <a href="https://cal.com/asitdeva" className={`ml-8 px-5 py-2 rounded-lg font-bold transition-all duration-300 bg-pink-600 hover:bg-pink-700 text-white shadow-lg shadow-pink-500/30`}>
             Book a Call
           </a>
         </nav>
@@ -491,7 +491,7 @@ const Header = React.memo(({ setPage, scrollToSection }) => {
                 {link.name}
               </button>
             ))}
-            <a href="#booking" onClick={() => setIsMenuOpen(false)} className={`w-full text-center font-bold py-3 rounded-lg mt-4 transition-all duration-300 bg-pink-600 hover:bg-pink-700 text-white shadow-lg shadow-pink-500/30`}>
+            <a href="https://cal.com/asitdeva" onClick={() => setIsMenuOpen(false)} className={`w-full text-center font-bold py-3 rounded-lg mt-4 transition-all duration-300 bg-pink-600 hover:bg-pink-700 text-white shadow-lg shadow-pink-500/30`}>
               Book a Call
             </a>
           </nav>
@@ -850,7 +850,7 @@ const FinalCTASection = React.memo(() => (
       </p>
       {/* Final CTA Button (Prominent size and hover effect) */}
       <a
-        href="#" // Placeholder for Calendly link
+        href="https://cal.com/asitdeva" // Placeholder for Calendly link
         target="_blank"
         rel="noopener noreferrer"
         className="inline-flex items-center px-10 py-4 rounded-lg text-xl font-extrabold transition-all duration-300 bg-gray-950 hover:bg-gray-800 text-white shadow-xl shadow-gray-950/50 transform hover:scale-[1.05]"
@@ -926,7 +926,7 @@ const ProjectsView = React.memo(({ setPage, openFullDescriptionModal }) => {
       <div className="mt-20 text-center">
           <h3 className="text-2xl font-bold text-white mb-4">Ready to be our next success story?</h3>
           <a
-              href="#booking"
+              href="https://cal.com/asitdeva"
               className={`inline-flex items-center px-6 py-3 rounded-lg text-lg font-bold transition-all duration-300 bg-pink-600 hover:bg-pink-700 text-white shadow-lg shadow-pink-500/30`}
           >
               Reserve Your Session
