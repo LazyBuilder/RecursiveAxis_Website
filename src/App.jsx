@@ -8,7 +8,7 @@ import './App.css';
 import Home from './Home';                 
 
 // 💡 Define the required base path
-const BASE_PATH = '/storylineds_website'; 
+const BASE_PATH = '/RecursiveAxis_Website'; 
 
 function App() {
   return (
