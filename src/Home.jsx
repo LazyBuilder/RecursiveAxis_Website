@@ -1118,29 +1118,39 @@ const App = () => {
     setFullDescriptionModalContent(null);
   }, []);
 
- // EFFECT: Handles page change and scroll position (Ensures view starts at top)
+  // EFFECT: Ensures the page scrolls to the top whenever the 'page' state changes.
   useEffect(() => {
-    // 1. **MANDATORY SCROLL TO TOP:**
-    // This runs immediately after the DOM update (when 'page' changes), 
-    // ensuring the new content always displays from the very top.
-    window.scrollTo(0, 0);
+    // Define the function that performs the scroll
+    const scrollToTop = () => {
+      window.scrollTo(0, 0);
+    };
 
-    // 2. **OPTIONAL: HASH SCROLL LOGIC:**
-    // This only runs if we are specifically going to the 'home' page
-    // and there is a hash fragment (like #about) in the URL.
+    // 1. **MANDATORY SCROLL TO TOP via Request Animation Frame:**
+    // This executes the scroll function right before the browser's next repaint cycle, 
+    // ensuring the new content is fully loaded and measured.
+    const animationFrameId = window.requestAnimationFrame(scrollToTop);
+
+    // 2. **OPTIONAL: HASH SCROLL LOGIC (Only relevant for 'home' view):**
     if (page === 'home' && window.location.hash) {
       const id = window.location.hash.substring(1);
-      // Keep the small delay for hash scrolling to ensure the target element's 
-      // position is correctly calculated after the initial render.
+      
+      // Keep a slight delay for hash scrolling (since it targets an element)
       const hashScrollTimeout = setTimeout(() => scrollToSection(id), 100);
 
-      // Cleanup for the hash scroll (separate from main scroll)
-      return () => clearTimeout(hashScrollTimeout);
+      // Cleanup function for the hash scroll timeout
+      return () => {
+          window.cancelAnimationFrame(animationFrameId); // Clear the scroll-to-top frame
+          clearTimeout(hashScrollTimeout);
+      }
     }
-    
-    // Note: No cleanup is needed for the synchronous window.scrollTo(0, 0)
-    // when the 'page' state is the only dependency.
-  }, [page]); // Dependency on 'page' state
+
+    // Standard cleanup: Always cancel the requestAnimationFrame if the component unmounts 
+    // or the effect re-runs before the frame fires.
+    return () => {
+        window.cancelAnimationFrame(animationFrameId);
+    };
+
+  }, [page]); 
 
 
   return (
