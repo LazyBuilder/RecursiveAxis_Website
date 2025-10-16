@@ -1118,25 +1118,28 @@ const App = () => {
     setFullDescriptionModalContent(null);
   }, []);
 
-  // EFFECT: Handles page change and scroll position (Ensures view starts at top)
+ // EFFECT: Handles page change and scroll position (Ensures view starts at top)
   useEffect(() => {
-    // 1. **Immediate Scroll to Top with a short delay**
-    // This ensures the scroll happens *after* the DOM has updated
-    // to the new 'page' content (like the ProjectsView).
-    const scrollTimeout = setTimeout(() => {
-      window.scrollTo(0, 0);
-  }, 50); // A 1ms delay is often enough to push it to the end of the stack
+    // 1. **MANDATORY SCROLL TO TOP:**
+    // This runs immediately after the DOM update (when 'page' changes), 
+    // ensuring the new content always displays from the very top.
+    window.scrollTo(0, 0);
 
-  // 2. **Handle Hash Scroll only if on the 'home' page**
-  if (page === 'home' && window.location.hash) {
-    const id = window.location.hash.substring(1);
-    // Keep the delay for smooth hash scrolling on the home page
-    setTimeout(() => scrollToSection(id), 100);
-  }
+    // 2. **OPTIONAL: HASH SCROLL LOGIC:**
+    // This only runs if we are specifically going to the 'home' page
+    // and there is a hash fragment (like #about) in the URL.
+    if (page === 'home' && window.location.hash) {
+      const id = window.location.hash.substring(1);
+      // Keep the small delay for hash scrolling to ensure the target element's 
+      // position is correctly calculated after the initial render.
+      const hashScrollTimeout = setTimeout(() => scrollToSection(id), 100);
 
-  // 3. **Cleanup function**
-  // Important to clear the timeout if the page state changes again quickly
-  return () => clearTimeout(scrollTimeout);
+      // Cleanup for the hash scroll (separate from main scroll)
+      return () => clearTimeout(hashScrollTimeout);
+    }
+    
+    // Note: No cleanup is needed for the synchronous window.scrollTo(0, 0)
+    // when the 'page' state is the only dependency.
   }, [page]); // Dependency on 'page' state
 
 
