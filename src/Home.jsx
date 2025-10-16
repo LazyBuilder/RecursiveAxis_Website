@@ -699,7 +699,7 @@ const ServicesSection = React.memo(({ openModal }) => (
 /**
  * Section 3: Recent Projects Showcase (Limited to 3 items)
  */
-const ProjectsShowcase = React.memo(({ setPage }) => {
+const ProjectsShowcase = React.memo(({ goToProjects }) => {
     
   // 1. IMPLEMENT RANDOM SELECTION: Create a shuffled array and take the first 3 projects
   const shuffledProjects = [...projectsData].sort(() => 0.5 - Math.random());
@@ -763,7 +763,7 @@ const ProjectsShowcase = React.memo(({ setPage }) => {
           <div className="text-center mt-12">
               {/* Button to switch to the dedicated Projects page */}
               <button
-                  onClick={() => handleGoToProjects()}
+                  onClick={() => goToProjects()}
                   className={`inline-flex items-center font-bold text-lg px-6 py-3 rounded-lg text-white bg-cyan-600 transition-all duration-300 hover:bg-cyan-700 shadow-md shadow-cyan-500/30 transform hover:scale-[1.03]`}
               >
                   Explore All Projects & Case Studies <ArrowRight className="ml-2" size={20} />
@@ -1051,14 +1051,14 @@ const ProjectsView = React.memo(({ setPage, openFullDescriptionModal }) => {
 // --- Home Page Wrapper View ---
 // ----------------------------------------------------------------------
 
-const HomeView = React.memo(({ openServiceModal, openTextModal, setPage }) => {
+const HomeView = React.memo(({ openServiceModal, openTextModal, setPage, goToProjects }) => {
     const scrollToServices = () => scrollToSection('services');
 
     return (
         <>
             <HeroSection scrollToServices={scrollToServices} />
             <ServicesSection openModal={openServiceModal} />
-            <ProjectsShowcase setPage={setPage} />
+            <ProjectsShowcase goToProjects={goToProjects} />
             <PhilosophySection openTextModal={openTextModal} />
             <TeamSection />
             <FinalCTASection />
@@ -1130,28 +1130,22 @@ const App = () => {
     setPage('projects');
   }, [setPage]); // Dependency on setPage
 
-  // EFFECT: Ensures the page scrolls to the top whenever the 'page' state changes.
   useEffect(() => {
-    // 1. MANDATORY SCROLL TO TOP: Target the internal container element
-    // THIS IS THE FIX: Scrolls the specific <div> with the scrollbar to the top.
-    if (mainContainerRef.current) {
-      mainContainerRef.current.scrollTop = 0;
-    }
-
-    // 2. OPTIONAL: HASH SCROLL LOGIC (Remains separate for home page anchor links)
+    // We only need the hash scroll logic if on the 'home' page. 
     if (page === 'home' && window.location.hash) {
       const id = window.location.hash.substring(1);
-
+  
       // Keep a slight delay for hash scrolling (targets element positioning)
       const hashScrollTimeout = setTimeout(() => scrollToSection(id), 100);
-
+  
       // Cleanup function for the hash scroll timeout only
       return () => {
         clearTimeout(hashScrollTimeout);
-      }
+      };
     }
-      // The main scroll is synchronous, no cleanup is needed for it.
-    }, [page]);
+    // The scroll-to-top for the 'projects' transition is now handled by handleGoToProjects, 
+    // so no other scroll-to-top logic is needed here.
+  }, [page]);
 
 
   return (
@@ -1168,6 +1162,7 @@ const App = () => {
                 openServiceModal={handleOpenServiceModal} 
                 openTextModal={handleOpenTextModal} 
                 setPage={setPage} 
+                goToProjects={handleGoToProjects} 
             />
         )}
         {page === 'projects' && (
