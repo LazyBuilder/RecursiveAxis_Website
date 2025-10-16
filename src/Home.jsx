@@ -1119,11 +1119,20 @@ const App = () => {
 
   // New function to handle the button click sequence
   const handleGoToProjects = useCallback(() => {
-    // 1. Force Scroll to Top
-    if (mainContainerRef.current) {
-      // This scrolls the div BEFORE the content changes, 
-      // ensuring the scroll position is (0, 0) for the next view.
-      mainContainerRef.current.scrollTop = 0;
+    // Ensure the container element exists before attempting to scroll
+    if (container) {
+      // 1. SCROLL BEFORE STATE CHANGE (Attempt 1: Synchronous)
+      container.scrollTop = 0;
+
+      // 2. SCROLL AFTER STATE CHANGE (Attempt 2: Asynchronous)
+      // We use a small delay to ensure the scroll happens AFTER the browser 
+      // has registered the new DOM content (ProjectsView) and repositioned the scrollbar.
+      setTimeout(() => {
+        // Check for the container again, just in case
+        if (mainContainerRef.current) {
+          mainContainerRef.current.scrollTop = 0;
+        }
+      }, 50); // A minimal 50ms delay for maximum reliability
     }
   
     // 2. Change Page State (This triggers the ProjectsView to render)
