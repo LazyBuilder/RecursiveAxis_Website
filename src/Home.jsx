@@ -699,20 +699,6 @@ const ServicesSection = React.memo(({ openModal }) => (
 /**
  * Section 3: Recent Projects Showcase (Limited to 3 items)
  */
-
-// New function to handle the button click sequence
-const handleGoToProjects = useCallback(() => {
-  // 1. Force Scroll to Top
-  if (mainContainerRef.current) {
-    // This scrolls the div BEFORE the content changes, 
-    // ensuring the scroll position is (0, 0) for the next view.
-    mainContainerRef.current.scrollTop = 0;
-  }
-  
-  // 2. Change Page State (This triggers the ProjectsView to render)
-  setPage('projects');
-}, [setPage]); // Dependency on setPage
-
 const ProjectsShowcase = React.memo(({ setPage }) => {
     
   // 1. IMPLEMENT RANDOM SELECTION: Create a shuffled array and take the first 3 projects
@@ -1130,6 +1116,19 @@ const App = () => {
     setIsFullDescriptionModalOpen(false);
     setFullDescriptionModalContent(null);
   }, []);
+
+  // New function to handle the button click sequence
+  const handleGoToProjects = useCallback(() => {
+    // 1. Force Scroll to Top
+    if (mainContainerRef.current) {
+      // This scrolls the div BEFORE the content changes, 
+      // ensuring the scroll position is (0, 0) for the next view.
+      mainContainerRef.current.scrollTop = 0;
+    }
+  
+    // 2. Change Page State (This triggers the ProjectsView to render)
+    setPage('projects');
+  }, [setPage]); // Dependency on setPage
 
   // EFFECT: Ensures the page scrolls to the top whenever the 'page' state changes.
   useEffect(() => {
