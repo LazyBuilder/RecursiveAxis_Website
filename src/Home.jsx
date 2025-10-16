@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 // Lucide icons are used for a modern, lightweight icon set.
 import { Menu, X, ArrowRight, TrendingUp, Zap, Users, ShieldCheck, HardHat, Link, Globe, Briefcase, User, BookOpen, Tag, Search } from 'lucide-react';
 
@@ -1076,6 +1076,8 @@ const HomeView = React.memo(({ openServiceModal, openTextModal, setPage }) => {
 const App = () => {
   // State for page routing (simple client-side router)
   const [page, setPage] = useState('home');
+
+  const mainContainerRef = useRef(null); 
   
   // State for Service Detail Modal
   const [isServiceModalOpen, setIsServiceModalOpen] = useState(false);
@@ -1120,42 +1122,39 @@ const App = () => {
 
   // EFFECT: Ensures the page scrolls to the top whenever the 'page' state changes.
   useEffect(() => {
-    // Define the function that performs the scroll
-    const scrollToTop = () => {
-      window.scrollTo(0, 0);
-    };
+    // 1. SCROLL THE REFERRED ELEMENT, NOT THE WINDOW
+    if (mainContainerRef.current) {
+      // Use scrollTop to scroll the internal element to the top (0)
+      mainContainerRef.current.scrollTop = 0; 
+      
+      // NOTE: We no longer need window.requestAnimationFrame or window.scrollTo(0, 0)
+      // because we are targeting the internal element synchronously.
+    }
 
-    // 1. **MANDATORY SCROLL TO TOP via Request Animation Frame:**
-    // This executes the scroll function right before the browser's next repaint cycle, 
-    // ensuring the new content is fully loaded and measured.
-    const animationFrameId = window.requestAnimationFrame(scrollToTop);
-
-    // 2. **OPTIONAL: HASH SCROLL LOGIC (Only relevant for 'home' view):**
+    // 2. OPTIONAL: HASH SCROLL LOGIC (Keep it separate)
+    // If you need hash scrolling on the home page, you should also adjust 
+    // scrollToSection to use the Ref if the container is the element that scrolls.
     if (page === 'home' && window.location.hash) {
       const id = window.location.hash.substring(1);
-      
-      // Keep a slight delay for hash scrolling (since it targets an element)
+      // We will keep the original scrollToSection since it is only scrolling 
+      // the home view, which might still work if the scroll-to-top is fixed.
+      // But if scrollToSection breaks, it will need to be refactored to use the Ref.
       const hashScrollTimeout = setTimeout(() => scrollToSection(id), 100);
 
       // Cleanup function for the hash scroll timeout
       return () => {
-          window.cancelAnimationFrame(animationFrameId); // Clear the scroll-to-top frame
           clearTimeout(hashScrollTimeout);
       }
     }
-
-    // Standard cleanup: Always cancel the requestAnimationFrame if the component unmounts 
-    // or the effect re-runs before the frame fires.
-    return () => {
-        window.cancelAnimationFrame(animationFrameId);
-    };
+    
+    // No explicit cleanup for the synchronous scrollTop = 0 needed here.
 
   }, [page]); 
 
 
   return (
     // Base container set to min-h-screen for full height layout
-    <div className={`min-h-screen ${page === 'home' ? LIGHT_BACKGROUND : DARK_BACKGROUND} text-white font-sans antialiased`}>
+    <div ref={mainContainerRef} className={`min-h-screen ${page === 'home' ? LIGHT_BACKGROUND : DARK_BACKGROUND} text-white font-sans antialiased`}>
       
       {/* The Header is always visible */}
       <Header setPage={setPage} scrollToSection={scrollToSection} />
