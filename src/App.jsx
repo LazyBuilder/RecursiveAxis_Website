@@ -8,7 +8,7 @@ import './App.css';
 import Home from './Home';                 
 
 // 💡 Define the required base path
-const BASE_PATH = '/RecursiveAxis_Website'; 
+const BASE_PATH = 'https://www.recursiveaxis.com/'; 
 
 function App() {
   return (
