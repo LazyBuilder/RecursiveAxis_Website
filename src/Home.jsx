@@ -699,6 +699,20 @@ const ServicesSection = React.memo(({ openModal }) => (
 /**
  * Section 3: Recent Projects Showcase (Limited to 3 items)
  */
+
+// New function to handle the button click sequence
+const handleGoToProjects = useCallback(() => {
+  // 1. Force Scroll to Top
+  if (mainContainerRef.current) {
+    // This scrolls the div BEFORE the content changes, 
+    // ensuring the scroll position is (0, 0) for the next view.
+    mainContainerRef.current.scrollTop = 0;
+  }
+  
+  // 2. Change Page State (This triggers the ProjectsView to render)
+  setPage('projects');
+}, [setPage]); // Dependency on setPage
+
 const ProjectsShowcase = React.memo(({ setPage }) => {
     
   // 1. IMPLEMENT RANDOM SELECTION: Create a shuffled array and take the first 3 projects
@@ -763,7 +777,7 @@ const ProjectsShowcase = React.memo(({ setPage }) => {
           <div className="text-center mt-12">
               {/* Button to switch to the dedicated Projects page */}
               <button
-                  onClick={() => setPage('projects')}
+                  onClick={() => handleGoToProjects()}
                   className={`inline-flex items-center font-bold text-lg px-6 py-3 rounded-lg text-white bg-cyan-600 transition-all duration-300 hover:bg-cyan-700 shadow-md shadow-cyan-500/30 transform hover:scale-[1.03]`}
               >
                   Explore All Projects & Case Studies <ArrowRight className="ml-2" size={20} />
@@ -1137,9 +1151,8 @@ const App = () => {
         clearTimeout(hashScrollTimeout);
       }
     }
-
-    // The main scroll is synchronous, no cleanup is needed for it.
-  }, [page]);
+      // The main scroll is synchronous, no cleanup is needed for it.
+    }, [page]);
 
 
   return (
