@@ -489,7 +489,7 @@ const Header = React.memo(({ setPage, scrollToSection }) => {
     } else {
       setPage('home');
       // Timeout ensures the page state updates before the scroll fires on the new DOM
-      setTimeout(() => scrollToSection(id), 10);
+      scrollToSection(id);
     }
   }, [setPage, scrollToSection]);
 
@@ -587,9 +587,6 @@ const Footer = React.memo(({ openTextModal }) => (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center text-gray-500 text-sm relative z-10">
       {/* Footer Navigation - Uses buttons to trigger text modals for legal content */}
       <div className="flex justify-center space-x-4 mb-4 flex-wrap">
-        <a href="#services" onClick={() => scrollToSection('services')} className="hover:text-pink-500 transition-colors">Services</a>
-        <a href="#philosophy" onClick={() => scrollToSection('philosophy')} className="hover:text-pink-500 transition-colors">Philosophy</a>
-        <a href="#projects" onClick={() => scrollToSection('projects')} className="hover:text-pink-500 transition-colors">Projects</a>
         <button onClick={() => openTextModal({title: "Terms of Service", body: ["These are our terms of service. By using this website, you agree to our policies. This is placeholder text for the purpose of demonstrating the functionality. Actual terms will be provided upon engagement.", "This document is subject to change without notice. Please contact us for the latest version."]})
         } className="hover:text-pink-500 transition-colors">Terms of Service</button>
         <button onClick={() => openTextModal({title: "Privacy Policy", body: ["Your privacy is critically important to us. Our policy is to respect your privacy regarding any information we may collect while operating our websites. We do not share your information with third parties without your explicit consent. This is placeholder text for demonstration.", "Data collected is used solely for the purpose of improving our services and communication with you."]})
@@ -1122,33 +1119,24 @@ const App = () => {
 
   // EFFECT: Ensures the page scrolls to the top whenever the 'page' state changes.
   useEffect(() => {
-    // 1. SCROLL THE REFERRED ELEMENT, NOT THE WINDOW
-    if (mainContainerRef.current) {
-      // Use scrollTop to scroll the internal element to the top (0)
-      mainContainerRef.current.scrollTop = 0; 
-      
-      // NOTE: We no longer need window.requestAnimationFrame or window.scrollTo(0, 0)
-      // because we are targeting the internal element synchronously.
-    }
+    // 1. MANDATORY SCROLL TO TOP: Runs synchronously after the new view renders.
+    // This is the simplest and most reliable way if the browser window is the scroller.
+    window.scrollTo(0, 0);
 
-    // 2. OPTIONAL: HASH SCROLL LOGIC (Keep it separate)
-    // If you need hash scrolling on the home page, you should also adjust 
-    // scrollToSection to use the Ref if the container is the element that scrolls.
+    // 2. OPTIONAL: HASH SCROLL LOGIC (Simplified cleanup)
     if (page === 'home' && window.location.hash) {
       const id = window.location.hash.substring(1);
-      // We will keep the original scrollToSection since it is only scrolling 
-      // the home view, which might still work if the scroll-to-top is fixed.
-      // But if scrollToSection breaks, it will need to be refactored to use the Ref.
+      
+      // Keep a slight delay for hash scrolling (targets element positioning)
       const hashScrollTimeout = setTimeout(() => scrollToSection(id), 100);
 
-      // Cleanup function for the hash scroll timeout
+      // Cleanup function for the hash scroll timeout only
       return () => {
           clearTimeout(hashScrollTimeout);
       }
     }
     
-    // No explicit cleanup for the synchronous scrollTop = 0 needed here.
-
+    // No explicit cleanup for the synchronous window.scrollTo(0, 0) needed.
   }, [page]); 
 
 
