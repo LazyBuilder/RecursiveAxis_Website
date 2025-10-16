@@ -1119,25 +1119,27 @@ const App = () => {
 
   // EFFECT: Ensures the page scrolls to the top whenever the 'page' state changes.
   useEffect(() => {
-    // 1. MANDATORY SCROLL TO TOP: Runs synchronously after the new view renders.
-    // This is the simplest and most reliable way if the browser window is the scroller.
-    window.scrollTo(0, 0);
+    // 1. MANDATORY SCROLL TO TOP: Target the internal container element
+    // THIS IS THE FIX: Scrolls the specific <div> with the scrollbar to the top.
+    if (mainContainerRef.current) {
+      mainContainerRef.current.scrollTop = 0;
+    }
 
-    // 2. OPTIONAL: HASH SCROLL LOGIC (Simplified cleanup)
+    // 2. OPTIONAL: HASH SCROLL LOGIC (Remains separate for home page anchor links)
     if (page === 'home' && window.location.hash) {
       const id = window.location.hash.substring(1);
-      
+
       // Keep a slight delay for hash scrolling (targets element positioning)
       const hashScrollTimeout = setTimeout(() => scrollToSection(id), 100);
 
       // Cleanup function for the hash scroll timeout only
       return () => {
-          clearTimeout(hashScrollTimeout);
+        clearTimeout(hashScrollTimeout);
       }
     }
-    
-    // No explicit cleanup for the synchronous window.scrollTo(0, 0) needed.
-  }, [page]); 
+
+    // The main scroll is synchronous, no cleanup is needed for it.
+  }, [page]);
 
 
   return (
