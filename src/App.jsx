@@ -1,29 +1,21 @@
 // src/App.jsx
 
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 
-// Import the two main views from the src/ directory
-import Home from './Home';                 
+// Import your main single view/component
+import Home from './Home';
 
-// 💡 Define the required base path
-const BASE_PATH = 'https://www.recursiveaxis.com/'; 
+// NOTE: You no longer need the BASE_PATH constant here, 
+// as it was only required for the router's basename prop.
 
 function App() {
   return (
-    // BrowserRouter is the necessary wrapper for all routing logic
-    <BrowserRouter basename={BASE_PATH}>
-      <div className="App overflow-hidden">
-        {/* Routes component handles switching based on URL path */}
-        <Routes>
-          
-          {/* 1. Home Route: Renders your main single-page application */}
-          <Route path="/" element={<Home />} /> 
-          
-        </Routes>
-      </div>
-    </BrowserRouter>
+    // Your application's main content is rendered directly.
+    // The Home component represents your entire website content.
+    <div className="App overflow-hidden">
+      <Home />
+    </div>
   );
 }
 
