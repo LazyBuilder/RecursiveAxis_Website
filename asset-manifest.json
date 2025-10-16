@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/RecursiveAxis_Website/index.html/static/css/main.41dfcd6d.css",
-    "main.js": "/RecursiveAxis_Website/index.html/static/js/main.8c0aafe2.js",
-    "index.html": "/RecursiveAxis_Website/index.html/index.html",
-    "main.41dfcd6d.css.map": "/RecursiveAxis_Website/index.html/static/css/main.41dfcd6d.css.map",
-    "main.8c0aafe2.js.map": "/RecursiveAxis_Website/index.html/static/js/main.8c0aafe2.js.map"
+    "main.css": "/RecursiveAxis_Website/static/css/main.41dfcd6d.css",
+    "main.js": "/RecursiveAxis_Website/static/js/main.c8c85dc3.js",
+    "index.html": "/RecursiveAxis_Website/index.html",
+    "main.41dfcd6d.css.map": "/RecursiveAxis_Website/static/css/main.41dfcd6d.css.map",
+    "main.c8c85dc3.js.map": "/RecursiveAxis_Website/static/js/main.c8c85dc3.js.map"
   },
   "entrypoints": [
     "static/css/main.41dfcd6d.css",
-    "static/js/main.8c0aafe2.js"
+    "static/js/main.c8c85dc3.js"
   ]
 }
