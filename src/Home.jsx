@@ -1119,6 +1119,7 @@ const App = () => {
 
   // New function to handle the button click sequence
   const handleGoToProjects = useCallback(() => {
+    const container = mainContainerRef.current;
     // Ensure the container element exists before attempting to scroll
     if (container) {
       // 1. SCROLL BEFORE STATE CHANGE (Attempt 1: Synchronous)
