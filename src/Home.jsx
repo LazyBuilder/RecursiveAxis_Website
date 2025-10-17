@@ -145,7 +145,7 @@ const TRUSTED_COMPANIES = [
   { name: 'Untrap', url: 'https://getuntrap.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Untrap_logo.png` },
   { name: 'Addie', url: 'https://getaddie.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Addie_Logo.png` },
   { name: 'CaringAI', url: 'https://getcaring.ai/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/CaringAI_logo.png` },
-  { name: 'Mercata', url: 'https://mercataintel.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Mercata_Logo.jpeg` }
+  { name: 'Mercata', url: 'https://mercataintel.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Mercata_Logo.png` }
 ];
 
 // Partner/Founder details
