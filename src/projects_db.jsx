@@ -15,7 +15,8 @@ const data = [
         description: "An elegant digital platform emphasizing **ultra-low-cost deployment** and simplified content management, specifically built for high accessibility and non-developer upkeep.",
         tags: ["Webpage","Design","Low Cost"],
         imageSrc: "./photos/mshcg-dugapuja.png",
-        link: "https://www.mshculturalgroup.com/"
+        link: "https://www.mshculturalgroup.com/",
+        color: 'pink',
     },
     {
         id: 2,
@@ -23,7 +24,8 @@ const data = [
         description: "High-performance website focusing on visual storytelling, SEO optimization, and a seamless client login experience for viewing and downloading private galleries.",
         tags: ["Webpage","React","Vibe Code"],
         imageSrc: "./photos/verve-photography.png",
-        link: "https://www.vervephotography.com/"
+        link: "https://www.vervephotography.com/",
+        color: 'cyan',
     },
     {
         id: 3,
@@ -31,7 +33,8 @@ const data = [
         description: "Mega plan to disrupt the retail grocery market with mobile grocery trucks to serve the inbetween grocery runs and fight food deserts.",
         tags: ["Startup","Retail - Grocery","Canva"],
         imageSrc: "./photos/flyinducks_cover.png",
-        link: "https://www.canva.com/design/DAFBcKjrpXk/HNVKeto_6JuylwREr0rlbA/view?utm_content=DAFBcKjrpXk&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=ha14ffc2ddb"
+        link: "https://www.canva.com/design/DAFBcKjrpXk/HNVKeto_6JuylwREr0rlbA/view?utm_content=DAFBcKjrpXk&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=ha14ffc2ddb",
+        color: 'green',
     },
     {
         id: 4,
@@ -39,7 +42,8 @@ const data = [
         description: "Fully functional Figma prototype for a fintech startup idea focused on providing mini peer-to-peer loans to small and medium-sized businesses.",
         tags: ["Fintech","Prototype","Figma"],
         imageSrc: "./photos/pocketlend_cover.png",
-        link: "https://www.figma.com/design/KIEKC9WRZDZiMyb1b28iIY/FINE-6280-PocketLend?node-id=0-1&t=W3lN836VWYOmOury-1"
+        link: "https://www.figma.com/design/KIEKC9WRZDZiMyb1b28iIY/FINE-6280-PocketLend?node-id=0-1&t=W3lN836VWYOmOury-1",
+        color: 'purple',
     },
     {
         id: 5,
@@ -47,7 +51,8 @@ const data = [
         description: "Analysing and optimizing the SEO straregy for a health-focused granola startup to enhance online visibility and drive organic traffic.",
         tags: ["Startup","Food & Beverage","Marketing SEO"],
         imageSrc: "./photos/karegranola_cover.png",
-        link: "https://karegranola.com/"
+        link: "https://karegranola.com/",
+        color: 'yellow'
     }
 ]
 
