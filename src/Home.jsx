@@ -741,7 +741,15 @@ const ProjectsShowcase = React.memo(({ goToProjects }) => {
           {/* 1. GRID LAYOUT: Changed to 1 column mobile, 2 columns medium, 3 columns large */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {showcaseProjects.map((project) => {
-                  const colors = PROJECT_COLORS[project.color];
+
+                  const colorKey = project.color || 'default';
+                  const FALLBACK_COLORS = { 
+                      border: 'border-gray-400', 
+                      shadow: 'shadow-gray-200' 
+                      // Only need border/shadow for this component
+                  };
+
+                  const colors = PROJECT_COLORS[colorKey] ?? FALLBACK_COLORS;
                   
                   // Use a project-specific image or a default logo path
                   const projectVisual = project.imageSrc || LOGO_PATH; 
