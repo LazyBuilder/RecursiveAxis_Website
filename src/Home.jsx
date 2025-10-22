@@ -315,8 +315,7 @@ const FullDescriptionModal = ({ project, onClose }) => {
                         href={project.link}
                         target="_blank" // Opens the link in a new tab
                         rel="noopener noreferrer" // Security best practice for target="_blank"
-                        className="inline-flex items-center justify-center space-x-2 px-6 py-3 mb-8 text-lg font-bold rounded-full transition-all duration-300 transform hover:scale-[1.03] shadow-lg"
-                        style={{ backgroundColor: colors.primary, color: 'black' }}
+                        className={`inline-flex items-center px-6 py-3 rounded-lg text-lg font-bold transition-all duration-300 bg-pink-600 hover:bg-pink-700 text-white shadow-lg shadow-pink-500/30`}
                     >
                         {/* Assuming Mail is the Lucide icon 'Mail' */}
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4m-7-3l-4 4m0 0l4 4m-4-4h13"></path></svg>
