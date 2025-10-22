@@ -24,7 +24,7 @@ const LOGO_PATH = `${process.env.PUBLIC_URL}/assets/RA_FullLogo_Dark.png`;
 const HERO_BG_PATH = `${process.env.PUBLIC_URL}/assets/RA_Dark_Background.png`;
 const FOUNDER_IMAGE_PATH = `${process.env.PUBLIC_URL}/assets/TeamProfilePic_Asit.jpeg`; // Placeholder (Update with actual ID)
 
-import project_data from './project_data.json';
+import project_data from './projects_db.jsx';
 
 // Project Card Color Mapping (Tailwind classes must be full strings for compilation)
 const PROJECT_COLORS = {
@@ -326,9 +326,9 @@ const FullDescriptionModal = ({ project, onClose }) => {
                   {/* -------------------- END NEW CODE -------------------- */}
 
                   {/* Project Image - Responsive and with error fallback */}
-                  {project.image && (
+                  {project.imageSrc && (
                       <img
-                          src={project.image}
+                          src={project.imageSrc}
                           alt={project.title}
                           className="mt-6 w-full h-auto object-cover rounded-lg shadow-lg"
                           // Error handler for broken images, replacing them with a placeholder
@@ -355,10 +355,10 @@ const ProjectCard = ({ project, onReadMore }) => {
     return (
         <div className="flex flex-col bg-gray-800 rounded-xl shadow-xl hover:shadow-cyan-500/30 transition duration-500 overflow-hidden border border-gray-700/50">
             {/* Project Image (Optional) - Fixed height for uniform card layout */}
-            {project.image && (
+            {project.imageSrc && (
                 <div className="h-48 overflow-hidden">
                     <img
-                        src={project.image}
+                        src={project.imageSrc}
                         alt={project.title}
                         className="w-full h-full object-cover transition-transform duration-500 hover:scale-[1.03]"
                         onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/600x400/555/eee?text=${project.title.replace(/\s/g, '+')}`; }}
@@ -744,9 +744,9 @@ const ProjectsShowcase = React.memo(({ goToProjects }) => {
                   const colors = PROJECT_COLORS[project.color];
                   
                   // Use a project-specific image or a default logo path
-                  const projectVisual = project.image || LOGO_PATH; 
+                  const projectVisual = project.imageSrc || LOGO_PATH; 
 
-                  const imageClass = project.image 
+                  const imageClass = project.imageSrc 
                     ? "w-full h-full object-cover" 
                     : "w-full h-full object-contain p-8 bg-gray-100";
 
