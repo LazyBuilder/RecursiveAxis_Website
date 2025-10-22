@@ -46,7 +46,7 @@ const NAV_LINKS = [
 const SERVICE_DATA = [
   {
     segment: "Founders & Startups",
-    icon: "Rocket",
+    icon: HardHat,
     headline: "ACCELERATE PRODUCT-MARKET FIT. FASTER.",
     body: "Stop building features; start building a New Venture. We engineer strategic clarity and execution rigor to maximize your runway and guarantee scalable growth.",
     tagline: "SYSTEMS FOR EXPONENTIAL GROWTH. EXPERT EXECUTION.",
@@ -63,7 +63,7 @@ const SERVICE_DATA = [
   },
   {
     segment: "Investors & Private Equity",
-    icon: "Shield",
+    icon: ShieldCheck,
     headline: "DE-RISK YOUR PORTFOLIO. GUARANTEE CLARITY.",
     body: "Investment decisions are only as good as the technical clarity behind them. We turn technical uncertainty into confidence across complex AI and software assets.",
     tagline: "CRITICAL CLARITY. CONFIDENT CAPITAL. EXPERT ADVISORY.",
@@ -80,7 +80,7 @@ const SERVICE_DATA = [
   },
   {
     segment: "Corporates & Enterprise",
-    icon: "Building",
+    icon: Building,
     headline: "SYSTEMATIZE INNOVATION. ACHIEVE RIGOROUS SCALE.",
     body: "We bridge the performance gap: your large organization moves with startup speed, backed by enterprise rigor. We turn chaos into repeatable technical success.",
     tagline: "FROM AMBITION TO REALITY. BUILD INTERNAL CAPABILITY.",
