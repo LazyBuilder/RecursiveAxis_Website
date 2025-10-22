@@ -1,13 +1,18 @@
 {
   "files": {
     "main.css": "/static/css/main.41dfcd6d.css",
-    "main.js": "/static/js/main.2cac3a5f.js",
+    "main.js": "/static/js/main.5326d02d.js",
+    "static/media/karegranola_cover.png": "/static/media/karegranola_cover.57f4e4354908e45a49d9.png",
+    "static/media/mshcg-dugapuja.png": "/static/media/mshcg-dugapuja.e4bd5c6a6c5b7f22755b.png",
+    "static/media/flyinducks_cover.png": "/static/media/flyinducks_cover.ce990631d41f355dbc96.png",
+    "static/media/verve-photography.png": "/static/media/verve-photography.dce75fa927954aeab51f.png",
+    "static/media/pocketlend_cover.png": "/static/media/pocketlend_cover.d4c47c9737c7afceeef4.png",
     "index.html": "/index.html",
     "main.41dfcd6d.css.map": "/static/css/main.41dfcd6d.css.map",
-    "main.2cac3a5f.js.map": "/static/js/main.2cac3a5f.js.map"
+    "main.5326d02d.js.map": "/static/js/main.5326d02d.js.map"
   },
   "entrypoints": [
     "static/css/main.41dfcd6d.css",
-    "static/js/main.2cac3a5f.js"
+    "static/js/main.5326d02d.js"
   ]
 }
