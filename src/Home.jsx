@@ -24,6 +24,8 @@ const LOGO_PATH = `${process.env.PUBLIC_URL}/assets/RA_FullLogo_Dark.png`;
 const HERO_BG_PATH = `${process.env.PUBLIC_URL}/assets/RA_Dark_Background.png`;
 const FOUNDER_IMAGE_PATH = `${process.env.PUBLIC_URL}/assets/TeamProfilePic_Asit.jpeg`; // Placeholder (Update with actual ID)
 
+import project_data from './project_data.json';
+
 // Project Card Color Mapping (Tailwind classes must be full strings for compilation)
 const PROJECT_COLORS = {
     pink: { iconBg: 'bg-pink-50', iconText: 'text-pink-600', shadow: 'shadow-pink-100', border: 'border-pink-200' },
@@ -43,53 +45,56 @@ const NAV_LINKS = [
 // Data structure for the Services section
 const SERVICE_DATA = [
   {
-    segment: 'Founders',
-    icon: HardHat,
-    headline: 'ACHIEVE PRODUCT-MARKET FIT. FASTER.',
-    body: 'Missing an executive tech or product leader? We plug in with interim CPO/CTO services and provide execution-focused project delivery to accelerate your runway.',
-    tagline: 'MAXIMIZE RUNWAY. MINIMIZE ITERATION. EXPERT EXECUTION.',
-    modalTitle: 'Interim Leadership & Execution for Founders',
+    segment: "Founders & Startups",
+    icon: "Rocket",
+    headline: "ACCELERATE PRODUCT-MARKET FIT. FASTER.",
+    body: "Stop building features; start building a New Venture. We engineer strategic clarity and execution rigor to maximize your runway and guarantee scalable growth.",
+    tagline: "SYSTEMS FOR EXPONENTIAL GROWTH. EXPERT EXECUTION.",
+    modalTitle: "PMF Strategy & CTO Advisory",
     modalBulletPoints: [
-        "Interim CTO/CPO Placement: Expert guidance from strategy to roadmapping.",
-        "Execution-focused Project Delivery: Accelerate development velocity with senior resources.",
-        "Technical Debt Reduction: Audits and remediation plans to stabilize the platform.",
-        "Due Diligence Preparation: Readying your technology for investor scrutiny.",
+      "PMF Acceleration Strategy: Strategic planning powered by logical experimentation and data-driven decision-making.",
+      "Interim CPO/CTO Advisory: World-class, battle-tested leadership without the permanent hiring risk.",
+      "Actionable Technology Roadmaps: Scalable system design, deployment architecture, and maintenance strategies.",
+      "Technical Debt Reduction: Audits and remediation plans to stabilize platforms and prepare for investment.",
+      "Due Diligence Preparation: Readying technology assets for investor scrutiny."
     ],
-    modalCta: 'Book a Strategy Session',
-    ctaLink: 'https://cal.com/asitdeva/founders'
+    modalCta: "Book a Strategy Session",
+    ctaLink: "https://cal.com/asitdeva/founders"
   },
   {
-    segment: 'Investors',
-    icon: ShieldCheck,
-    headline: 'DE-RISK YOUR INVESTMENTS AND SCALE PORTFOLIO VALUE.',
-    body: 'Gain critical technical clarity on potential deals with our deep technical due diligence. Extend our expertise to your portfolio for immediate strategic value.',
-    tagline: 'CRITICAL CLARITY. CONFIDENT INVESTMENT. EXPERT ADVISORY.',
-    modalTitle: 'Technical Due Diligence & Portfolio Support',
+    segment: "Investors & Private Equity",
+    icon: "Shield",
+    headline: "DE-RISK YOUR PORTFOLIO. GUARANTEE CLARITY.",
+    body: "Investment decisions are only as good as the technical clarity behind them. We turn technical uncertainty into confidence across complex AI and software assets.",
+    tagline: "CRITICAL CLARITY. CONFIDENT CAPITAL. EXPERT ADVISORY.",
+    modalTitle: "Technical Due Diligence & Portfolio De-Risking",
     modalBulletPoints: [
-        "Deep Technical Diligence: Unbiased review of code, architecture, team, and scalability.",
-        "Valuation Strategy: Identify and mitigate technical risks post-acquisition.",
-        "Portfolio Value Acceleration: Specialized advisory for technical leadership gaps in portfolio companies.",
-        "Exit Readiness Audits: Ensuring tech stack is optimized for maximum valuation upon sale.",
+      "Technical Due Diligence (AI & Software): Deep, unbiased review of AI assets, software viability, and execution capability across the portfolio.",
+      "Portfolio De-Risking Analysis: Deep analysis for technology diversification—your real value and defensive strategy.",
+      "AI Strategy Consulting & Training: Upskilling and tech know-how for new technologies to make better, data-backed investment decisions.",
+      "Valuation Strategy & Risk Mitigation: Identify and mitigate critical technical risks post-acquisition.",
+      "Exit Readiness Audits: Ensuring tech stack is optimized for maximum valuation."
     ],
-    modalCta: 'Request Due Diligence Scope',
-    ctaLink: 'https://cal.com/asitdeva/investors'
+    modalCta: "Request Due Diligence Scope",
+    ctaLink: "https://cal.com/asitdeva/investors"
   },
   {
-    segment: 'Corporates',
-    icon: Users,
-    headline: 'EMPOWER INTERNAL INNOVATION THROUGH STRUCTURED PROGRAMS.',
-    body: 'Give your teams a structured, efficient way to innovate. We provide expert program design, training, and consultation to build lasting internal capability.',
-    tagline: 'FROM IDEA TO IPO. BUILD INTERNAL CAPABILITY.',
-    modalTitle: 'Structured Innovation & Training Programs',
+    segment: "Corporates & Enterprise",
+    icon: "Building",
+    headline: "SYSTEMATIZE INNOVATION. ACHIEVE RIGOROUS SCALE.",
+    body: "We bridge the performance gap: your large organization moves with startup speed, backed by enterprise rigor. We turn chaos into repeatable technical success.",
+    tagline: "FROM AMBITION TO REALITY. BUILD INTERNAL CAPABILITY.",
+    modalTitle: "Innovation Programs & Acquisition Vetting",
     modalBulletPoints: [
-        "Innovation Program Design: Establishing agile, product-focused teams and processes.",
-        "Technical Training: Customized workshops for senior engineers and architects.",
-        "Structured Consultation: Mentorship for internal product managers and innovators.",
-        "In-House Venture Design: Frameworks to validate and spin out new internal ventures.",
+      "Innovation Program Design: Design effective, repeatable programs to successfully enable your teams to leverage emerging Technologies.",
+      "Tech Maturity Evaluation: Detailed analysis of your teams' maturity levels and phased roadmaps for capability advancement.",
+      "Acquisition Technical Vetting: Exhaustive search and technical analysis for your next significant strategic acquisition.",
+      "Strategic Roadmap Consulting: Guidance through organizational shifts and CPO/CTO advisory for digital transformation.",
+      "Internal Venture Structuring: Frameworks to validate and spin out new internal ventures."
     ],
-    modalCta: 'Explore Program Options',
-    ctaLink: 'https://cal.com/asitdeva/corporates'
-  },
+    modalCta: "Explore Program Options",
+    ctaLink: "https://cal.com/asitdeva/corporates"
+  }
 ];
 
 // Data structure for the Philosophy section (D.I.V.E. Framework)
@@ -164,13 +169,15 @@ const PARTNER_DATA = [
  * NOTE: Each project must have a maximum of 3 tags.
  * The 'image' field is optional but highly recommended for visual appeal.
  */
+const projectsData = project_data;
+/*
 const projectsData = [
     {
       id: 1,
-      title: 'Quantum Leap Computing Platform',
+      title: 'FlyInDucks: Gocery Trucks for the Inbetweens',
       description: 'Developed a novel, distributed computing platform utilizing custom-built quantum simulation algorithms. This project involved designing a fault-tolerant architecture capable of processing petabytes of data for molecular modeling and pharmaceutical discovery. The results showed a 400% increase in simulation speed compared to conventional supercomputers. This is a very long description to ensure the "Read More" feature is properly tested and utilized. It details the complex technical challenges, the innovative solutions implemented, and the measurable impact on the industry, which is crucial for project showcasing.',
-      tags: ['React', 'TypeScript', 'Quantum'], 
-      image: 'https://placehold.co/600x400/1e293b/cbd5e1?text=Quantum+Leap',
+      tags: ['Pitch Deck', 'Business Model', 'Design'], 
+      image: 'https://www.canva.com/design/DAE6UEwOQHU/JuNMGscWNVkGWfc4_npI4A/edit?utm_content=DAE6UEwOQHU&utm_campaign=designshare&utm_medium=link2&utm_source=RA_Website',
       color: 'pink', 
     },
     {
@@ -211,6 +218,7 @@ const projectsData = [
         color: 'fuchsia' 
     }
 ];
+*/
 
 const DESCRIPTION_LIMIT = 150; // Max length before showing 'Read More'
 
@@ -299,6 +307,23 @@ const FullDescriptionModal = ({ project, onClose }) => {
                   
                   {/* Full Description - using whitespace-pre-wrap for cleaner paragraph formatting */}
                   <p className="text-gray-300 leading-relaxed whitespace-pre-wrap">{project.description}</p>
+
+                  {/* -------------------- START NEW CODE -------------------- */}
+                  {/* Link to Project */}
+                  {project.link && (
+                    <a
+                        href={project.link}
+                        target="_blank" // Opens the link in a new tab
+                        rel="noopener noreferrer" // Security best practice for target="_blank"
+                        className="inline-flex items-center justify-center space-x-2 px-6 py-3 mb-8 text-lg font-bold rounded-full transition-all duration-300 transform hover:scale-[1.03] shadow-lg"
+                        style={{ backgroundColor: colors.primary, color: 'black' }}
+                    >
+                        {/* Assuming Mail is the Lucide icon 'Mail' */}
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4m-7-3l-4 4m0 0l4 4m-4-4h13"></path></svg>
+                        <span>View Project</span>
+                    </a>
+                  )}
+                  {/* -------------------- END NEW CODE -------------------- */}
 
                   {/* Project Image - Responsive and with error fallback */}
                   {project.image && (
