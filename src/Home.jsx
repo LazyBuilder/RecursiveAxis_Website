@@ -48,8 +48,8 @@ const SERVICE_DATA = [
     segment: "Founders & Startups",
     icon: HardHat,
     headline: "BUILD DISCIPLINED VENTURES",
-    body: "A new venture is a stride against the tide. After running multiple cycles of the 0 to 1 phase of startups, we know what it takes to row up the river of uncertainty.",
-    tagline: "SYSTEMATIZED PROCESSES & PLAYBOOKS",
+    body: "A new venture is a stride against the tide. Multiple build cycles taking startups from 0 to 1 has built our muscles to row up the river of uncertainty.",
+    tagline: "TAME THE CHAOS",
     modalTitle: "Product Strategy & Tech Advisory",
     modalBulletPoints: [
       "PMF Acceleration Strategy: Strategic planning powered by logical experimentation and data-driven decision-making.",
@@ -65,7 +65,7 @@ const SERVICE_DATA = [
     segment: "Investors & Private Equity",
     icon: ShieldCheck,
     headline: "DE-RISK YOUR TECH INVESTMENTS",
-    body: "Investment decisions are only as good as the technical clarity behind them. We turn technical uncertainty into confidence across complex AI and software assets.",
+    body: "Investment decisions are only as good as the technical clarity behind them. Deep technical understanding cuts through the noise and delivers confidence.",
     tagline: "CLEAR & CONFIDENT DECISIONS",
     modalTitle: "Technical Due Diligence & Portfolio De-Risking",
     modalBulletPoints: [
@@ -82,7 +82,7 @@ const SERVICE_DATA = [
     segment: "Corporates & Enterprise",
     icon: Building,
     headline: "STARTUP SPEED WITH RIGOR",
-    body: "We bridge the innovation gap and enable corporates to run like startups. Our focused programs and consulting services are designed with rigor and compliance in mind.",
+    body: "We bridge the innovation gap and enable corporates to run like startups. Focused programs and consulting services are designed with compliance at core.",
     tagline: "EFFECTIVE INNOVATION THAT RHYMES",
     modalTitle: "Innovation Programs & Acquisition Vetting",
     modalBulletPoints: [
