@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 // Lucide icons are used for a modern, lightweight icon set.
-import { Menu, X, ArrowRight, TrendingUp, Zap, Users, ShieldCheck, HardHat, Link, Globe, Briefcase, Building, User, BookOpen, Tag, Search } from 'lucide-react';
+import { Menu, X, Mail, ArrowRight, TrendingUp, Zap, Users, ShieldCheck, HardHat, Link, Globe, Briefcase, Building, User, BookOpen, Tag, Search } from 'lucide-react';
 
 // ----------------------------------------------------------------------
 // --- Configuration & Data ---
