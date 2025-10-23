@@ -932,7 +932,7 @@ const TrustedCompaniesMarquee = () => (
             ))}
         </div>
         <h4 className="text-2xl md:text-3xl font-bold text-white mb-4">
-          {partner.name.split(' ')[0]} has worked with:
+          Has worked with:
           </h4>
         {/* Trusted Companies Marquee */}
         <TrustedCompaniesMarquee />
