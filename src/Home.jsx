@@ -81,7 +81,7 @@ const SERVICE_DATA = [
   {
     segment: "Corporates & Enterprise",
     icon: Building,
-    headline: "STARTUP SPEED WITH RIGOR",
+    headline: "INNOVATE LIKE A STARTUP",
     body: "We bridge the innovation gap and enable corporates to run like startups. Focused programs and consulting services are designed with compliance at core.",
     tagline: "EFFECTIVE INNOVATION THAT RHYMES",
     modalTitle: "Innovation Programs & Acquisition Vetting",
