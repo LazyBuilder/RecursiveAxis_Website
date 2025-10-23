@@ -49,7 +49,7 @@ const SERVICE_DATA = [
     icon: HardHat,
     headline: "BUILD DISCIPLINED VENTURES",
     body: "A new venture is a stride against the tide. Multiple build cycles taking startups from 0 to 1 has built our muscles to row up the river of uncertainty.",
-    tagline: "TAME THE CHAOS",
+    tagline: "CONTROLLED CHAOS",
     modalTitle: "Product Strategy & Tech Advisory",
     modalBulletPoints: [
       "PMF Acceleration Strategy: Strategic planning powered by logical experimentation and data-driven decision-making.",
@@ -83,7 +83,7 @@ const SERVICE_DATA = [
     icon: Building,
     headline: "INNOVATE LIKE A STARTUP",
     body: "Innovation is the game of finding comfort in uncertainity and grit to move past failures. Our programs and services enable corporates to run like startups..",
-    tagline: "EFFECTIVE INNOVATION THAT RHYMES",
+    tagline: "EFFECTIVE INNOVATION",
     modalTitle: "Innovation Programs & Acquisition Vetting",
     modalBulletPoints: [
       "Innovation Program Design: Design effective, repeatable programs to successfully enable your teams to leverage emerging Technologies.",
