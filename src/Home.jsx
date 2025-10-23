@@ -67,7 +67,7 @@ const SERVICE_DATA = [
     headline: "DE-RISK YOUR TECH INVESTMENTS",
     body: "Investment decisions are only as good as the technical clarity behind them. Deep tech understanding turn complexities into confidence. .",
     tagline: "CLEAR & CONFIDENT DECISIONS",
-    modalTitle: "Technical Due Diligence & Portfolio De-Risking",
+    modalTitle: "Technical Due Diligence & Portfolio Design",
     modalBulletPoints: [
       "Technical Due Diligence (AI & Software): Deep, unbiased review of AI assets, software viability, and execution capability across the portfolio.",
       "Portfolio De-Risking Analysis: Deep analysis for technology diversification—your real value and defensive strategy.",
