@@ -909,9 +909,6 @@ const TrustedCompaniesMarquee = () => (
                             Connect with {partner.name.split(' ')[0]} on LinkedIn <Link className="ml-2" size={20} />
                         </a>
                     </div>
-                    <h4 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
-                      {partner.name.split(' ')[0]} has worked with:
-                    </h4>
                     <div className="md:order-2 flex justify-center">
                         {/* Founder Image Placeholder/Container */}
                         {/* NOTE: Recommended founder image size is 500x500px. */}
@@ -934,6 +931,9 @@ const TrustedCompaniesMarquee = () => (
                 </div>
             ))}
         </div>
+        <h4 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
+          {partner.name.split(' ')[0]} has worked with:
+          </h4>
         {/* Trusted Companies Marquee */}
         <TrustedCompaniesMarquee />
     </section>
