@@ -48,7 +48,7 @@ const SERVICE_DATA = [
     segment: "Founders & Startups",
     icon: HardHat,
     headline: "BUILD DISCIPLINED VENTURES",
-    body: "A new venture is a stride against the tide. Multiple build cycles taking startups from 0 to 1 has built our muscles to row up the river of uncertainty.",
+    body: "Building your startup means fighting against the odds. Our strength comes from successfully taking projects from idea to market (0 to 1). We build the focus and toughness needed to master uncertainty and set a conclusive path forward.",
     tagline: "CONTROLLED CHAOS",
     modalTitle: "Product Strategy & Tech Advisory",
     modalBulletPoints: [
@@ -65,7 +65,7 @@ const SERVICE_DATA = [
     segment: "Investors & Private Equity",
     icon: ShieldCheck,
     headline: "DE-RISK YOUR TECH INVESTMENTS",
-    body: "Investment decisions are only as good as the technical clarity behind them. Deep tech understanding turn complexities into confidence. .",
+    body: "Modern investment decisions depends on emerging tech. We remove market uncertainty by providing deep technical certainty for emerging technologies. We turn complex details into clear, trustworthy signals for investors.",
     tagline: "CLEAR & CONFIDENT DECISIONS",
     modalTitle: "Technical Due Diligence & Portfolio Design",
     modalBulletPoints: [
@@ -82,7 +82,7 @@ const SERVICE_DATA = [
     segment: "Corporates & Enterprise",
     icon: Building,
     headline: "INNOVATE LIKE A STARTUP",
-    body: "Innovation is the game of finding comfort in uncertainity and grit to move past failures. Our programs and services enable corporates to run like startups..",
+    body: "Innovation requires a clear, controlled plan. We design programs that let big companies move with the speed of a startup, helping teams handle uncertainty and achieve reliable outcomes every time.",
     tagline: "EFFECTIVE INNOVATION",
     modalTitle: "Innovation Programs & Acquisition Vetting",
     modalBulletPoints: [
