@@ -47,16 +47,16 @@ const SERVICE_DATA = [
   {
     segment: "Founders & Startups",
     icon: HardHat,
-    headline: "ACCELERATE PRODUCT-MARKET FIT. FASTER.",
-    body: "Stop building features; start building a New Venture. We engineer strategic clarity and execution rigor to maximize your runway and guarantee scalable growth.",
-    tagline: "SYSTEMS FOR EXPONENTIAL GROWTH. EXPERT EXECUTION.",
-    modalTitle: "PMF Strategy & CTO Advisory",
+    headline: "BUILD DISCIPLINED VENTURES",
+    body: "A new venture is a stride against the tide. After running multiple cycles of the 0 to 1 phase of startups, we know what it takes to row up the river of uncertainty.",
+    tagline: "SYSTEMATIZED PROCESSES & PLAYBOOKS",
+    modalTitle: "Product Strategy & Tech Advisory",
     modalBulletPoints: [
       "PMF Acceleration Strategy: Strategic planning powered by logical experimentation and data-driven decision-making.",
       "Interim CPO/CTO Advisory: World-class, battle-tested leadership without the permanent hiring risk.",
-      "Actionable Technology Roadmaps: Scalable system design, deployment architecture, and maintenance strategies.",
+      "Actionable Tech Roadmaps: Scalable system design, deployment architecture, and maintenance strategies.",
       "Technical Debt Reduction: Audits and remediation plans to stabilize platforms and prepare for investment.",
-      "Due Diligence Preparation: Readying technology assets for investor scrutiny."
+      "Due-Diligence Preparation: Prepare tech assets for investor/auditor scrutiny."
     ],
     modalCta: "Book a Strategy Session",
     ctaLink: "https://cal.com/asitdeva/founders"
@@ -64,7 +64,7 @@ const SERVICE_DATA = [
   {
     segment: "Investors & Private Equity",
     icon: ShieldCheck,
-    headline: "DE-RISK YOUR PORTFOLIO. GUARANTEE CLARITY.",
+    headline: "DE-RISK YOUR TECH INVESTMENTS",
     body: "Investment decisions are only as good as the technical clarity behind them. We turn technical uncertainty into confidence across complex AI and software assets.",
     tagline: "CRITICAL CLARITY. CONFIDENT CAPITAL. EXPERT ADVISORY.",
     modalTitle: "Technical Due Diligence & Portfolio De-Risking",
@@ -164,61 +164,14 @@ const PARTNER_DATA = [
     }
 ];
 
+const CONTACT_EMAIL = "hello@recursiveaxis.com"; // Defined the email here
+
 /**
  * --- Project Data ---
  * NOTE: Each project must have a maximum of 3 tags.
  * The 'image' field is optional but highly recommended for visual appeal.
  */
 const projectsData = project_data;
-/*
-const projectsData = [
-    {
-      id: 1,
-      title: 'FlyInDucks: Gocery Trucks for the Inbetweens',
-      description: 'Developed a novel, distributed computing platform utilizing custom-built quantum simulation algorithms. This project involved designing a fault-tolerant architecture capable of processing petabytes of data for molecular modeling and pharmaceutical discovery. The results showed a 400% increase in simulation speed compared to conventional supercomputers. This is a very long description to ensure the "Read More" feature is properly tested and utilized. It details the complex technical challenges, the innovative solutions implemented, and the measurable impact on the industry, which is crucial for project showcasing.',
-      tags: ['Pitch Deck', 'Business Model', 'Design'], 
-      image: 'https://www.canva.com/design/DAE6UEwOQHU/JuNMGscWNVkGWfc4_npI4A/edit?utm_content=DAE6UEwOQHU&utm_campaign=designshare&utm_medium=link2&utm_source=RA_Website',
-      color: 'pink', 
-    },
-    {
-      id: 2,
-      title: 'Eco-System Monitoring Dashboard',
-      description: 'A real-time data visualization tool for environmental metrics. Integrates satellite imagery and IoT sensor data to track deforestation, water quality, and biodiversity indicators across six continents. Built for rapid deployment and easy accessibility for NGOs and government agencies.',
-      tags: ['D3.js', 'Python', 'Environmental'], 
-      image: 'https://placehold.co/600x400/1e293b/cbd5e1?text=Eco+Dashboard',
-      color: 'cyan',
-    },
-    {
-      id: 3,
-      title: 'Decentralized Identity Protocol',
-      description: 'Designed and implemented a secure, self-sovereign identity verification system on a private blockchain. Focus was placed on privacy-by-design principles and regulatory compliance (GDPR, CCPA).',
-      tags: ['Solidity', 'Blockchain', 'Security'], 
-      image: 'https://placehold.co/600x400/1e293b/cbd5e1?text=ID+Protocol',
-      color: 'green',
-    },
-    {
-      id: 4,
-      title: 'Minimalist Task Manager',
-      description: 'A simple, elegant, and highly performant task management application for desktop users, emphasizing keyboard-only navigation.',
-      tags: ['Electron', 'Vue.js', 'Desktop'], 
-      color: 'purple',
-    },
-    {
-        id: 5,
-        title: 'Global Payment Gateway Integration', 
-        description: 'Architected a secure, multi-region payment solution handling $100M+ transactions. Implemented a microservices architecture to ensure high availability and scalability across global financial markets, reducing transaction latency by 15%.', 
-        tags: ['Fintech', 'Architecture', 'Security'], 
-        color: 'yellow' 
-    }, 
-    {
-        id: 6,
-        title: 'Decentralized Voting System Pilot', 
-        description: 'Conducted a feasibility study and built a secure, verifiable pilot system for internal governance. This required deep cryptographic knowledge and front-end development to ensure user trust and verifiable audit trails.', 
-        tags: ['Governance', 'Blockchain', 'Pilot'], 
-        color: 'fuchsia' 
-    }
-];
-*/
 
 const DESCRIPTION_LIMIT = 150; // Max length before showing 'Read More'
 
@@ -610,6 +563,11 @@ const Footer = React.memo(({ openTextModal }) => (
     {/* CONTENT LAYER (relative z-10) */}
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center text-gray-500 text-sm relative z-10">
       {/* Footer Navigation - Uses buttons to trigger text modals for legal content */}
+      {/* New Email Link */}
+      <a href={`mailto:${CONTACT_EMAIL}`} className="flex items-center space-x-2 text-gray-400 hover:text-pink-500 transition-colors font-semibold text-base">
+          <Mail size={16} className={PRIMARY_ACCENT.replace('text-', 'text-')} />
+          <span>{CONTACT_EMAIL}</span>
+      </a>
       <div className="flex justify-center space-x-4 mb-4 flex-wrap">
         <button onClick={() => openTextModal({title: "Terms of Service", body: ["These are our terms of service. By using this website, you agree to our policies. This is placeholder text for the purpose of demonstrating the functionality. Actual terms will be provided upon engagement.", "This document is subject to change without notice. Please contact us for the latest version."]})
         } className="hover:text-pink-500 transition-colors">Terms of Service</button>
@@ -951,6 +909,9 @@ const TrustedCompaniesMarquee = () => (
                             Connect with {partner.name.split(' ')[0]} on LinkedIn <Link className="ml-2" size={20} />
                         </a>
                     </div>
+                    <h4 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
+                      {partner.name.split(' ')[0]} has worked with:
+                    </h4>
                     <div className="md:order-2 flex justify-center">
                         {/* Founder Image Placeholder/Container */}
                         {/* NOTE: Recommended founder image size is 500x500px. */}
