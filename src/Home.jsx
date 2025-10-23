@@ -802,9 +802,6 @@ const TeamSection = React.memo(() => {
     // Component for the horizontally scrolling company logos
 const TrustedCompaniesMarquee = () => (
   <div className="relative w-full overflow-hidden whitespace-nowrap py-4 border-y border-gray-700 bg-white mt-8">
-    <h4 className="text-2xl md:text-3xl font-bold text-white mb-4">
-          Has worked with:
-          </h4>
       <style jsx="true">{`
           /* CSS for the infinite horizontal scroll effect */
           @keyframes marquee {
@@ -911,6 +908,10 @@ const TrustedCompaniesMarquee = () => (
                         >
                             Connect with {partner.name.split(' ')[0]} on LinkedIn <Link className="ml-2" size={20} />
                         </a>
+
+                        <h4 className="text-lg font-bold text-white mb-4">
+                          Has worked with:
+                        </h4>
                     </div>
                     <div className="md:order-2 flex justify-center">
                         {/* Founder Image Placeholder/Container */}
