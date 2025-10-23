@@ -66,7 +66,7 @@ const SERVICE_DATA = [
     icon: ShieldCheck,
     headline: "DE-RISK YOUR TECH INVESTMENTS",
     body: "Investment decisions are only as good as the technical clarity behind them. We turn technical uncertainty into confidence across complex AI and software assets.",
-    tagline: "CRITICAL CLARITY. CONFIDENT CAPITAL. EXPERT ADVISORY.",
+    tagline: "CLEAR & CONFIDENT DECISIONS",
     modalTitle: "Technical Due Diligence & Portfolio De-Risking",
     modalBulletPoints: [
       "Technical Due Diligence (AI & Software): Deep, unbiased review of AI assets, software viability, and execution capability across the portfolio.",
@@ -81,9 +81,9 @@ const SERVICE_DATA = [
   {
     segment: "Corporates & Enterprise",
     icon: Building,
-    headline: "SYSTEMATIZE INNOVATION. ACHIEVE RIGOROUS SCALE.",
-    body: "We bridge the performance gap: your large organization moves with startup speed, backed by enterprise rigor. We turn chaos into repeatable technical success.",
-    tagline: "FROM AMBITION TO REALITY. BUILD INTERNAL CAPABILITY.",
+    headline: "STARTUP SPEED WITH RIGOR",
+    body: "We bridge the innovation gap and enable corporates to run like startups. Our focused programs and consulting services are designed with rigor and compliance in mind.",
+    tagline: "EFFECTIVE INNOVATION THAT RHYMES",
     modalTitle: "Innovation Programs & Acquisition Vetting",
     modalBulletPoints: [
       "Innovation Program Design: Design effective, repeatable programs to successfully enable your teams to leverage emerging Technologies.",
