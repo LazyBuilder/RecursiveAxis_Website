@@ -65,7 +65,7 @@ const SERVICE_DATA = [
     segment: "Investors & Private Equity",
     icon: ShieldCheck,
     headline: "DE-RISK YOUR TECH INVESTMENTS",
-    body: "Investment decisions are only as good as the technical clarity behind them. Deep technical understanding cuts through the noise and delivers confidence.",
+    body: "Investment decisions are only as good as the technical clarity behind them. Deep tech understanding turn complexities into confidence. .",
     tagline: "CLEAR & CONFIDENT DECISIONS",
     modalTitle: "Technical Due Diligence & Portfolio De-Risking",
     modalBulletPoints: [
@@ -82,7 +82,7 @@ const SERVICE_DATA = [
     segment: "Corporates & Enterprise",
     icon: Building,
     headline: "INNOVATE LIKE A STARTUP",
-    body: "We bridge the innovation gap and enable corporates to run like startups. Focused programs and consulting services are designed with compliance at core.",
+    body: "Innovation is the game of finding comfort in uncertainity and grit to move past failures. Our programs and services enable corporates to run like startups..",
     tagline: "EFFECTIVE INNOVATION THAT RHYMES",
     modalTitle: "Innovation Programs & Acquisition Vetting",
     modalBulletPoints: [
