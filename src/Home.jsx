@@ -36,10 +36,20 @@ const PROJECT_COLORS = {
     fuchsia: { iconBg: 'bg-fuchsia-50', iconText: 'text-fuchsia-600', shadow: 'shadow-fuchsia-100', border: 'border-fuchsia-200' },
 };
 
+const BLOG_URL = 'https://blog.recursiveaxis.com/';
+
+// Define the navigation links for the Header
 const NAV_LINKS = [
-  { name: 'Services', id: 'services' },
-  { name: 'Philosophy', id: 'philosophy' },
-  { name: 'Projects', id: 'projects' },
+  // Home link uses setPage to switch to the home view and scroll to the top section
+  { name: 'Home', type: 'internal', action: (setPage, scrollToSection) => { setPage('home'); scrollToSection(0); }, icon: Globe },
+  // Services scrolls to the Services section (section 2) in the HomeView
+  { name: 'Services', type: 'internal', action: (setPage, scrollToSection) => { setPage('home'); scrollToSection(2); }, icon: Zap },
+  // Projects switches to the 'projects' view page
+  { name: 'Projects', type: 'page', action: (setPage) => setPage('projects'), icon: Briefcase },
+  // NEW: Blog is an external link, using BookOpen icon
+  { name: 'Blog', type: 'external', href: BLOG_URL, icon: BookOpen },
+  // Contact scrolls to the Contact section (section 5) in the HomeView
+  { name: 'Contact', type: 'internal', action: (setPage, scrollToSection) => { setPage('home'); scrollToSection(5); }, icon: Mail },
 ];
 
 // Data structure for the Services section
@@ -487,23 +497,41 @@ const Header = React.memo(({ setPage, scrollToSection }) => {
           {/* <span className="text-xl font-extrabold tracking-tight">Recursive Axis</span>*/}
         </button>
 
-        {/* Desktop Navigation (Hidden on small screens) */}
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-8 items-center">
-          {NAV_LINKS.map(link => (
-            <button
-              key={link.id}
-              onClick={() => handleNavClick(link.id)}
-              className="text-gray-300 hover:text-white transition-colors font-medium relative group"
+            {NAV_LINKS.map((link, index) => (
+                // Checks for external link type to use <a> tag
+                link.type === 'external' ? (
+                    <a
+                        key={index}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={navLinkClass + " text-gray-700 dark:text-white"} // Explicit colors for desktop
+                    >
+                        {link.name}
+                    </a>
+                ) : (
+                    // Internal link type uses <button> tag
+                    <button
+                        key={index}
+                        onClick={() => link.action(setPage, scrollToSection)}
+                        // Use explicit text colors based on background
+                        className={navLinkClass + " text-gray-700 dark:text-white"} 
+                    >
+                        {link.name}
+                    </button>
+                )
+            ))}
+            {/* Main CTA */}
+            <a
+                href="https://cal.com/asitdeva"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-4 px-4 py-2 text-sm font-bold rounded-full bg-pink-600 text-white hover:bg-pink-700 transition-colors shadow-lg flex items-center"
             >
-              {link.name}
-              {/* Underline hover effect */}
-              <span className={`absolute bottom-0 left-0 w-full h-0.5 ${PRIMARY_ACCENT} scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left`}></span>
-            </button>
-          ))}
-          {/* Main CTA Button */}
-          <a href="https://cal.com/asitdeva" target="_blank" rel="RecursiveAxis Website" className={`ml-8 px-5 py-2 rounded-lg font-bold transition-all duration-300 bg-pink-600 hover:bg-pink-700 text-white shadow-lg shadow-pink-500/30`}>
-            Book a Call
-          </a>
+                Book a Call <ArrowRight className="w-4 h-4 ml-1" />
+            </a>
         </nav>
 
         {/* Mobile Menu Button (Visible only on small screens) */}
