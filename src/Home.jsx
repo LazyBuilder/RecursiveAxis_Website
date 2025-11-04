@@ -459,6 +459,41 @@ const TextModal = ({ isOpen, onClose, content }) => {
 };
 
 // ----------------------------------------------------------------------
+// --- Components: Header (FIXED: Added navLinkClass) ---
+// ----------------------------------------------------------------------
+
+/**
+ * Utility function for consistent navigation link styling.
+ * This was the missing definition causing the ReferenceError.
+ * @param {boolean} isActive - Whether the current link is active.
+ * @param {boolean} isMobile - Whether to apply mobile-specific styles.
+ * @returns {string} Tailwind CSS class string.
+ */
+const navLinkClass = (isActive, isMobile = false) => {
+  const base = 'text-base font-medium transition-colors duration-300 rounded-md';
+  
+  // Desktop styles
+  let desktopClasses = 'px-4 py-2 hover:bg-gray-800';
+  
+  if (isActive) {
+    desktopClasses = `${desktopClasses} ${PRIMARY_ACCENT} font-bold`;
+  } else {
+    desktopClasses = `${desktopClasses} text-gray-300`;
+  }
+  
+  // Mobile styles
+  let mobileClasses = 'w-full text-left px-4 py-3 border-b border-gray-700/50';
+  if (isActive) {
+    mobileClasses = `${mobileClasses} bg-gray-800 ${PRIMARY_ACCENT} font-bold`;
+  } else {
+    mobileClasses = `${mobileClasses} text-gray-300 hover:bg-gray-800`;
+  }
+  
+  return `${base} ${isMobile ? mobileClasses : desktopClasses}`;
+};
+
+
+// ----------------------------------------------------------------------
 // --- Main Layout Components ---
 // ----------------------------------------------------------------------
 
