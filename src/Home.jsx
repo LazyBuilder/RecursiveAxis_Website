@@ -516,7 +516,7 @@ const Header = React.memo(({ setPage, scrollToSection }) => {
                         key={index}
                         onClick={() => link.action(setPage, scrollToSection)}
                         // Use explicit text colors based on background
-                        className={navLinkClass + " text-gray-700 dark:text-white"} 
+                        className={`px-4 py-2 rounded-lg text-sm font-bold transition-all duration-300 bg-pink-600 hover:bg-pink-700 text-white shadow-lg shadow-pink-500/30`} 
                     >
                         {link.name}
                     </button>
