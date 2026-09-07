@@ -938,7 +938,7 @@ const TrustedCompaniesMarquee = () => (
 
                         <h3 className="text-lg font-bold text-white mb-4">
                           Has worked with:
-                        </h4>
+                        </h3>
                     </div>
                     <div className="md:order-2 flex justify-center">
                         {/* Founder Image Placeholder/Container */}
