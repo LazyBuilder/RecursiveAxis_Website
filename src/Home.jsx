@@ -13,7 +13,7 @@ const DARK_BACKGROUND = 'bg-gray-950';
 const LIGHT_TEXT = 'text-gray-900';
 const DARK_TEXT = 'text-white';
 const PRIMARY_ACCENT = 'text-pink-600'; // Used for main CTAs and highlights
-const SECONDARY_ACCENT = 'text-cyan-600'; // Used for sub-headings and distinction
+const SECONDARY_ACCENT = 'text-cyan-700'; // Used for sub-headings and distinction
 
 /**
  * --- ASSET CONFIGURATION ---
@@ -597,9 +597,9 @@ const Footer = React.memo(({ openTextModal }) => (
       </a>
       <div className="flex justify-center space-x-4 mb-4 flex-wrap">
         <button onClick={() => openTextModal({title: "Terms of Service", body: ["These are our terms of service. By using this website, you agree to our policies. This is placeholder text for the purpose of demonstrating the functionality. Actual terms will be provided upon engagement.", "This document is subject to change without notice. Please contact us for the latest version."]})
-        } className="hover:text-pink-500 transition-colors">Terms of Service</button>
+        className="px-3 py-2 hover:text-pink-500 transition-colors">Terms of Service</button>
         <button onClick={() => openTextModal({title: "Privacy Policy", body: ["Your privacy is critically important to us. Our policy is to respect your privacy regarding any information we may collect while operating our websites. We do not share your information with third parties without your explicit consent. This is placeholder text for demonstration.", "Data collected is used solely for the purpose of improving our services and communication with you."]})
-        } className="hover:text-pink-500 transition-colors">Privacy Policy</button>
+        className="px-3 py-2 hover:text-pink-500 transition-colors">Privacy Policy</button>
       </div>
       <p>&copy; {new Date().getFullYear()} Recursive Axis. All rights reserved. | Strategic Partner for Innovation.</p>
     </div>
@@ -658,7 +658,7 @@ const HeroSection = React.memo(({ scrollToServices }) => (
 const ServicesSection = React.memo(({ openModal }) => (
   <section id="services" className={`py-20 md:py-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${LIGHT_BACKGROUND} ${LIGHT_TEXT}`}>
     <div className="text-center mb-16">
-      <h3 className={`text-sm tracking-widest uppercase font-bold mb-3 ${SECONDARY_ACCENT}`}>Our Focus</h3>
+      <div className={`text-sm tracking-widest uppercase font-bold mb-3 ${SECONDARY_ACCENT}`}>Our Focus</div>
       <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">Services & Offerings</h2>
     </div>
 
@@ -681,7 +681,7 @@ const ServicesSection = React.memo(({ openModal }) => (
                 </div>
 
                 {/* Main Content */}
-                <h4 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-pink-700 transition-colors">{service.headline}</h4>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-pink-700 transition-colors">{service.headline}</h3>
                 <p className="text-gray-600 mb-6">{service.body}</p>
 
                 {/* --- UPDATED "Learn More" Section with distinct button --- */}
@@ -691,7 +691,7 @@ const ServicesSection = React.memo(({ openModal }) => (
                     <button
                         onClick={(e) => { e.stopPropagation(); openModal(service); }} // Stop propagation to prevent double click
                         className={`inline-flex items-center px-4 py-1.5 text-xs font-semibold rounded-full bg-cyan-600/10 text-cyan-600 border border-cyan-300 transition-all duration-300 hover:bg-cyan-600 hover:text-white hover:border-cyan-600 shadow-sm`}
-                        aria-label={`Learn more about ${service.segment} services`}
+                        aria-label={`Read More about ${service.segment} services`}
                     >
                         Read More <ArrowRight className="ml-1" size={12} />
                     </button>
@@ -717,7 +717,7 @@ const ProjectsShowcase = React.memo(({ goToProjects }) => {
   return (
       <section id="projects" className={`py-20 md:py-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${LIGHT_BACKGROUND} ${LIGHT_TEXT}`}>
           <div className="text-center mb-16">
-              <h3 className={`text-sm tracking-widest uppercase font-bold mb-3 ${PRIMARY_ACCENT}`}>Social Proof</h3>
+              <div className={`text-sm tracking-widest uppercase font-bold mb-3 ${PRIMARY_ACCENT}`}>Social Proof</div>
               <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">Recent Projects: Evidence of Our Impact</h2>
               <p className="text-gray-600 mt-4 max-w-3xl mx-auto">See how we've partnered with leaders to turn complex challenges into elegant, scalable outcomes.</p>
           </div>
@@ -753,11 +753,11 @@ const ProjectsShowcase = React.memo(({ goToProjects }) => {
                               <img
                                   src={projectVisual}
                                   alt={`Visual for ${project.title}`}
-                                  className={imageClass}
+                                  className={imageClass} loading="lazy"
                               />
                           </div>
                           {/* Title (Now takes full width under the image) */}
-                          <h4 className="text-xl font-bold text-gray-900 mb-2">{project.title}</h4>
+                          <h3 className="text-xl font-bold text-gray-900 mb-2">{project.title}</h3>
                           
                           {/* Summary Text */}
                           <p className="text-gray-600 text-sm mb-4 line-clamp-3">
@@ -781,7 +781,7 @@ const ProjectsShowcase = React.memo(({ goToProjects }) => {
               {/* Button to switch to the dedicated Projects page */}
               <button
                   onClick={() => goToProjects()}
-                  className={`inline-flex items-center font-bold text-lg px-6 py-3 rounded-lg text-white bg-cyan-600 transition-all duration-300 hover:bg-cyan-700 shadow-md shadow-cyan-500/30 transform hover:scale-[1.03]`}
+                  className={`inline-flex items-center font-bold text-lg px-6 py-3 rounded-lg text-white bg-cyan-700 transition-all duration-300 hover:bg-cyan-800 shadow-md shadow-cyan-500/30 transform hover:scale-[1.03]`}
               >
                   Explore All Projects & Case Studies <ArrowRight className="ml-2" size={20} />
               </button>
@@ -797,7 +797,7 @@ const PhilosophySection = React.memo(({ openTextModal }) => (
   <section id="philosophy" className={`py-20 md:py-32 bg-gray-50 border-t border-b border-gray-200 ${LIGHT_TEXT}`}>
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-16">
-        <h3 className={`text-sm tracking-widest uppercase font-bold mb-3 ${SECONDARY_ACCENT}`}>Our Blueprint</h3>
+        <div className={`text-sm tracking-widest uppercase font-bold mb-3 ${SECONDARY_ACCENT}`}>Our Blueprint</div>
         <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">Our Core Philosophy: The D.I.V.E. Framework.</h2>
       </div>
 
@@ -811,7 +811,7 @@ const PhilosophySection = React.memo(({ openTextModal }) => (
             className="text-center p-6 border border-gray-200 rounded-xl shadow-lg bg-white transition-all duration-300 hover:shadow-cyan-200 hover:border-cyan-500 transform hover:-translate-y-0.5 max-w-xs"
           >
             <div className={`text-5xl font-extrabold mb-4 ${PRIMARY_ACCENT}`}>{item.letter}</div>
-            <h4 className="text-xl font-semibold text-gray-900 mb-2">{item.title}</h4>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">{item.title}</h3>
             <p className="text-gray-600 text-sm">{item.description}</p>
           </button>
         ))}
@@ -936,7 +936,7 @@ const TrustedCompaniesMarquee = () => (
                             Connect with {partner.name.split(' ')[0]} on LinkedIn <Link className="ml-2" size={20} />
                         </a>
 
-                        <h4 className="text-lg font-bold text-white mb-4">
+                        <h3 className="text-lg font-bold text-white mb-4">
                           Has worked with:
                         </h4>
                     </div>
@@ -947,6 +947,7 @@ const TrustedCompaniesMarquee = () => (
                             <img
                                 src={FOUNDER_IMAGE_PATH}
                                 alt={`Headshot of ${partner.name}`}
+                                loading="lazy"
                                 className={`w-full h-full object-cover transition-opacity duration-500 ${isImageLoaded ? 'opacity-100' : 'opacity-0'}`}
                                 onLoad={() => setIsImageLoaded(true)}
                                 // Ensure fallback icon shows on error by setting isImageLoaded to false
