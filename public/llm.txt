@@ -1,0 +1,33 @@
+# Recursive Axis
+
+Recursive Axis is a strategic partner specializing in Technology, Analytics, and Innovation. They provide high-leverage advisory and execution services for three primary segments:
+
+## Core Offerings
+
+### 1. Founders & Startups
+- **Goal:** Build disciplined ventures and accelerate Product-Market Fit (PMF).
+- **Services:** PMF Acceleration Strategy, Interim CPO/CTO Advisory, Actionable Tech Roadmaps, Technical Debt Reduction, Due-Diligence Preparation.
+
+### 2. Investors & Private Equity
+- **Goal:** De-risk tech investments and provide technical certainty.
+- **Services:** Technical Due Diligence (AI & Software), Portfolio De-Risking Analysis, AI Strategy Consulting & Training, Valuation Strategy & Risk Mitigation, Exit Readiness Audits.
+
+### 3. Corporates & Enterprise
+- **Goal:** Enable corporate innovation with startup speed.
+- **Services:** Innovation Program Design, Tech Maturity Evaluation, Acquisition Technical Vetting, Strategic Roadmap Consulting, Internal Venture Structuring.
+
+## The D.I.V.E. Framework
+Their methodology for delivery:
+- **D (Decision):** Hypothesis-Led Strategy.
+- **I (Iteration):** Velocity-Focused Design.
+- **V (Verification):** Analytics-Driven Learning.
+- **E (Execution):** Scalable Delivery.
+
+## Key Personnel
+- **Asit Deva:** Founder & Principal.
+
+## Contact & Links
+- **Website:** https://www.recursiveaxis.com/
+- **Blog:** https://blog.recursiveaxis.com/
+- **Email:** hello@recursiveaxis.com
+- **Booking:** https://cal.com/asitdeva
