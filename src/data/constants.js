@@ -32,7 +32,15 @@ export const PROJECT_COLORS = {
 
 // Navigation links for the Header
 export const NAV_LINKS = [
-  { name: 'Services', type: 'internal', href: '/services', icon: Zap },
+  {
+    name: 'Services',
+    type: 'menu',
+    submenu: [
+      { name: 'Founder Services', href: '/services/founder', icon: Zap },
+      { name: 'Investor Services', href: '/services/investor', icon: Zap },
+      { name: 'Innovation Services', href: '/services/innovation', icon: Zap },
+    ]
+  },
   { name: 'Projects', type: 'page', href: '/projects', icon: Briefcase },
   { name: 'Blog', type: 'external', href: BLOG_URL, icon: BookOpen },
   { name: 'Contact', type: 'internal', href: '/contact', icon: Mail },

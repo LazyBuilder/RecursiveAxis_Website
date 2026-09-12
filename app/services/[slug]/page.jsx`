@@ -1,0 +1,94 @@
+'use client';
+import React from 'react';
+import { useParams } from 'next/navigation';
+import Link from 'next/link';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { SERVICE_DATA } from '../../src/data/services';
+import { PRIMARY_ACCENT, SECONDARY_ACCENT, LIGHT_BACKGROUND, LIGHT_TEXT } from '../../src/data/constants';
+
+const ServiceDetailPage = () => {
+  const params = useParams();
+  const slug = params.slug;
+
+  // Map slug to the correct service data index
+  const slugMap = {
+    'founder': 0,
+    'investor': 1,
+    'innovation': 2,
+  };
+
+  const dataIndex = slugMap[slug];
+  const service = dataIndex !== undefined ? SERVICE_DATA[dataIndex] : null;
+
+  if (!service) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">Service Not Found</h1>
+          <Link href="/services" className="text-pink-600 font-bold hover:underline">Return to Services</Link>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className={`min-h-screen ${LIGHT_BACKGROUND} ${LIGHT_TEXT} py-20 md:py-32`}>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <Link
+          href="/services"
+          className="inline-flex items-center text-gray-500 hover:text-pink-600 transition-colors font-medium mb-12 group"
+        >
+          <ArrowLeft className="mr-2 w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+          Back to All Services
+        </Link>
+
+        <div className="text-center mb-16">
+          <div className={`text-sm tracking-widest uppercase font-bold mb-3 ${SECONDARY_ACCENT}`}>
+            {service.segment}
+          </div>
+          <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 mb-6">
+            {service.headline}
+          </h1>
+          <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
+            {service.body}
+          </p>
+        </div>
+
+        <div className="bg-white border border-gray-200 rounded-3xl shadow-xl overflow-hidden">
+          <div className={`p-8 md:p-12 border-b border-gray-100 ${PRIMARY_ACCENT} bg-pink-50/30`}>
+            <h2 className="text-3xl font-bold text-gray-900">
+              {service.modalTitle}
+            </h2>
+          </div>
+
+          <div className="p-8 md:p-12">
+            <div className="grid gap-6">
+              {service.modalBulletPoints.map((point, index) => (
+                <div key={index} className="flex items-start space-x-4 p-4 rounded-xl hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100">
+                  <div className={`mt-1.5 w-2 h-2 rounded-full shrink-0 ${PRIMARY_ACCENT.replace('text-', 'bg-')}`} />
+                  <p className="text-lg text-gray-700 leading-relaxed">{point}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-16 text-center">
+              <p className={`text-lg font-bold mb-6 ${SECONDARY_ACCENT}`}>
+                {service.tagline}
+              </p>
+              <a
+                href={service.ctaLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-8 py-4 rounded-full text-xl font-bold text-white bg-pink-600 hover:bg-pink-700 transition-all duration-300 shadow-lg shadow-pink-500/30 transform hover:scale-105"
+              >
+                {service.modalCta} <ArrowRight className="ml-2" size={20} />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ServiceDetailPage;

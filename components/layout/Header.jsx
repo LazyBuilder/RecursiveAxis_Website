@@ -1,11 +1,12 @@
 'use client';
-import React, { useState, useCallback } from 'react';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { Menu, X, ArrowRight, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import { LOGO_PATH, NAV_LINKS } from '../../src/data/constants';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeMenu, setActiveMenu] = useState(null);
 
   return (
     <header className={`sticky top-0 z-40 w-full bg-gray-950 bg-opacity-100 border-b border-gray-800/50`}>
@@ -26,7 +27,31 @@ const Header = () => {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-8 items-center">
             {NAV_LINKS.map((link, index) => (
-                link.type === 'external' ? (
+                link.type === 'menu' ? (
+                    <div
+                      key={index}
+                      className="relative group"
+                      onMouseEnter={() => setActiveMenu(link.name)}
+                      onMouseLeave={() => setActiveMenu(null)}
+                    >
+                        <button className="flex items-center text-2xl font-bold text-cyan-400 hover:text-cyan-200 transition-colors">
+                            {link.name} <ChevronDown className="ml-1 w-5 h-5" />
+                        </button>
+                        {activeMenu === link.name && (
+                            <div className="absolute left-0 top-full w-56 bg-gray-900 border border-gray-800 rounded-xl shadow-2xl py-2 animate-in fade-in slide-in-from-top-2 duration-200">
+                                {link.submenu.map((sub, subIndex) => (
+                                    <Link
+                                        key={subIndex}
+                                        href={sub.href}
+                                        className="block px-4 py-3 text-lg font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
+                                    >
+                                        {sub.name}
+                                    </Link>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                ) : link.type === 'external' ? (
                     <a
                         key={index}
                         href={link.href}
@@ -68,7 +93,23 @@ const Header = () => {
         <div className={`md:hidden bg-gray-950 p-4 border-t border-gray-800 absolute w-full transition-all duration-300 transform-gpu translate-y-0 animate-in fade-in`}>
           <nav className="flex flex-col space-y-4">
             {NAV_LINKS.map((link, index) => (
-              link.type === 'external' ? (
+              link.type === 'menu' ? (
+                <div key={index} className="flex flex-col space-y-2">
+                  <div className="text-lg font-bold text-cyan-400 text-right py-2 border-b border-gray-800">{link.name}</div>
+                  <div className="flex flex-col space-y-2 pl-4">
+                    {link.submenu.map((sub, subIndex) => (
+                      <Link
+                        key={subIndex}
+                        href={sub.href}
+                        onClick={() => setIsMenuOpen(false)}
+                        className="text-md text-gray-400 hover:text-white text-right py-1 block"
+                      >
+                        {sub.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : link.type === 'external' ? (
                 <a
                   key={index}
                   href={link.href}
