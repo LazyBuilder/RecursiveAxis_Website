@@ -1,7 +1,8 @@
 'use client';
 import React from 'react';
 import { useModals } from '../ModalProvider';
-import { DIVE_FRAMEWORK, PRIMARY_ACCENT, SECONDARY_ACCENT, LIGHT_TEXT } from '../../src/data/constants';
+import { PRIMARY_ACCENT, SECONDARY_ACCENT, LIGHT_TEXT } from '../../src/data/constants';
+import { DIVE_FRAMEWORK } from '../../src/data/philosophy';
 
 const PhilosophySection = () => {
   const { openTextModal } = useModals();
