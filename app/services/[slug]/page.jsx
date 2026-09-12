@@ -24,7 +24,7 @@ const ServiceDetailPage = () => {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Service Not Found</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">Service Not found</h1>
           <Link href="/services" className="text-pink-600 font-bold hover:underline">Return to Services</Link>
         </div>
       </div>
