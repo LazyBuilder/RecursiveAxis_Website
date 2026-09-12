@@ -2,7 +2,7 @@
 import React, { useState, useCallback } from 'react';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { LOGO_PATH, NAV_LINKS } from '../data/constants';
+import { LOGO_PATH, NAV_LINKS } from '../../src/data/constants';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

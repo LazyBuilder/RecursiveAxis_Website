@@ -1,8 +1,8 @@
 'use client';
 import React from 'react';
 import { HardHat, ShieldCheck, Building, ArrowRight } from 'lucide-react';
-import { SERVICE_DATA, PRIMARY_ACCENT, SECONDARY_ACCENT, LIGHT_BACKGROUND, LIGHT_TEXT } from '../data/constants';
-import { useModals } from '../ModalProvider';
+import { SERVICE_DATA, PRIMARY_ACCENT, SECONDARY_ACCENT, LIGHT_BACKGROUND, LIGHT_TEXT } from '../../src/data/constants';
+import { useModals } from '../../components/ModalProvider';
 
 export default function ServicesPage() {
   const { openServiceModal } = useModals();

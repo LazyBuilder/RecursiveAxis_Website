@@ -1,5 +1,5 @@
 import React from 'react';
-import FinalCTASection from '../components/sections/FinalCTASection';
+import FinalCTASection from '../../components/sections/FinalCTASection';
 
 export default function ContactPage() {
   return (

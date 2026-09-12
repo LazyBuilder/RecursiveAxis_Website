@@ -2,10 +2,10 @@
 import React, { useState } from 'react';
 import { Search, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import projectsData from '../data/projects';
-import { DARK_BACKGROUND, DARK_TEXT, DESCRIPTION_LIMIT } from '../data/constants';
-import ProjectCard from '../components/ui/ProjectCard';
-import { useModals } from '../ModalProvider';
+import projectsData from '../../src/data/projects';
+import { DARK_BACKGROUND, DARK_TEXT, DESCRIPTION_LIMIT } from '../../src/data/constants';
+import ProjectCard from '../../components/ui/ProjectCard';
+import { useModals } from '../../components/ModalProvider';
 
 export default function ProjectsPage() {
   const [searchQuery, setSearchQuery] = useState('');
