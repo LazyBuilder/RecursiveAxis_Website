@@ -3,8 +3,8 @@ import React from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-import { SERVICE_DATA } from '../../src/data/services';
-import { PRIMARY_ACCENT, SECONDARY_ACCENT, LIGHT_BACKGROUND, LIGHT_TEXT } from '../../src/data/constants';
+import { SERVICE_DATA } from '../../../src/data/services';
+import { PRIMARY_ACCENT, SECONDARY_ACCENT, LIGHT_BACKGROUND, LIGHT_TEXT } from '../../../src/data/constants';
 
 const ServiceDetailPage = () => {
   const params = useParams();
