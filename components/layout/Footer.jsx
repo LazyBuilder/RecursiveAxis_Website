@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { Mail } from 'lucide-react';
-import { DARK_BACKGROUND, HERO_BG_PATH, CONTACT_EMAIL, PRIMARY_ACCENT } from '../data/constants';
+import { DARK_BACKGROUND, HERO_BG_PATH, CONTACT_EMAIL, PRIMARY_ACCENT } from '../../src/data/constants';
 
 const Footer = ({ openTextModal }) => (
   <footer

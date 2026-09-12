@@ -1,5 +1,5 @@
 import React from 'react';
-import { FAQ_DATA, PRIMARY_ACCENT, SECONDARY_ACCENT, LIGHT_BACKGROUND, LIGHT_TEXT } from '../data/constants';
+import { FAQ_DATA, PRIMARY_ACCENT, SECONDARY_ACCENT, LIGHT_BACKGROUND, LIGHT_TEXT } from '../../src/data/constants';
 
 const FAQSection = () => (
   <section id="faq" className={`py-20 md:py-32 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 ${LIGHT_BACKGROUND} ${LIGHT_TEXT}`}>

@@ -2,7 +2,7 @@
 import React from 'react';
 import { BookOpen } from 'lucide-react';
 import TagPill from './TagPill';
-import { DESCRIPTION_LIMIT } from '../data/constants';
+import { DESCRIPTION_LIMIT } from '../../src/data/constants';
 
 const ProjectCard = ({ project, onReadMore }) => {
     const isLongDescription = project.description.length > DESCRIPTION_LIMIT;

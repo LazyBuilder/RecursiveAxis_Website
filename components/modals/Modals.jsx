@@ -2,7 +2,7 @@
 import React from 'react';
 import { X, ArrowRight } from 'lucide-react';
 import TagPill from '../ui/TagPill';
-import { SIMPLE_LOGO_PATH, PRIMARY_ACCENT, DARK_BACKGROUND } from '../data/constants';
+import { SIMPLE_LOGO_PATH, PRIMARY_ACCENT, DARK_BACKGROUND } from '../../src/data/constants';
 
 export const FullDescriptionModal = ({ project, onClose }) => {
   if (!project) return null;

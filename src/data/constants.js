@@ -1,5 +1,8 @@
 // src/data/constants.js
 import { Zap, Briefcase, BookOpen, Mail } from 'lucide-react';
+import { SERVICE_DATA } from './services';
+
+export { SERVICE_DATA };
 
 export const LIGHT_BACKGROUND = 'bg-white';
 export const DARK_BACKGROUND = 'bg-gray-950';

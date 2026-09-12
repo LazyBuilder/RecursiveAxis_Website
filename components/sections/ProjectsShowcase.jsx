@@ -2,8 +2,8 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import projectsData from '../data/projects';
-import { PROJECT_COLORS, LOGO_PATH } from '../data/constants';
+import projectsData from '../../src/data/projects';
+import { PROJECT_COLORS, LOGO_PATH } from '../../src/data/constants';
 
 const ProjectsShowcase = () => {
   const shuffledProjects = [...projectsData].sort(() => 0.5 - Math.random());

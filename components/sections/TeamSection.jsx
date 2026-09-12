@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { User, Link } from 'lucide-react';
-import { PARTNER_DATA, TRUSTED_COMPANIES, HERO_BG_PATH, DARK_BACKGROUND, FOUNDER_IMAGE_PATH } from '../data/constants';
+import { PARTNER_DATA, TRUSTED_COMPANIES, HERO_BG_PATH, DARK_BACKGROUND, FOUNDER_IMAGE_PATH } from '../../src/data/constants';
 
 const TrustedCompaniesMarquee = () => (
   <div className="relative w-full overflow-hidden whitespace-nowrap py-4 border-y border-gray-700 bg-white mt-8">

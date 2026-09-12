@@ -1,5 +1,5 @@
 import React from 'react';
-import { LIGHT_BACKGROUND } from '../data/constants';
+import { LIGHT_BACKGROUND } from '../../src/data/constants';
 
 const FinalCTASection = () => (
   <section id="booking" className={`py-20 md:py-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${LIGHT_BACKGROUND}`}>

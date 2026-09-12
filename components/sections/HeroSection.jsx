@@ -2,7 +2,7 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { SECONDARY_ACCENT, HERO_BG_PATH } from '../data/constants';
+import { SECONDARY_ACCENT, HERO_BG_PATH } from '../../src/data/constants';
 
 const HeroSection = () => (
   <section
