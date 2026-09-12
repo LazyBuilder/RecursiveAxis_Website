@@ -1,14 +1,19 @@
-'use client';
 import React from 'react';
-import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { SERVICE_DATA } from '../../../src/data/services';
 import { PRIMARY_ACCENT, SECONDARY_ACCENT, LIGHT_BACKGROUND, LIGHT_TEXT } from '../../../src/data/constants';
 
-const ServiceDetailPage = () => {
-  const params = useParams();
-  const slug = params.slug;
+export async function generateStaticParams() {
+  return [
+    { slug: 'founder' },
+    { slug: 'investor' },
+    { slug: 'innovation' },
+  ];
+}
+
+const ServiceDetailPage = async ({ params }) => {
+  const { slug } = await params;
 
   // Map slug to the correct service data index
   const slugMap = {
