@@ -8,10 +8,10 @@ export const DARK_TEXT = 'text-white';
 export const PRIMARY_ACCENT = 'text-pink-600';
 export const SECONDARY_ACCENT = 'text-cyan-700';
 
-export const SIMPLE_LOGO_PATH = `${process.env.PUBLIC_URL}/assets/RA_MiniLogo.png`;
-export const LOGO_PATH = `${process.env.PUBLIC_URL}/assets/RA_FullLogo_Dark.png`;
-export const HERO_BG_PATH = `${process.env.PUBLIC_URL}/assets/RA_Dark_Background.png`;
-export const FOUNDER_IMAGE_PATH = `${process.env.PUBLIC_URL}/assets/TeamProfilePic_Asit.jpeg`;
+export const SIMPLE_LOGO_PATH = `/assets/RA_MiniLogo.png`;
+export const LOGO_PATH = `/assets/RA_FullLogo_Dark.png`;
+export const HERO_BG_PATH = `/assets/RA_Dark_Background.png`;
+export const FOUNDER_IMAGE_PATH = `/assets/TeamProfilePic_Asit.jpeg`;
 
 export const BLOG_URL = 'https://blog.recursiveaxis.com/';
 export const CONTACT_EMAIL = "hello@recursiveaxis.com";
@@ -29,10 +29,10 @@ export const PROJECT_COLORS = {
 
 // Navigation links for the Header
 export const NAV_LINKS = [
-  { name: 'Services', type: 'internal', action: (setPage, scrollToSection) => { setPage('home'); scrollToSection(2); }, icon: Zap },
-  { name: 'Projects', type: 'page', action: (setPage) => setPage('projects'), icon: Briefcase },
+  { name: 'Services', type: 'internal', href: '/services', icon: Zap },
+  { name: 'Projects', type: 'page', href: '/projects', icon: Briefcase },
   { name: 'Blog', type: 'external', href: BLOG_URL, icon: BookOpen },
-  { name: 'Contact', type: 'internal', action: (setPage, scrollToSection) => { setPage('home'); scrollToSection(5); }, icon: Mail },
+  { name: 'Contact', type: 'internal', href: '/contact', icon: Mail },
 ];
 
 // FAQ Data
@@ -57,21 +57,21 @@ export const FAQ_DATA = [
 
 // Trusted Companies
 export const TRUSTED_COMPANIES = [
-  { name: 'TCS', url: 'https://www.tcs.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/TCS_logo.png` },
-  { name: 'Equifax', url: 'https://www.equifax.ca/canada/equifax/b_en.html', logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Equifax_Logo.png` },
-  { name: 'J&J', url: 'https://www.jnj.com/', logo: `${process.env.PUBLIC_URL}/assets/asit_logos/JnJ_Logo.png` },
-  { name: 'Siemens', url: 'https://www.siemens.com/global/en.html', logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Siemens_logo.png` },
-  { name: 'PUDO', url: 'https://pudopoint.com/'  , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/PUDO_logo.png` },
+  { name: 'TCS', url: 'https://www.tcs.com/' , logo: `/assets/asit_logos/TCS_logo.png` },
+  { name: 'Equifax', url: 'https://www.equifax.ca/canada/equifax/b_en.html', logo: `/assets/asit_logos/Equifax_Logo.png` },
+  { name: 'J&J', url: 'https://www.jnj.com/', logo: `/assets/asit_logos/JnJ_Logo.png` },
+  { name: 'Siemens', url: 'https://www.siemens.com/global/en.html', logo: `/assets/asit_logos/Siemens_logo.png` },
+  { name: 'PUDO', url: 'https://pudopoint.com/'  , logo: `/assets/asit_logos/PUDO_logo.png` },
   { name: 'Ignite AI', url: "https://www.linkedin.com/company/ignite-ai/posts" },
-  { name: 'YorkU', url: 'https://www.yorku.ca/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/York_U_Logo.png` },
-  { name: 'Kare Granola', url: 'https://karegranola.com/', logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Kare_Granola.png` },
-  { name: 'StartupFuel', url: 'https://www.startupfuel.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Startup-Fuel.png` },
-  { name: 'Innovation Factory', url: 'https://innovationfactory.ca/', logo: `${process.env.PUBLIC_URL}/assets/asit_logos/iF_Logo.png` },
-  { name: 'FutureSight', url: 'https://futuresight.ventures/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/FutureSight_Logo.png` },
-  { name: 'Untrap', url: 'https://getuntrap.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Untrap_logo.png` },
-  { name: 'Addie', url: 'https://getaddie.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Addie_Logo.png` },
-  { name: 'CaringAI', url: 'https://getcaring.ai/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/CaringAI_logo.png` },
-  { name: 'Mercata', url: 'https://mercataintel.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Mercata_Logo.png` }
+  { name: 'YorkU', url: 'https://www.yorku.ca/' , logo: `/assets/asit_logos/York_U_Logo.png` },
+  { name: 'Kare Granola', url: 'https://karegranola.com/', logo: `/assets/asit_logos/Kare_Granola.png` },
+  { name: 'StartupFuel', url: 'https://www.startupfuel.com/' , logo: `/assets/asit_logos/Startup-Fuel.png` },
+  { name: 'Innovation Factory', url: 'https://innovationfactory.ca/', logo: `/assets/asit_logos/iF_Logo.png` },
+  { name: 'FutureSight', url: 'https://futuresight.ventures/' , logo: `/assets/asit_logos/FutureSight_Logo.png` },
+  { name: 'Untrap', url: 'https://getuntrap.com/' , logo: `/assets/asit_logos/Untrap_logo.png` },
+  { name: 'Addie', url: 'https://getaddie.com/' , logo: `/assets/asit_logos/Addie_Logo.png` },
+  { name: 'CaringAI', url: 'https://getcaring.ai/' , logo: `/assets/asit_logos/CaringAI_logo.png` },
+  { name: 'Mercata', url: 'https://mercataintel.com/' , logo: `/assets/asit_logos/Mercata_Logo.png` }
 ];
 
 // Partner/Founder details
