@@ -17,11 +17,41 @@ Recursive Axis is a strategic partner specializing in Technology, Analytics, and
 - **Services:** Innovation Program Design, Tech Maturity Evaluation, Acquisition Technical Vetting, Strategic Roadmap Consulting, Internal Venture Structuring.
 
 ## The D.I.V.E. Framework
-Their methodology for delivery:
-- **D (Decision):** Hypothesis-Led Strategy.
-- **I (Iteration):** Velocity-Focused Design.
-- **V (Verification):** Analytics-Driven Learning.
-- **E (Execution):** Scalable Delivery.
+Their proprietary methodology for turning complex technical challenges into scalable business outcomes:
+
+- **D (Decision): Hypothesis-Led Strategy**
+    - **Input:** Market uncertainty and complex business goals.
+    - **Process:** Combining technical expertise and market knowledge to build sharp, data-backed hypotheses.
+    - **Outcome:** A clear strategic axis and the most efficient path forward.
+
+- **I (Iteration): Velocity-Focused Design**
+    - **Input:** Strategic hypotheses and initial product concepts.
+    - **Process:** Using rapid, high-quality cycles and testable experiences to test core assumptions.
+    - **Outcome:** Maximized learning and significantly reduced time-to-market.
+
+- **V (Verification): Analytics-Driven Learning**
+    - **Input:** Iterative product results and user activity.
+    - **Process:** Installing rigorous data analytics and measurement frameworks to verify results.
+    - **Outcome:** Hard data confirming business growth and critical clarity for stakeholders.
+
+- **E (Execution): Scalable Delivery**
+    - **Input:** Verified hypotheses and proven value propositions.
+    - **Process:** Using tested, scalable methods to devise long-term plans and robust engineering.
+    - **Outcome:** Lasting value with a future-proofed foundation and minimal technical debt.
+
+## Frequently Asked Questions (FAQ)
+
+**What is Technical Due Diligence for AI?**
+Technical Due Diligence for AI is an unbiased, deep review of AI assets, software viability, and execution capability. It removes market uncertainty by providing investors with technical certainty and clear signals regarding the value of the technology.
+
+**How does Recursive Axis accelerate Product-Market Fit (PMF)?**
+Recursive Axis uses a PMF Acceleration Strategy powered by logical experimentation and data-driven decision-making. They help founders fight against the odds by building focus and toughness needed to master uncertainty.
+
+**What is the role of an Interim CPO/CTO?**
+An Interim CPO/CTO provides world-class, battle-tested leadership to a company without the permanent hiring risk. They handle strategic planning, system design, and technical leadership until a permanent hire is found or the company stabilizes.
+
+**What is the D.I.V.E. Framework?**
+The D.I.V.E. Framework is a four-stage methodology (Decision, Iteration, Verification, Execution) designed to move a project from a vague idea to a scalable, verified business outcome with minimal wasted resources.
 
 ## Key Personnel
 - **Asit Deva:** Founder & Principal.

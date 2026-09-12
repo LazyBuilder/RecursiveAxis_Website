@@ -1,11 +1,11 @@
-// projects_db.jsx
+// src/data/projects.js
 
 // --- Import the images first to get the correct asset paths ---
-import mshcgDugapuja from "./photos/mshcg-dugapuja.png";
-import vervePhotography from "./photos/verve-photography.png";
-import flyinducksCover from "./photos/flyinducks_cover.png";
-import pocketlendCover from "./photos/pocketlend_cover.png";
-import karegranolaCover from "./photos/karegranola_cover.png";
+import mshcgDugapuja from "../photos/mshcg-dugapuja.png";
+import vervePhotography from "../photos/verve-photography.png";
+import flyinducksCover from "../photos/flyinducks_cover.png";
+import pocketlendCover from "../photos/pocketlend_cover.png";
+import karegranolaCover from "../photos/karegranola_cover.png";
 // -----------------------------------------------------------------
 
 const data = [

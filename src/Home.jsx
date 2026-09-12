@@ -2,187 +2,17 @@ import React, { useState, useCallback, useEffect, useRef } from 'react';
 // Lucide icons are used for a modern, lightweight icon set.
 import { Menu, X, Mail, ArrowRight, TrendingUp, Zap, Users, ShieldCheck, HardHat, Link, Globe, Briefcase, Building, User, BookOpen, Tag, Search } from 'lucide-react';
 
-// ----------------------------------------------------------------------
-// --- Configuration & Data ---
-// This section centralizes all customizable variables for easy modification.
-// ----------------------------------------------------------------------
-
-// Global Aesthetics - Use these constants for quick theme changes
-const LIGHT_BACKGROUND = 'bg-white';
-const DARK_BACKGROUND = 'bg-gray-950';
-const LIGHT_TEXT = 'text-gray-900';
-const DARK_TEXT = 'text-white';
-const PRIMARY_ACCENT = 'text-pink-600'; // Used for main CTAs and highlights
-const SECONDARY_ACCENT = 'text-cyan-700'; // Used for sub-headings and distinction
-
-/**
- * --- ASSET CONFIGURATION ---
- * Images are loaded directly from the environment using unique contentFetchIds.
- */
-const SIMPLE_LOGO_PATH = `${process.env.PUBLIC_URL}/assets/RA_MiniLogo.png`;
-const LOGO_PATH = `${process.env.PUBLIC_URL}/assets/RA_FullLogo_Dark.png`;
-const HERO_BG_PATH = `${process.env.PUBLIC_URL}/assets/RA_Dark_Background.png`;
-const FOUNDER_IMAGE_PATH = `${process.env.PUBLIC_URL}/assets/TeamProfilePic_Asit.jpeg`; // Placeholder (Update with actual ID)
-
-import project_data from './projects_db.jsx';
-
-// Project Card Color Mapping (Tailwind classes must be full strings for compilation)
-const PROJECT_COLORS = {
-    pink: { iconBg: 'bg-pink-50', iconText: 'text-pink-600', shadow: 'shadow-pink-100', border: 'border-pink-200' },
-    cyan: { iconBg: 'bg-cyan-50', iconText: 'text-cyan-600', shadow: 'shadow-cyan-100', border: 'border-cyan-200' },
-    green: { iconBg: 'bg-green-50', iconText: 'text-green-600', shadow: 'shadow-green-100', border: 'border-green-200' },
-    purple: { iconBg: 'bg-purple-50', iconText: 'text-purple-600', shadow: 'shadow-purple-100', border: 'border-purple-200' },
-    yellow: { iconBg: 'bg-yellow-50', iconText: 'text-yellow-600', shadow: 'shadow-yellow-100', border: 'border-yellow-200' },
-    fuchsia: { iconBg: 'bg-fuchsia-50', iconText: 'text-fuchsia-600', shadow: 'shadow-fuchsia-100', border: 'border-fuchsia-200' },
-};
-
-const BLOG_URL = 'https://blog.recursiveaxis.com/';
-
-// Define the navigation links for the Header
-const NAV_LINKS = [
-  // Services scrolls to the Services section (section 2) in the HomeView
-  { name: 'Services', type: 'internal', action: (setPage, scrollToSection) => { setPage('home'); scrollToSection(2); }, icon: Zap },
-  // Projects switches to the 'projects' view page
-  { name: 'Projects', type: 'page', action: (setPage) => setPage('projects'), icon: Briefcase },
-  // NEW: Blog is an external link, using BookOpen icon
-  { name: 'Blog', type: 'external', href: BLOG_URL, icon: BookOpen },
-  // Contact scrolls to the Contact section (section 5) in the HomeView
-  { name: 'Contact', type: 'internal', action: (setPage, scrollToSection) => { setPage('home'); scrollToSection(5); }, icon: Mail },
-];
-
-// Data structure for the Services section
-const SERVICE_DATA = [
-  {
-    segment: "Founders & Startups",
-    icon: HardHat,
-    headline: "BUILD DISCIPLINED VENTURES",
-    body: "Building your startup means fighting against the odds. Our strength comes from successfully taking projects from idea to market (0 to 1). We build the focus and toughness needed to master uncertainty and set a conclusive path forward.",
-    tagline: "CONTROLLED CHAOS",
-    modalTitle: "Product Strategy & Tech Advisory",
-    modalBulletPoints: [
-      "PMF Acceleration Strategy: Strategic planning powered by logical experimentation and data-driven decision-making.",
-      "Interim CPO/CTO Advisory: World-class, battle-tested leadership without the permanent hiring risk.",
-      "Actionable Tech Roadmaps: Scalable system design, deployment architecture, and maintenance strategies.",
-      "Technical Debt Reduction: Audits and remediation plans to stabilize platforms and prepare for investment.",
-      "Due-Diligence Preparation: Prepare tech assets for investor/auditor scrutiny."
-    ],
-    modalCta: "Book a Strategy Session",
-    ctaLink: "https://cal.com/asitdeva/founders"
-  },
-  {
-    segment: "Investors & Private Equity",
-    icon: ShieldCheck,
-    headline: "DE-RISK YOUR TECH INVESTMENTS",
-    body: "Modern investment decisions depends on emerging tech. We remove market uncertainty by providing deep technical certainty for emerging technologies. We turn complex details into clear, trustworthy signals for investors.",
-    tagline: "CLEAR & CONFIDENT DECISIONS",
-    modalTitle: "Technical Due Diligence & Portfolio Design",
-    modalBulletPoints: [
-      "Technical Due Diligence (AI & Software): Deep, unbiased review of AI assets, software viability, and execution capability across the portfolio.",
-      "Portfolio De-Risking Analysis: Deep analysis for technology diversification—your real value and defensive strategy.",
-      "AI Strategy Consulting & Training: Upskilling and tech know-how for new technologies to make better, data-backed investment decisions.",
-      "Valuation Strategy & Risk Mitigation: Identify and mitigate critical technical risks post-acquisition.",
-      "Exit Readiness Audits: Ensuring tech stack is optimized for maximum valuation."
-    ],
-    modalCta: "Request Due Diligence Scope",
-    ctaLink: "https://cal.com/asitdeva/investors"
-  },
-  {
-    segment: "Corporates & Enterprise",
-    icon: Building,
-    headline: "INNOVATE LIKE A STARTUP",
-    body: "Innovation requires a clear, controlled plan. We design programs that let big companies move with the speed of a startup, helping teams handle uncertainty and achieve reliable outcomes every time.",
-    tagline: "EFFECTIVE INNOVATION",
-    modalTitle: "Innovation Programs & Acquisition Vetting",
-    modalBulletPoints: [
-      "Innovation Program Design: Design effective, repeatable programs to successfully enable your teams to leverage emerging Technologies.",
-      "Tech Maturity Evaluation: Detailed analysis of your teams' maturity levels and phased roadmaps for capability advancement.",
-      "Acquisition Technical Vetting: Exhaustive search and technical analysis for your next significant strategic acquisition.",
-      "Strategic Roadmap Consulting: Guidance through organizational shifts and CPO/CTO advisory for digital transformation.",
-      "Internal Venture Structuring: Frameworks to validate and spin out new internal ventures."
-    ],
-    modalCta: "Explore Program Options",
-    ctaLink: "https://cal.com/asitdeva/corporates"
-  }
-];
-
-// Data structure for the Philosophy section (D.I.V.E. Framework)
-const DIVE_FRAMEWORK = [
-  { 
-    letter: 'D', title: 'Decision', description: 'Hypothesis-Led Strategy', 
-    modalTitle: 'D: Decision - Hypothesis-Led Strategy', 
-    modalBody: [
-        "The Strategy: Why we build what we build.",
-        "Our work always begins with strategy, not code. We combine our technical expertise and market knowledge to build sharp, data-backed hypotheses about the market need and the most viable solution. This systematic approach ensures that every resource is targeted at the highest-leverage problem, giving your project a clear strategic axis and defining the most efficient path forward."
-    ]
-  },
-  { 
-    letter: 'I', title: 'Iteration', description: 'Velocity-Focused Design', 
-    modalTitle: 'I: Iteration - Velocity-Focused Design', 
-    modalBody: [
-        "The Process: How we build and learn fast.",
-        "Our methodology is built on speed and quality. We design highly testable, user-centric experiences that allow for rapid and high-quality cycles. We leverage our scalable methods to quickly test core assumptions, resulting in maximized learning and significantly reduced time-to-market for every feature and product. This is how we ensure speed is not reckless."
-    ]
-  },
-  { 
-    letter: 'V', title: 'Verification', description: 'Analytics-Driven Learning', 
-    modalTitle: 'V: Verification - Analytics-Driven Learning', 
-    modalBody: [
-        "The Rigor: How we know it's working.",
-        "We install rigorous data analytics and measurement frameworks from the start. This process confirms that the results of your iterative efforts are driving measurable business growth, not just activity. We verify every learning and pivot with hard data, giving investors and stakeholders the critical clarity and confidence needed to commit to the next phase."
-    ]
-  },
-  { 
-    letter: 'E', title: 'Execution', description: 'Scalable Delivery', 
-    modalTitle: 'E: Execution - Scalable Delivery', 
-    modalBody: [
-        "The Outcome: How we deliver lasting value.",
-        "Once a hypothesis is verified, we move into full, expert execution. We use tested, scalable methods to devise the long-term plan, ensuring clean, robust engineering. This commitment to quality builds a foundation that is future-proofed for growth and requires minimal technical debt, allowing you to scale without costly rebuilds."
-    ]
-  },
-];
-
-// New structure for the list of trusted companies
-// 'url' and 'logo' are optional fields. If 'logo' is not present, the 'name' will be displayed.
-const TRUSTED_COMPANIES = [
-  { name: 'TCS', url: 'https://www.tcs.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/TCS_logo.png` },
-  { name: 'Equifax', url: 'https://www.equifax.ca/canada/equifax/b_en.html', logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Equifax_Logo.png` },
-  { name: 'J&J', url: 'https://www.jnj.com/', logo: `${process.env.PUBLIC_URL}/assets/asit_logos/JnJ_Logo.png` },
-  { name: 'Siemens', url: 'https://www.siemens.com/global/en.html', logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Siemens_logo.png` },
-  { name: 'PUDO', url: 'https://pudopoint.com/'  , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/PUDO_logo.png` },
-  { name: 'Ignite AI', url: "https://www.linkedin.com/company/ignite-ai/posts" },
-  { name: 'YorkU', url: 'https://www.yorku.ca/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/York_U_Logo.png` },
-  { name: 'Kare Granola', url: 'https://karegranola.com/', logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Kare_Granola.png` },
-  { name: 'StartupFuel', url: 'https://www.startupfuel.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Startup-Fuel.png` },
-  { name: 'Innovation Factory', url: 'https://innovationfactory.ca/', logo: `${process.env.PUBLIC_URL}/assets/asit_logos/iF_Logo.png` },
-  { name: 'FutureSight', url: 'https://futuresight.ventures/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/FutureSight_Logo.png` },
-  { name: 'Untrap', url: 'https://getuntrap.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Untrap_logo.png` },
-  { name: 'Addie', url: 'https://getaddie.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Addie_Logo.png` },
-  { name: 'CaringAI', url: 'https://getcaring.ai/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/CaringAI_logo.png` },
-  { name: 'Mercata', url: 'https://mercataintel.com/' , logo: `${process.env.PUBLIC_URL}/assets/asit_logos/Mercata_Logo.png` }
-];
-
-// Partner/Founder details
-const PARTNER_DATA = [
-    {
-        name: 'Asit Deva',
-        title: 'Founder & Principal',
-        copy: 'Asit Deva is a seasoned expert dedicated to helping businesses navigate the complexities of technology and innovation. With a passion for building, advising, and strategizing, he transforms ideas into tangible, successful products.',
-        linkedin: 'https://www.linkedin.com/in/asitkdeva/', // Placeholder for LinkedIn URL
-        isFounder: true,
-    }
-];
-
-const CONTACT_EMAIL = "hello@recursiveaxis.com"; // Defined the email here
-
-/**
- * --- Project Data ---
- * NOTE: Each project must have a maximum of 3 tags.
- * The 'image' field is optional but highly recommended for visual appeal.
- */
-const projectsData = project_data;
-
-const DESCRIPTION_LIMIT = 150; // Max length before showing 'Read More'
-
+import {
+    LIGHT_BACKGROUND, DARK_BACKGROUND, LIGHT_TEXT, DARK_TEXT,
+    PRIMARY_ACCENT, SECONDARY_ACCENT, SIMPLE_LOGO_PATH,
+    LOGO_PATH, HERO_BG_PATH, FOUNDER_IMAGE_PATH,
+    BLOG_URL, CONTACT_EMAIL, DESCRIPTION_LIMIT,
+    PROJECT_COLORS, NAV_LINKS, FAQ_DATA,
+    TRUSTED_COMPANIES, PARTNER_DATA
+} from './data/constants';
+import { SERVICE_DATA } from './data/services';
+import { DIVE_FRAMEWORK } from './data/philosophy';
+import projectsData from './data/projects';
 
 // ----------------------------------------------------------------------
 // --- Helper Functions ---
@@ -401,7 +231,7 @@ const ServiceModal = ({ isOpen, onClose, content }) => {
         <p className="text-gray-500 italic text-sm mb-8">... and more custom solutions tailored to your unique challenges.</p>
 
         {/* Modal CTA Button */}
-        <a href={content.ctaLink} target="_blank" rel="RecursiveAxis Website" onClick={onClose} className={`w-full block text-center font-bold py-3 px-6 rounded-lg ${DARK_BACKGROUND} border border-pink-500 text-white transition-all duration-300 hover:bg-pink-500 hover:text-gray-950`}>
+        <a href={content.ctaLink} target="_blank" rel="noopener noreferrer" onClick={onClose} className={`w-full block text-center font-bold py-3 px-6 rounded-lg ${DARK_BACKGROUND} border border-pink-500 text-white transition-all duration-300 hover:bg-pink-500 hover:text-gray-950`}>
           {content.modalCta} <ArrowRight className="inline ml-2" size={16} />
         </a>
       </div>
@@ -553,7 +383,7 @@ const Header = React.memo(({ setPage, scrollToSection }) => {
               </button>
             ))}
             <a href="https://cal.com/asitdeva" 
-              target="_blank" rel="RecursiveAxis Website"
+              target="_blank" rel="noopener noreferrer"
               onClick={() => setIsMenuOpen(false)} 
               className={`w-full text-center font-bold py-3 rounded-lg mt-4 transition-all duration-300 bg-pink-600 hover:bg-pink-700 text-white shadow-lg shadow-pink-500/30`}>
               Book a Call
@@ -821,6 +651,35 @@ const PhilosophySection = React.memo(({ openTextModal }) => (
 )) // REMOVED trailing semicolon from React.memo
 
 /**
+ * Section: FAQ (Answer Engine Optimized)
+ * Uses semantic HTML and a clean accordion-like layout.
+ */
+const FAQSection = React.memo(() => (
+  <section id="faq" className={`py-20 md:py-32 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 ${LIGHT_BACKGROUND} ${LIGHT_TEXT}`}>
+    <div className="text-center mb-16">
+      <div className={`text-sm tracking-widest uppercase font-bold mb-3 ${SECONDARY_ACCENT}`}>Knowledge Base</div>
+      <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">Frequently Asked Questions</h2>
+      <p className="text-gray-600 mt-4">Clear answers to the most common questions about our advisory and execution services.</p>
+    </div>
+
+    <div className="space-y-6">
+      {FAQ_DATA.map((faq, index) => (
+        <div key={index} className="p-6 rounded-xl border border-gray-200 bg-white shadow-sm hover:shadow-md transition-shadow">
+          <h3 className="text-xl font-bold text-gray-900 mb-3 flex items-start">
+            <span className={`mr-3 ${PRIMARY_ACCENT}`}>Q:</span>
+            {faq.question}
+          </h3>
+          <p className="text-gray-600 leading-relaxed pl-7">
+            <span className={`font-bold ${SECONDARY_ACCENT} mr-2`}>A:</span>
+            {faq.answer}
+          </p>
+        </div>
+      ))}
+    </div>
+  </section>
+)) // REMOVED trailing semicolon from React.memo
+
+/**
  * Section 5: Meet The Team & Trusted Companies Marquee (Dark Background)
  */
 const TeamSection = React.memo(() => {
@@ -882,7 +741,7 @@ const TrustedCompaniesMarquee = () => (
                       {company.url ? (
                           <a
                               href={company.url}
-                              target="_blank" rel="RecursiveAxis Website"
+                              target="_blank" rel="noopener noreferrer"
                               aria-label={`Visit ${company.name}'s website`}
                               className="focus:outline-none focus:ring-2 focus:ring-blue-500 rounded" // Add focus styles
                           >
@@ -930,7 +789,7 @@ const TrustedCompaniesMarquee = () => (
 
                         <a
                             href={partner.linkedin}
-                            target="_blank" rel="RecursiveAxis Website"
+                            target="_blank" rel="noopener noreferrer"
                             className={`inline-flex items-center font-bold text-lg ${PRIMARY_ACCENT} hover:text-white transition-colors`}
                         >
                             Connect with {partner.name.split(' ')[0]} on LinkedIn <Link className="ml-2" size={20} />
@@ -985,7 +844,7 @@ const FinalCTASection = React.memo(() => (
       {/* Final CTA Button (Prominent size and hover effect) */}
       <a
         href="https://cal.com/asitdeva" // Placeholder for Calendly link
-        target="_blank" rel="RecursiveAxis Website"
+        target="_blank" rel="noopener noreferrer"
         className="inline-flex items-center px-10 py-4 rounded-lg text-xl font-extrabold transition-all duration-300 bg-gray-950 hover:bg-gray-800 text-white shadow-xl shadow-gray-950/50 transform hover:scale-[1.05]"
       >
         Reserve Your Free Discovery Session Now
@@ -1060,7 +919,7 @@ const ProjectsView = React.memo(({ setPage, openFullDescriptionModal }) => {
           <h3 className="text-2xl font-bold text-white mb-4">Ready to be the next success story?</h3>
           <a
               href="https://cal.com/asitdeva"
-              target="_blank" rel="RecursiveAxis Website"
+              target="_blank" rel="noopener noreferrer"
               className={`inline-flex items-center px-6 py-3 rounded-lg text-lg font-bold transition-all duration-300 bg-pink-600 hover:bg-pink-700 text-white shadow-lg shadow-pink-500/30`}
           >
               Reserve Your Session
@@ -1083,6 +942,7 @@ const HomeView = React.memo(({ openServiceModal, openTextModal, setPage, goToPro
             <ServicesSection openModal={openServiceModal} />
             <ProjectsShowcase goToProjects={goToProjects} />
             <PhilosophySection openTextModal={openTextModal} />
+            <FAQSection />
             <TeamSection />
             <FinalCTASection />
         </>
