@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { SERVICE_DATA } from '../../../src/data/services';
 import { PRIMARY_ACCENT, SECONDARY_ACCENT, LIGHT_BACKGROUND, LIGHT_TEXT } from '../../../src/data/constants';
 
@@ -15,7 +15,6 @@ export async function generateStaticParams() {
 const ServiceDetailPage = async ({ params }) => {
   const { slug } = await params;
 
-  // Map slug to the correct service data index
   const slugMap = {
     'founder': 0,
     'investor': 1,
@@ -47,7 +46,7 @@ const ServiceDetailPage = async ({ params }) => {
           Back to All Services
         </Link>
 
-        <div className="text-center mb-16">
+        <div className="text-center mb-20">
           <div className={`text-sm tracking-widest uppercase font-bold mb-3 ${SECONDARY_ACCENT}`}>
             {service.segment}
           </div>
@@ -59,37 +58,51 @@ const ServiceDetailPage = async ({ params }) => {
           </p>
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-3xl shadow-xl overflow-hidden">
-          <div className={`p-8 md:p-12 border-b border-gray-100 ${PRIMARY_ACCENT} bg-pink-50/30`}>
-            <h2 className="text-3xl font-bold text-gray-900">
-              {service.modalTitle}
-            </h2>
-          </div>
-
-          <div className="p-8 md:p-12">
-            <div className="grid gap-6">
-              {service.modalBulletPoints.map((point, index) => (
-                <div key={index} className="flex items-start space-x-4 p-4 rounded-xl hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100">
-                  <div className={`mt-1.5 w-2 h-2 rounded-full shrink-0 ${PRIMARY_ACCENT.replace('text-', 'bg-')}`} />
-                  <p className="text-lg text-gray-700 leading-relaxed">{point}</p>
+        <div className="space-y-12 mb-20">
+          {service.serviceItems.map((item, index) => (
+            <div key={index} className="bg-white border border-gray-200 rounded-3xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+              <div className={`p-8 md:p-10 border-b border-gray-100 ${PRIMARY_ACCENT} bg-pink-50/30`}>
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                  <h2 className="text-3xl font-bold text-gray-900">
+                    {item.name}
+                  </h2>
                 </div>
-              ))}
-            </div>
+                <p className={`text-lg italic font-medium mt-2 ${SECONDARY_ACCENT}`}>
+                  {item.question}
+                </p>
+              </div>
 
-            <div className="mt-16 text-center">
-              <p className={`text-lg font-bold mb-6 ${SECONDARY_ACCENT}`}>
-                {service.tagline}
-              </p>
-              <a
-                href={service.ctaLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center px-8 py-4 rounded-full text-xl font-bold text-white bg-pink-600 hover:bg-pink-700 transition-all duration-300 shadow-lg shadow-pink-500/30 transform hover:scale-105"
-              >
-                {service.modalCta} <ArrowRight className="ml-2" size={20} />
-              </a>
+              <div className="p-8 md:p-10">
+                <p className="text-lg text-gray-700 mb-8 leading-relaxed">
+                  {item.description}
+                </p>
+
+                <div className="space-y-4">
+                  <h4 className="text-sm uppercase tracking-widest font-bold text-gray-400 mb-4">What we deliver:</h4>
+                  {item.details.map((detail, dIndex) => (
+                    <div key={dIndex} className="flex items-start space-x-3">
+                      <CheckCircle2 className={`w-5 h-5 mt-1 shrink-0 ${PRIMARY_ACCENT}`} />
+                      <p className="text-gray-600 leading-relaxed">{detail}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
-          </div>
+          ))}
+        </div>
+
+        <div className="text-center">
+          <p className={`text-lg font-bold mb-6 ${SECONDARY_ACCENT}`}>
+            {service.tagline}
+          </p>
+          <a
+            href={service.ctaLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center px-10 py-4 rounded-full text-xl font-bold text-white bg-pink-600 hover:bg-pink-700 transition-all duration-300 shadow-lg shadow-pink-500/30 transform hover:scale-105"
+          >
+            {service.modalCta} <ArrowRight className="ml-2" size={20} />
+          </a>
         </div>
       </div>
     </div>
