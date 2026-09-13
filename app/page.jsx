@@ -12,9 +12,9 @@ export default function HomePage() {
       <HeroSection />
       <ProjectsShowcase />
       <PhilosophySection />
-      <FAQSection />
       <TeamSection />
       <FinalCTASection />
+      <FAQSection />
     </>
   );
 }
