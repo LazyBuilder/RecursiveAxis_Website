@@ -1,52 +1,83 @@
 'use client';
-import React from 'react';
-import { HardHat, ShieldCheck, Building, ArrowRight } from 'lucide-react';
-import { SERVICE_DATA, PRIMARY_ACCENT, SECONDARY_ACCENT, LIGHT_BACKGROUND, LIGHT_TEXT } from '../../src/data/constants';
+import React, { useState } from 'react';
 import Link from 'next/link';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { SERVICE_DATA, PRIMARY_ACCENT, SECONDARY_ACCENT, LIGHT_BACKGROUND, LIGHT_TEXT } from '../../src/data/constants';
 
 export default function ServicesPage() {
-  const slugMap = {
-    "Founders & Startups": "founder",
-    "Investors & Private Equity": "investor",
-    "Corporates & Enterprise": "innovation",
-  };
+  const [selectedPersona, setSelectedPersona] = useState(null);
+
+  const personas = [
+    { id: 'founder', label: 'For Founders', data: SERVICE_DATA[0] },
+    { id: 'investor', label: 'For Investors', data: SERVICE_DATA[1] },
+    { id: 'innovation', label: 'For Builders', data: SERVICE_DATA[2] },
+  ];
 
   return (
-    <section id="services" className={`py-20 md:py-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${LIGHT_BACKGROUND} ${LIGHT_TEXT}`}>
-      <div className="text-center mb-16">
-        <div className={`text-sm tracking-widest uppercase font-bold mb-3 ${SECONDARY_ACCENT}`}>Our Focus</div>
-        <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">Services & Offerings</h2>
-      </div>
+    <section className={`py-20 md:py-32 min-h-screen ${LIGHT_BACKGROUND} ${LIGHT_TEXT}`}>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <div className={`text-sm tracking-widest uppercase font-bold mb-3 ${SECONDARY_ACCENT}`}>Our Expertise</div>
+          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">Strategic Execution for Every Stage</h1>
 
-      <div className="grid md:grid-cols-3 gap-8">
-        {SERVICE_DATA.map((service) => {
-          const slug = slugMap[service.segment];
-          return (
-            <Link
-                key={service.segment}
-                href={`/services/${slug}`}
-                className="relative group overflow-hidden rounded-xl border border-gray-200 shadow-xl bg-white transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-100 cursor-pointer transform hover:-translate-y-1"
+          {!selectedPersona ? (
+            <div className="max-w-2xl mx-auto">
+              <p className="text-lg text-gray-600 leading-relaxed">
+                We leverage the <span className="font-bold text-gray-900">D.I.V.E. Framework</span>—Decision, Iteration, Verification, and Execution—to transform vague ideas into scalable, verified business outcomes.
+                Select your profile below to see how we help you eliminate uncertainty.
+              </p>
+            </div>
+          ) : (
+            <div className="animate-in fade-in slide-in-from-top-4 duration-500">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">{personas.find(p => p.id === selectedPersona)?.label}</h2>
+              <p className="text-gray-600 mb-8">{personas.find(p => p.id === selectedPersona)?.data.body}</p>
+            </div>
+          )}
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-4 mb-16">
+          {personas.map((p) => (
+            <button
+              key={p.id}
+              onClick={() => setSelectedPersona(p.id)}
+              className={`px-8 py-3 rounded-full text-lg font-bold transition-all duration-300 transform hover:scale-105 shadow-md ${
+                selectedPersona === p.id
+                  ? `bg-pink-600 text-white shadow-pink-500/40`
+                  : `bg-white text-gray-700 border border-gray-200 hover:border-pink-300 hover:text-pink-600`
+              }`}
             >
-                <div className="p-8">
-                    <div className="flex items-center mb-6">
-                        <div className={`h-12 w-12 flex items-center justify-center rounded-xl ${PRIMARY_ACCENT} bg-pink-50 mr-4 border border-pink-200 transition-transform group-hover:scale-110`}>
-                            <service.icon size={24} />
-                        </div>
-                        <p className={`text-lg font-bold uppercase tracking-wider ${SECONDARY_ACCENT}`}>{service.segment}</p>
-                    </div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-pink-700 transition-colors">{service.headline}</h3>
-                    <p className="text-gray-600 mb-6">{service.body}</p>
-                    <div className="mt-6 pt-4 border-t border-gray-100">
-                        <p className={`text-sm font-semibold mb-3 text-pink-700`}>{service.tagline}</p>
-                        <div className={`inline-flex items-center px-4 py-1.5 text-xs font-semibold rounded-full bg-cyan-600/10 text-cyan-600 border border-cyan-300 transition-all duration-300 group-hover:bg-cyan-600 group-hover:text-white group-hover:border-cyan-600 shadow-sm`}>
-                            Learn More <ArrowRight className="ml-1" size={12} />
-                        </div>
-                    </div>
+              {p.label}
+            </button>
+          ))}
+        </div>
+
+        {selectedPersona && (
+          <div className="animate-in fade-in slide-in-from-bottom-8 duration-500">
+            <div className="grid gap-6 mb-16">
+              {personas.find(p => p.id === selectedPersona)?.data.serviceItems.map((item, index) => (
+                <div
+                  key={index}
+                  className="group p-6 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-md transition-all duration-300 flex items-start space-x-4"
+                >
+                  <CheckCircle2 className={`w-6 h-6 shrink-0 ${PRIMARY_ACCENT} transition-transform group-hover:scale-110`} />
+                  <div className="flex-grow">
+                    <h3 className="text-xl font-bold text-gray-900 mb-1">{item.name}</h3>
+                    <p className="text-gray-600 italic">{item.question}</p>
+                  </div>
                 </div>
-                <div className="absolute inset-0 border-4 border-transparent rounded-xl pointer-events-none group-hover:border-cyan-400/50 transition-all duration-300"></div>
-            </Link>
-          )
-        })}
+              ))}
+            </div>
+
+            <div className="text-center">
+              <Link
+                href={`/services/${selectedPersona}`}
+                className="inline-flex items-center px-10 py-4 rounded-full text-xl font-bold text-white bg-cyan-700 hover:bg-cyan-800 transition-all duration-300 shadow-lg shadow-cyan-500/30 transform hover:scale-105"
+              >
+                Explore Full Service Details <ArrowRight className="ml-2" size={20} />
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
